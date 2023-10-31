@@ -2,9 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class CountryEvent
+public class BribeCountryEvent : CountryEvent
 {
-    public string id = "";
 
 }

@@ -17,7 +17,6 @@ public class Country : MonoBehaviour
     [SerializeField] protected AnimationCurve threatCurve;
     [SerializeField] protected string[] events;
 
-    private static CountryEvent[] countryEvents;
     private float lastReputationChange = 0f;
 
     private void Start()
@@ -47,19 +46,5 @@ public class Country : MonoBehaviour
     protected void LoadCountryEvents()
     {
 
-    }
-    protected static CountryEvent[] GetCountryEvents()
-    {
-        if (countryEvents == null)
-        {
-            System.Object[] files = Resources.LoadAll("Json/CountryEvents", typeof(TextAsset));
-            Array.Resize(ref countryEvents, files.Length);
-            for (int i = 0; i < countryEvents.Length; i++)
-            {
-                countryEvents[i] = JsonUtility.FromJson<CountryEvent>(((TextAsset)files[i]).text);
-                Debug.Log(countryEvents[i].id);
-            }
-        }
-        return countryEvents;
     }
 }

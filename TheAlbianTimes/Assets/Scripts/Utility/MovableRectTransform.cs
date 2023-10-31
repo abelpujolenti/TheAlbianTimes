@@ -84,6 +84,7 @@ public class MovableRectTransform : MonoBehaviour
     protected virtual void EndDrag(BaseEventData data)
     {
         held = false;
+        Debug.Log("Ciao");
     }
 
     public virtual void PointerEnter(BaseEventData data)

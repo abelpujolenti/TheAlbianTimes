@@ -23,9 +23,18 @@ namespace Layout
             //Debug.Log(_rectTransform.transform.position);
         }
 
-        public void SetPosition(Vector2 position)
+        public void SetPosition(Vector2 position, float cellSize)
         {
-            _rectTransform.transform.position = position;
+            RectTransform rectTransform = GetComponent<RectTransform>();
+
+            rectTransform.anchorMin = position;
+            rectTransform.anchorMax = position;
+
+            rectTransform.anchoredPosition = new Vector2(0, 0);
+
+            rectTransform.sizeDelta = new Vector2(cellSize, cellSize);
+
+            _rectTransform = rectTransform;
         }
 
         public void SetColumn(int column)

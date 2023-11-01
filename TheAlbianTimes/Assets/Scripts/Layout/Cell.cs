@@ -1,26 +1,20 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Layout
 {
     public class Cell : MonoBehaviour
     {
         [SerializeField] private RectTransform _rectTransform;
-        
-        public int _column;
-        public int _row;
 
-        private bool _free;
+        private Vector2 _coordinates;
+
+        private bool _isFree;
         
-        // Start is called before the first frame update
         void Start()
         {
             _rectTransform.localScale = new Vector3(1, 1, 1);
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-            //Debug.Log(_rectTransform.transform.position);
+            _isFree = true;
         }
 
         public void SetPosition(Vector2 position, float cellSize)
@@ -33,29 +27,50 @@ namespace Layout
             rectTransform.anchoredPosition = new Vector2(0, 0);
 
             rectTransform.sizeDelta = new Vector2(cellSize, cellSize);
+            
+            Debug.Log(gameObject.GetComponent<Image>().sprite.bounds.size.x);
 
             _rectTransform = rectTransform;
         }
 
         public void SetColumn(int column)
         {
-            _column = column;
+            _coordinates.x = column;
         }
         
-        public int GetColumn()
+        public float GetColumn()
         {
-            return _column;
+            return _coordinates.x;
         }
 
         public void SetRow(int row)
         {
-            _row = row;
+            _coordinates.y = row;
         }
 
-        public int GetRow()
+        public float GetRow()
         {
-            return _row;
+            return _coordinates.y;
         }
 
+        public void SetFree(bool isFree)
+        {
+            _isFree = isFree;
+        }
+
+        public bool IsFree()
+        {
+            return _isFree;
+        }
+
+        public void SetCoordinates(int column, int row)
+        {
+            _coordinates = new Vector2(column, row);
+        }
+
+        public Vector2 GetCoordinates()
+        {
+            return _coordinates;
+        }
     }
 }

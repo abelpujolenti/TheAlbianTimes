@@ -1,4 +1,5 @@
-using System;
+using Managers;
+using NoMonoBehavior;
 using UnityEngine;
 
 namespace Layout
@@ -21,13 +22,13 @@ namespace Layout
         
         void Start()
         {
-
-            _piecesCoordinates = GameManager.Instance.GetPiecesCoordinates(_newsType.type);
+            
+            /*_piecesCoordinates = LayoutManager.Instance.GetPiecesCoordinates(_newsType.type);
 
             foreach (var piece in _piecesCoordinates) { 
             
                 Debug.Log(piece);
-            }
+            }*/
 
             _offset = new Vector3();
 
@@ -45,6 +46,8 @@ namespace Layout
         public void BeginDrag()
         {
             ActionsManager.OnReleaseNewsHeadline += EndDrag;
+            
+            transform.SetAsLastSibling();
 
             for (int i = 0; i < _newsHeadlinePieces.Length; i++)
             {

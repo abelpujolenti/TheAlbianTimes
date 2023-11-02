@@ -1,68 +1,47 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
+using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+namespace Managers
 {
-
-    private static GameManager _instance;
-
-    public static GameManager Instance => _instance;
-
-    private const string PIECES_FILE_PATH = "/Json/NewsHeadline/NewsHeadlineTypes.json";
-
-    private Dictionary<NewsType, Vector2[]> _newsPiecesCoordinates;
-
-    private void Awake()
+    public class GameManager : MonoBehaviour
     {
-        if (_instance == null)
+        private static GameManager _instance;
+
+        public static GameManager Instance => _instance;
+
+        private LayoutManager _layoutManager;
+
+        private float counter = 5;
+
+        private void Awake()
         {
-            _instance = this;
-            _newsPiecesCoordinates = new Dictionary<NewsType, Vector2[]>();
-            LoadPiecesCoordinatesFromFile();
-        }
-        else 
-        {
-            Destroy(gameObject);
-        }
-
-        DontDestroyOnLoad(gameObject);
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-    private void LoadPiecesCoordinatesFromFile() 
-    {
-
-        if (!File.Exists(Application.streamingAssetsPath + PIECES_FILE_PATH))
-        {
-            return;
-        }
-
-        string json = File.ReadAllText(Application.streamingAssetsPath + PIECES_FILE_PATH);
-
-        NewsTypeObject newsTypeObject = JsonUtility.FromJson<NewsTypeObject>(json);
-
-        foreach (NewsTypeData newObject in newsTypeObject.newsTypeData) {
-
-            Vector2[] coordinates = new Vector2[newObject.piecesCoordinatesFromRootPiece.Length];
-
-            for (int i = 0; i < coordinates.Length; i++) 
+            if (_instance == null)
             {
-                coordinates[i] = newObject.piecesCoordinatesFromRootPiece[i];
+                _instance = this;
+                DontDestroyOnLoad(gameObject);
             }
-
-            _newsPiecesCoordinates.Add(newObject.type, coordinates);
+            else
+            {
+                Destroy(gameObject);
+            }
         }
-    }
 
-    public Vector2[] GetPiecesCoordinates(NewsType newsType)
-    { 
+        /*private void Update()
+        {
+            counter -= Time.deltaTime;
 
-        return _newsPiecesCoordinates[newsType];
+            if (counter < 0f)
+            {
+                LayoutManager obj = Instantiate(_layoutManager);
+                //obj.AddComponent<LayoutManager>();
+                counter = 10;
+            }
+        }*/
+
+        public void SetLayoutManager(LayoutManager layoutManager)
+        {
+            _layoutManager.CopyComponent(layoutManager);
+        }
     }
 }

@@ -1,4 +1,4 @@
-using System;
+using Managers;
 using UnityEngine;
 
 namespace Layout
@@ -136,6 +136,11 @@ namespace Layout
             }
             
             Cell[] desiredCells = LookForCells(draggedPiece, mousePosition, newsHeadlinePieces);
+
+            if (desiredCells == null)
+            {
+                return null;
+            }
 
             foreach (Cell cell in desiredCells)
             {

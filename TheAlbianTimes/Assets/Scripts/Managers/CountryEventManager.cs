@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -29,17 +30,25 @@ public class CountryEventManager : MonoBehaviour
 
     private void Start()
     {
-        LoadThreatCountryEvents();
+        FileManager.LoadAllJsonFiles("CountryEvents/ThreatCountryEvent", AddThreatEventFromJson);
+        FileManager.LoadAllJsonFiles("CountryEvents/BribeCountryEvent", AddBribeEventFromJson);
+        FileManager.LoadAllJsonFiles("CountryEvents/GiftCountryEvent", AddGiftEventFromJson);
+        Debug.Log("Threats: " + threatCountryEvents.Count);
+        Debug.Log("Bribes: " + bribeCountryEvents.Count);
+        Debug.Log("Gift: " + giftCountryEvents.Count);
     }
 
-    private void LoadThreatCountryEvents()
+    private void AddThreatEventFromJson(string json)
     {
-        System.Object[] files = Resources.LoadAll("Json/CountryEvents/ThreatCountryEvent", typeof(TextAsset));
-        for (int i = 0; i < files.Length; i++)
-        {
-            threatCountryEvents.Add(JsonUtility.FromJson<ThreatCountryEvent>(((TextAsset)files[i]).text));
-            Debug.Log(threatCountryEvents[i].id);
-        }
+        threatCountryEvents.Add(JsonUtility.FromJson<ThreatCountryEvent>(json));
+    }
+    private void AddBribeEventFromJson(string json)
+    {
+        bribeCountryEvents.Add(JsonUtility.FromJson<BribeCountryEvent>(json));
+    }
+    private void AddGiftEventFromJson(string json)
+    {
+        giftCountryEvents.Add(JsonUtility.FromJson<GiftCountryEvent>(json));
     }
 
 }

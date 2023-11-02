@@ -135,7 +135,18 @@ namespace Layout
                 return null;
             }
             
-            return LookForCells(draggedPiece, mousePosition, newsHeadlinePieces);
+            Cell[] desiredCells = LookForCells(draggedPiece, mousePosition, newsHeadlinePieces);
+
+            foreach (Cell cell in desiredCells)
+            {
+                if (!cell.IsFree())
+                {
+                    return null;
+                }
+            }
+
+            return desiredCells;
+
         }
 
         private Cell[] LookForCells(NewsHeadlinePiece draggedPiece, Vector2 mousePosition, NewsHeadlinePiece[] newsHeadlinePieces)
@@ -149,13 +160,21 @@ namespace Layout
                 }
             }
             
-            Cell[] cells = new Cell[newsHeadlinePieces.Length];
+            Cell[] desiredCells = new Cell[newsHeadlinePieces.Length];
 
             int index = LookingForPieceInsideArray(draggedPiece, newsHeadlinePieces);
             
-            cells[index] = LookForCellForDraggedPiece(mousePosition);
+            desiredCells[index] = LookForCellForDraggedPiece(mousePosition);
 
-            return LookForCellsForNeighborPieces(index, draggedPiece, cells, newsHeadlinePieces);
+            foreach (NewsHeadlinePiece piece in newsHeadlinePieces)
+            {
+                if (!IsCoordinateInsideLayout((Vector2)piece.transform.position + (Vector2)(desiredCells[index].transform.position) - mousePosition))
+                {
+                    return null;
+                }
+            }
+
+            return LookForCellsForNeighborPieces(index, draggedPiece, desiredCells, newsHeadlinePieces);
         }
 
         private int LookingForPieceInsideArray(NewsHeadlinePiece draggedPiece, NewsHeadlinePiece[] allPieces)
@@ -198,7 +217,7 @@ namespace Layout
             return nearestCell;
         }
 
-        private Cell[] LookForCellsForNeighborPieces(int index, NewsHeadlinePiece draggedPiece, Cell[] cells, NewsHeadlinePiece[] newsHeadlinePieces)
+        private Cell[] LookForCellsForNeighborPieces(int index, NewsHeadlinePiece draggedPiece, Cell[] desiredCells, NewsHeadlinePiece[] newsHeadlinePieces)
         {
             for (int i = 0; i < newsHeadlinePieces.Length; i++)
             {
@@ -207,13 +226,13 @@ namespace Layout
                     continue;
                 }
 
-                cells[i] = LookForDesiredCell(i, index, draggedPiece, cells, newsHeadlinePieces);
+                desiredCells[i] = LookForDesiredCell(i, index, draggedPiece, desiredCells, newsHeadlinePieces);
             }
 
-            return cells;
+            return desiredCells;
         }
 
-        private Cell LookForDesiredCell(int i, int index, NewsHeadlinePiece draggedPiece, Cell[] cells, NewsHeadlinePiece[] newsHeadlinePieces)
+        private Cell LookForDesiredCell(int i, int index, NewsHeadlinePiece draggedPiece, Cell[] desiredCells, NewsHeadlinePiece[] newsHeadlinePieces)
         {
 
             int xCoordinateRelativeToDraggedPiece = 
@@ -222,25 +241,25 @@ namespace Layout
             int yCoordinateRelativeToDraggedPiece =
                 (int)(newsHeadlinePieces[i].GetCoordinates().y - draggedPiece.GetCoordinates().y);
 
-            int finalCellCoordinateX = (int)(cells[index].GetColumn() + xCoordinateRelativeToDraggedPiece);
+            int finalCellCoordinateX = (int)(desiredCells[index].GetColumn() + xCoordinateRelativeToDraggedPiece);
 
-            int finalCellCoordinateY = (int)(cells[index].GetRow() + yCoordinateRelativeToDraggedPiece);
+            int finalCellCoordinateY = (int)(desiredCells[index].GetRow() + yCoordinateRelativeToDraggedPiece);
             
             return _cells[finalCellCoordinateX][finalCellCoordinateY];
         }
 
-        private Vector3 SnapNewsHeadline(Cell[] cells, Vector2 newsHeadlinePosition)
+        private Vector3 SnapNewsHeadline(Cell[] snappedCells, Vector2 newsHeadlinePosition)
         {
             Vector2 baryCenter = new Vector2();
 
-            foreach (Cell cell in cells)
+            foreach (Cell cell in snappedCells)
             {
                 cell.SetFree(false);
                 Vector2 position = cell.transform.position;
                 baryCenter += position;
             }
 
-            baryCenter /= cells.Length;
+            baryCenter /= snappedCells.Length;
 
             return baryCenter;
         }

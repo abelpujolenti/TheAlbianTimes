@@ -17,7 +17,7 @@ public class MovableRectTransform : MonoBehaviour
     protected EventTrigger eventTrigger;
     private Vector2 _vectorOffset;
     #endregion
-    private void Start()
+    protected void Start()
     {
         Setup();
     }

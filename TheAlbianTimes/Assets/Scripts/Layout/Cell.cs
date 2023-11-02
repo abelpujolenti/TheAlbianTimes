@@ -28,7 +28,7 @@ namespace Layout
 
             rectTransform.sizeDelta = new Vector2(cellSize, cellSize);
             
-            Debug.Log(gameObject.GetComponent<Image>().sprite.bounds.size.x);
+            //Debug.Log(gameObject.GetComponent<Image>().sprite.bounds.size.x);
 
             _rectTransform = rectTransform;
         }

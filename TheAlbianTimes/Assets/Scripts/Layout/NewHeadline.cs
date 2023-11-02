@@ -5,33 +5,28 @@ namespace Layout
 {
     public class NewHeadline : MonoBehaviour
     {
-        [SerializeField] private NewsType _newsType;
+        private const float TRANSPARENCY_VALUE = 0.9f;
+        private const float FULL_OPACITY = 1;
+
+        [SerializeField] private NewsTypeData _newsType;
         
         [SerializeField] private NewsHeadlinePiece[] _newsHeadlinePieces;
 
         private Cell[] _snappedCells;
 
+        private Vector2[] _piecesCoordinates;
+
         private Vector3 _offset;
+        private Vector3 _lastPosition;
         
         void Start()
         {
-            switch (_newsType)
-            {
-                case NewsType.MILITARY:
-                    
-                    break;
-                
-                case NewsType.CULTURAL:
-                    
-                    break;
-                
-                case NewsType.ECONOMIC:
-                    
-                    break;
-                
-                case NewsType.SPORTS:
-                    
-                    break;
+
+            _piecesCoordinates = GameManager.Instance.GetPiecesCoordinates(_newsType.type);
+
+            foreach (var piece in _piecesCoordinates) { 
+            
+                Debug.Log(piece);
             }
 
             _offset = new Vector3();
@@ -49,7 +44,14 @@ namespace Layout
 
         public void BeginDrag()
         {
-            ActionsManager.OnReleaseNewsHeadline += TryToSnap;
+            ActionsManager.OnReleaseNewsHeadline += EndDrag;
+
+            for (int i = 0; i < _newsHeadlinePieces.Length; i++)
+            {
+                ActionsManager.OnDragNewsHeadline += _newsHeadlinePieces[i].Fade;
+            }
+
+            ActionsManager.OnDragNewsHeadline(TRANSPARENCY_VALUE);
 
             if (_snappedCells == null)
             {
@@ -62,12 +64,22 @@ namespace Layout
             }
         }
 
-        private void TryToSnap(NewsHeadlinePiece draggedPiece, Vector2 mousePosition)
+        private void EndDrag(NewsHeadlinePiece draggedPiece, Vector2 mousePosition)
         {
             if (ActionsManager.OnPreparingCells == null || 
-                ActionsManager.OnSuccessFul == null)
+                ActionsManager.OnSuccessFul == null ||
+                ActionsManager.OnDragNewsHeadline == null)
             {
                 return;
+            }
+
+            ActionsManager.OnDragNewsHeadline(FULL_OPACITY);
+            
+            ActionsManager.OnReleaseNewsHeadline -= EndDrag;
+
+            for (int i = 0; i < _newsHeadlinePieces.Length; i++)
+            {
+                ActionsManager.OnDragNewsHeadline -= _newsHeadlinePieces[i].Fade;
             }
 
             _snappedCells = ActionsManager.OnPreparingCells(draggedPiece, mousePosition, _newsHeadlinePieces);
@@ -77,17 +89,7 @@ namespace Layout
                 return;
             }
 
-            for (int i = 0; i < _newsHeadlinePieces.Length; i++)
-            {
-                if (!_snappedCells[i].IsFree())
-                {
-                    return;
-                }
-            }
-
             transform.position = ActionsManager.OnSuccessFul(_snappedCells, transform.position) + _offset;
-            
-            ActionsManager.OnReleaseNewsHeadline -= TryToSnap;
         }
 
         private NewsHeadlinePiece[] GetNewsHeadlineNeighborPieces(Vector2 coordinates)

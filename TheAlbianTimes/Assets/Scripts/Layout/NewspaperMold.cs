@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Layout
 {
-    public class Workspace : MonoBehaviour
+    public class NewspaperMold : MonoBehaviour
     {
         private const int PADDING = 5;
         private const int MIN_ANCHOR_X = 0;
@@ -126,16 +126,16 @@ namespace Layout
                    worldCoordinate.y < _layoutMinCoordinates.y && worldCoordinate.y > _layoutMaxCoordinates.y;
         }
 
-        private Cell[] TakeCells(NewsHeadlinePiece draggedPiece, Vector2 mousePosition, NewsHeadlinePiece[] newsHeadlinePieces)
+        private Cell[] TakeCells(NewsHeadlineSubPiece draggedSubPiece, Vector2 mousePosition, NewsHeadlineSubPiece[] newsHeadlinePieces)
         {
             mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
-
+            
             if (!IsCoordinateInsideLayout(mousePosition))
             {
                 return null;
             }
             
-            Cell[] desiredCells = LookForCells(draggedPiece, mousePosition, newsHeadlinePieces);
+            Cell[] desiredCells = LookForCells(draggedSubPiece, mousePosition, newsHeadlinePieces);
 
             if (desiredCells == null)
             {
@@ -154,10 +154,10 @@ namespace Layout
 
         }
 
-        private Cell[] LookForCells(NewsHeadlinePiece draggedPiece, Vector2 mousePosition, NewsHeadlinePiece[] newsHeadlinePieces)
+        private Cell[] LookForCells(NewsHeadlineSubPiece draggedSubPiece, Vector2 mousePosition, NewsHeadlineSubPiece[] newsHeadlinePieces)
         {
 
-            foreach (NewsHeadlinePiece piece in newsHeadlinePieces)
+            foreach (NewsHeadlineSubPiece piece in newsHeadlinePieces)
             {
                 if (!IsCoordinateInsideLayout(piece.transform.position))
                 {
@@ -167,11 +167,11 @@ namespace Layout
             
             Cell[] desiredCells = new Cell[newsHeadlinePieces.Length];
 
-            int index = LookingForPieceInsideArray(draggedPiece, newsHeadlinePieces);
+            int index = LookingForPieceInsideArray(draggedSubPiece, newsHeadlinePieces);
             
             desiredCells[index] = LookForCellForDraggedPiece(mousePosition);
 
-            foreach (NewsHeadlinePiece piece in newsHeadlinePieces)
+            foreach (NewsHeadlineSubPiece piece in newsHeadlinePieces)
             {
                 if (!IsCoordinateInsideLayout((Vector2)piece.transform.position + (Vector2)(desiredCells[index].transform.position) - mousePosition))
                 {
@@ -179,16 +179,16 @@ namespace Layout
                 }
             }
 
-            return LookForCellsForNeighborPieces(index, draggedPiece, desiredCells, newsHeadlinePieces);
+            return LookForCellsForNeighborPieces(index, draggedSubPiece, desiredCells, newsHeadlinePieces);
         }
 
-        private int LookingForPieceInsideArray(NewsHeadlinePiece draggedPiece, NewsHeadlinePiece[] allPieces)
+        private int LookingForPieceInsideArray(NewsHeadlineSubPiece draggedSubPiece, NewsHeadlineSubPiece[] allPieces)
         {
             int index = 0;
             
             for (; index < allPieces.Length; index++)
             {
-                if (draggedPiece == allPieces[index])
+                if (draggedSubPiece == allPieces[index])
                 {
                     break;
                 }
@@ -222,7 +222,7 @@ namespace Layout
             return nearestCell;
         }
 
-        private Cell[] LookForCellsForNeighborPieces(int index, NewsHeadlinePiece draggedPiece, Cell[] desiredCells, NewsHeadlinePiece[] newsHeadlinePieces)
+        private Cell[] LookForCellsForNeighborPieces(int index, NewsHeadlineSubPiece draggedSubPiece, Cell[] desiredCells, NewsHeadlineSubPiece[] newsHeadlinePieces)
         {
             for (int i = 0; i < newsHeadlinePieces.Length; i++)
             {
@@ -231,20 +231,20 @@ namespace Layout
                     continue;
                 }
 
-                desiredCells[i] = LookForDesiredCell(i, index, draggedPiece, desiredCells, newsHeadlinePieces);
+                desiredCells[i] = LookForDesiredCell(i, index, draggedSubPiece, desiredCells, newsHeadlinePieces);
             }
 
             return desiredCells;
         }
 
-        private Cell LookForDesiredCell(int i, int index, NewsHeadlinePiece draggedPiece, Cell[] desiredCells, NewsHeadlinePiece[] newsHeadlinePieces)
+        private Cell LookForDesiredCell(int i, int index, NewsHeadlineSubPiece draggedSubPiece, Cell[] desiredCells, NewsHeadlineSubPiece[] newsHeadlinePieces)
         {
 
             int xCoordinateRelativeToDraggedPiece = 
-                (int)(newsHeadlinePieces[i].GetCoordinates().x - draggedPiece.GetCoordinates().x);
+                (int)(newsHeadlinePieces[i].GetCoordinates().x - draggedSubPiece.GetCoordinates().x);
                 
             int yCoordinateRelativeToDraggedPiece =
-                (int)(newsHeadlinePieces[i].GetCoordinates().y - draggedPiece.GetCoordinates().y);
+                (int)(newsHeadlinePieces[i].GetCoordinates().y - draggedSubPiece.GetCoordinates().y);
 
             int finalCellCoordinateX = (int)(desiredCells[index].GetColumn() + xCoordinateRelativeToDraggedPiece);
 

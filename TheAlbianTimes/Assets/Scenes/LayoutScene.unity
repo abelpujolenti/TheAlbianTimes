@@ -135,14 +135,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SportNewsHeadline
       objectReference: {fileID: 0}
-    - target: {fileID: 2450070394529839749, guid: 0c5a31c0587035845a8b7672ee2f372a, type: 3}
-      propertyPath: _dragCanvas
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2450070394529839749, guid: 0c5a31c0587035845a8b7672ee2f372a, type: 3}
-      propertyPath: _mainCanvas
-      value: 
-      objectReference: {fileID: 1207764986}
     - target: {fileID: 7117509524933735960, guid: 0c5a31c0587035845a8b7672ee2f372a, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -369,14 +361,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6027227291861854869, guid: ce066b6a26ae34740a8aa54e74f99ab9, type: 3}
-      propertyPath: _dragCanvas
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6027227291861854869, guid: ce066b6a26ae34740a8aa54e74f99ab9, type: 3}
-      propertyPath: _mainCanvas
-      value: 
-      objectReference: {fileID: 1207764986}
     - target: {fileID: 8804517027705372210, guid: ce066b6a26ae34740a8aa54e74f99ab9, type: 3}
       propertyPath: m_Name
       value: EconomicNewsHeadline
@@ -478,14 +462,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2934856328807489279, guid: 5547d6aacfa5e16419be36dc4d808d61, type: 3}
-      propertyPath: _dragCanvas
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2934856328807489279, guid: 5547d6aacfa5e16419be36dc4d808d61, type: 3}
-      propertyPath: _mainCanvas
-      value: 
-      objectReference: {fileID: 1207764986}
     - target: {fileID: 6328594846941625867, guid: 5547d6aacfa5e16419be36dc4d808d61, type: 3}
       propertyPath: m_Name
       value: MilitaryNewsHeadline
@@ -505,7 +481,6 @@ GameObject:
   m_Component:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
-  - component: {fileID: 519420029}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -513,14 +488,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &519420029
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 519420028}
-  m_Enabled: 1
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -600,14 +567,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1207764990}
     m_Modifications:
-    - target: {fileID: 415807745792424186, guid: 21f0edc00ea2de94587c6a8c3cc8bff1, type: 3}
-      propertyPath: _dragCanvas
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 415807745792424186, guid: 21f0edc00ea2de94587c6a8c3cc8bff1, type: 3}
-      propertyPath: _mainCanvas
-      value: 
-      objectReference: {fileID: 1207764986}
     - target: {fileID: 5412626895667011533, guid: 21f0edc00ea2de94587c6a8c3cc8bff1, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -720,7 +679,7 @@ GameObject:
   - component: {fileID: 1114375430}
   - component: {fileID: 1114375433}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: NewspaperMold
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -888,7 +847,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
+  m_VertexColorAlwaysGammaSpace: 1
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
@@ -985,7 +944,7 @@ GameObject:
   - component: {fileID: 2111870991}
   - component: {fileID: 2111870990}
   m_Layer: 5
-  m_Name: WorkSpaceCanvas
+  m_Name: NewspaperMoldCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1048,7 +1007,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
+  m_VertexColorAlwaysGammaSpace: 1
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0

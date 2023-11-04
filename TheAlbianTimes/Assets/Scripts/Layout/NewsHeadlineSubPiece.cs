@@ -1,13 +1,15 @@
 using Managers;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
+using Utility;
 
 namespace Layout
 {
-    public class NewsHeadlinePiece : MovableRectTransform
+    public class NewsHeadlineSubPiece : MovableRectTransform
     {
-        [SerializeField] private NewHeadline _newHeadline;
+        [FormerlySerializedAs("_newHeadline")] [SerializeField] private NewHeadlinePiece newHeadlinePiece;
         
         [SerializeField] private Vector2 _coordinates;
 
@@ -23,7 +25,7 @@ namespace Layout
         {
             base.BeginDrag(data);
             
-            _newHeadline.BeginDrag();
+            newHeadlinePiece.BeginDrag();
         }
 
         protected override void EndDrag(BaseEventData data)

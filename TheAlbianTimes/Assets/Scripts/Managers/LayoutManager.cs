@@ -22,7 +22,6 @@ namespace Managers
         void Start()
         {
             _newsPiecesCoordinates = _layoutManagerData._newsPiecesCoordinates ?? new Dictionary<NewsType, Vector2[]>();
-            Debug.Log(_newsPiecesCoordinates);
             LoadPiecesCoordinatesFromFile();
         }
 

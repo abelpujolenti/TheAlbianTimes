@@ -1,13 +1,16 @@
 using UnityEngine;
 
-public class RandomUtil : MonoBehaviour
+namespace Utility
 {
-    public static bool Roll(int chance)
+    public class RandomUtil : MonoBehaviour
     {
-        return Roll((float)chance);
-    }
-    public static bool Roll(float chance)
-    {
-        return Random.Range(0f, 100f) < chance;
+        public static bool Roll(int chance)
+        {
+            return Roll((float)chance);
+        }
+        public static bool Roll(float chance)
+        {
+            return Random.Range(0f, 100f) < chance;
+        }
     }
 }

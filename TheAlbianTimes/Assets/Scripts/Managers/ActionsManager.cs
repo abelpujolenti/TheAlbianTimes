@@ -7,8 +7,9 @@ namespace Managers
     public static class ActionsManager
     {
         public static Action<float> OnDragNewsHeadline;
-        public static Action <NewsHeadlinePiece, Vector2> OnReleaseNewsHeadline;
-        public static Func<NewsHeadlinePiece, Vector2, NewsHeadlinePiece[], Cell[]> OnPreparingCells;
+        public static Action <NewsHeadlineSubPiece, Vector2> OnReleaseNewsHeadline;
+        public static Func<NewsHeadlineSubPiece, Vector2, NewsHeadlineSubPiece[], Cell[]> OnPreparingCells;
         public static Func <Cell[], Vector2, Vector3> OnSuccessFul;
+        public static Action OnChangeFrontNewsHeadline;
     }
 }

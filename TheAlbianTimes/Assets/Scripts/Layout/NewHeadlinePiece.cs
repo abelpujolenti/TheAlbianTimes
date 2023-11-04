@@ -4,14 +4,14 @@ using UnityEngine;
 
 namespace Layout
 {
-    public class NewHeadline : MonoBehaviour
+    public class NewHeadlinePiece : MonoBehaviour
     {
         private const float TRANSPARENCY_VALUE = 0.9f;
         private const float FULL_OPACITY = 1;
 
         [SerializeField] private NewsTypeData _newsType;
         
-        [SerializeField] private NewsHeadlinePiece[] _newsHeadlinePieces;
+        [SerializeField] private NewsHeadlineSubPiece[] _newsHeadlinePieces;
 
         private Cell[] _snappedCells;
 
@@ -32,7 +32,7 @@ namespace Layout
 
             _offset = new Vector3();
 
-            foreach (NewsHeadlinePiece piece in _newsHeadlinePieces)
+            foreach (NewsHeadlineSubPiece piece in _newsHeadlinePieces)
             {
                 _offset += piece.transform.position;
             }
@@ -67,7 +67,7 @@ namespace Layout
             }
         }
 
-        private void EndDrag(NewsHeadlinePiece draggedPiece, Vector2 mousePosition)
+        private void EndDrag(NewsHeadlineSubPiece draggedSubPiece, Vector2 mousePosition)
         {
             if (ActionsManager.OnPreparingCells == null || 
                 ActionsManager.OnSuccessFul == null ||
@@ -84,8 +84,9 @@ namespace Layout
             {
                 ActionsManager.OnDragNewsHeadline -= _newsHeadlinePieces[i].Fade;
             }
+            
 
-            _snappedCells = ActionsManager.OnPreparingCells(draggedPiece, mousePosition, _newsHeadlinePieces);
+            _snappedCells = ActionsManager.OnPreparingCells(draggedSubPiece, mousePosition, _newsHeadlinePieces);
 
             if (_snappedCells == null)
             {
@@ -95,13 +96,13 @@ namespace Layout
             transform.position = ActionsManager.OnSuccessFul(_snappedCells, transform.position) + _offset;
         }
 
-        private NewsHeadlinePiece[] GetNewsHeadlineNeighborPieces(Vector2 coordinates)
+        private NewsHeadlineSubPiece[] GetNewsHeadlineNeighborPieces(Vector2 coordinates)
         {
-            NewsHeadlinePiece[] newsHeadlinePieces = { };
+            NewsHeadlineSubPiece[] newsHeadlinePieces = { };
 
             int index = 0; 
 
-            foreach (NewsHeadlinePiece newsHeadlinePiece in _newsHeadlinePieces)
+            foreach (NewsHeadlineSubPiece newsHeadlinePiece in _newsHeadlinePieces)
             {
                 if (newsHeadlinePiece.GetCoordinates() == coordinates)
                 {

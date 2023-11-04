@@ -1,10 +1,11 @@
+using System;
 using UnityEngine;
 
 namespace NoMonoBehavior
 {
     public enum NewsType { MILITARY, ECONOMIC, CULTURAL, SPORT }
 
-    [System.Serializable]
+    [Serializable]
     public class NewsTypeData {
 
         public NewsType type;

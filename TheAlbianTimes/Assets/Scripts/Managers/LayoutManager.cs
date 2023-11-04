@@ -1,8 +1,7 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
+using Managers.ScriptableObjects;
 using NoMonoBehavior;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Managers
@@ -10,41 +9,22 @@ namespace Managers
     public class LayoutManager : MonoBehaviour
     {
 
-        /*private static LayoutManager _instance;
+        private static LayoutManager _instance;
 
-        public static LayoutManager Instance => _instance;*/
+        public static LayoutManager Instance => _instance;
+
+        [SerializeField] private LayoutManagerData _layoutManagerData;
 
         private const string PIECES_FILE_PATH = "/Json/NewsHeadline/NewsHeadlineTypes.json";
 
         private Dictionary<NewsType, Vector2[]> _newsPiecesCoordinates;
 
-        //public int test;
-
-        /*private void Awake()
-        {
-            _instance = GameManager.Instance.GetLayoutManager();
-            
-            if (_instance == null)
-            {
-                _instance = this;
-            }
-        }*/
-
         void Start()
         {
-            /*Debug.Log(test);
-            test++;*/
-            _newsPiecesCoordinates = new Dictionary<NewsType, Vector2[]>();
+            _newsPiecesCoordinates = _layoutManagerData._newsPiecesCoordinates ?? new Dictionary<NewsType, Vector2[]>();
+            Debug.Log(_newsPiecesCoordinates);
             LoadPiecesCoordinatesFromFile();
-            /*GameManager.Instance.SetLayoutManager(_instance);
-            GameManager.Instance.SetLayoutManager(this);
-            Destroy(gameObject);*/
         }
-
-        /*private void Update()
-        {
-            Debug.Log(test);
-        }*/
 
         private void LoadPiecesCoordinatesFromFile() 
         {

@@ -6,5 +6,6 @@ using UnityEngine;
 public abstract class CountryEvent
 {
     public string id = "";
-    int priority = 0;
+    public int priority = 0;
+    public Country.Id[] countriesInvolved;
 }

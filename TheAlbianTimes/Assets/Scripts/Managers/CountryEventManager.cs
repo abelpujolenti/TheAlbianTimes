@@ -25,11 +25,8 @@ public class CountryEventManager : MonoBehaviour
         {
             Destroy( _instance );
         }
-        DontDestroyOnLoad(gameObject); 
-    }
+        DontDestroyOnLoad(gameObject);
 
-    private void Start()
-    {
         FileManager.LoadAllJsonFiles("CountryEvents/ThreatCountryEvent", AddThreatEventFromJson);
         FileManager.LoadAllJsonFiles("CountryEvents/BribeCountryEvent", AddBribeEventFromJson);
         FileManager.LoadAllJsonFiles("CountryEvents/GiftCountryEvent", AddGiftEventFromJson);

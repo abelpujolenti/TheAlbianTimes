@@ -2,6 +2,9 @@
 #
 # Get latest from https://github.com/github/gitignore/blob/main/Unity.gitignore
 #
+
+TheAlbianTimes/Assets/StreamingAssets/Json/Save
+
 TheAlbianTimes/[Ll]ibrary/
 TheAlbianTimes/[Tt]emp/
 TheAlbianTimes/[Oo]bj/

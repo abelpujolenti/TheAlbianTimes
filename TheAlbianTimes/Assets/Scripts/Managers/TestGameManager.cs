@@ -35,7 +35,6 @@ public class TestGameManager : MonoBehaviour
         }
         LoadCountries();
         LoadPlayerData();
-        saveManager.SaveToJson(gameState);
     }
 
     private void LoadCountries()

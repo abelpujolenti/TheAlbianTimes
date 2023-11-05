@@ -70,8 +70,6 @@ namespace Utility
         }
         protected virtual void BeginDrag(BaseEventData data)
         {
-            Debug.Log("Drag");
-            
             PointerEventData pointerData = (PointerEventData) data;
 
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(pointerData.position);

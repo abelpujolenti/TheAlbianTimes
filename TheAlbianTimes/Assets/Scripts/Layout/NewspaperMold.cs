@@ -1,5 +1,6 @@
 using Managers;
 using UnityEngine;
+using Utility;
 
 namespace Layout
 {
@@ -96,10 +97,10 @@ namespace Layout
 
         private void DefineMinMaxAnchors(Vector2 sizeDelta)
         {
-            _minAnchorForCell.x = Map(_cellSize - _cellSize / 2, 0, sizeDelta.x, MIN_ANCHOR_X, MAX_ANCHOR_X);
+            _minAnchorForCell.x = MathUtil.Map(_cellSize - _cellSize / 2, 0, sizeDelta.x, MIN_ANCHOR_X, MAX_ANCHOR_X);
             _maxAnchorForCell.x = 1 + _minAnchorForCell.x;
 
-            _minAnchorForCell.y = Map(sizeDelta.y - (_cellSize - _cellSize / 2), sizeDelta.y, 0, MIN_ANCHOR_Y, MAX_ANCHOR_Y);
+            _minAnchorForCell.y = MathUtil.Map(sizeDelta.y - (_cellSize - _cellSize / 2), sizeDelta.y, 0, MIN_ANCHOR_Y, MAX_ANCHOR_Y);
             _maxAnchorForCell.y = _minAnchorForCell.y - 1;
         }
 
@@ -107,17 +108,12 @@ namespace Layout
         {
             GameObject cellGameObject = Instantiate(_cellPrefab, gameObject.transform, true);
             Cell cellPrefab = cellGameObject.GetComponent<Cell>();
-            float cellPositionX = Map(cellSize * i, 0, sizeDelta.x, _minAnchorForCell.x, _maxAnchorForCell.x);
-            float cellPositionY = Map(cellSize * j, 0, sizeDelta.y, _minAnchorForCell.y, _maxAnchorForCell.y);
+            float cellPositionX = MathUtil.Map(cellSize * i, 0, sizeDelta.x, _minAnchorForCell.x, _maxAnchorForCell.x);
+            float cellPositionY = MathUtil.Map(cellSize * j, 0, sizeDelta.y, _minAnchorForCell.y, _maxAnchorForCell.y);
             cellPrefab.SetPosition(new Vector2(cellPositionX, cellPositionY), cellSize - PADDING);
             cellPrefab.SetCoordinates(i, j);
             _cells[i][j] = cellPrefab;
             _cellsPositions[i][j] = cellPrefab.transform.position;
-        }
-
-        private float Map(float value, float originalMin, float originalMax, float newMin, float newMax)
-        {
-            return newMin + (value - originalMin) * (newMax - newMin) / (originalMax - originalMin);
         }
 
         private bool IsCoordinateInsideLayout(Vector2 worldCoordinate)

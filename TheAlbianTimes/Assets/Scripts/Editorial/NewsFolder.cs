@@ -29,7 +29,7 @@ namespace Editorial
         private void ChangeNewsHeadlinesPositions(int newsHeadlineToSwitchIndex)
         {
             
-            Vector3 inFrontPosition = _newsHeadlines[0].transform.localPosition;
+            Vector3 inFrontPosition = _newsHeadlines[0].GetOrigin();
 
             int childCount = transform.childCount;
             
@@ -38,13 +38,13 @@ namespace Editorial
                 ChangeLocalPosition(i);
                 ChangeSiblingIndex(i, childCount);
             }
-            _newsHeadlines[newsHeadlineToSwitchIndex].transform.localPosition = inFrontPosition;
+            _newsHeadlines[newsHeadlineToSwitchIndex].SetOrigin(inFrontPosition);
             _newsHeadlines[newsHeadlineToSwitchIndex].transform.SetAsLastSibling();
         }
 
         private void ChangeLocalPosition(int i)
         {
-            _newsHeadlines[i].transform.localPosition = new Vector2(0, _newsHeadlines[i + 1].transform.localPosition.y);
+            _newsHeadlines[i].SetOrigin(_newsHeadlines[i + 1].GetOrigin());
         }
 
         private void ChangeSiblingIndex(int i, int childCount)

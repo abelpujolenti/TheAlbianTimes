@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Utility;
@@ -6,10 +7,18 @@ namespace Editorial
 {
     public class NewsHeadline : MovableRectTransform
     {
-
+        private const float SPEED_MOVEMENT = 5;
+        
         [SerializeField] private NewsFolder _newsFolder;
 
         [SerializeField] private int _folderOrderIndex;
+
+        [SerializeField] private float _yDistanceToMoveOnHover;
+
+        private Vector2 _destination;
+        private Vector2 _origin;
+
+        private Coroutine _moveCoroutine;
 
         private int _siblingsCount;
         
@@ -18,6 +27,8 @@ namespace Editorial
         new void Start()
         {
             base.Start();
+            
+            _origin = transform.localPosition;
 
             int _siblingIndex = transform.GetSiblingIndex();
             
@@ -35,7 +46,16 @@ namespace Editorial
             {
                 return;
             }
-            base.PointerEnter(data);
+
+            _destination = transform.localPosition + new Vector3(0, _yDistanceToMoveOnHover, 0);
+
+            if (_moveCoroutine != null)
+            {
+                StopCoroutine(_moveCoroutine);
+                _moveCoroutine = StartCoroutine(MoveOnHover(_origin, _destination));
+                return;
+            }
+            _moveCoroutine = StartCoroutine(MoveOnHover(_origin, _destination));
         }
 
         protected override void PointerExit(BaseEventData data)
@@ -44,18 +64,31 @@ namespace Editorial
             {
                 return;
             }
-            base.PointerExit(data);
+
+            if (_moveCoroutine != null)
+            {
+                StopCoroutine(_moveCoroutine);
+                _moveCoroutine = StartCoroutine(MoveOnHover(transform.localPosition, _origin));
+                return;
+            }
+            _moveCoroutine = StartCoroutine(MoveOnHover(transform.localPosition, _origin));
         }
 
         protected override void PointerClick(BaseEventData data)
         {
-            base.PointerClick(data);
             if (_inFront)
             {
                 return;
             }
+            
             _newsFolder.SwitchInFrontNewsHeadline(_folderOrderIndex);
             _inFront = true;
+            if (_moveCoroutine != null)
+            {
+                StopCoroutine(_moveCoroutine);
+            }
+
+            transform.localPosition = _origin;
         }
 
         public void SetFolderOrderIndex(int newFolderOrderIndex)
@@ -71,6 +104,29 @@ namespace Editorial
         public void SetInFront(bool isInFront)
         {
             _inFront = isInFront;
+        }
+
+        public void SetOrigin(Vector2 newOrigin)
+        {
+            _origin = newOrigin;
+            transform.localPosition = _origin;
+        }
+
+        public Vector2 GetOrigin()
+        {
+            return _origin;
+        }
+
+        private IEnumerator MoveOnHover(Vector2 origin, Vector2 destination)
+        {
+            float timer = 0;
+
+            while (timer < 1)
+            {
+                timer += Time.deltaTime * SPEED_MOVEMENT;
+                transform.localPosition = Vector3.Lerp(origin, destination, timer);
+                yield return null;
+            }
         }
     }
 }

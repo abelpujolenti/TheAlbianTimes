@@ -36,12 +36,29 @@ public class Country : MonoBehaviour
     [SerializeField] protected AnimationCurve bribeCurve;
     [SerializeField] protected AnimationCurve threatCurve;
     [SerializeField] protected string[] events;
+    [SerializeField] protected int defaultPopulation;
+    [SerializeField] protected float defaultReputation;
+    [SerializeField] protected float defaultCensorship;
+    [SerializeField] protected float defaultPurchasingPower;
     #endregion
 
     #region Properties
     public CountryData data = new CountryData();
     protected float lastReputationChange = 0f;
     #endregion
+
+    private void Awake()
+    {
+        SetDefaultValues();
+    }
+
+    private void SetDefaultValues()
+    {
+        SetPopulation(defaultPopulation);
+        SetReputation(defaultReputation);
+        SetCensorship(defaultCensorship);
+        SetPurchasingPower(defaultPurchasingPower);
+    }
 
     public void AffectReputation(float change)
     {
@@ -67,6 +84,22 @@ public class Country : MonoBehaviour
     public void SetReputation(float v)
     {
         data.values["reputation"] = v;
+    }
+    public float GetPurchasingPower()
+    {
+        return data.values["purchasingPower"];
+    }
+    public void SetPurchasingPower(float v)
+    {
+        data.values["purchasingPower"] = v;
+    }
+    public int GetPopulation()
+    {
+        return (int)data.values["population"];
+    }
+    public void SetPopulation(int v)
+    {
+        data.values["population"] = v;
     }
     public float GetCensorship()
     {

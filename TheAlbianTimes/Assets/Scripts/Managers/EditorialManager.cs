@@ -1,4 +1,3 @@
-using Editorial;
 using Managers.ScriptableObjects;
 using UnityEngine;
 
@@ -13,8 +12,9 @@ namespace Managers
 
         [SerializeField] private EditorialManagerData _editorialManagerData;
 
-        [SerializeField] private GameObject _biasContainerCanvas;
-        [SerializeField] private GameObject _newsHeadlineContainer;
+        private GameObject _newsFolderCanvas;
+        private GameObject _biasContainerCanvas;
+        private GameObject _newsHeadlineContainer;
 
         private void Awake()
         {
@@ -28,6 +28,11 @@ namespace Managers
             }
         }
 
+        private void Start()
+        {
+            _newsHeadlineContainer = GameObject.Find("NewsHeadlineContainer");
+        }
+
         public void DeactivateBiasCanvas()
         {
             _biasContainerCanvas.gameObject.SetActive(false);
@@ -38,15 +43,25 @@ namespace Managers
             _biasContainerCanvas.gameObject.SetActive(true);
         }
 
-        public void SendNewsHeadlineToGameManager(NewsHeadline newsHeadline) 
+        public void SetNewsFolderCanvas(GameObject newsFolderCanvasGameObject)
         {
-            newsHeadline.transform.parent = _newsHeadlineContainer.transform;
+            _newsFolderCanvas = newsFolderCanvasGameObject;
         }
 
-        public void SaveBiasContainerCanvas()
+        public void SetBiasContainerCanvas(GameObject biasContainerCanvasGameObject)
         {
-            _editorialManagerData.biasContainerCanvas = _biasContainerCanvas;
+            _biasContainerCanvas = biasContainerCanvasGameObject;
         }
 
+        public void SendNewsHeadlineToGameManager(GameObject newsHeadline) 
+        {
+            newsHeadline.transform.SetParent(_newsHeadlineContainer.transform, false);
+        }
+
+        public void SendNewsHeadlineToNewsFolderCanvas(GameObject newsHeadline)
+        {
+            newsHeadline.transform.SetParent(_newsFolderCanvas.transform, false);
+            ActionsManager.OnAddNewsHeadlineToFolder(newsHeadline);
+        }
     }
 }

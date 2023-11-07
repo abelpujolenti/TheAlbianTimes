@@ -30,10 +30,10 @@ namespace Editorial
         private Vector2 _destination;
         private Vector2 _origin;
         
-        [SerializeField]private int _folderOrderIndex;
-        [SerializeField]private int _chosenBiasIndex;
+        private int _folderOrderIndex;
+        private int _chosenBiasIndex;
         
-        [SerializeField]private bool _inFront;
+        private bool _inFront;
         
         new void Start()
         {
@@ -160,8 +160,10 @@ namespace Editorial
             ReturnToFolder();
         }
 
-        public IEnumerator SendToLayout() 
+        public IEnumerator SendToLayout()
         {
+            ActionsManager.OnChangeFrontNewsHeadline -= ChangeContent;
+            
             float timer = 0;
 
             Vector2 destination = new Vector2(SEND_X_COORDINATE, 0);
@@ -171,6 +173,8 @@ namespace Editorial
                 timer = MoveToDestination(_origin, destination, timer);
                 yield return null;
             }
+            
+            EditorialManager.Instance.SendNewsHeadlineToGameManager(gameObject);
         }
 
         public void ChangeContent(int newChosenBiasIndex)

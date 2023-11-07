@@ -24,6 +24,12 @@ namespace Editorial
             ActionsManager.OnChangeToNewBias -= DeactivateBias;
         }
 
+        private void Start()
+        {
+            EditorialManager.Instance.SetBiasContainerCanvas(gameObject);
+            gameObject.SetActive(false);
+        }
+
         private void SetBias(String[] shortBiasDescription)
         {
             _totalBiasActive = shortBiasDescription.Length;

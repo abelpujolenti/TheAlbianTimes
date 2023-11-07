@@ -1,3 +1,4 @@
+using Editorial;
 using UnityEngine;
 
 namespace Managers
@@ -26,6 +27,16 @@ namespace Managers
         public void SetLayoutManager(LayoutManager layoutManager)
         {
             _layoutManager.CopyComponent(layoutManager);
+        }
+
+        public void SendNewsHeadlineToEditorialManager(GameObject newsHeadline)
+        {
+            EditorialManager.Instance.SendNewsHeadlineToNewsFolderCanvas(newsHeadline);
+        }
+
+        public void SendNewsHeadlineToLayoutManager(NewsHeadline newsHeadline)
+        {
+            
         }
     }
 }

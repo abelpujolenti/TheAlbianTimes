@@ -14,8 +14,8 @@ namespace Editorial
         
         [SerializeField] private TextMeshProUGUI _textMeshPro;
 
-        [SerializeField]private int _chosenBiasIndex;
-        [SerializeField]private int _selectedBiasIndex;
+        private int _chosenBiasIndex;
+        private int _selectedBiasIndex;
 
         private bool _readyToSend;
 

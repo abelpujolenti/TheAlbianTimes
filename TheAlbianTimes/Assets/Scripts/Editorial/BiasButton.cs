@@ -9,7 +9,7 @@ namespace Editorial
 {
     public class BiasButton : MovableRectTransform
     {
-        private const String SEND_BIAS = "Send Bias";
+        private const String SEND_BIAS = "Send News Headline";
         private const String CHANGE_BIAS = "Change Bias";
         
         [SerializeField] private TextMeshProUGUI _textMeshPro;

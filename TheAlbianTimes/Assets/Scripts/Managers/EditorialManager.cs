@@ -1,3 +1,4 @@
+using Editorial;
 using Managers.ScriptableObjects;
 using UnityEngine;
 
@@ -13,6 +14,7 @@ namespace Managers
         [SerializeField] private EditorialManagerData _editorialManagerData;
 
         [SerializeField] private GameObject _biasContainerCanvas;
+        [SerializeField] private GameObject _newsHeadlineContainer;
 
         private void Awake()
         {
@@ -34,6 +36,11 @@ namespace Managers
         public void ActivateBiasCanvas()
         {
             _biasContainerCanvas.gameObject.SetActive(true);
+        }
+
+        public void SendNewsHeadlineToGameManager(NewsHeadline newsHeadline) 
+        {
+            newsHeadline.transform.parent = _newsHeadlineContainer.transform;
         }
 
         public void SaveBiasContainerCanvas()

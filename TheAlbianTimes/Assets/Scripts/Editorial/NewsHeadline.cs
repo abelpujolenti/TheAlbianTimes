@@ -12,7 +12,8 @@ namespace Editorial
 {
     public class NewsHeadline : MovableRectTransform
     {
-        private const float CHANGE_CONTENT_Y_COODINATE = 1000;
+        private const float CHANGE_CONTENT_Y_COORDINATE = 1000;
+        private const float SEND_X_COORDINATE = 1000;
         private const float SPEED_MOVEMENT = 10;
         private const float Y_DISTANCE_TO_MOVE_ON_HOVER = 10f;
         private const float SECONDS_AWAITING_TO_RETURN_TO_FOLDER = 3;
@@ -146,17 +147,30 @@ namespace Editorial
             return timer;
         }
 
-        private IEnumerator SendToChangeContent(Vector2 origin, Vector2 destination)
+        private IEnumerator SendToChangeContent(Vector2 destination)
         {
             float timer = 0;
 
             while (timer < 1)
             {
-                timer = MoveToDestination(origin, destination, timer);
+                timer = MoveToDestination(_origin, destination, timer);
                 yield return null;
             }
 
             ReturnToFolder();
+        }
+
+        public IEnumerator SendToLayout() 
+        {
+            float timer = 0;
+
+            Vector2 destination = new Vector2(SEND_X_COORDINATE, 0);
+
+            while (timer < 1) 
+            {
+                timer = MoveToDestination(_origin, destination, timer);
+                yield return null;
+            }
         }
 
         public void ChangeContent(int newChosenBiasIndex)
@@ -167,8 +181,8 @@ namespace Editorial
             ActionsManager.OnChangeNewsHeadlineContent -= ChangeContent;
             ActionsManager.OnChangeFolderOrderIndexWhenGoingToFolder += GiveDestinationToReturnToFolder;
             _newsFolder.ProcedureWhenSendNewsHeadlineToRewrite();
-            Vector2 destination = new Vector2(0, CHANGE_CONTENT_Y_COODINATE);
-            StartCoroutine(SendToChangeContent(_origin, destination));
+            Vector2 destination = new Vector2(0, CHANGE_CONTENT_Y_COORDINATE);
+            StartCoroutine(SendToChangeContent(destination));
             _origin = destination;
         }
 

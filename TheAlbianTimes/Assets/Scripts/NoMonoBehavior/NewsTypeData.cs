@@ -3,7 +3,18 @@ using UnityEngine;
 
 namespace NoMonoBehavior
 {
-    public enum NewsType { MILITARY, ECONOMIC, CULTURAL, SPORT }
+    public enum NewsType { 
+        POLITICS,
+        OPINION,
+        ENTERTAINMENT,
+        DIPLOMACY,
+        ECONOMICS,
+        MILITARY,
+        CULTURAL,
+        TECHNOLOGY,
+        LABOR,
+        IDEOLOGY
+    }
 
     [Serializable]
     public class NewsTypeData {

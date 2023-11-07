@@ -1,6 +1,6 @@
 public class GameStatePlayerData
 {
-    public int money = 1000;
+    public float money = 1000f;
     public int staff = 10;
     public int reputation = 50;
 }

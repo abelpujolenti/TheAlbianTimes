@@ -12,9 +12,9 @@ public class CountryEventManager : MonoBehaviour
     private static CountryEventManager _instance;
     public static CountryEventManager Instance => _instance;
 
-    List<BribeCountryEvent> bribeCountryEvents = new List<BribeCountryEvent>();
-    List<GiftCountryEvent> giftCountryEvents = new List<GiftCountryEvent>();
-    List<ThreatCountryEvent> threatCountryEvents = new List<ThreatCountryEvent>();
+    public Dictionary<Country.Id, List<BribeCountryEvent>> bribeCountryEvents = new Dictionary<Country.Id, List<BribeCountryEvent>>();
+    public Dictionary<Country.Id, List<GiftCountryEvent>> giftCountryEvents = new Dictionary<Country.Id, List<GiftCountryEvent>>();
+    public Dictionary<Country.Id, List<ThreatCountryEvent>> threatCountryEvents = new Dictionary<Country.Id, List<ThreatCountryEvent>>();
 
     public SortedList<int, CountryEvent> currentEvents = new SortedList<int, CountryEvent>(new DuplicateKeyComparer<int>());
 
@@ -40,6 +40,7 @@ public class CountryEventManager : MonoBehaviour
         if (newEvent == null) return;
         currentEvents.Add(newEvent.priority, newEvent);
     }
+
     public CountryEvent PopFirstEvent()
     {
         CountryEvent e;
@@ -50,15 +51,18 @@ public class CountryEventManager : MonoBehaviour
 
     private void AddThreatEventFromJson(string json)
     {
-        threatCountryEvents.Add(JsonUtility.FromJson<ThreatCountryEvent>(json));
+        ThreatCountryEvent e = JsonUtility.FromJson<ThreatCountryEvent>(json);
+        threatCountryEvents[e.triggerCountry].Add(e);
     }
     private void AddBribeEventFromJson(string json)
     {
-        bribeCountryEvents.Add(JsonUtility.FromJson<BribeCountryEvent>(json));
+        BribeCountryEvent e = JsonUtility.FromJson<BribeCountryEvent>(json);
+        bribeCountryEvents[e.triggerCountry].Add(e);
     }
     private void AddGiftEventFromJson(string json)
     {
-        giftCountryEvents.Add(JsonUtility.FromJson<GiftCountryEvent>(json));
+        GiftCountryEvent e = JsonUtility.FromJson<GiftCountryEvent>(json);
+        giftCountryEvents[e.triggerCountry].Add(e);
     }
 
 }

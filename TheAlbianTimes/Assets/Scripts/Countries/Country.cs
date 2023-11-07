@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 
@@ -35,11 +36,13 @@ public class Country : MonoBehaviour
     [SerializeField] protected AnimationCurve giftCurve;
     [SerializeField] protected AnimationCurve bribeCurve;
     [SerializeField] protected AnimationCurve threatCurve;
-    [SerializeField] protected string[] events;
+    
     [SerializeField] protected int defaultPopulation;
     [SerializeField] protected float defaultReputation;
     [SerializeField] protected float defaultCensorship;
     [SerializeField] protected float defaultPurchasingPower;
+
+    [SerializeField] protected HashSet<string> eventIds;
     #endregion
 
     #region Properties
@@ -72,8 +75,22 @@ public class Country : MonoBehaviour
 
     public virtual CountryEvent GenerateEvent()
     {
+        CountryEvent ret = null;
+
+        float giftChance = giftCurve.Evaluate(GetReputation());
+        float bribeChance = bribeCurve.Evaluate(GetReputation());
+        float threatChance = threatCurve.Evaluate(GetReputation());
+
+        foreach (GiftCountryEvent giftEvent in CountryEventManager.Instance.giftCountryEvents[data.countryId])
+        {
+            if (giftEvent.conditionsFulfilled)
+            {
+
+            }
+        }
+
         lastReputationChange = 0;
-        return null;
+        return ret;
     }
 
     #region Getters/Setters

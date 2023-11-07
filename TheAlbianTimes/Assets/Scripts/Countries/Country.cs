@@ -1,10 +1,8 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-[System.Serializable]
+[Serializable]
 public class CountryData
 {
     public Country.Id countryId;
@@ -27,7 +25,7 @@ public class Country : MonoBehaviour
         REKKA,
         AMOUNT
     }
-    public static readonly string[] names = {"Hetia", "Terk·n", "Xaya", "Zuania", "Dalme", "Albia", "Madia", "Suoka", "Rekka"};
+    public static readonly string[] names = {"Hetia", "Terk√°n", "Xaya", "Zuania", "Dalme", "Albia", "Madia", "Suoka", "Rekka"};
     #endregion
 
     #region Stats

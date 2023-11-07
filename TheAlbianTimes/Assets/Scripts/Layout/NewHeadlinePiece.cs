@@ -70,7 +70,7 @@ namespace Layout
         private void EndDrag(NewsHeadlineSubPiece draggedSubPiece, Vector2 mousePosition)
         {
             if (ActionsManager.OnPreparingCells == null || 
-                ActionsManager.OnSuccessFul == null ||
+                ActionsManager.OnSuccessFulSnap == null ||
                 ActionsManager.OnDragNewsHeadline == null)
             {
                 return;
@@ -93,7 +93,7 @@ namespace Layout
                 return;
             }
 
-            transform.position = ActionsManager.OnSuccessFul(_snappedCells, transform.position) + _offset;
+            transform.position = ActionsManager.OnSuccessFulSnap(_snappedCells, transform.position) + _offset;
         }
 
         private NewsHeadlineSubPiece[] GetNewsHeadlineNeighborPieces(Vector2 coordinates)

@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using Editorial;
+using Managers;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Utility;
@@ -13,6 +12,13 @@ public class TESTAddNewsHeadline : MovableRectTransform
 
     protected override void PointerClick(BaseEventData data)
     {
-        _newsFolder.AddNewsHeadline(Instantiate(_news, _newsFolder.transform));
+        GameObject newsHeadlineGameObject = Instantiate(_news, _newsFolder.transform);
+
+        NewsHeadline newsHeadlineComponent = newsHeadlineGameObject.GetComponent<NewsHeadline>();
+        
+        newsHeadlineComponent.SetShortBiasDescription(new []{"Lo soy", "Lo eres", "Lo es"});
+        newsHeadlineComponent.SetBiasContent(new []{"Soy Puto", "Sos Puto", "Òscar García Pañella, PhD."});
+
+        ActionsManager.OnAddNewsHeadlineToFolder(newsHeadlineGameObject);
     }
 }

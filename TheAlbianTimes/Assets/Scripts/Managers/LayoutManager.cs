@@ -19,6 +19,18 @@ namespace Managers
 
         private Dictionary<NewsType, Vector2[]> _newsPiecesCoordinates;
 
+        private void Awake()
+        {
+            if (_instance == null)
+            {
+                _instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
+
         void Start()
         {
             _newsPiecesCoordinates = _layoutManagerData._newsPiecesCoordinates ?? new Dictionary<NewsType, Vector2[]>();

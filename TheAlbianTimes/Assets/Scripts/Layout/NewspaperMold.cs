@@ -35,13 +35,13 @@ namespace Layout
         private void OnEnable()
         {
             ActionsManager.OnPreparingCells += TakeCells;
-            ActionsManager.OnSuccessFul += SnapNewsHeadline;
+            ActionsManager.OnSuccessFulSnap += SnapNewsHeadline;
         }
 
         private void OnDisable()
         {
             ActionsManager.OnPreparingCells -= TakeCells;
-            ActionsManager.OnSuccessFul -= SnapNewsHeadline;
+            ActionsManager.OnSuccessFulSnap -= SnapNewsHeadline;
         }
 
         private Vector2 ModifySizeDelta()

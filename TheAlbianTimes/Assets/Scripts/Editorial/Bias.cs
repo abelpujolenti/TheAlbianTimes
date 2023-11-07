@@ -31,9 +31,7 @@ namespace Editorial
             base.Start();
 
             float red = MathUtil.Map(SELECTED_COLOR_RED_VALUE, 0, 255, 0, 1);
-            
             float green = MathUtil.Map(SELECTED_COLOR_GREEN_VALUE, 0, 255, 0, 1);
-            
             float blue = MathUtil.Map(SELECTED_COLOR_BLUE_VALUE, 0, 255, 0, 1);
 
             _selectedColor = new Color(red, green, blue);
@@ -41,6 +39,8 @@ namespace Editorial
             _textMeshPro.text = _text;
 
             _siblingIndex = transform.GetSiblingIndex();
+            
+            //DYNAMICALLY
 
             if (_siblingIndex != 0)
             {
@@ -67,16 +67,32 @@ namespace Editorial
             ActionsManager.OnChangeSelectedBias += UnselectBias;
         }
 
+        public void SelectBias()
+        {
+            BiasButtonStuff(true, _selectedColor);
+        }
+
         private void UnselectBias()
         {
-            _selected = false;
-            _image.color = Color.white;
+            BiasButtonStuff(false, Color.white);
+        }
+
+        private void BiasButtonStuff(bool isSelected, Color newColor)
+        {
+            _selected = isSelected;
+            _image.color = newColor;
+            if (isSelected)
+            {
+                ActionsManager.OnChangeSelectedBias += UnselectBias;
+                return;
+            }
             ActionsManager.OnChangeSelectedBias -= UnselectBias;
         }
 
-        public int GetSiblingBiasIndex()
+        public void SetText(String newText)
         {
-            return transform.GetSiblingIndex();
+            _text = newText;
+            _textMeshPro.text = _text;
         }
     }
 }

@@ -3,7 +3,6 @@ using Managers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
 using Utility;
 
 namespace Editorial
@@ -15,59 +14,63 @@ namespace Editorial
         
         [SerializeField] private TextMeshProUGUI _textMeshPro;
 
-        private int _chosenBiasIndex;
-        private int _selectedBiasIndex;
+        [SerializeField]private int _chosenBiasIndex;
+        [SerializeField]private int _selectedBiasIndex;
 
         private bool _readyToSend;
 
         private void OnEnable()
         {
-            ActionsManager.OnChangeSelectedBiasIndex += ChangeButtonText;
+            ActionsManager.OnChangeSelectedBiasIndex += ChangeSelectedBias;
             ActionsManager.OnChangeFrontNewsHeadline += ChangeChosenBiasIndex;
         }
         
         private void OnDisable()
         {
-            ActionsManager.OnChangeSelectedBiasIndex -= ChangeButtonText;
+            ActionsManager.OnChangeSelectedBiasIndex -= ChangeSelectedBias;
             ActionsManager.OnChangeFrontNewsHeadline -= ChangeChosenBiasIndex;
         }
 
         new void Start()
         {
             base.Start();
-            _textMeshPro.text = SEND_BIAS;
-            _readyToSend = true;
+            
+            ChangeButtonText();
         }
 
         protected override void PointerClick(BaseEventData data)
         {
+            ActionsManager.OnChangeToNewBias();
             if (_readyToSend)
             {
                 ActionsManager.OnSendNewsHeadline();
                 return;
             }
-            
             ActionsManager.OnChangeNewsHeadlineContent(_selectedBiasIndex);
         }
 
-        private void ChangeButtonText(int newBiasIndex)
+        private void ChangeButtonText()
         {
-            if (_chosenBiasIndex == newBiasIndex)
+            if (_chosenBiasIndex == _selectedBiasIndex)
             {
                 _textMeshPro.text = SEND_BIAS;
                 _readyToSend = true;
                 return;
             }
-
-            _selectedBiasIndex = newBiasIndex;
             _textMeshPro.text = CHANGE_BIAS;
             _readyToSend = false;
+        }
+
+        private void ChangeSelectedBias(int newSelectedBiasIndex)
+        {
+            _selectedBiasIndex = newSelectedBiasIndex;
+            ChangeButtonText();
         }
 
         private void ChangeChosenBiasIndex(int newChosenBiasIndex)
         {
             _chosenBiasIndex = newChosenBiasIndex;
-            ChangeButtonText(newChosenBiasIndex);
+            ChangeButtonText();
         }
     }
 }

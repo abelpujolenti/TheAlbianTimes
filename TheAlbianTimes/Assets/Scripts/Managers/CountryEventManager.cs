@@ -52,16 +52,19 @@ public class CountryEventManager : MonoBehaviour
     private void AddThreatEventFromJson(string json)
     {
         ThreatCountryEvent e = JsonUtility.FromJson<ThreatCountryEvent>(json);
+        if (!threatCountryEvents.ContainsKey(e.triggerCountry)) return;
         threatCountryEvents[e.triggerCountry].Add(e);
     }
     private void AddBribeEventFromJson(string json)
     {
         BribeCountryEvent e = JsonUtility.FromJson<BribeCountryEvent>(json);
+        if (!bribeCountryEvents.ContainsKey(e.triggerCountry)) return;
         bribeCountryEvents[e.triggerCountry].Add(e);
     }
     private void AddGiftEventFromJson(string json)
     {
         GiftCountryEvent e = JsonUtility.FromJson<GiftCountryEvent>(json);
+        if (!giftCountryEvents.ContainsKey(e.triggerCountry)) return;
         giftCountryEvents[e.triggerCountry].Add(e);
     }
 

@@ -8,6 +8,7 @@ using UnityEngine;
 public class CountryEventCondition
 {
     public enum Predicate { EQUAL, LESS, GREATER, LESSEQUAL, GREATEREQUAL }
+    public Country.Id country;
     public Predicate predicate = Predicate.EQUAL;
     public string field;
     public float value;
@@ -21,44 +22,44 @@ public abstract class CountryEvent
     public int priority = 0;
     public Country.Id triggerCountry;
     public Country.Id[] countriesInvolved;
-    public Dictionary<Country.Id, CountryEventCondition> conditions;
+    public CountryEventCondition[] conditions;
 
     public bool conditionsFulfilled => IsFulfilled();
     private bool IsFulfilled()
     {
         bool ret = true;
-        foreach(KeyValuePair<Country.Id, CountryEventCondition> condition in conditions)
+        foreach(CountryEventCondition condition in conditions)
         {
-            if (condition.Value.predicate == CountryEventCondition.Predicate.EQUAL &&
-                GameManager.Instance.gameState.countries[(int)condition.Key].data.values[condition.Value.field] != condition.Value.value
+            if (condition.predicate == CountryEventCondition.Predicate.EQUAL &&
+                GameManager.Instance.gameState.countries[(int)condition.country].data.values[condition.field] != condition.value
                 )
             {
                 ret = false;
                 break;
             }
-            else if (condition.Value.predicate == CountryEventCondition.Predicate.LESS &&
-                GameManager.Instance.gameState.countries[(int)condition.Key].data.values[condition.Value.field] >= condition.Value.value
+            else if (condition.predicate == CountryEventCondition.Predicate.LESS &&
+                GameManager.Instance.gameState.countries[(int)condition.country].data.values[condition.field] >= condition.value
                 )
             {
                 ret = false;
                 break;
             }
-            else if (condition.Value.predicate == CountryEventCondition.Predicate.GREATER &&
-                GameManager.Instance.gameState.countries[(int)condition.Key].data.values[condition.Value.field] <= condition.Value.value
+            else if (condition.predicate == CountryEventCondition.Predicate.GREATER &&
+                GameManager.Instance.gameState.countries[(int)condition.country].data.values[condition.field] <= condition.value
                 )
             {
                 ret = false;
                 break;
             }
-            else if (condition.Value.predicate == CountryEventCondition.Predicate.LESSEQUAL &&
-                GameManager.Instance.gameState.countries[(int)condition.Key].data.values[condition.Value.field] > condition.Value.value
+            else if (condition.predicate == CountryEventCondition.Predicate.LESSEQUAL &&
+                GameManager.Instance.gameState.countries[(int)condition.country].data.values[condition.field] > condition.value
                 )
             {
                 ret = false;
                 break;
             }
-            else if (condition.Value.predicate == CountryEventCondition.Predicate.GREATEREQUAL &&
-                GameManager.Instance.gameState.countries[(int)condition.Key].data.values[condition.Value.field] < condition.Value.value
+            else if (condition.predicate == CountryEventCondition.Predicate.GREATEREQUAL &&
+                GameManager.Instance.gameState.countries[(int)condition.country].data.values[condition.field] < condition.value
                 )
             {
                 ret = false;

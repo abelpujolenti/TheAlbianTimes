@@ -75,22 +75,59 @@ public class Country : MonoBehaviour
 
     public virtual CountryEvent GenerateEvent()
     {
-        CountryEvent ret = null;
-
         float giftChance = giftCurve.Evaluate(GetReputation());
         float bribeChance = bribeCurve.Evaluate(GetReputation());
         float threatChance = threatCurve.Evaluate(GetReputation());
 
-        foreach (GiftCountryEvent giftEvent in CountryEventManager.Instance.giftCountryEvents[data.countryId])
-        {
-            if (giftEvent.conditionsFulfilled)
-            {
+        float totalChance = Math.Max(1f, giftChance + bribeChance + threatChance);
+        SortedList<int, CountryEvent> events = new SortedList<int, CountryEvent>(new DuplicateKeyComparer<int>());
 
+        float random = UnityEngine.Random.Range(0f, 1f);
+        if (random < (giftChance) / totalChance) 
+        {
+            foreach (GiftCountryEvent giftEvent in CountryEventManager.Instance.giftCountryEvents[data.countryId])
+            {
+                GenerateEventAddToList(giftEvent, events);
+            }
+        }
+        else if (random < (giftChance + bribeChance) / totalChance)
+        {
+            foreach (BribeCountryEvent bribeEvent in CountryEventManager.Instance.bribeCountryEvents[data.countryId])
+            {
+                if (bribeEvent.conditionsFulfilled)
+                {
+                    GenerateEventAddToList(bribeEvent, events);
+                }
+            }
+        }
+        else if (random < (giftChance + bribeChance + threatChance) / totalChance)
+        {
+            foreach (ThreatCountryEvent threatEvent in CountryEventManager.Instance.threatCountryEvents[data.countryId])
+            {
+                if (threatEvent.conditionsFulfilled)
+                {
+                    GenerateEventAddToList(threatEvent, events);
+                }
             }
         }
 
         lastReputationChange = 0;
+
+        CountryEvent ret = null;
+        if (events.Count > 0) 
+        {
+            ret = events.Values[UnityEngine.Random.Range(Math.Max(0, events.Count - 3), events.Count)];
+        }
+
         return ret;
+    }
+
+    private void GenerateEventAddToList(CountryEvent ev, SortedList<int, CountryEvent> events)
+    {
+        if (ev.conditionsFulfilled)
+        {
+            events.Add(ev.priority, ev);
+        }
     }
 
     #region Getters/Setters

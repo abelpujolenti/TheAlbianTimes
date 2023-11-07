@@ -1,10 +1,7 @@
-using JetBrains.Annotations;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using Managers;
 
-[System.Serializable]
+[Serializable]
 public class CountryEventCondition
 {
     public enum Predicate { EQUAL, LESS, GREATER, LESSEQUAL, GREATEREQUAL }
@@ -15,7 +12,7 @@ public class CountryEventCondition
 }
 
 
-[System.Serializable]
+[Serializable]
 public abstract class CountryEvent
 {
     public string id = "";

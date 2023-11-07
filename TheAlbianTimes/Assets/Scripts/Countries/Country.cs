@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 [Serializable]
 public class CountryData
@@ -80,7 +80,7 @@ public class Country : MonoBehaviour
         float totalChance = Math.Max(1f, giftChance + bribeChance + threatChance);
         SortedList<int, CountryEvent> events = new SortedList<int, CountryEvent>(new DuplicateKeyComparer<int>());
 
-        float random = UnityEngine.Random.Range(0f, 1f);
+        float random = Random.Range(0f, 1f);
         if (random < (giftChance) / totalChance) 
         {
             foreach (GiftCountryEvent giftEvent in CountryEventManager.Instance.giftCountryEvents[data.countryId])
@@ -114,7 +114,7 @@ public class Country : MonoBehaviour
         CountryEvent ret = null;
         if (events.Count > 0) 
         {
-            ret = events.Values[UnityEngine.Random.Range(Math.Max(0, events.Count - 3), events.Count)];
+            ret = events.Values[Random.Range(Math.Max(0, events.Count - 3), events.Count)];
         }
 
         return ret;

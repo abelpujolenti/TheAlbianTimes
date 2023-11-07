@@ -9,7 +9,7 @@ namespace Layout
 {
     public class NewsHeadlineSubPiece : MovableRectTransform
     {
-        [FormerlySerializedAs("_newHeadline")] [SerializeField] private NewHeadlinePiece newHeadlinePiece;
+        [SerializeField] private NewHeadlinePiece newHeadlinePiece;
         
         [SerializeField] private Vector2 _coordinates;
 

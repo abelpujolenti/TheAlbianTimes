@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using Utility;
 
-public class TESTAddNewsHeadline : MovableRectTransform
+public class TESTAddNewsHeadline : InteractableRectTransform
 {
     [SerializeField] private GameObject _news;
 
@@ -19,6 +19,6 @@ public class TESTAddNewsHeadline : MovableRectTransform
         newsHeadlineComponent.SetShortBiasDescription(new []{"Lo soy", "Lo eres", "Lo es"});
         newsHeadlineComponent.SetBiasContent(new []{"Soy Puto", "Sos Puto", "Òscar García Pañella, PhD."});
 
-        ActionsManager.OnAddNewsHeadlineToFolder(newsHeadlineGameObject);
+        EventsManager.OnAddNewsHeadlineToFolder(newsHeadlineGameObject);
     }
 }

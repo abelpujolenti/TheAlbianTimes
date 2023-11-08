@@ -8,7 +8,7 @@ using Utility;
 
 namespace Editorial
 {
-    public class Bias : MovableRectTransform
+    public class Bias : InteractableRectTransform
     {
         private const int SELECTED_COLOR_RED_VALUE = 255;
         private const int SELECTED_COLOR_GREEN_VALUE = 102;
@@ -26,9 +26,8 @@ namespace Editorial
 
         private int _siblingIndex;
 
-        new void Start()
+        void Start()
         {
-            base.Start();
 
             float red = MathUtil.Map(SELECTED_COLOR_RED_VALUE, 0, 255, 0, 1);
             float green = MathUtil.Map(SELECTED_COLOR_GREEN_VALUE, 0, 255, 0, 1);
@@ -39,8 +38,6 @@ namespace Editorial
             _textMeshPro.text = _text;
 
             _siblingIndex = transform.GetSiblingIndex();
-            
-            //DYNAMICALLY
 
             if (_siblingIndex != 0)
             {
@@ -49,7 +46,7 @@ namespace Editorial
 
             _selected = true;
             _image.color = _selectedColor;
-            ActionsManager.OnChangeSelectedBias += UnselectBias;
+            EventsManager.OnChangeSelectedBias += UnselectBias;
 
         }
         
@@ -60,11 +57,11 @@ namespace Editorial
                 return;
             }
 
-            ActionsManager.OnChangeSelectedBiasIndex(_siblingIndex);
-            ActionsManager.OnChangeSelectedBias();
+            EventsManager.OnChangeSelectedBiasIndex(_siblingIndex);
+            EventsManager.OnChangeSelectedBias();
             _selected = true;
             _image.color = _selectedColor;
-            ActionsManager.OnChangeSelectedBias += UnselectBias;
+            EventsManager.OnChangeSelectedBias += UnselectBias;
         }
 
         public void SelectBias()
@@ -83,10 +80,10 @@ namespace Editorial
             _image.color = newColor;
             if (isSelected)
             {
-                ActionsManager.OnChangeSelectedBias += UnselectBias;
+                EventsManager.OnChangeSelectedBias += UnselectBias;
                 return;
             }
-            ActionsManager.OnChangeSelectedBias -= UnselectBias;
+            EventsManager.OnChangeSelectedBias -= UnselectBias;
         }
 
         public void SetText(String newText)

@@ -45,16 +45,16 @@ namespace Layout
 
         public void BeginDrag()
         {
-            ActionsManager.OnReleaseNewsHeadline += EndDrag;
+            EventsManager.OnReleaseNewsHeadline += EndDrag;
             
             transform.SetAsLastSibling();
 
             for (int i = 0; i < _newsHeadlinePieces.Length; i++)
             {
-                ActionsManager.OnDragNewsHeadline += _newsHeadlinePieces[i].Fade;
+                EventsManager.OnDragNewsHeadlinePiece += _newsHeadlinePieces[i].Fade;
             }
 
-            ActionsManager.OnDragNewsHeadline(TRANSPARENCY_VALUE);
+            EventsManager.OnDragNewsHeadlinePiece(TRANSPARENCY_VALUE);
 
             if (_snappedCells == null)
             {
@@ -69,31 +69,31 @@ namespace Layout
 
         private void EndDrag(NewsHeadlineSubPiece draggedSubPiece, Vector2 mousePosition)
         {
-            if (ActionsManager.OnPreparingCells == null || 
-                ActionsManager.OnSuccessFulSnap == null ||
-                ActionsManager.OnDragNewsHeadline == null)
+            if (EventsManager.OnPreparingCells == null || 
+                EventsManager.OnSuccessFulSnap == null ||
+                EventsManager.OnDragNewsHeadlinePiece == null)
             {
                 return;
             }
 
-            ActionsManager.OnDragNewsHeadline(FULL_OPACITY);
+            EventsManager.OnDragNewsHeadlinePiece(FULL_OPACITY);
             
-            ActionsManager.OnReleaseNewsHeadline -= EndDrag;
+            EventsManager.OnReleaseNewsHeadline -= EndDrag;
 
             for (int i = 0; i < _newsHeadlinePieces.Length; i++)
             {
-                ActionsManager.OnDragNewsHeadline -= _newsHeadlinePieces[i].Fade;
+                EventsManager.OnDragNewsHeadlinePiece -= _newsHeadlinePieces[i].Fade;
             }
             
 
-            _snappedCells = ActionsManager.OnPreparingCells(draggedSubPiece, mousePosition, _newsHeadlinePieces);
+            _snappedCells = EventsManager.OnPreparingCells(draggedSubPiece, mousePosition, _newsHeadlinePieces);
 
             if (_snappedCells == null)
             {
                 return;
             }
 
-            transform.position = ActionsManager.OnSuccessFulSnap(_snappedCells, transform.position) + _offset;
+            transform.position = EventsManager.OnSuccessFulSnap(_snappedCells, transform.position) + _offset;
         }
 
         private NewsHeadlineSubPiece[] GetNewsHeadlineNeighborPieces(Vector2 coordinates)

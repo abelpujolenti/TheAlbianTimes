@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using Utility;
 
-public class TESTReturnNewsHEadlineToFolder : MovableRectTransform
+public class TESTReturnNewsHEadlineToFolder : InteractableRectTransform
 {
 
     [SerializeField] private GameObject _newsHeadlineContainer;

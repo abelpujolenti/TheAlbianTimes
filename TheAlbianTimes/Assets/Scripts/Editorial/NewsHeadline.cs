@@ -10,7 +10,7 @@ using Random = UnityEngine.Random;
 
 namespace Editorial
 {
-    public class NewsHeadline : MovableRectTransform
+    public class NewsHeadline : InteractableRectTransform
     {
         private const float CHANGE_CONTENT_Y_COORDINATE = 1000;
         private const float SEND_X_COORDINATE = 1000;
@@ -30,19 +30,46 @@ namespace Editorial
         private Vector2 _destination;
         private Vector2 _origin;
         
-        private int _folderOrderIndex;
-        private int _chosenBiasIndex;
+        [SerializeField]private int _folderOrderIndex;
+        [SerializeField]private int _chosenBiasIndex;
+        [SerializeField]private int _selectedBiasIndex;
         
-        private bool _inFront;
-        
-        new void Start()
-        {
-            base.Start();
+        [SerializeField]private bool _inFront;
 
+        void Start()
+        {
             _textMeshPro.text = _biasContent[0];
 
             gameObject.GetComponent<Image>().color =
                 new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
+        }
+
+        protected override void BeginDrag(BaseEventData data)
+        {
+            if (!draggable)
+            {
+                return;
+            }
+            
+            base.BeginDrag(data);
+
+            EventsManager.OnDragNewsHeadline(this);
+            EditorialManager.Instance.DeactivateBiasCanvas();
+        }
+
+        protected override void EndDrag(BaseEventData data)
+        {
+            if (!draggable)
+            {
+                return;
+            }
+            
+            base.EndDrag(data);
+
+            PointerEventData pointerData = (PointerEventData) data;
+            
+            EditorialManager.Instance.ActivateBiasCanvas();
+            EventsManager.OnDropNewsHeadline(this, pointerData.position);
         }
 
         protected override void PointerEnter(BaseEventData data)
@@ -51,19 +78,19 @@ namespace Editorial
             {
                 return;
             }
-            
-            if (_inFront)
-            {
-                return;
-            }
 
             _destination = _origin + new Vector2(0, Y_DISTANCE_TO_MOVE_ON_HOVER);
+            
+            SlideInFolder(_origin, _destination);
+        }
 
+        public void SlideInFolder(Vector2 origin, Vector2 destination)
+        {
             if (_moveCoroutine != null)
             {
                 StopCoroutine(_moveCoroutine);
             }
-            _moveCoroutine = StartCoroutine(Slide(_origin, _destination));
+            _moveCoroutine = StartCoroutine(Slide(origin, destination));
         }
 
         protected override void PointerExit(BaseEventData data)
@@ -73,26 +100,12 @@ namespace Editorial
                 return;
             }
             
-            if (_inFront)
-            {
-                return;
-            }
-
-            if (_moveCoroutine != null)
-            {
-                StopCoroutine(_moveCoroutine);
-            }
-            _moveCoroutine = StartCoroutine(Slide(transform.localPosition, _origin));
+            SlideInFolder(transform.localPosition, _origin);
         }
 
         protected override void PointerClick(BaseEventData data)
         {
             if (!clickable)
-            {
-                return;
-            }
-            
-            if (_inFront)
             {
                 return;
             }
@@ -114,18 +127,46 @@ namespace Editorial
 
         public void SetInFront(bool isInFront)
         {
-            _inFront = isInFront;
+            ModifyFlags(isInFront);
+            if (_inFront)
+            {
+                EventsManager.OnChangeNewsHeadlineContent += ChangeContent;
+                EventsManager.OnChangeSelectedBiasIndex += SetSelectedBiasIndex;
+                return;
+            }
+
+            EventsManager.OnChangeNewsHeadlineContent -= ChangeContent;
+            EventsManager.OnChangeSelectedBiasIndex -= SetSelectedBiasIndex;
         }
 
         public void SetOrigin(Vector2 newOrigin)
         {
             _origin = newOrigin;
-            transform.localPosition = _origin;
         }
 
-        public Vector2 GetOrigin()
+        private float MoveToDestination(Vector2 origin, Vector2 destination, float timer)
         {
-            return _origin;
+            timer += Time.deltaTime * SPEED_MOVEMENT;
+            transform.localPosition = Vector3.Lerp(origin, destination, timer);
+            
+            return timer;
+        }
+
+        public IEnumerator SendToLayout()
+        {
+            EventsManager.OnChangeNewsHeadlineContent -= ChangeContent;
+            
+            float timer = 0f;
+
+            Vector2 destination = new Vector2(SEND_X_COORDINATE, 0);
+
+            while (timer < 1)
+            {
+                timer = MoveToDestination(_origin, _origin + destination, timer);
+                yield return null;
+            }
+            
+            EditorialManager.Instance.SendNewsHeadlineToGameManager(gameObject);
         }
 
         private IEnumerator Slide(Vector2 origin, Vector2 destination)
@@ -139,14 +180,18 @@ namespace Editorial
             }
         }
 
-        private float MoveToDestination(Vector2 origin, Vector2 destination, float timer)
+        private void ChangeContent(int newChosenBiasIndex)
         {
-            timer += Time.deltaTime * SPEED_MOVEMENT;
-            transform.localPosition = Vector3.Lerp(origin, destination, timer);
-            
-            return timer;
+            _chosenBiasIndex = newChosenBiasIndex;
+            _textMeshPro.text = _biasContent[_chosenBiasIndex];
+            SetInFront(false);
+            EventsManager.OnChangeFolderOrderIndexWhenGoingToFolder += GiveDestinationToReturnToFolder;
+            _newsFolder.ProcedureWhenSendNewsHeadlineToRewrite();
+            Vector2 destination = new Vector2(0, CHANGE_CONTENT_Y_COORDINATE);
+            StartCoroutine(SendToChangeContent(destination));
+            _origin = destination;
         }
-
+        
         private IEnumerator SendToChangeContent(Vector2 destination)
         {
             float timer = 0;
@@ -156,38 +201,54 @@ namespace Editorial
                 timer = MoveToDestination(_origin, destination, timer);
                 yield return null;
             }
+            
+            yield return new WaitForSeconds(SECONDS_AWAITING_TO_RETURN_TO_FOLDER);
 
-            ReturnToFolder();
+            ReturnToFolder(_origin);
         }
 
-        public IEnumerator SendToLayout()
+        public void AddToFolder()
         {
-            ActionsManager.OnChangeFrontNewsHeadline -= ChangeContent;
-            
-            float timer = 0;
+            EventsManager.OnChangeFolderOrderIndexWhenGoingToFolder += GiveDestinationToReturnToFolder;
+            ReturnToFolder(new Vector2(0, CHANGE_CONTENT_Y_COORDINATE));
+        }
 
-            Vector2 destination = new Vector2(SEND_X_COORDINATE, 0);
+        private void ReturnToFolder(Vector2 origin)
+        {
+            int countOfTotalNewsHeadline = _newsFolder.GetNewsHeadlinesLength();
 
-            while (timer < 1) 
+            if (countOfTotalNewsHeadline > 1)
             {
-                timer = MoveToDestination(_origin, destination, timer);
-                yield return null;
+                countOfTotalNewsHeadline--;
             }
             
-            EditorialManager.Instance.SendNewsHeadlineToGameManager(gameObject);
+            _destination = new Vector2(0, _newsFolder.GiveNewFolderYCoordinate(_folderOrderIndex, countOfTotalNewsHeadline));
+            
+            StartCoroutine(SendToFolderAgain(origin));
         }
 
-        public void ChangeContent(int newChosenBiasIndex)
+        private IEnumerator SendToFolderAgain(Vector2 origin)
         {
-            ModifyFlags(false);
-            _chosenBiasIndex = newChosenBiasIndex;
-            _textMeshPro.text = _biasContent[_chosenBiasIndex];
-            ActionsManager.OnChangeNewsHeadlineContent -= ChangeContent;
-            ActionsManager.OnChangeFolderOrderIndexWhenGoingToFolder += GiveDestinationToReturnToFolder;
-            _newsFolder.ProcedureWhenSendNewsHeadlineToRewrite();
-            Vector2 destination = new Vector2(0, CHANGE_CONTENT_Y_COORDINATE);
-            StartCoroutine(SendToChangeContent(destination));
-            _origin = destination;
+            transform.SetAsFirstSibling();
+
+            float timer = 0;
+
+            while (timer < 1)
+            {
+                timer = MoveToDestination(origin, _destination, timer);
+                yield return null;
+            }
+
+            EventsManager.OnChangeFolderOrderIndexWhenGoingToFolder -= GiveDestinationToReturnToFolder; 
+
+            _origin = _destination;
+            
+            _newsFolder.SubtractOneToSentNewsHeadline();
+        }
+
+        public void DropOnFolder()
+        {
+            StartCoroutine(Slide(transform.localPosition, _origin));
         }
 
         private void GiveDestinationToReturnToFolder()
@@ -202,46 +263,19 @@ namespace Editorial
             _destination = new Vector2(0, _newsFolder.GiveNewFolderYCoordinate(_folderOrderIndex, countOfTotalNewsHeadline));
         }
 
-        private void ReturnToFolder()
-        {
-            int countOfTotalNewsHeadline = _newsFolder.GetNewsHeadlinesLength();
-
-            if (countOfTotalNewsHeadline > 1)
-            {
-                countOfTotalNewsHeadline--;
-            }
-            
-            _destination = new Vector2(0, _newsFolder.GiveNewFolderYCoordinate(_folderOrderIndex, countOfTotalNewsHeadline));
-            
-            StartCoroutine(SendToFolderAgain(_origin));
-        }
-
-        private IEnumerator SendToFolderAgain(Vector2 origin)
-        {
-            transform.SetAsFirstSibling();
-            
-            yield return new WaitForSeconds(SECONDS_AWAITING_TO_RETURN_TO_FOLDER);
-
-            float timer = 0;
-
-            while (timer < 1)
-            {
-                timer = MoveToDestination(origin, _destination, timer);
-                yield return null;
-            }
-
-            ActionsManager.OnChangeFolderOrderIndexWhenGoingToFolder -= GiveDestinationToReturnToFolder; 
-
-            _origin = _destination;
-
-            ModifyFlags(true);
-            
-            _newsFolder.SubtractOneToSentNewsHeadline();
-        }
-
         public void SetNewsFolder(NewsFolder newsFolder)
         {
             _newsFolder = newsFolder;
+        }
+
+        private void SetSelectedBiasIndex(int newSelectedBiasIndex)
+        {
+            _selectedBiasIndex = newSelectedBiasIndex;
+        }
+
+        public int GetSelectedBiasIndex()
+        {
+            return _selectedBiasIndex;
         }
 
         public int GetChosenBiasIndex()
@@ -251,8 +285,10 @@ namespace Editorial
 
         private void ModifyFlags(bool value)
         {
-            clickable = value;
-            hoverable = value;
+            _inFront = value;
+            draggable = value;
+            clickable = !value;
+            hoverable = !value;
         }
 
         public void SetShortBiasDescription(String[] shortBiasDescription)

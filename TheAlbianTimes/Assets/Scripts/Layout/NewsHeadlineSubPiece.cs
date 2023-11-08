@@ -1,13 +1,12 @@
 using Managers;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Utility;
 
 namespace Layout
 {
-    public class NewsHeadlineSubPiece : MovableRectTransform
+    public class NewsHeadlineSubPiece : InteractableRectTransform
     {
         [SerializeField] private NewHeadlinePiece newHeadlinePiece;
         
@@ -15,10 +14,10 @@ namespace Layout
 
         private Image _image;
 
-        private new void Start()
+        private void Start()
         {
-            base.Start();
             _image = GetComponent<Image>();
+            _gameObjectToDrag = transform.parent.gameObject;
         }
 
         protected override void BeginDrag(BaseEventData data)
@@ -34,12 +33,12 @@ namespace Layout
 
             PointerEventData pointerData = (PointerEventData) data;
             
-            if (ActionsManager.OnReleaseNewsHeadline == null)
+            if (EventsManager.OnReleaseNewsHeadline == null)
             {
                 return;
             }
 
-            ActionsManager.OnReleaseNewsHeadline(this, pointerData.position);
+            EventsManager.OnReleaseNewsHeadline(this, pointerData.position);
         }
 
         public void Fade(float alpha) { 

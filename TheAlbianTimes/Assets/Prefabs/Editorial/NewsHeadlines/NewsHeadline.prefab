@@ -90,10 +90,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40c555e910e568840b7c929c1584a836, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 0
+  draggable: 1
   hoverable: 1
   clickable: 1
   _textMeshPro: {fileID: 1029335324776157074}
+  _folderOrderIndex: 0
+  _chosenBiasIndex: 0
+  _selectedBiasIndex: 0
+  _inFront: 0
 --- !u!1 &4017239771087458495
 GameObject:
   m_ObjectHideFlags: 0

@@ -34,14 +34,14 @@ namespace Layout
 
         private void OnEnable()
         {
-            ActionsManager.OnPreparingCells += TakeCells;
-            ActionsManager.OnSuccessFulSnap += SnapNewsHeadline;
+            EventsManager.OnPreparingCells += TakeCells;
+            EventsManager.OnSuccessFulSnap += SnapNewsHeadline;
         }
 
         private void OnDisable()
         {
-            ActionsManager.OnPreparingCells -= TakeCells;
-            ActionsManager.OnSuccessFulSnap -= SnapNewsHeadline;
+            EventsManager.OnPreparingCells -= TakeCells;
+            EventsManager.OnSuccessFulSnap -= SnapNewsHeadline;
         }
 
         private Vector2 ModifySizeDelta()
@@ -60,7 +60,6 @@ namespace Layout
 
         void Start()
         {
-            
             _cells = new Cell[_columns][];
             _cellsPositions = new Vector2[_columns][];
 

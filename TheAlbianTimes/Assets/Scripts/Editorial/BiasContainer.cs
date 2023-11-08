@@ -12,16 +12,16 @@ namespace Editorial
 
         private void OnEnable()
         {
-            ActionsManager.OnChangeFrontNewsHeadline += ChangeBias;
-            ActionsManager.OnSettingNewBiasDescription += SetBias;
-            ActionsManager.OnChangeToNewBias += DeactivateBias;
+            EventsManager.OnChangeFrontNewsHeadline += ChangeSelectedBias;
+            EventsManager.OnSettingNewBiasDescription += SetBias;
+            EventsManager.OnChangeToNewBias += DeactivateBias;
         }
 
         private void OnDisable()
         {
-            ActionsManager.OnChangeFrontNewsHeadline -= ChangeBias;
-            ActionsManager.OnSettingNewBiasDescription -= SetBias;
-            ActionsManager.OnChangeToNewBias -= DeactivateBias;
+            EventsManager.OnChangeFrontNewsHeadline -= ChangeSelectedBias;
+            EventsManager.OnSettingNewBiasDescription -= SetBias;
+            EventsManager.OnChangeToNewBias -= DeactivateBias;
         }
 
         private void Start()
@@ -41,14 +41,14 @@ namespace Editorial
             }
         }
 
-        private void ChangeBias(int newSelectedBiasIndex)
+        private void ChangeSelectedBias(int newSelectedBiasIndex)
         {
-            if (ActionsManager.OnChangeSelectedBias != null)
+            if (EventsManager.OnChangeSelectedBias != null)
             {
-                ActionsManager.OnChangeSelectedBias();
+                EventsManager.OnChangeSelectedBias();
             }
             _bias[newSelectedBiasIndex].SelectBias();
-            ActionsManager.OnChangeSelectedBiasIndex(newSelectedBiasIndex);
+            EventsManager.OnChangeSelectedBiasIndex(newSelectedBiasIndex);
         }
 
         private void DeactivateBias()

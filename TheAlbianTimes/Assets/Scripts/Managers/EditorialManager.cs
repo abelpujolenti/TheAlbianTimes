@@ -61,7 +61,7 @@ namespace Managers
         public void SendNewsHeadlineToNewsFolderCanvas(GameObject newsHeadline)
         {
             newsHeadline.transform.SetParent(_newsFolderCanvas.transform, false);
-            ActionsManager.OnAddNewsHeadlineToFolder(newsHeadline);
+            EventsManager.OnAddNewsHeadlineToFolder(newsHeadline);
         }
     }
 }

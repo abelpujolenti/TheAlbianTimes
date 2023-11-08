@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 
 namespace Utility
 {
-    public class MovableRectTransform : MonoBehaviour
+    public class InteractableRectTransform : MonoBehaviour
     {
         #region config
         public bool draggable = true;
@@ -18,11 +18,13 @@ namespace Utility
         protected Canvas canvas;
         protected RectTransform canvasRect;
         protected EventTrigger eventTrigger;
+        protected GameObject _gameObjectToDrag;
         private Vector2 _vectorOffset;
         #endregion
-        protected void Start()
+        protected void Awake()
         {
             Setup();
+            _gameObjectToDrag = gameObject;
         }
         protected virtual void Setup()
         {
@@ -66,7 +68,7 @@ namespace Utility
         
             Vector2 mousePosition = GetMousePositionOnCanvas(data);
 
-            transform.parent.position = (Vector2)canvas.transform.TransformPoint(mousePosition) + _vectorOffset;
+            _gameObjectToDrag.transform.position = (Vector2)canvas.transform.TransformPoint(mousePosition) + _vectorOffset;
         }
         protected virtual void BeginDrag(BaseEventData data)
         {
@@ -94,7 +96,7 @@ namespace Utility
         {
         }
 
-        private Vector2 GetMousePositionOnCanvas(BaseEventData data)
+        protected Vector2 GetMousePositionOnCanvas(BaseEventData data)
         {
             Vector2 mousePosition;
         

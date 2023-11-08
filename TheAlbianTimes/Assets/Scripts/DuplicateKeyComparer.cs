@@ -1,5 +1,6 @@
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
+
 /// <summary>
 /// Comparer for comparing two keys, handling equality as beeing greater
 /// Use this Comparer e.g. with SortedLists or SortedDictionaries, that don't allow duplicate keys

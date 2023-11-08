@@ -1,9 +1,10 @@
 using Managers;
 using UnityEngine;
+using Utility;
 
 namespace Layout
 {
-    public class Workspace : MonoBehaviour
+    public class NewspaperMold : MonoBehaviour
     {
         private const int PADDING = 5;
         private const int MIN_ANCHOR_X = 0;
@@ -33,14 +34,14 @@ namespace Layout
 
         private void OnEnable()
         {
-            ActionsManager.OnPreparingCells += TakeCells;
-            ActionsManager.OnSuccessFul += SnapNewsHeadline;
+            EventsManager.OnPreparingCells += TakeCells;
+            EventsManager.OnSuccessFulSnap += SnapNewsHeadline;
         }
 
         private void OnDisable()
         {
-            ActionsManager.OnPreparingCells -= TakeCells;
-            ActionsManager.OnSuccessFul -= SnapNewsHeadline;
+            EventsManager.OnPreparingCells -= TakeCells;
+            EventsManager.OnSuccessFulSnap -= SnapNewsHeadline;
         }
 
         private Vector2 ModifySizeDelta()
@@ -59,7 +60,6 @@ namespace Layout
 
         void Start()
         {
-            
             _cells = new Cell[_columns][];
             _cellsPositions = new Vector2[_columns][];
 
@@ -96,10 +96,10 @@ namespace Layout
 
         private void DefineMinMaxAnchors(Vector2 sizeDelta)
         {
-            _minAnchorForCell.x = Map(_cellSize - _cellSize / 2, 0, sizeDelta.x, MIN_ANCHOR_X, MAX_ANCHOR_X);
+            _minAnchorForCell.x = MathUtil.Map(_cellSize - _cellSize / 2, 0, sizeDelta.x, MIN_ANCHOR_X, MAX_ANCHOR_X);
             _maxAnchorForCell.x = 1 + _minAnchorForCell.x;
 
-            _minAnchorForCell.y = Map(sizeDelta.y - (_cellSize - _cellSize / 2), sizeDelta.y, 0, MIN_ANCHOR_Y, MAX_ANCHOR_Y);
+            _minAnchorForCell.y = MathUtil.Map(sizeDelta.y - (_cellSize - _cellSize / 2), sizeDelta.y, 0, MIN_ANCHOR_Y, MAX_ANCHOR_Y);
             _maxAnchorForCell.y = _minAnchorForCell.y - 1;
         }
 
@@ -107,17 +107,12 @@ namespace Layout
         {
             GameObject cellGameObject = Instantiate(_cellPrefab, gameObject.transform, true);
             Cell cellPrefab = cellGameObject.GetComponent<Cell>();
-            float cellPositionX = Map(cellSize * i, 0, sizeDelta.x, _minAnchorForCell.x, _maxAnchorForCell.x);
-            float cellPositionY = Map(cellSize * j, 0, sizeDelta.y, _minAnchorForCell.y, _maxAnchorForCell.y);
+            float cellPositionX = MathUtil.Map(cellSize * i, 0, sizeDelta.x, _minAnchorForCell.x, _maxAnchorForCell.x);
+            float cellPositionY = MathUtil.Map(cellSize * j, 0, sizeDelta.y, _minAnchorForCell.y, _maxAnchorForCell.y);
             cellPrefab.SetPosition(new Vector2(cellPositionX, cellPositionY), cellSize - PADDING);
             cellPrefab.SetCoordinates(i, j);
             _cells[i][j] = cellPrefab;
             _cellsPositions[i][j] = cellPrefab.transform.position;
-        }
-
-        private float Map(float value, float originalMin, float originalMax, float newMin, float newMax)
-        {
-            return newMin + (value - originalMin) * (newMax - newMin) / (originalMax - originalMin);
         }
 
         private bool IsCoordinateInsideLayout(Vector2 worldCoordinate)
@@ -126,16 +121,16 @@ namespace Layout
                    worldCoordinate.y < _layoutMinCoordinates.y && worldCoordinate.y > _layoutMaxCoordinates.y;
         }
 
-        private Cell[] TakeCells(NewsHeadlinePiece draggedPiece, Vector2 mousePosition, NewsHeadlinePiece[] newsHeadlinePieces)
+        private Cell[] TakeCells(NewsHeadlineSubPiece draggedSubPiece, Vector2 mousePosition, NewsHeadlineSubPiece[] newsHeadlinePieces)
         {
             mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
-
+            
             if (!IsCoordinateInsideLayout(mousePosition))
             {
                 return null;
             }
             
-            Cell[] desiredCells = LookForCells(draggedPiece, mousePosition, newsHeadlinePieces);
+            Cell[] desiredCells = LookForCells(draggedSubPiece, mousePosition, newsHeadlinePieces);
 
             if (desiredCells == null)
             {
@@ -154,10 +149,10 @@ namespace Layout
 
         }
 
-        private Cell[] LookForCells(NewsHeadlinePiece draggedPiece, Vector2 mousePosition, NewsHeadlinePiece[] newsHeadlinePieces)
+        private Cell[] LookForCells(NewsHeadlineSubPiece draggedSubPiece, Vector2 mousePosition, NewsHeadlineSubPiece[] newsHeadlinePieces)
         {
 
-            foreach (NewsHeadlinePiece piece in newsHeadlinePieces)
+            foreach (NewsHeadlineSubPiece piece in newsHeadlinePieces)
             {
                 if (!IsCoordinateInsideLayout(piece.transform.position))
                 {
@@ -167,11 +162,11 @@ namespace Layout
             
             Cell[] desiredCells = new Cell[newsHeadlinePieces.Length];
 
-            int index = LookingForPieceInsideArray(draggedPiece, newsHeadlinePieces);
+            int index = LookingForPieceInsideArray(draggedSubPiece, newsHeadlinePieces);
             
             desiredCells[index] = LookForCellForDraggedPiece(mousePosition);
 
-            foreach (NewsHeadlinePiece piece in newsHeadlinePieces)
+            foreach (NewsHeadlineSubPiece piece in newsHeadlinePieces)
             {
                 if (!IsCoordinateInsideLayout((Vector2)piece.transform.position + (Vector2)(desiredCells[index].transform.position) - mousePosition))
                 {
@@ -179,16 +174,16 @@ namespace Layout
                 }
             }
 
-            return LookForCellsForNeighborPieces(index, draggedPiece, desiredCells, newsHeadlinePieces);
+            return LookForCellsForNeighborPieces(index, draggedSubPiece, desiredCells, newsHeadlinePieces);
         }
 
-        private int LookingForPieceInsideArray(NewsHeadlinePiece draggedPiece, NewsHeadlinePiece[] allPieces)
+        private int LookingForPieceInsideArray(NewsHeadlineSubPiece draggedSubPiece, NewsHeadlineSubPiece[] allPieces)
         {
             int index = 0;
             
             for (; index < allPieces.Length; index++)
             {
-                if (draggedPiece == allPieces[index])
+                if (draggedSubPiece == allPieces[index])
                 {
                     break;
                 }
@@ -222,7 +217,7 @@ namespace Layout
             return nearestCell;
         }
 
-        private Cell[] LookForCellsForNeighborPieces(int index, NewsHeadlinePiece draggedPiece, Cell[] desiredCells, NewsHeadlinePiece[] newsHeadlinePieces)
+        private Cell[] LookForCellsForNeighborPieces(int index, NewsHeadlineSubPiece draggedSubPiece, Cell[] desiredCells, NewsHeadlineSubPiece[] newsHeadlinePieces)
         {
             for (int i = 0; i < newsHeadlinePieces.Length; i++)
             {
@@ -231,20 +226,20 @@ namespace Layout
                     continue;
                 }
 
-                desiredCells[i] = LookForDesiredCell(i, index, draggedPiece, desiredCells, newsHeadlinePieces);
+                desiredCells[i] = LookForDesiredCell(i, index, draggedSubPiece, desiredCells, newsHeadlinePieces);
             }
 
             return desiredCells;
         }
 
-        private Cell LookForDesiredCell(int i, int index, NewsHeadlinePiece draggedPiece, Cell[] desiredCells, NewsHeadlinePiece[] newsHeadlinePieces)
+        private Cell LookForDesiredCell(int i, int index, NewsHeadlineSubPiece draggedSubPiece, Cell[] desiredCells, NewsHeadlineSubPiece[] newsHeadlinePieces)
         {
 
             int xCoordinateRelativeToDraggedPiece = 
-                (int)(newsHeadlinePieces[i].GetCoordinates().x - draggedPiece.GetCoordinates().x);
+                (int)(newsHeadlinePieces[i].GetCoordinates().x - draggedSubPiece.GetCoordinates().x);
                 
             int yCoordinateRelativeToDraggedPiece =
-                (int)(newsHeadlinePieces[i].GetCoordinates().y - draggedPiece.GetCoordinates().y);
+                (int)(newsHeadlinePieces[i].GetCoordinates().y - draggedSubPiece.GetCoordinates().y);
 
             int finalCellCoordinateX = (int)(desiredCells[index].GetColumn() + xCoordinateRelativeToDraggedPiece);
 

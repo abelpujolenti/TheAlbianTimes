@@ -2,28 +2,29 @@ using Managers;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Utility;
 
 namespace Layout
 {
-    public class NewsHeadlinePiece : MovableRectTransform
+    public class NewsHeadlineSubPiece : InteractableRectTransform
     {
-        [SerializeField] private NewHeadline _newHeadline;
+        [SerializeField] private NewHeadlinePiece newHeadlinePiece;
         
         [SerializeField] private Vector2 _coordinates;
 
         private Image _image;
 
-        private new void Start()
+        private void Start()
         {
-            base.Start();
             _image = GetComponent<Image>();
+            _gameObjectToDrag = transform.parent.gameObject;
         }
 
         protected override void BeginDrag(BaseEventData data)
         {
             base.BeginDrag(data);
             
-            _newHeadline.BeginDrag();
+            newHeadlinePiece.BeginDrag();
         }
 
         protected override void EndDrag(BaseEventData data)
@@ -32,12 +33,12 @@ namespace Layout
 
             PointerEventData pointerData = (PointerEventData) data;
             
-            if (ActionsManager.OnReleaseNewsHeadline == null)
+            if (EventsManager.OnReleaseNewsHeadline == null)
             {
                 return;
             }
 
-            ActionsManager.OnReleaseNewsHeadline(this, pointerData.position);
+            EventsManager.OnReleaseNewsHeadline(this, pointerData.position);
         }
 
         public void Fade(float alpha) { 

@@ -33,8 +33,8 @@ namespace Managers
             {
                 saveManager.LoadFromJson();
             }
-            LoadCountries();
-            LoadPlayerData();
+            /*LoadCountries();
+            LoadPlayerData();*/
         }
 
         public void SetLayoutManager(LayoutManager layoutManager)
@@ -47,9 +47,9 @@ namespace Managers
             EditorialManager.Instance.SendNewsHeadlineToNewsFolderCanvas(newsHeadline);
         }
 
-        public void SendNewsHeadlineToLayoutManager(NewsHeadline newsHeadline)
+        public void SendNewsHeadlineToLayoutManager(GameObject newsHeadline)
         {
-
+            LayoutManager.Instance.SendNewsHeadlineToNewsHeadlinePiecesCanvas(newsHeadline);
         }
 
         private void GenerateCountryEvents()

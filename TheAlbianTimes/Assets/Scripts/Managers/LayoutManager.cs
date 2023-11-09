@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
+using Editorial;
 using Managers.ScriptableObjects;
 using NoMonoBehavior;
 using UnityEngine;
@@ -19,6 +20,8 @@ namespace Managers
 
         private Dictionary<NewsType, Vector2[]> _newsPiecesCoordinates;
 
+        private GameObject _newsHeadlinePiecesCanvas;
+
         private void Awake()
         {
             if (_instance == null)
@@ -33,6 +36,7 @@ namespace Managers
 
         void Start()
         {
+            _newsHeadlinePiecesCanvas = GameObject.Find("NewsHeadlinePiecesCanvas");
             _newsPiecesCoordinates = _layoutManagerData._newsPiecesCoordinates ?? new Dictionary<NewsType, Vector2[]>();
             LoadPiecesCoordinatesFromFile();
         }
@@ -60,6 +64,16 @@ namespace Managers
 
                 _newsPiecesCoordinates.Add(newObject.type, coordinates);
             }
+        }
+
+        public void SendNewsHeadlinePieceToGameManager(GameObject newsHeadlinePiece)
+        {
+            GameManager.Instance.SendNewsHeadlineToEditorialManager(newsHeadlinePiece);
+        }
+
+        public void SendNewsHeadlineToNewsHeadlinePiecesCanvas(GameObject newsHeadlinePiece)
+        {
+
         }
 
         public Vector2[] GetPiecesCoordinates(NewsType newsType)

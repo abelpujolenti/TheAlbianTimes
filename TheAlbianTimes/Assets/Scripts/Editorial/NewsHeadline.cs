@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Managers;
+using NoMonoBehavior;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -19,6 +20,8 @@ namespace Editorial
         private const float SECONDS_AWAITING_TO_RETURN_TO_FOLDER = 3;
 
         private Coroutine _moveCoroutine;
+
+        [SerializeField]private NewsType _newsType;
         
         private NewsFolder _newsFolder;
 
@@ -30,11 +33,11 @@ namespace Editorial
         private Vector2 _destination;
         private Vector2 _origin;
         
-        [SerializeField]private int _folderOrderIndex;
-        [SerializeField]private int _chosenBiasIndex;
-        [SerializeField]private int _selectedBiasIndex;
+        private int _folderOrderIndex;
+        private int _chosenBiasIndex;
+        private int _selectedBiasIndex;
         
-        [SerializeField]private bool _inFront;
+        private bool _inFront;
 
         void Start()
         {
@@ -166,7 +169,7 @@ namespace Editorial
                 yield return null;
             }
             
-            EditorialManager.Instance.SendNewsHeadlineToGameManager(gameObject);
+            EditorialManager.Instance.SendNewsHeadlineToLayoutManager(gameObject, gameObject.GetInstanceID());
         }
 
         private IEnumerator Slide(Vector2 origin, Vector2 destination)
@@ -304,6 +307,16 @@ namespace Editorial
         public void SetBiasContent(String[] biasContent)
         {
             _biasContent = biasContent;
+        }
+
+        public void SetNewsType(NewsType newsType)
+        {
+            _newsType = newsType;
+        }
+
+        public NewsType GetNewsType()
+        {
+            return _newsType;
         }
     }
 }

@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.IO;
-using Editorial;
 using Managers.ScriptableObjects;
 using NoMonoBehavior;
 using UnityEngine;
@@ -66,14 +65,14 @@ namespace Managers
             }
         }
 
-        public void SendNewsHeadlinePieceToGameManager(GameObject newsHeadlinePiece)
+        public void SendNewsHeadlinePieceToEditorialManager(int newsHeadlineId)
         {
-            GameManager.Instance.SendNewsHeadlineToEditorialManager(newsHeadlinePiece);
+            GameManager.Instance.SendNewsHeadlineToEditorialManager(newsHeadlineId);
         }
 
-        public void SendNewsHeadlineToNewsHeadlinePiecesCanvas(GameObject newsHeadlinePiece)
+        public void SendNewsHeadlineToNewsHeadlinePiecesCanvas(GameObject newsHeadlinePiece, int newsHeadlineId)
         {
-
+            EventsManager.OnAddNewsHeadlinePieceToLayout(newsHeadlinePiece, newsHeadlineId);
         }
 
         public Vector2[] GetPiecesCoordinates(NewsType newsType)

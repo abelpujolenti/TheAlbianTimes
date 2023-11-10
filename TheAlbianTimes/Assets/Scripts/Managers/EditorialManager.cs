@@ -1,3 +1,4 @@
+using Editorial;
 using Managers.ScriptableObjects;
 using UnityEngine;
 
@@ -53,15 +54,34 @@ namespace Managers
             _biasContainerCanvas = biasContainerCanvasGameObject;
         }
 
-        public void SendNewsHeadlineToGameManager(GameObject newsHeadline) 
+        public void SendNewsHeadlineToLayoutManager(GameObject newsHeadline, int newsHeadlineId) 
         {
+            GameManager.Instance.SendNewsHeadlineToLayoutManager(newsHeadline, newsHeadlineId);
             newsHeadline.transform.SetParent(_newsHeadlineContainer.transform, false);
         }
 
-        public void SendNewsHeadlineToNewsFolderCanvas(GameObject newsHeadline)
+        public void SendNewsHeadlineToNewsFolderCanvas(int newsHeadlineId)
         {
+            GameObject newsHeadline = LookForDesiredNewsHeadline(newsHeadlineId);
             newsHeadline.transform.SetParent(_newsFolderCanvas.transform, false);
             EventsManager.OnAddNewsHeadlineToFolder(newsHeadline);
+        }
+
+        private GameObject LookForDesiredNewsHeadline(int newsHeadlineId)
+        {
+            GameObject newsHeadline = null;
+            
+            foreach (Transform childTransform in _newsHeadlineContainer.transform)
+            {
+                newsHeadline = childTransform.gameObject;
+                
+                if (childTransform.gameObject.GetInstanceID() == newsHeadlineId)
+                {
+                    break;
+                }
+            }
+
+            return newsHeadline;
         }
     }
 }

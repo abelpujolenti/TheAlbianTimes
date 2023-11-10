@@ -1,4 +1,3 @@
-using Editorial;
 using UnityEngine;
 
 namespace Managers
@@ -9,8 +8,6 @@ namespace Managers
         public static GameManager Instance => _instance;
         public GameState gameState;
         private SaveManager saveManager;
-
-        private LayoutManager _layoutManager;
 
         private void Awake()
         {
@@ -37,19 +34,14 @@ namespace Managers
             LoadPlayerData();*/
         }
 
-        public void SetLayoutManager(LayoutManager layoutManager)
+        public void SendNewsHeadlineToEditorialManager(int newsHeadlineId)
         {
-            _layoutManager.CopyComponent(layoutManager);
+            EditorialManager.Instance.SendNewsHeadlineToNewsFolderCanvas(newsHeadlineId);
         }
 
-        public void SendNewsHeadlineToEditorialManager(GameObject newsHeadline)
+        public void SendNewsHeadlineToLayoutManager(GameObject newsHeadline, int newsHeadlineId)
         {
-            EditorialManager.Instance.SendNewsHeadlineToNewsFolderCanvas(newsHeadline);
-        }
-
-        public void SendNewsHeadlineToLayoutManager(GameObject newsHeadline)
-        {
-            LayoutManager.Instance.SendNewsHeadlineToNewsHeadlinePiecesCanvas(newsHeadline);
+            LayoutManager.Instance.SendNewsHeadlineToNewsHeadlinePiecesCanvas(newsHeadline, newsHeadlineId);
         }
 
         private void GenerateCountryEvents()

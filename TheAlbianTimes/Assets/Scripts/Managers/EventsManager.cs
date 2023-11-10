@@ -9,10 +9,13 @@ namespace Managers
     {
         #region LayoutEvents
         
-        public static Action<float> OnDragNewsHeadlinePiece;
-        public static Action <NewsHeadlineSubPiece, Vector2> OnReleaseNewsHeadline;
-        public static Func<NewsHeadlineSubPiece, Vector2, NewsHeadlineSubPiece[], Cell[]> OnPreparingCells;
+        public static Action <GameObject, int> OnAddNewsHeadlinePieceToLayout;
+        public static Action OnDragNewsHeadlinePiece;
+        public static Action <NewsHeadlineSubPiece, Vector2> OnDropNewsHeadlinePiece;
+        public static Func <NewsHeadlineSubPiece, Vector2, NewsHeadlineSubPiece[], Cell[]> OnPreparingCells;
         public static Func <Cell[], Vector2, Vector3> OnSuccessFulSnap;
+        public static Action <NewsHeadlinePiece, Vector2> OnFailSnap;
+        public static Action OnSendNewsHeadlinePiece;
         
         #endregion
 

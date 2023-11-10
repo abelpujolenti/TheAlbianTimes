@@ -1,4 +1,4 @@
-using System;
+using AbstractClasses;
 using Managers;
 using UnityEngine;
 
@@ -12,7 +12,6 @@ namespace Editorial
         private void OnEnable()
         {
             EventsManager.OnDragNewsHeadline += ActivateContainers;
-
         }
         
         private void OnDisable()

@@ -1,10 +1,10 @@
-using System;
+using AbstractClasses;
 using Managers;
 using UnityEngine;
 
 namespace Editorial
 {
-    public class Change : NewsHeadlineAction
+    public class ChangeNewsHeadlineAction : NewsHeadlineAction
     {
         protected override void Action(NewsHeadline newsHeadline, Vector3 mousePosition)
         {

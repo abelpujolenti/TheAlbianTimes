@@ -12,7 +12,7 @@ public class TESTReturnNewsHEadlineToFolder : InteractableRectTransform
     {
         if (_newsHeadlineContainer.transform.childCount > 0)
         {
-            GameManager.Instance.SendNewsHeadlineToEditorialManager(_newsHeadlineContainer.transform.GetChild(0).gameObject);    
+            //GameManager.Instance.SendNewsHeadlineToEditorialManager(_newsHeadlineContainer.transform.GetChild(0).gameObject);    
         }
     }
 }

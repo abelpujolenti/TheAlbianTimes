@@ -8,8 +8,7 @@ namespace Layout
 {
     public class NewsHeadlineSubPiece : InteractableRectTransform
     {
-        [SerializeField] private NewHeadlinePiece newHeadlinePiece;
-        
+        [SerializeField] private NewsHeadlinePiece _newsHeadlinePiece;
         [SerializeField] private Vector2 _coordinates;
 
         private Image _image;
@@ -24,7 +23,7 @@ namespace Layout
         {
             base.BeginDrag(data);
             
-            newHeadlinePiece.BeginDrag();
+            _newsHeadlinePiece.BeginDrag();
         }
 
         protected override void EndDrag(BaseEventData data)
@@ -33,12 +32,12 @@ namespace Layout
 
             PointerEventData pointerData = (PointerEventData) data;
             
-            if (EventsManager.OnReleaseNewsHeadline == null)
+            if (EventsManager.OnDropNewsHeadlinePiece == null)
             {
                 return;
             }
 
-            EventsManager.OnReleaseNewsHeadline(this, pointerData.position);
+            EventsManager.OnDropNewsHeadlinePiece(this, pointerData.position);
         }
 
         public void Fade(float alpha) { 
@@ -48,6 +47,16 @@ namespace Layout
             auxColor.a = alpha;
 
             _image.color = auxColor;            
+        }
+
+        public void SetNewsHeadlinePiece(NewsHeadlinePiece newsHeadlinePiece)
+        {
+            _newsHeadlinePiece = newsHeadlinePiece;
+        }
+
+        public void SetCoordinates(Vector2 newCoordinates)
+        {
+            _coordinates = newCoordinates;
         }
 
         public Vector2 GetCoordinates()

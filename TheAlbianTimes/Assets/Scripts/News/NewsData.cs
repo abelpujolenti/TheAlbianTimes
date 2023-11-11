@@ -13,8 +13,8 @@ public class BiasData
     public string name;
     public string description;
 
-    public string newHeadline;
-    public string newText;
+    public string headline;
+    public string text;
 
     public NewsConsequenceData[] additionalConsequences;
 }
@@ -23,8 +23,6 @@ public class NewsData
 {
     public NewsType type;
 
-    public string headline;
-    public string text;
     public string imagePath;
 
     public NewsConsequenceData[] consequences;

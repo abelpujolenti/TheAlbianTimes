@@ -94,10 +94,7 @@ MonoBehaviour:
   hoverable: 1
   clickable: 1
   _textMeshPro: {fileID: 1029335324776157074}
-  _folderOrderIndex: 0
-  _chosenBiasIndex: 0
-  _selectedBiasIndex: 0
-  _inFront: 0
+  _newsType: 0
 --- !u!1 &4017239771087458495
 GameObject:
   m_ObjectHideFlags: 0
@@ -195,7 +192,7 @@ MonoBehaviour:
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 18
+  m_fontSizeMin: 10
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 2

@@ -21,27 +21,33 @@ namespace Editorial
 
         private Coroutine _moveCoroutine;
 
-        [SerializeField]private NewsType _newsType;
+        [SerializeField] private TextMeshProUGUI _textMeshPro;
         
         private NewsFolder _newsFolder;
 
-        [SerializeField] private TextMeshProUGUI _textMeshPro; 
-        
-        private String[] _shortBiasDescription;
-        private String[] _biasContent;
+        [SerializeField]private NewsType _newsType;
+
+        private String _imagePath;
+
+        private NewsConsequenceData[] _newsConsequencesData;
+
+        private String[] _biasesNames;
+        private String[] _headlinesText;
+        private String[] _biasesDescription;
+        private String[] _biasesContents;
 
         private Vector2 _destination;
         private Vector2 _origin;
         
-        private int _folderOrderIndex;
+        [SerializeField]private int _folderOrderIndex;
         private int _chosenBiasIndex;
         private int _selectedBiasIndex;
         
-        private bool _inFront;
+        [SerializeField]private bool _inFront;
 
         void Start()
         {
-            _textMeshPro.text = _biasContent[0];
+            _textMeshPro.text = _biasesContents[0];
 
             gameObject.GetComponent<Image>().color =
                 new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
@@ -113,7 +119,7 @@ namespace Editorial
                 return;
             }
             
-            _newsFolder.ReorderNewsHeadline(_folderOrderIndex, _chosenBiasIndex, _shortBiasDescription);
+            _newsFolder.ReorderNewsHeadline(_folderOrderIndex, _chosenBiasIndex, _biasesNames);
             
             if (_moveCoroutine != null)
             {
@@ -193,7 +199,7 @@ namespace Editorial
         private void ChangeContent(int newChosenBiasIndex)
         {
             _chosenBiasIndex = newChosenBiasIndex;
-            _textMeshPro.text = _biasContent[_chosenBiasIndex];
+            _textMeshPro.text = _biasesContents[_chosenBiasIndex];
             SetInFront(false);
             EventsManager.OnChangeFolderOrderIndexWhenGoingToFolder += GiveDestinationToReturnToFolder;
             _newsFolder.ProcedureWhenSendNewsHeadlineToRewrite();
@@ -301,21 +307,6 @@ namespace Editorial
             hoverable = !value;
         }
 
-        public void SetShortBiasDescription(String[] shortBiasDescription)
-        {
-            _shortBiasDescription = shortBiasDescription;
-        }
-
-        public String[] GetShortBiasDescription()
-        {
-            return _shortBiasDescription;
-        }
-
-        public void SetBiasContent(String[] biasContent)
-        {
-            _biasContent = biasContent;
-        }
-
         public void SetNewsType(NewsType newsType)
         {
             _newsType = newsType;
@@ -324,6 +315,46 @@ namespace Editorial
         public NewsType GetNewsType()
         {
             return _newsType;
+        }
+
+        public void SetImagePath(String imagePath)
+        {
+            _imagePath = imagePath;
+        }
+
+        public void SetNewsConsequencesData(NewsConsequenceData[] newsConsequencesData)
+        {
+            _newsConsequencesData = newsConsequencesData;
+        }
+
+        public void SetBiasNames(String[] biasesNames)
+        {
+            _biasesNames = biasesNames;
+        }
+
+        public String[] GetBiasesNames()
+        {
+            return _biasesNames;
+        }
+
+        public void SetBiasesDescription(String[] biasesDescription)
+        {
+            _biasesDescription = biasesDescription;
+        }
+
+        public String[] GetBiasesDescription()
+        {
+            return _biasesDescription;
+        }
+
+        public void SetHeadlinesText(String[] headlinesText)
+        {
+            _headlinesText = headlinesText;
+        }
+
+        public void SetBiasContent(String[] biasesContents)
+        {
+            _biasesContents = biasesContents;
         }
     }
 }

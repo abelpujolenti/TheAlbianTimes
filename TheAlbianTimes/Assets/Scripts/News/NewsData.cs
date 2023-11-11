@@ -5,14 +5,18 @@ using NoMonoBehavior;
 public class NewsConsequenceData
 {
     public Country.Id country;
-    float reputationChange;
+    public float reputationChange;
 }
 [Serializable]
 public class BiasData
 {
     public string name;
     public string description;
-    NewsConsequenceData[] additionalConsequences;
+
+    public string newHeadline;
+    public string newText;
+
+    public NewsConsequenceData[] additionalConsequences;
 }
 [Serializable]
 public class NewsData
@@ -23,7 +27,7 @@ public class NewsData
     public string text;
     public string imagePath;
 
-    NewsConsequenceData[] consequences;
+    public NewsConsequenceData[] consequences;
 
-    BiasData[] biases;
+    public BiasData[] biases;
 }

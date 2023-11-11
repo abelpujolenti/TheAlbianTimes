@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Editorial;
 using Managers.ScriptableObjects;
 using UnityEngine;
@@ -13,9 +14,9 @@ namespace Managers
 
         [SerializeField] private EditorialManagerData _editorialManagerData;
 
-        private GameObject _newsFolderCanvas;
         private GameObject _biasContainerCanvas;
-        private GameObject _newsHeadlineContainer;
+
+        private NewsFolder _newsFolder;
 
         private void Awake()
         {
@@ -29,11 +30,6 @@ namespace Managers
             }
         }
 
-        private void Start()
-        {
-            _newsHeadlineContainer = GameObject.Find("NewsHeadlineContainer");
-        }
-
         public void DeactivateBiasCanvas()
         {
             _biasContainerCanvas.gameObject.SetActive(false);
@@ -44,9 +40,9 @@ namespace Managers
             _biasContainerCanvas.gameObject.SetActive(true);
         }
 
-        public void SetNewsFolderCanvas(GameObject newsFolderCanvasGameObject)
+        public void SetNewsFolder(NewsFolder newsFolder)
         {
-            _newsFolderCanvas = newsFolderCanvasGameObject;
+            _newsFolder = newsFolder;
         }
 
         public void SetBiasContainerCanvas(GameObject biasContainerCanvasGameObject)
@@ -57,28 +53,31 @@ namespace Managers
         public void SendNewsHeadlineToLayoutManager(GameObject newsHeadline, int newsHeadlineId) 
         {
             GameManager.Instance.SendNewsHeadlineToLayoutManager(newsHeadline, newsHeadlineId);
-            newsHeadline.transform.SetParent(_newsHeadlineContainer.transform, false);
         }
 
         public void SendNewsHeadlineToNewsFolderCanvas(int newsHeadlineId)
         {
             GameObject newsHeadline = LookForDesiredNewsHeadline(newsHeadlineId);
-            newsHeadline.transform.SetParent(_newsFolderCanvas.transform, false);
             EventsManager.OnAddNewsHeadlineToFolder(newsHeadline);
         }
 
         private GameObject LookForDesiredNewsHeadline(int newsHeadlineId)
         {
-            GameObject newsHeadline = null;
+            List<GameObject> instancedNewsHeadlinesNotInSight = _newsFolder.GetInstancedNewsHeadlineNotInSightList();
             
-            foreach (Transform childTransform in _newsHeadlineContainer.transform)
+            GameObject newsHeadline = null;
+
+            for (int i = 0; i < instancedNewsHeadlinesNotInSight.Count; i++)
             {
-                newsHeadline = childTransform.gameObject;
-                
-                if (childTransform.gameObject.GetInstanceID() == newsHeadlineId)
+                newsHeadline = instancedNewsHeadlinesNotInSight[i];
+
+                if (newsHeadline.GetInstanceID() != newsHeadlineId)
                 {
-                    break;
+                    continue;
                 }
+                newsHeadline.SetActive(true);
+                instancedNewsHeadlinesNotInSight.RemoveAt(i);
+                break;
             }
 
             return newsHeadline;

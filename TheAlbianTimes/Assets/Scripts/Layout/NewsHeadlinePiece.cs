@@ -1,9 +1,7 @@
-using System;
 using System.Collections;
 using Managers;
 using NoMonoBehavior;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Layout
 {
@@ -99,7 +97,6 @@ namespace Layout
                     {
                         continue;
                     }
-
                     allSubPiecesInside = false;
                     break;
                 }
@@ -150,12 +147,14 @@ namespace Layout
 
                 yield return null;
             }
-            
+
+            EventsManager.OnSendNewsHeadlinePieceToEditorial(gameObject);
             LayoutManager.Instance.SendNewsHeadlinePieceToEditorialManager(_newsHeadlineId);
         }
 
         private void SendNewsHeadlinePieceToEditorial()
         {
+            EventsManager.OnSendNewsHeadlinePiece -= SendNewsHeadlinePieceToEditorial;
             _initialPosition = transform.position;
             Vector2 destination = _initialPosition + new Vector2(SEND_X_POSITION, 0);
             StartCoroutine(SendToEditorial(_initialPosition, destination));
@@ -210,6 +209,11 @@ namespace Layout
         public void SetNewsHeadlineId(int newsHeadlineId)
         {
             _newsHeadlineId = newsHeadlineId;
+        }
+
+        public int GetNewsHeadlineId()
+        {
+            return _newsHeadlineId;
         }
 
         public void SetPieceToSubPieces()

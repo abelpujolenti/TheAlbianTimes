@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Editorial;
 using Managers;
 using UnityEngine;
@@ -13,6 +14,8 @@ namespace Layout
         [SerializeField] private GameObject TESTPiece;
 
         private readonly Vector3[] _corners = new Vector3[4];
+
+        private List<GameObject> _instancedNewsHeadlinePieceNotInSight = new ();
         
         private Vector2 _containerMinCoordinates;
         private Vector2 _containerMaxCoordinates;
@@ -20,11 +23,13 @@ namespace Layout
         private void OnEnable()
         {
             EventsManager.OnAddNewsHeadlinePieceToLayout += AddNewsHeadlinePiece;
+            EventsManager.OnSendNewsHeadlinePieceToEditorial += AddNewsHeadlinePieceToNotInSightList;
         }
 
         private void OnDisable()
         {
             EventsManager.OnAddNewsHeadlinePieceToLayout -= AddNewsHeadlinePiece;
+            EventsManager.OnSendNewsHeadlinePieceToEditorial -= AddNewsHeadlinePieceToNotInSightList;
         }
 
         private void Start()
@@ -44,24 +49,53 @@ namespace Layout
 
         private void AddNewsHeadlinePiece(GameObject newsHeadline, int newsHeadlineId)
         {
-            GameObject newsHeadlinePieceGameObject = Instantiate(TESTPiece, transform);
+            GameObject auxNewsHeadlinePiece;
+            GameObject newsHeadlinePiece = null;
 
-            NewsHeadlinePiece newsHeadlinePieceComponent =
-                newsHeadlinePieceGameObject.GetComponent<NewsHeadlinePiece>();
+            NewsHeadlinePiece newsHeadlinePieceComponent = null;
+
+            for (int i = 0; i < _instancedNewsHeadlinePieceNotInSight.Count; i++)
+            {
+                auxNewsHeadlinePiece = _instancedNewsHeadlinePieceNotInSight[i];
+
+                if (auxNewsHeadlinePiece.GetComponent<NewsHeadlinePiece>().GetNewsHeadlineId() != newsHeadlineId)
+                {
+                    continue;
+                }
+                newsHeadlinePiece = auxNewsHeadlinePiece;
+                newsHeadlinePieceComponent = newsHeadlinePiece.GetComponent<NewsHeadlinePiece>();
+                newsHeadlinePiece.SetActive(true);
+                newsHeadlinePiece.transform.SetParent(gameObject.transform);
+                _instancedNewsHeadlinePieceNotInSight.RemoveAt(i);
+                break;
+            }
+
+            if (newsHeadlinePiece == null)
+            {
+                GameObject newsHeadlinePieceGameObject = Instantiate(TESTPiece, transform);
+
+                newsHeadlinePieceComponent = newsHeadlinePieceGameObject.GetComponent<NewsHeadlinePiece>();
+                
+                newsHeadlinePieceComponent.SetNewsType(newsHeadline.GetComponent<NewsHeadline>().GetNewsType());
+                
+                newsHeadlinePieceComponent.SetContainerLimiters(_containerMinCoordinates, _containerMaxCoordinates);
             
-            newsHeadlinePieceComponent.SetNewsType(newsHeadline.GetComponent<NewsHeadline>().GetNewsType());
-            
-            newsHeadlinePieceComponent.SetContainerLimiters(_containerMinCoordinates, _containerMaxCoordinates);
+                newsHeadlinePieceComponent.SetNewsHeadlineId(newsHeadlineId);
+            }
 
             Vector2 position = PositionNewsHeadlinePiece(newsHeadlinePieceComponent);
             
             newsHeadlinePieceComponent.SetInitialPosition(position);
 
             Vector2 origin = position + new Vector2(0, APPEAR_Y_POSITION);
-            
-            newsHeadlinePieceComponent.SetNewsHeadlineId(newsHeadlineId);
 
             newsHeadlinePieceComponent.SlideFromOriginToDestination(origin);
+        }
+
+        private void AddNewsHeadlinePieceToNotInSightList(GameObject newsHeadlinePiece)
+        {
+            newsHeadlinePiece.SetActive(false);
+            _instancedNewsHeadlinePieceNotInSight.Add(newsHeadlinePiece);
         }
 
         private Vector2 PositionNewsHeadlinePiece(NewsHeadlinePiece newsHeadlinePieceComponent)

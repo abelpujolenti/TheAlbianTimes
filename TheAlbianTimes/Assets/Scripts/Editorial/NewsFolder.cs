@@ -12,6 +12,7 @@ namespace Editorial
         private const float FOLDER_MAX_Y_COORDINATE = 11;
         
         [SerializeField]private List<NewsHeadline> _newsHeadlines;
+        [SerializeField] private List<GameObject> _instancedNewsHeadlineNotInSight = new ();
 
         [SerializeField]private int _sentNewsHeadlines;
 
@@ -30,7 +31,7 @@ namespace Editorial
 
         private void Start()
         {
-            EditorialManager.Instance.SetNewsFolderCanvas(gameObject);
+            EditorialManager.Instance.SetNewsFolder(this);
         }
 
         private void AddNewsHeadlineGameObject(GameObject newsHeadlineGameObject)
@@ -232,11 +233,6 @@ namespace Editorial
                 FOLDER_MIN_Y_COORDINATE, FOLDER_MAX_Y_COORDINATE);
         }
 
-        public int GetNewsHeadlinesLength()
-        {
-            return _newsHeadlines.Count;
-        }
-
         public void SubtractOneToSentNewsHeadline()
         {
             _sentNewsHeadlines--;
@@ -249,8 +245,12 @@ namespace Editorial
         private void SendNewsHeadlineToLayout()
         {
             ModifyInFrontProperties(false);
+
+            NewsHeadline frontNewsHeadline = _newsHeadlines[0];
             
-            StartCoroutine(_newsHeadlines[0].SendToLayout());
+            frontNewsHeadline.SendToLayout();
+            
+            _instancedNewsHeadlineNotInSight.Add(frontNewsHeadline.gameObject);
 
             _newsHeadlines.RemoveAt(0);
 
@@ -264,7 +264,7 @@ namespace Editorial
             
             ModifyInFrontProperties(true);
 
-            NewsHeadline frontNewsHeadline = _newsHeadlines[0];
+            frontNewsHeadline = _newsHeadlines[0];
             
             ChangeBias(frontNewsHeadline.GetChosenBiasIndex(), frontNewsHeadline.GetShortBiasDescription());
 
@@ -295,6 +295,16 @@ namespace Editorial
             _active = true;
             EditorialManager.Instance.ActivateBiasCanvas();
             EventsManager.OnSendNewsHeadline += SendNewsHeadlineToLayout;
+        }
+
+        public int GetNewsHeadlinesLength()
+        {
+            return _newsHeadlines.Count;
+        }
+
+        public ref List<GameObject> GetInstancedNewsHeadlineNotInSightList()
+        {
+            return ref _instancedNewsHeadlineNotInSight;
         }
     }
 }

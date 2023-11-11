@@ -155,7 +155,12 @@ namespace Editorial
             return timer;
         }
 
-        public IEnumerator SendToLayout()
+        public void SendToLayout()
+        {
+            StartCoroutine(SendNewsHeadlineToLayout());
+        }
+
+        private IEnumerator SendNewsHeadlineToLayout()
         {
             EventsManager.OnChangeNewsHeadlineContent -= ChangeContent;
             
@@ -170,6 +175,8 @@ namespace Editorial
             }
             
             EditorialManager.Instance.SendNewsHeadlineToLayoutManager(gameObject, gameObject.GetInstanceID());
+            
+            gameObject.SetActive(false);
         }
 
         private IEnumerator Slide(Vector2 origin, Vector2 destination)

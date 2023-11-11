@@ -19,8 +19,6 @@ namespace Managers
 
         private Dictionary<NewsType, Vector2[]> _newsPiecesCoordinates;
 
-        private GameObject _newsHeadlinePiecesCanvas;
-
         private void Awake()
         {
             if (_instance == null)
@@ -35,7 +33,6 @@ namespace Managers
 
         void Start()
         {
-            _newsHeadlinePiecesCanvas = GameObject.Find("NewsHeadlinePiecesCanvas");
             _newsPiecesCoordinates = _layoutManagerData._newsPiecesCoordinates ?? new Dictionary<NewsType, Vector2[]>();
             LoadPiecesCoordinatesFromFile();
         }

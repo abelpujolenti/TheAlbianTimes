@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Editorial;
 using Layout;
 using UnityEngine;
@@ -16,6 +17,7 @@ namespace Managers
         public static Func <Cell[], Vector2, Vector3> OnSuccessFulSnap;
         public static Action <NewsHeadlinePiece, Vector2> OnFailSnap;
         public static Action OnSendNewsHeadlinePiece;
+        public static Action <GameObject> OnSendNewsHeadlinePieceToEditorial;
         
         #endregion
 

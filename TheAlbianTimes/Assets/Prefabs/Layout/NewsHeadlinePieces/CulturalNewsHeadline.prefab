@@ -89,9 +89,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e18509e6cce0cc741bb11b8067e01a64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveCamera: 0
   draggable: 1
   hoverable: 0
   clickable: 0
+  gameObjectToDrag: {fileID: 0}
   _newsHeadlinePiece: {fileID: 415807745792424186}
   _coordinates: {x: 0, y: 1}
 --- !u!1 &6372850851273549285
@@ -183,9 +185,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e18509e6cce0cc741bb11b8067e01a64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveCamera: 0
   draggable: 1
   hoverable: 0
   clickable: 0
+  gameObjectToDrag: {fileID: 0}
   _newsHeadlinePiece: {fileID: 415807745792424186}
   _coordinates: {x: 0, y: 0}
 --- !u!1 &6419010518381844310
@@ -277,9 +281,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e18509e6cce0cc741bb11b8067e01a64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveCamera: 0
   draggable: 1
   hoverable: 0
   clickable: 0
+  gameObjectToDrag: {fileID: 0}
   _newsHeadlinePiece: {fileID: 415807745792424186}
   _coordinates: {x: 1, y: 0}
 --- !u!1 &8212201120594379693

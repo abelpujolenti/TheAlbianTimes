@@ -15,10 +15,10 @@ namespace Editorial
         private const int SELECTED_COLOR_BLUE_VALUE = 0;
 
         [SerializeField] private TextMeshProUGUI _textMeshPro;
-        
-        [SerializeField] private String _text;
 
         [SerializeField] private Image _image;
+        
+        private String _text;
 
         private Color _selectedColor;
         

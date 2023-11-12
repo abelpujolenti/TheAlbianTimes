@@ -5,6 +5,7 @@ using NoMonoBehavior;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Utility;
 using Random = UnityEngine.Random;
@@ -21,7 +22,8 @@ namespace Editorial
 
         private Coroutine _moveCoroutine;
 
-        [SerializeField] private TextMeshProUGUI _textMeshPro;
+        [SerializeField] private TextMeshProUGUI _headlineText;
+        [SerializeField] private TextMeshProUGUI _contentText;
         
         private NewsFolder _newsFolder;
 
@@ -39,15 +41,16 @@ namespace Editorial
         private Vector2 _destination;
         private Vector2 _origin;
         
-        [SerializeField]private int _folderOrderIndex;
+        private int _folderOrderIndex;
         private int _chosenBiasIndex;
         private int _selectedBiasIndex;
         
-        [SerializeField]private bool _inFront;
+        private bool _inFront;
 
         void Start()
         {
-            _textMeshPro.text = _biasesContents[0];
+            _headlineText.text = _headlinesText[0];
+            _contentText.text = _biasesContents[0];
 
             gameObject.GetComponent<Image>().color =
                 new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
@@ -119,7 +122,7 @@ namespace Editorial
                 return;
             }
             
-            _newsFolder.ReorderNewsHeadline(_folderOrderIndex, _chosenBiasIndex, _biasesNames);
+            _newsFolder.ReorderNewsHeadline(_folderOrderIndex, _chosenBiasIndex, _biasesNames, _biasesDescription);
             
             if (_moveCoroutine != null)
             {
@@ -199,7 +202,8 @@ namespace Editorial
         private void ChangeContent(int newChosenBiasIndex)
         {
             _chosenBiasIndex = newChosenBiasIndex;
-            _textMeshPro.text = _biasesContents[_chosenBiasIndex];
+            _headlineText.text = _headlinesText[_chosenBiasIndex];
+            _contentText.text = _biasesContents[_chosenBiasIndex];
             SetInFront(false);
             EventsManager.OnChangeFolderOrderIndexWhenGoingToFolder += GiveDestinationToReturnToFolder;
             _newsFolder.ProcedureWhenSendNewsHeadlineToRewrite();

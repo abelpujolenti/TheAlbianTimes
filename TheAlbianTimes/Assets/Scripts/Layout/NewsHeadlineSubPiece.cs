@@ -16,7 +16,7 @@ namespace Layout
         private void Start()
         {
             _image = GetComponent<Image>();
-            _gameObjectToDrag = transform.parent.gameObject;
+            gameObjectToDrag = transform.parent.gameObject;
         }
 
         protected override void BeginDrag(BaseEventData data)

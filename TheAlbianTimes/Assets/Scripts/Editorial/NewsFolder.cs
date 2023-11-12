@@ -11,10 +11,10 @@ namespace Editorial
         private const float FOLDER_MIN_Y_COORDINATE = -35;
         private const float FOLDER_MAX_Y_COORDINATE = 11;
         
-        [SerializeField]private List<NewsHeadline> _newsHeadlines;
-        [SerializeField] private List<GameObject> _instancedNewsHeadlineNotInSight = new ();
+        private List<NewsHeadline> _newsHeadlines = new ();
+        private List<GameObject> _instancedNewsHeadlineNotInSight = new ();
 
-        [SerializeField]private int _sentNewsHeadlines;
+        private int _sentNewsHeadlines;
 
         private bool _active; 
         private bool _allNewsHeadlinesSent = true; 
@@ -81,7 +81,7 @@ namespace Editorial
             }
             EventsManager.OnChangeToNewBias();
             newsHeadline.SetInFront(true);
-            ChangeBias(newsHeadline.GetChosenBiasIndex(), newsHeadline.GetBiasesNames());
+            ChangeBias(newsHeadline.GetChosenBiasIndex(), newsHeadline.GetBiasesNames(), newsHeadline.GetBiasesDescription());
         }
 
         private void RepositionAllNewsHeadlines()
@@ -101,7 +101,7 @@ namespace Editorial
                 newsHeadline = _newsHeadlines[0];
                 
                 EventsManager.OnChangeToNewBias();
-                EventsManager.OnSettingNewBiasDescription(newsHeadline.GetBiasesNames());
+                EventsManager.OnSettingNewBiases(newsHeadline.GetBiasesNames(), newsHeadline.GetBiasesDescription());
                 countOfTotalNewsHeadline = newsHeadlineListLength;
             }
             
@@ -124,7 +124,7 @@ namespace Editorial
             }
         }
 
-        public void ReorderNewsHeadline(int newsHeadlineToSwitchIndex, int newChosenBiasIndex, String[] newShortBiasDescription)
+        public void ReorderNewsHeadline(int newsHeadlineToSwitchIndex, int newChosenBiasIndex, String[] biasesNames, String[] newBiasesDescriptions)
         {
             ModifyInFrontProperties(false);
             
@@ -132,7 +132,7 @@ namespace Editorial
             
             ModifyInFrontProperties(true);
             
-            ChangeBias(newChosenBiasIndex, newShortBiasDescription);
+            ChangeBias(newChosenBiasIndex, biasesNames, newBiasesDescriptions);
             
             PositionNewsHeadlinesByGivenIndex((_newsHeadlines.Count - 1) - newsHeadlineToSwitchIndex);
         }
@@ -188,16 +188,15 @@ namespace Editorial
                 frontNewsHeadline = _newsHeadlines[0];
                 
                 ModifyInFrontProperties(true);
-            
-                ChangeBias(frontNewsHeadline.GetChosenBiasIndex(), frontNewsHeadline.GetBiasesNames());
             }
             else
             {
                 frontNewsHeadline = _newsHeadlines[0];
 
                 frontNewsHeadline.SetInFront(true);
-                ChangeBias(frontNewsHeadline.GetChosenBiasIndex(), frontNewsHeadline.GetBiasesNames());
+                
             }
+            ChangeBias(frontNewsHeadline.GetChosenBiasIndex(), frontNewsHeadline.GetBiasesNames(), frontNewsHeadline.GetBiasesDescription());
             
             RepositionAllNewsHeadlines();
             
@@ -269,7 +268,7 @@ namespace Editorial
 
             frontNewsHeadline = _newsHeadlines[0];
             
-            ChangeBias(frontNewsHeadline.GetChosenBiasIndex(), frontNewsHeadline.GetBiasesNames());
+            ChangeBias(frontNewsHeadline.GetChosenBiasIndex(), frontNewsHeadline.GetBiasesNames(), frontNewsHeadline.GetBiasesDescription());
 
             if (_newsHeadlines.Count <= _sentNewsHeadlines)
             {
@@ -280,10 +279,10 @@ namespace Editorial
             PositionNewsHeadlinesByGivenIndex(_sentNewsHeadlines);
         }
 
-        private void ChangeBias(int newChosenBiasIndex, String[] newShortBiasDescription)
+        private void ChangeBias(int newChosenBiasIndex, String[] biasesNames, String[] newBiasesDescriptions)
         {
+            EventsManager.OnSettingNewBiases(biasesNames, newBiasesDescriptions);
             EventsManager.OnChangeFrontNewsHeadline(newChosenBiasIndex);
-            EventsManager.OnSettingNewBiasDescription(newShortBiasDescription);
         }
 
         private void TurnOff()

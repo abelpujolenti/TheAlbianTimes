@@ -28,7 +28,7 @@ namespace Managers
         public static Action <int> OnChangeNewsHeadlineContent;
         public static Action <GameObject> OnAddNewsHeadlineToFolder;
         public static Action <int> OnChangeFrontNewsHeadline;
-        public static Action <String[]> OnSettingNewBiasDescription;
+        public static Action <String[], String[]> OnSettingNewBiases;
         public static Action OnChangeToNewBias;
         public static Action OnChangeFolderOrderIndexWhenGoingToFolder;
         public static Action OnSendNewsHeadline;

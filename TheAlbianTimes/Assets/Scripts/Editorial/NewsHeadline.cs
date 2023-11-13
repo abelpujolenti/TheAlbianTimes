@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Layout;
 using Managers;
 using NoMonoBehavior;
 using TMPro;
@@ -15,12 +16,15 @@ namespace Editorial
     public class NewsHeadline : InteractableRectTransform
     {
         private const float CHANGE_CONTENT_Y_COORDINATE = 1000;
-        private const float SEND_X_COORDINATE = 1000;
         private const float SPEED_MOVEMENT = 10;
         private const float Y_DISTANCE_TO_MOVE_ON_HOVER = 10f;
         private const float SECONDS_AWAITING_TO_RETURN_TO_FOLDER = 3;
 
         private Coroutine _moveCoroutine;
+
+        private GameObject _gameObjectToTransferDrag;
+
+        [SerializeField]private NewsHeadlinePiece _newsHeadlinePieceToTransferDrag;
 
         [SerializeField] private TextMeshProUGUI _headlineText;
         [SerializeField] private TextMeshProUGUI _contentText;
@@ -41,11 +45,12 @@ namespace Editorial
         private Vector2 _destination;
         private Vector2 _origin;
         
-        private int _folderOrderIndex;
+        [SerializeField]private int _folderOrderIndex;
         private int _chosenBiasIndex;
         private int _selectedBiasIndex;
         
-        private bool _inFront;
+        [SerializeField]private bool _inFront;
+        private bool _transferDrag;
 
         void Start()
         {
@@ -54,6 +59,11 @@ namespace Editorial
 
             gameObject.GetComponent<Image>().color =
                 new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
+        }
+
+        public void SimulateBeginDrag(BaseEventData data)
+        {
+            BeginDrag(data);
         }
 
         protected override void BeginDrag(BaseEventData data)
@@ -65,12 +75,61 @@ namespace Editorial
             
             base.BeginDrag(data);
 
-            EventsManager.OnDragNewsHeadline(this);
-            EditorialManager.Instance.DeactivateBiasCanvas();
+            EventsManager.OnPrepareNewsHeadlineActions(this);
+            _newsFolder.TurnOff();
+            _newsFolder.SetDragging(true);
+        }
+
+        protected override void Drag(BaseEventData data)
+        {
+            PointerEventData pointerData = (PointerEventData)data;
+
+            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(pointerData.position);
+
+            if (mousePosition.x > 17.8 / 2)
+            {
+                if (_chosenBiasIndex != _selectedBiasIndex)
+                {
+                    return;
+                }
+
+                Transform parentTransform = _gameObjectToTransferDrag.transform.parent;
+                parentTransform.position = mousePosition;
+                parentTransform.gameObject.SetActive(true);
+                _newsHeadlinePieceToTransferDrag.BeginDrag();
+                
+                pointerData.pointerDrag = _gameObjectToTransferDrag;
+                
+                gameObject.SetActive(false);
+
+                if (!_newsHeadlinePieceToTransferDrag.GetTransferDrag())
+                {
+                    _transferDrag = true;
+                }
+                else
+                {
+                    _newsHeadlinePieceToTransferDrag.SetTransferDrag(false);
+                }
+                
+                return;
+            }
+            
+            base.Drag(data);
+        }
+
+        public void SimulateEndDrag(BaseEventData data)
+        {
+            EndDrag(data);
         }
 
         protected override void EndDrag(BaseEventData data)
         {
+            if (_newsHeadlinePieceToTransferDrag.GetTransferDrag())
+            {
+                EventsManager.OnReturnNewsHeadlineToFolder(this);
+                _newsHeadlinePieceToTransferDrag.BeginDrag();
+            }
+            
             if (!draggable)
             {
                 return;
@@ -80,7 +139,24 @@ namespace Editorial
 
             PointerEventData pointerData = (PointerEventData) data;
             
-            EditorialManager.Instance.ActivateBiasCanvas();
+            _newsFolder.TurnOn();
+            _newsFolder.SetDragging(false);
+            
+            if (EventsManager.OnDropNewsHeadline == null)
+            {
+                if (!gameObject.activeSelf)
+                {
+                    _newsFolder.SendNewsHeadlineToLayout();
+                    return;
+                }
+                DropOnFolder(); 
+                if (!_newsHeadlinePieceToTransferDrag.GetTransferDrag())
+                {
+                    DropOnFolder();    
+                }
+                _newsHeadlinePieceToTransferDrag.SetTransferDrag(false);
+                return;
+            }
             EventsManager.OnDropNewsHeadline(this, pointerData.position);
         }
 
@@ -164,30 +240,6 @@ namespace Editorial
             return timer;
         }
 
-        public void SendToLayout()
-        {
-            StartCoroutine(SendNewsHeadlineToLayout());
-        }
-
-        private IEnumerator SendNewsHeadlineToLayout()
-        {
-            EventsManager.OnChangeNewsHeadlineContent -= ChangeContent;
-            
-            float timer = 0f;
-
-            Vector2 destination = new Vector2(SEND_X_COORDINATE, 0);
-
-            while (timer < 1)
-            {
-                timer = MoveToDestination(_origin, _origin + destination, timer);
-                yield return null;
-            }
-            
-            EditorialManager.Instance.SendNewsHeadlineToLayoutManager(gameObject, gameObject.GetInstanceID());
-            
-            gameObject.SetActive(false);
-        }
-
         private IEnumerator Slide(Vector2 origin, Vector2 destination)
         {
             float timer = 0;
@@ -204,11 +256,15 @@ namespace Editorial
             _chosenBiasIndex = newChosenBiasIndex;
             _headlineText.text = _headlinesText[_chosenBiasIndex];
             _contentText.text = _biasesContents[_chosenBiasIndex];
-            SetInFront(false);
+            
             EventsManager.OnChangeFolderOrderIndexWhenGoingToFolder += GiveDestinationToReturnToFolder;
-            _newsFolder.ProcedureWhenSendNewsHeadlineToRewrite();
+            
+            _newsFolder.ProcedureOnChangeBias();
+            
             Vector2 destination = new Vector2(0, CHANGE_CONTENT_Y_COORDINATE);
+            
             StartCoroutine(SendToChangeContent(destination));
+            
             _origin = destination;
         }
         
@@ -224,16 +280,16 @@ namespace Editorial
             
             yield return new WaitForSeconds(SECONDS_AWAITING_TO_RETURN_TO_FOLDER);
 
-            ReturnToFolder(_origin);
+            ReturnToFolder();
         }
 
         public void AddToFolder()
         {
             EventsManager.OnChangeFolderOrderIndexWhenGoingToFolder += GiveDestinationToReturnToFolder;
-            ReturnToFolder(new Vector2(0, CHANGE_CONTENT_Y_COORDINATE));
+            ReturnToFolder();
         }
 
-        private void ReturnToFolder(Vector2 origin)
+        private void ReturnToFolder()
         {
             int countOfTotalNewsHeadline = _newsFolder.GetNewsHeadlinesLength();
 
@@ -244,14 +300,16 @@ namespace Editorial
             
             _destination = new Vector2(0, _newsFolder.GiveNewFolderYCoordinate(_folderOrderIndex, countOfTotalNewsHeadline));
             
-            StartCoroutine(SendToFolderAgain(origin));
+            StartCoroutine(SendToFolderAgain());
         }
 
-        private IEnumerator SendToFolderAgain(Vector2 origin)
+        private IEnumerator SendToFolderAgain()
         {
             transform.SetAsFirstSibling();
 
             float timer = 0;
+
+            Vector2 origin = transform.localPosition;
 
             while (timer < 1)
             {
@@ -262,7 +320,9 @@ namespace Editorial
             EventsManager.OnChangeFolderOrderIndexWhenGoingToFolder -= GiveDestinationToReturnToFolder; 
 
             _origin = _destination;
-            
+
+            ModifyFlags(_folderOrderIndex == 0);
+
             _newsFolder.SubtractOneToSentNewsHeadline();
         }
 
@@ -359,6 +419,26 @@ namespace Editorial
         public void SetBiasContent(String[] biasesContents)
         {
             _biasesContents = biasesContents;
+        }
+        
+        public void SetGameObjectToTransferDrag(GameObject gameObjectToTransferDrag)
+        {
+            _gameObjectToTransferDrag = gameObjectToTransferDrag;
+        }
+
+        public void SetNewsHeadlineSubPieceToTransferDrag(NewsHeadlinePiece newsHeadlinePieceToTransferDrag)
+        {
+            _newsHeadlinePieceToTransferDrag = newsHeadlinePieceToTransferDrag;
+        }
+
+        public void SetTransferDrag(bool transferDrag)
+        {
+            _transferDrag = transferDrag;
+        }
+
+        public bool GetTransferDrag()
+        {
+            return _transferDrag;
         }
     }
 }

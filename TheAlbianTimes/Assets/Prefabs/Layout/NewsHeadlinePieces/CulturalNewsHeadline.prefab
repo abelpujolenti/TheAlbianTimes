@@ -93,9 +93,10 @@ MonoBehaviour:
   draggable: 1
   hoverable: 0
   clickable: 0
-  gameObjectToDrag: {fileID: 0}
+  _gameObjectToTransferDrag: {fileID: 0}
   _newsHeadlinePiece: {fileID: 415807745792424186}
   _coordinates: {x: 0, y: 1}
+  _image: {fileID: 4137797519047533989}
 --- !u!1 &6372850851273549285
 GameObject:
   m_ObjectHideFlags: 0
@@ -189,9 +190,10 @@ MonoBehaviour:
   draggable: 1
   hoverable: 0
   clickable: 0
-  gameObjectToDrag: {fileID: 0}
+  _gameObjectToTransferDrag: {fileID: 0}
   _newsHeadlinePiece: {fileID: 415807745792424186}
   _coordinates: {x: 0, y: 0}
+  _image: {fileID: 3112735442298495299}
 --- !u!1 &6419010518381844310
 GameObject:
   m_ObjectHideFlags: 0
@@ -285,9 +287,10 @@ MonoBehaviour:
   draggable: 1
   hoverable: 0
   clickable: 0
-  gameObjectToDrag: {fileID: 0}
+  _gameObjectToTransferDrag: {fileID: 0}
   _newsHeadlinePiece: {fileID: 415807745792424186}
   _coordinates: {x: 1, y: 0}
+  _image: {fileID: 3701945140026480999}
 --- !u!1 &8212201120594379693
 GameObject:
   m_ObjectHideFlags: 0

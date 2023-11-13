@@ -28,6 +28,8 @@ namespace Layout
 
         private int _newsHeadlineId;
         
+        [SerializeField]private bool _transferDrag;
+        
         void Awake()
         {
             _subPiecesPositionsRelativeToRoot = new Vector2[_newsHeadlineSubPieces.Length];
@@ -54,9 +56,7 @@ namespace Layout
                 newsHeadlineSubPiece.Fade(TRANSPARENCY_VALUE);
             }
             
-            EventsManager.OnDragNewsHeadlinePiece();
             EventsManager.OnDropNewsHeadlinePiece += EndDrag;
-            EventsManager.OnSendNewsHeadlinePiece += SendNewsHeadlinePieceToEditorial;
 
             if (_snappedCells == null)
             {
@@ -86,8 +86,13 @@ namespace Layout
             
             EventsManager.OnDropNewsHeadlinePiece -= EndDrag;
 
+            if (!gameObject.activeSelf)
+            {
+                return;
+            }
+            
             _snappedCells = EventsManager.OnPreparingCells(draggedSubPiece, mousePosition, _newsHeadlineSubPieces);
-
+            
             if (_snappedCells == null)
             {
                 bool allSubPiecesInside = true;
@@ -108,7 +113,6 @@ namespace Layout
                 EventsManager.OnFailSnap(this, mousePosition);
                 return;
             }
-            EventsManager.OnSendNewsHeadlinePiece -= SendNewsHeadlinePieceToEditorial;
 
             transform.position = EventsManager.OnSuccessFulSnap(_snappedCells, transform.position) + _offset;
         }
@@ -149,15 +153,6 @@ namespace Layout
             }
 
             EventsManager.OnSendNewsHeadlinePieceToEditorial(gameObject);
-            LayoutManager.Instance.SendNewsHeadlinePieceToEditorialManager(_newsHeadlineId);
-        }
-
-        private void SendNewsHeadlinePieceToEditorial()
-        {
-            EventsManager.OnSendNewsHeadlinePiece -= SendNewsHeadlinePieceToEditorial;
-            _initialPosition = transform.position;
-            Vector2 destination = _initialPosition + new Vector2(SEND_X_POSITION, 0);
-            StartCoroutine(SendToEditorial(_initialPosition, destination));
         }
 
         private NewsHeadlineSubPiece[] GetNewsHeadlineNeighborPieces(Vector2 coordinates)
@@ -206,6 +201,11 @@ namespace Layout
             _initialPosition = newInitialPosition;
         }
 
+        public Vector2 GetInitialPosition()
+        {
+            return _initialPosition;
+        }
+
         public void SetNewsHeadlineId(int newsHeadlineId)
         {
             _newsHeadlineId = newsHeadlineId;
@@ -224,10 +224,25 @@ namespace Layout
             }
         }
 
+        public NewsHeadlineSubPiece[] GetNewsHeadlinesSubPieces()
+        {
+            return _newsHeadlineSubPieces;
+        }
+
         private bool IsCoordinateInsideBounds(Vector2 coordinate)
         {
             return coordinate.x < _containerMaxCoordinates.x && coordinate.x > _containerMinCoordinates.x &&
                    coordinate.y > _containerMaxCoordinates.y && coordinate.y < _containerMinCoordinates.y;
+        }
+
+        public void SetTransferDrag(bool transferDrag)
+        {
+            _transferDrag = transferDrag;
+        }
+
+        public bool GetTransferDrag()
+        {
+            return _transferDrag;
         }
     }
 }

@@ -62,16 +62,6 @@ namespace Managers
             }
         }
 
-        public void SendNewsHeadlinePieceToEditorialManager(int newsHeadlineId)
-        {
-            GameManager.Instance.SendNewsHeadlineToEditorialManager(newsHeadlineId);
-        }
-
-        public void SendNewsHeadlineToNewsHeadlinePiecesCanvas(GameObject newsHeadlinePiece, int newsHeadlineId)
-        {
-            EventsManager.OnAddNewsHeadlinePieceToLayout(newsHeadlinePiece, newsHeadlineId);
-        }
-
         public Vector2[] GetPiecesCoordinates(NewsType newsType)
         { 
 

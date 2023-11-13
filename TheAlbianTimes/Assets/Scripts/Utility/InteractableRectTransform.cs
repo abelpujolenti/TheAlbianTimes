@@ -43,20 +43,17 @@ namespace Utility
             {
                 eventTrigger = gameObject.AddComponent<EventTrigger>();
             }
-            if (draggable || moveCamera)
+            if (draggable)
             {
-                if (draggable)
-                {
-                    AddEventTrigger(EventTriggerType.Drag, Drag);
-                    AddEventTrigger(EventTriggerType.BeginDrag, BeginDrag);
-                    AddEventTrigger(EventTriggerType.EndDrag, EndDrag);
-                }
-                if (moveCamera)
-                {
-                    AddEventTrigger(EventTriggerType.Drag, DragCamera);
-                    AddEventTrigger(EventTriggerType.BeginDrag, BeginDragCamera);
-                    AddEventTrigger(EventTriggerType.EndDrag, EndDragCamera);
-                }
+                AddEventTrigger(EventTriggerType.Drag, Drag);
+                AddEventTrigger(EventTriggerType.BeginDrag, BeginDrag);
+                AddEventTrigger(EventTriggerType.EndDrag, EndDrag);
+            }
+            if (moveCamera)
+            {
+                AddEventTrigger(EventTriggerType.Drag, DragCamera);
+                AddEventTrigger(EventTriggerType.BeginDrag, BeginDragCamera);
+                AddEventTrigger(EventTriggerType.EndDrag, EndDragCamera);
             }
             if (hoverable)
             {
@@ -103,7 +100,7 @@ namespace Utility
         
         protected virtual void BeginDragCamera(BaseEventData data)
         {
-            PointerEventData pointerData = (PointerEventData) data;
+            PointerEventData pointerData = (PointerEventData) data;            
 
             _initialMouseXPosition = Camera.main.ScreenToWorldPoint(pointerData.position).x;
         
@@ -122,7 +119,7 @@ namespace Utility
 
             float nextXPosition = _initialMouseXPosition - difference;
 
-            if (nextXPosition < MIN_X_POSITION_CAMERA ^ nextXPosition > MAX_X_POSITION_CAMERA)
+            if (nextXPosition < MIN_X_POSITION_CAMERA || nextXPosition > MAX_X_POSITION_CAMERA)
             {
                 return;
             }

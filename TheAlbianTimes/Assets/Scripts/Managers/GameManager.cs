@@ -34,16 +34,6 @@ namespace Managers
             LoadPlayerData();*/
         }
 
-        public void SendNewsHeadlineToEditorialManager(int newsHeadlineId)
-        {
-            EditorialManager.Instance.SendNewsHeadlineToNewsFolderCanvas(newsHeadlineId);
-        }
-
-        public void SendNewsHeadlineToLayoutManager(GameObject newsHeadline, int newsHeadlineId)
-        {
-            LayoutManager.Instance.SendNewsHeadlineToNewsHeadlinePiecesCanvas(newsHeadline, newsHeadlineId);
-        }
-
         private void GenerateCountryEvents()
         {
             foreach (Country country in gameState.countries)

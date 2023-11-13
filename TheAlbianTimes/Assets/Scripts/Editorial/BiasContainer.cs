@@ -13,7 +13,9 @@ namespace Editorial
 
         private String[] _biasesDescriptions;
 
-        private int _totalBiasActive;
+        private int _totalBiasesActive;
+
+        private bool _active;
 
         private void OnEnable()
         {
@@ -39,9 +41,9 @@ namespace Editorial
 
         private void SetBias(String[] biasesNames, String[] biasesDescriptions)
         {
-            _totalBiasActive = biasesDescriptions.Length;
+            _totalBiasesActive = biasesDescriptions.Length;
             
-            for (int i = 0; i < _totalBiasActive; i++)
+            for (int i = 0; i < _totalBiasesActive; i++)
             {
                 _bias[i].gameObject.SetActive(true);
                 _bias[i].SetText(biasesNames[i]);
@@ -70,11 +72,21 @@ namespace Editorial
 
         private void DeactivateBias()
         {
-            for (int i = 0; i < _totalBiasActive; i++)
+            for (int i = 0; i < _totalBiasesActive; i++)
             {
                 _bias[i].gameObject.SetActive(false);
             }
             _biasesdescriptionText.transform.parent.gameObject.SetActive(false);
+        }
+
+        public void SetActive(bool active)
+        {
+            _active = active;
+        }
+
+        public bool IsActive()
+        {
+            return _active;
         }
     }
 }

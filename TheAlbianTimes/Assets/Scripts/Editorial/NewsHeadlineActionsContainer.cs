@@ -22,6 +22,7 @@ namespace Editorial
         {
             if (newsHeadline.GetChosenBiasIndex() == newsHeadline.GetSelectedBiasIndex())
             {
+                EventsManager.OnStartEndDrag(true);
                 return;
             }
             _newsHeadlineChangeAction.gameObject.SetActive(true);

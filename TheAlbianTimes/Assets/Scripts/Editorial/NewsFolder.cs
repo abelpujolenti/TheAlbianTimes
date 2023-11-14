@@ -17,7 +17,7 @@ namespace Editorial
 
         private int _sentNewsHeadlines;
         
-        private bool _allNewsHeadlinesSent = true;
+        private bool _noOneInFolder;
         private bool _dragging;
 
         private void OnEnable()
@@ -44,13 +44,7 @@ namespace Editorial
             
             newsHeadlineComponent.SetNewsFolder(this);
             
-            AddNewsHeadlineComponentToList(newsHeadlineGameObject.GetComponent<NewsHeadline>());
-
-            _sentNewsHeadlines++;
-            
-            newsHeadlineComponent.AddToFolder();
-            
-            RepositionAllNewsHeadlines();
+            ReturnNewsHeadlineComponentToList(newsHeadlineGameObject.GetComponent<NewsHeadline>());
         }
 
         private void ReturnNewsHeadlineComponentToList(NewsHeadline newsHeadline)
@@ -58,6 +52,7 @@ namespace Editorial
             AddNewsHeadlineComponentToList(newsHeadline);
 
             _sentNewsHeadlines++;
+            _noOneInFolder = _newsHeadlines.Count == _sentNewsHeadlines;
             
             newsHeadline.AddToFolder();
             
@@ -66,7 +61,7 @@ namespace Editorial
 
         private void AddNewsHeadlineComponentToList(NewsHeadline newsHeadline)
         {
-            _allNewsHeadlinesSent = _newsHeadlines.Count == _sentNewsHeadlines;
+            bool atStartNoOneInFolder = _newsHeadlines.Count == _sentNewsHeadlines;
             
             if (_sentNewsHeadlines == 0)
             {
@@ -74,7 +69,7 @@ namespace Editorial
             }
             else
             {
-                if (_allNewsHeadlinesSent)
+                if (atStartNoOneInFolder)
                 {
                     ModifyInFrontProperties(false);
                 }
@@ -84,14 +79,12 @@ namespace Editorial
                 CheckCurrentNewsHeadlinesSent();
             }
 
-            if (!_allNewsHeadlinesSent)
+            if (!atStartNoOneInFolder)
             {
                 return;
             }
-
+            
             TurnOn();
-            EventsManager.OnChangeToNewBias();
-            newsHeadline.SetInFront(true);
             ChangeBias(newsHeadline.GetChosenBiasIndex(), newsHeadline.GetBiasesNames(), newsHeadline.GetBiasesDescription());
         }
 
@@ -109,10 +102,6 @@ namespace Editorial
             
             if (newsHeadlineListLength == 1)
             {
-                newsHeadline = _newsHeadlines[0];
-                
-                EventsManager.OnChangeToNewBias();
-                EventsManager.OnSettingNewBiases(newsHeadline.GetBiasesNames(), newsHeadline.GetBiasesDescription());
                 countOfTotalNewsHeadline = newsHeadlineListLength;
             }
             
@@ -121,8 +110,7 @@ namespace Editorial
             for (int i = 0; i < newsHeadlineListLength - totalIndicesToIgnore; i++)
             {
                 newsHeadline = _newsHeadlines[i];
-                
-                newsHeadline.transform.SetSiblingIndex((newsHeadlineListLength - 1) - i);
+                newsHeadline.transform.SetSiblingIndex((countOfTotalNewsHeadline) - i);
                 newsHeadline.SetFolderOrderIndex(i);
                 if (i > (_newsHeadlines.Count - 1) - _sentNewsHeadlines)
                 {
@@ -144,6 +132,12 @@ namespace Editorial
             ModifyInFrontProperties(true);
             
             ChangeBias(newChosenBiasIndex, biasesNames, newBiasesDescriptions);
+
+            if (newsHeadlineToSwitchIndex == 0)
+            {
+                RepositionAllNewsHeadlines();
+                return;
+            }
             
             PositionNewsHeadlinesByGivenIndex((_newsHeadlines.Count - 1) - newsHeadlineToSwitchIndex);
         }
@@ -187,32 +181,28 @@ namespace Editorial
         public void ProcedureOnChangeBias()
         {
             _sentNewsHeadlines++;
-
-            NewsHeadline frontNewsHeadline = _newsHeadlines[0];
+            _noOneInFolder = _newsHeadlines.Count == _sentNewsHeadlines;
             
-            if (_newsHeadlines.Count > 1)
+            if (_newsHeadlines.Count != 1)
             {
-                frontNewsHeadline.SetInFront(false);
+                NewsHeadline frontNewsHeadline = _newsHeadlines[1];
                 
-                ChangeListOrderByGivenIndex(0);
+                ReorderNewsHeadline(0, frontNewsHeadline.GetChosenBiasIndex(), frontNewsHeadline.GetBiasesNames(), frontNewsHeadline.GetBiasesDescription());
                 
-                frontNewsHeadline = _newsHeadlines[0];
-                
-                frontNewsHeadline.SetInFront(true);
+                CheckCurrentNewsHeadlinesSent();
+            
+                RedirectInComingNewsHeadlineToFolder();
             }
-            
-            ChangeBias(frontNewsHeadline.GetChosenBiasIndex(), frontNewsHeadline.GetBiasesNames(), frontNewsHeadline.GetBiasesDescription());
-            
-            RepositionAllNewsHeadlines();
-            
-            CheckCurrentNewsHeadlinesSent();
-            
-            RedirectInComingNewsHeadlineToFolder();
+            else
+            {
+                ModifyInFrontProperties(false);
+                TurnOff();
+            }
         }
 
         private void CheckCurrentNewsHeadlinesSent()
         {
-            if (_newsHeadlines.Count == _sentNewsHeadlines)
+            if (_noOneInFolder)
             {
                 TurnOff();
             }
@@ -239,7 +229,9 @@ namespace Editorial
         public void SubtractOneToSentNewsHeadline()
         {
             _sentNewsHeadlines--;
-            if (_newsHeadlines.Count > _sentNewsHeadlines && !_dragging)
+            _noOneInFolder = _newsHeadlines.Count == _sentNewsHeadlines;
+            
+            if (!_noOneInFolder && !_dragging)
             {
                 TurnOn();
             }
@@ -248,27 +240,22 @@ namespace Editorial
         public void SendNewsHeadlineToLayout()
         {
             _newsHeadlines.RemoveAt(0);
+            _noOneInFolder = _newsHeadlines.Count == _sentNewsHeadlines;
             
             if (_newsHeadlines.Count != 0)
             {
                 ReindexFolderOrder(_newsHeadlines.Count);
                 ModifyInFrontProperties(true);
+
+                NewsHeadline frontNewsHeadline = _newsHeadlines[0];
+            
+                ChangeBias(frontNewsHeadline.GetChosenBiasIndex(), frontNewsHeadline.GetBiasesNames(), frontNewsHeadline.GetBiasesDescription());
             }
 
-            if (_newsHeadlines.Count == _sentNewsHeadlines)
+            if (_noOneInFolder)
             {
                 TurnOff();
                 return;
-            }
-
-            NewsHeadline frontNewsHeadline = _newsHeadlines[0];
-            
-            ChangeBias(frontNewsHeadline.GetChosenBiasIndex(), frontNewsHeadline.GetBiasesNames(), frontNewsHeadline.GetBiasesDescription());
-
-            if (_newsHeadlines.Count < _sentNewsHeadlines)
-            {
-                EventsManager.OnChangeFolderOrderIndexWhenGoingToFolder();
-                return;    
             }
             
             PositionNewsHeadlinesByGivenIndex(_sentNewsHeadlines);

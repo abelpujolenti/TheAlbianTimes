@@ -95,10 +95,15 @@ MonoBehaviour:
   draggable: 1
   hoverable: 1
   clickable: 1
-  gameObjectToDrag: {fileID: 1539600970624240966}
+  _newsHeadlinePieceToTransferDrag: {fileID: 0}
   _headlineText: {fileID: 1873051352297877941}
   _contentText: {fileID: 1029335324776157074}
   _newsType: 0
+  _folderOrderIndex: 0
+  _chosenBiasIndex: 0
+  _selectedBiasIndex: 0
+  _inFront: 0
+  _transferDrag: 0
 --- !u!1 &4017239771087458495
 GameObject:
   m_ObjectHideFlags: 0

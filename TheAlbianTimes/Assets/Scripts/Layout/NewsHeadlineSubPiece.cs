@@ -35,6 +35,9 @@ namespace Layout
         protected override void BeginDrag(BaseEventData data)
         {
             base.BeginDrag(data);
+
+            EventsManager.OnStartEndDrag(true);
+            EventsManager.OnCrossMidPointWhileScrolling += GetGameObjectToDrag;
             
             _newsHeadlinePiece.BeginDrag();
         }
@@ -44,9 +47,18 @@ namespace Layout
             PointerEventData pointerData = (PointerEventData)data;
 
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(pointerData.position);
-
+            
             if (mousePosition.x < 17.8 / 2)
             {
+                if (!_newsHeadlineToTransferDrag.GetTransferDrag())
+                {
+                    _newsHeadlinePiece.SetTransferDrag(true);
+                }
+                else
+                {
+                    _newsHeadlineToTransferDrag.SetTransferDrag(false);
+                }
+                
                 Transform objectToDragTransform = _gameObjectToTransferDrag.transform;
                 objectToDragTransform.position = mousePosition;
                 objectToDragTransform.gameObject.SetActive(true);
@@ -57,15 +69,6 @@ namespace Layout
                 transform.parent.gameObject.SetActive(false);
                 
                 SimulateEndDrag(data);
-
-                if (!_newsHeadlineToTransferDrag.GetTransferDrag())
-                {
-                    _newsHeadlinePiece.SetTransferDrag(true);
-                }
-                else
-                {
-                    _newsHeadlineToTransferDrag.SetTransferDrag(false);
-                }
                 
                 return;
             }
@@ -73,7 +76,7 @@ namespace Layout
             base.Drag(data);
         }
 
-        public void SimulateEndDrag(BaseEventData data)
+        private void SimulateEndDrag(BaseEventData data)
         {
             EndDrag(data);
         }
@@ -88,6 +91,13 @@ namespace Layout
             
             base.EndDrag(data);
 
+            EventsManager.OnCrossMidPointWhileScrolling -= GetGameObjectToDrag;
+            
+            if (!_newsHeadlinePiece.GetTransferDrag())
+            {
+                EventsManager.OnStartEndDrag(false);    
+            }
+            
             PointerEventData pointerData = (PointerEventData) data;
             
             if (EventsManager.OnDropNewsHeadlinePiece == null)
@@ -130,6 +140,11 @@ namespace Layout
         public void SetNewsHeadlineToTransferDrag(NewsHeadline newsHeadlineToTransferDrag)
         {
             _newsHeadlineToTransferDrag = newsHeadlineToTransferDrag;
+        }
+
+        private GameObject GetGameObjectToDrag(bool transfer)
+        {
+            return transfer ? _newsHeadlineToTransferDrag.gameObject : _newsHeadlinePiece.gameObject;
         }
     }
 }

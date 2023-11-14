@@ -37,9 +37,9 @@ namespace Layout
             _containerMaxCoordinates.y = _corners[3].y;
         }
 
-        private void AddNewsHeadlinePiece(NewsHeadlinePiece newsHeadlinePieceComponent, Vector2 mousePosition)
+        private void AddNewsHeadlinePiece(NewsHeadlinePiece newsHeadlinePieceComponent)
         {
-            bool mousePositionValid = TakePositionByMouse(newsHeadlinePieceComponent, mousePosition);
+            bool mousePositionValid = TakePositionByMouse(newsHeadlinePieceComponent);
 
             if (!mousePositionValid)
             {
@@ -55,11 +55,11 @@ namespace Layout
             }
         }
 
-        private bool TakePositionByMouse(NewsHeadlinePiece newsHeadlinePieceComponent, Vector2 mousePosition)
+        private bool TakePositionByMouse(NewsHeadlinePiece newsHeadlinePieceComponent)
         {
             foreach (Vector2 subPiecePosition in newsHeadlinePieceComponent.GetSubPiecesPositionsRelativeToRoot())
             {
-                if (IsCoordinateInsideBounds(subPiecePosition + mousePosition))
+                if (IsCoordinateInsideBounds(subPiecePosition + (Vector2)newsHeadlinePieceComponent.gameObject.transform.position))
                 {
                     continue;
                 }

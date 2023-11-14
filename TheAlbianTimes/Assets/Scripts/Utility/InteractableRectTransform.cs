@@ -14,8 +14,8 @@ namespace Utility
         #endregion
         #region variables
 
-        private const float MIN_X_POSITION_CAMERA = 0;
-        private const float MAX_X_POSITION_CAMERA = 17.8f;
+        protected const float MIN_X_POSITION_CAMERA = 0;
+        protected const float MAX_X_POSITION_CAMERA = 17.8f;
         public bool held { get; protected set; }
         protected Vector2 direction;
         protected RectTransform rectTransform;

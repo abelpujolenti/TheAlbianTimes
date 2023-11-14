@@ -5,7 +5,6 @@ using Layout;
 using Managers;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
 using Utility;
 
 public class TESTAddNewsHeadline : InteractableRectTransform

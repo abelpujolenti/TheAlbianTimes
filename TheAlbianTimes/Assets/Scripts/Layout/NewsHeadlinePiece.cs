@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Managers;
 using NoMonoBehavior;
@@ -10,16 +11,15 @@ namespace Layout
         private const float TRANSPARENCY_VALUE = 0.9f;
         private const float FULL_OPACITY = 1;
         private const float SPEED_MOVEMENT = 10;
-        private const int SEND_X_POSITION = -10;
 
         [SerializeField] private NewsType _newsType;
-        
+
         [SerializeField] private NewsHeadlineSubPiece[] _newsHeadlineSubPieces;
 
         private Cell[] _snappedCells;
 
         private Vector2[] _subPiecesPositionsRelativeToRoot;
-        
+
         private Vector2 _containerMinCoordinates;
         private Vector2 _containerMaxCoordinates;
 
@@ -27,9 +27,9 @@ namespace Layout
         private Vector2 _initialPosition;
 
         private int _newsHeadlineId;
-        
-        [SerializeField]private bool _transferDrag;
-        
+
+        [SerializeField] private bool _transferDrag;
+
         void Awake()
         {
             _subPiecesPositionsRelativeToRoot = new Vector2[_newsHeadlineSubPieces.Length];
@@ -39,7 +39,8 @@ namespace Layout
             for (int i = 0; i < _newsHeadlineSubPieces.Length; i++)
             {
                 _offset += _newsHeadlineSubPieces[i].transform.position;
-                _subPiecesPositionsRelativeToRoot[i] = _newsHeadlineSubPieces[i].transform.position - transform.position;
+                _subPiecesPositionsRelativeToRoot[i] =
+                    _newsHeadlineSubPieces[i].transform.position - transform.position;
             }
 
             _offset /= _newsHeadlineSubPieces.Length;
@@ -55,8 +56,10 @@ namespace Layout
             {
                 newsHeadlineSubPiece.Fade(TRANSPARENCY_VALUE);
             }
-            
+
+            Debug.Log("Begin");
             EventsManager.OnDropNewsHeadlinePiece += EndDrag;
+            EventsManager.OnCheckDistanceToMouse += DistanceToPosition;
 
             if (_snappedCells == null)
             {
@@ -71,28 +74,31 @@ namespace Layout
 
         private void EndDrag(NewsHeadlineSubPiece draggedSubPiece, Vector2 mousePosition)
         {
-            if (EventsManager.OnPreparingCells == null || 
+
+            if (EventsManager.OnPreparingCells == null ||
                 EventsManager.OnSuccessFulSnap == null)
             {
                 return;
             }
-            
+
             mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
 
             foreach (NewsHeadlineSubPiece newsHeadlineSubPiece in _newsHeadlineSubPieces)
             {
                 newsHeadlineSubPiece.Fade(FULL_OPACITY);
             }
-            
+
+            Debug.Log("End");
             EventsManager.OnDropNewsHeadlinePiece -= EndDrag;
+            EventsManager.OnCheckDistanceToMouse -= DistanceToPosition;
 
             if (!gameObject.activeSelf)
             {
                 return;
             }
-            
+
             _snappedCells = EventsManager.OnPreparingCells(draggedSubPiece, mousePosition, _newsHeadlineSubPieces);
-            
+
             if (_snappedCells == null)
             {
                 bool allSubPiecesInside = true;
@@ -102,15 +108,17 @@ namespace Layout
                     {
                         continue;
                     }
+
                     allSubPiecesInside = false;
                     break;
                 }
-                
+
                 if (allSubPiecesInside)
                 {
                     _initialPosition = transform.position;
                 }
-                EventsManager.OnFailSnap(this, mousePosition);
+
+                EventsManager.OnFailSnap(this);
                 return;
             }
 
@@ -141,25 +149,11 @@ namespace Layout
             return timer;
         }
 
-        private IEnumerator SendToEditorial(Vector2 origin, Vector2 destination)
-        {
-            float timer = 0;
-
-            while (timer < 1)
-            {
-                timer = MoveToDestination(origin, destination, timer);
-
-                yield return null;
-            }
-
-            EventsManager.OnSendNewsHeadlinePieceToEditorial(gameObject);
-        }
-
         private NewsHeadlineSubPiece[] GetNewsHeadlineNeighborPieces(Vector2 coordinates)
         {
             NewsHeadlineSubPiece[] newsHeadlinePieces = { };
 
-            int index = 0; 
+            int index = 0;
 
             foreach (NewsHeadlineSubPiece newsHeadlinePiece in _newsHeadlineSubPieces)
             {
@@ -243,6 +237,11 @@ namespace Layout
         public bool GetTransferDrag()
         {
             return _transferDrag;
+        }
+
+        private Vector2 DistanceToPosition(Vector2 position)
+        {
+            return (Vector2)transform.position - position;
         }
     }
 }

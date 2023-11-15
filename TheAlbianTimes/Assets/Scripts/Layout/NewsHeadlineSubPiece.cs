@@ -9,6 +9,8 @@ namespace Layout
 {
     public class NewsHeadlineSubPiece : InteractableRectTransform
     {
+        private readonly float _midPoint = MIN_X_POSITION_CAMERA + (MAX_X_POSITION_CAMERA - MIN_X_POSITION_CAMERA) / 2;
+        
         private GameObject _gameObjectToTransferDrag;
 
         [SerializeField]private NewsHeadline _newsHeadlineToTransferDrag;
@@ -37,7 +39,8 @@ namespace Layout
             base.BeginDrag(data);
 
             EventsManager.OnStartEndDrag(true);
-            EventsManager.OnCrossMidPointWhileScrolling += GetGameObjectToDrag;
+            
+            EventsManager.OnCrossMidPointWhileScrolling += GetGameObjectToTransferDrag;
             
             _newsHeadlinePiece.BeginDrag();
         }
@@ -53,31 +56,35 @@ namespace Layout
 
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(pointerData.position);
             
-            if (mousePosition.x < 17.8 / 2)
+            if (mousePosition.x < _midPoint)
             {
-                if (!_newsHeadlineToTransferDrag.GetTransferDrag())
-                {
-                    _newsHeadlinePiece.SetTransferDrag(true);
-                }
-                else
-                {
-                    _newsHeadlineToTransferDrag.SetTransferDrag(false);
-                }
-                
-                _gameObjectToTransferDrag.transform.position = mousePosition;
-                _gameObjectToTransferDrag.gameObject.SetActive(true);
-                _newsHeadlineToTransferDrag.SimulateBeginDrag(data);
-            
-                pointerData.pointerDrag = _gameObjectToTransferDrag;
-
-                SimulateEndDrag(data);
-            
-                transform.parent.gameObject.SetActive(false);                
+                CrossMidPoint(pointerData, mousePosition);  
                 
                 return;
             }
             
             base.Drag(data);
+        }
+        private void CrossMidPoint(PointerEventData pointerData, Vector2 mousePosition)
+        {
+            if (!_newsHeadlineToTransferDrag.GetTransferDrag())
+            {
+                _newsHeadlinePiece.SetTransferDrag(true);
+            }
+            else
+            {
+                _newsHeadlineToTransferDrag.SetTransferDrag(false);
+            }
+                
+            _gameObjectToTransferDrag.transform.position = mousePosition;
+            _gameObjectToTransferDrag.gameObject.SetActive(true);
+            _newsHeadlineToTransferDrag.SimulateBeginDrag(pointerData);
+            
+            pointerData.pointerDrag = _gameObjectToTransferDrag;
+            
+            transform.parent.gameObject.SetActive(false);  
+
+            SimulateEndDrag(pointerData);
         }
 
         private void SimulateEndDrag(BaseEventData data)
@@ -93,9 +100,11 @@ namespace Layout
                 _newsHeadlineToTransferDrag.SetTransferDrag(false);
             }
             
+            EventsManager.OnCrossMidPointWhileScrolling -= GetGameObjectToTransferDrag;
+            
             base.EndDrag(data);
             
-            if (!_newsHeadlinePiece.GetTransferDrag())
+            if (_newsHeadlinePiece.gameObject.activeSelf)
             {
                 EventsManager.OnStartEndDrag(false);    
             }
@@ -144,16 +153,13 @@ namespace Layout
             _newsHeadlineToTransferDrag = newsHeadlineToTransferDrag;
         }
 
-        private GameObject GetGameObjectToDrag(bool transfer, BaseEventData data)
-        {           
-
-            if (transfer) 
-            {
-                EventsManager.OnCrossMidPointWhileScrolling -= GetGameObjectToDrag;
-                //Drag(data);
-            }
-
-            return transfer ? _newsHeadlineToTransferDrag.gameObject : _newsHeadlinePiece.gameObject;
+        private GameObject GetGameObjectToTransferDrag(PointerEventData pointerData)
+        {
+            Drag(pointerData);
+            
+            //TODO BUG ON TRANSFER WITH SCROLL
+            
+            return !_newsHeadlinePiece.GetTransferDrag() ? _newsHeadlinePiece.gameObject : _newsHeadlineToTransferDrag.gameObject;
         }
     }
 }

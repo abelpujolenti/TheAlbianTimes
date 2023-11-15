@@ -19,12 +19,22 @@ namespace CameraController
 
         private readonly float _midPoint = MIN_X_POSITION_CAMERA + (MAX_X_POSITION_CAMERA - MIN_X_POSITION_CAMERA) / 2;
 
-        private GameObject _gameObjectToDrag;
+        private Coroutine _coroutine;
 
         private bool _rightSide;
         private bool _transfer;
         private bool _scrolling;
         private bool _exceed;
+
+        private void OnEnable()
+        {
+            EventsManager.OnAssignGameObjectToDrag += SetGameObjectToDrag;
+        }
+
+        private void OnDisable()
+        {
+            EventsManager.OnAssignGameObjectToDrag -= SetGameObjectToDrag;
+        }
 
         protected override void PointerEnter(BaseEventData data)
         {
@@ -32,13 +42,18 @@ namespace CameraController
 
             PointerEventData pointerData = (PointerEventData)data;
             
+            Debug.Log("Enter");
+            
+            EventsManager.OnAssignGameObjectToDrag(
+                EventsManager.OnCrossMidPointWhileScrolling(pointerData));
+            
             Vector2 mousePosition = _camera.ScreenToWorldPoint(pointerData.position);
 
             _rightSide = mousePosition.x > _midPoint;
 
             Vector2 offset = EventsManager.OnCheckDistanceToMouse(mousePosition);
             
-            StartCoroutine(Scroll(pointerData, offset));
+            _coroutine = StartCoroutine(Scroll(pointerData, offset));
         }
         
         protected override void PointerExit(BaseEventData data)
@@ -67,8 +82,10 @@ namespace CameraController
                     if (nextPosition.x > MAX_X_POSITION_CAMERA)
                     {
                         _container.SubscribeOnExceedEvent();
+                        _transfer = false;
+                        _scrolling = false;
                         gameObject.SetActive(false);
-                        yield break;
+                        StopCoroutine(_coroutine);
                     }
                 }
                 else
@@ -83,8 +100,10 @@ namespace CameraController
                     if (nextPosition.x < MIN_X_POSITION_CAMERA)
                     {
                         _container.SubscribeOnExceedEvent();
+                        _transfer = false;
+                        _scrolling = false;
                         gameObject.SetActive(false);
-                        yield break;
+                        StopCoroutine(_coroutine);
                     }
                 }
                 
@@ -101,22 +120,27 @@ namespace CameraController
             {
                 if (mousePosition.x < _midPoint)
                 {
+                    Debug.Log("Transfer");
                     _transfer = !_transfer;
                     _rightSide = false;
+                    EventsManager.OnAssignGameObjectToDrag(
+                        EventsManager.OnCrossMidPointWhileScrolling(pointerData));
                 }
             }
             else
             {
                 if (mousePosition.x > _midPoint)
                 {
+                    Debug.Log("Transfer");
                     _transfer = !_transfer;
                     _rightSide = true;
+                    EventsManager.OnAssignGameObjectToDrag(
+                        EventsManager.OnCrossMidPointWhileScrolling(pointerData));
                 }
             }
 
             if (EventsManager.OnCrossMidPointWhileScrolling != null)
             {
-                _gameObjectToDrag = EventsManager.OnCrossMidPointWhileScrolling(_transfer, pointerData);
             }            
 
             if (!_transfer)
@@ -124,7 +148,12 @@ namespace CameraController
                 mousePosition += offset;
             }
 
-            _gameObjectToDrag.transform.position = mousePosition;
+            gameObjectToDrag.transform.position = mousePosition;
+        }
+
+        private void SetGameObjectToDrag(GameObject gameObjectToDrag)
+        {
+            this.gameObjectToDrag = gameObjectToDrag;
         }
     }
 }

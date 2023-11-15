@@ -11,9 +11,10 @@ namespace Managers
         #region WorkspaceEvents
 
         public static Action <bool> OnStartEndDrag;
-        public static Func <bool, PointerEventData, GameObject> OnCrossMidPointWhileScrolling;
+        public static Func <PointerEventData, GameObject> OnCrossMidPointWhileScrolling;
         public static Func <Vector2, Vector2> OnCheckDistanceToMouse;
         public static Action <bool> OnExceedCameraLimitsWhileDragging;
+        public static Action<GameObject> OnAssignGameObjectToDrag;
 
         #endregion        
         

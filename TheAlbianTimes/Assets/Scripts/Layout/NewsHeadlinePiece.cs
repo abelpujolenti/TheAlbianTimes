@@ -30,6 +30,11 @@ namespace Layout
 
         [SerializeField] private bool _transferDrag;
 
+        private void Update()
+        {
+            Debug.Log(_transferDrag + " Piece");
+        }
+
         void Awake()
         {
             _subPiecesPositionsRelativeToRoot = new Vector2[_newsHeadlineSubPieces.Length];

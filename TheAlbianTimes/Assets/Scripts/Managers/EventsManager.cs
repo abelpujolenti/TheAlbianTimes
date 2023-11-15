@@ -2,6 +2,7 @@ using System;
 using Editorial;
 using Layout;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Managers
 {
@@ -10,11 +11,11 @@ namespace Managers
         #region WorkspaceEvents
 
         public static Action <bool> OnStartEndDrag;
-        public static Func <bool, GameObject> OnCrossMidPointWhileScrolling;
-        public static Func<Vector2, Vector2> OnCheckDistanceToMouse;
+        public static Func <bool, PointerEventData, GameObject> OnCrossMidPointWhileScrolling;
+        public static Func <Vector2, Vector2> OnCheckDistanceToMouse;
+        public static Action <bool> OnExceedCameraLimitsWhileDragging;
 
-        #endregion
-        
+        #endregion        
         
         #region LayoutEvents
         

@@ -23,6 +23,13 @@ namespace CameraController
             {
                 _cameraSideScrolls[i].SetActive(active);
             }
+
+            EventsManager.OnExceedCameraLimitsWhileDragging -= ModifyActiveCameraSideScrolls;
+        }
+
+        public void SubscribeOnExceedEvent() 
+        {
+            EventsManager.OnExceedCameraLimitsWhileDragging += ModifyActiveCameraSideScrolls;
         }
     }
 }

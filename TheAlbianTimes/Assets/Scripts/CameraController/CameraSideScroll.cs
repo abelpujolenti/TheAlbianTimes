@@ -12,10 +12,14 @@ namespace CameraController
         private const float SCROLL_SPEED = 5;
 
         [SerializeField] private Camera _camera;
+
+        [SerializeField] private CameraScrollContainer _container;
         
         [SerializeField] private bool _scrollRight;
 
         private readonly float _midPoint = MIN_X_POSITION_CAMERA + (MAX_X_POSITION_CAMERA - MIN_X_POSITION_CAMERA) / 2;
+
+        private GameObject _gameObjectToDrag;
 
         private bool _rightSide;
         private bool _transfer;
@@ -55,8 +59,15 @@ namespace CameraController
                 {
                     nextPosition.x += Time.deltaTime * SCROLL_SPEED;
 
+                    if (EventsManager.OnExceedCameraLimitsWhileDragging != null)
+                    {
+                        EventsManager.OnExceedCameraLimitsWhileDragging(true);
+                    }
+
                     if (nextPosition.x > MAX_X_POSITION_CAMERA)
                     {
+                        _container.SubscribeOnExceedEvent();
+                        gameObject.SetActive(false);
                         yield break;
                     }
                 }
@@ -64,8 +75,15 @@ namespace CameraController
                 {
                     nextPosition.x -= Time.deltaTime * SCROLL_SPEED;
 
+                    if (EventsManager.OnExceedCameraLimitsWhileDragging != null) 
+                    {
+                        EventsManager.OnExceedCameraLimitsWhileDragging(true);
+                    }
+
                     if (nextPosition.x < MIN_X_POSITION_CAMERA)
                     {
+                        _container.SubscribeOnExceedEvent();
+                        gameObject.SetActive(false);
                         yield break;
                     }
                 }
@@ -96,14 +114,17 @@ namespace CameraController
                 }
             }
 
-            GameObject dragObject = EventsManager.OnCrossMidPointWhileScrolling(_transfer);
+            if (EventsManager.OnCrossMidPointWhileScrolling != null)
+            {
+                _gameObjectToDrag = EventsManager.OnCrossMidPointWhileScrolling(_transfer, pointerData);
+            }            
 
             if (!_transfer)
             {
                 mousePosition += offset;
             }
-                
-            dragObject.transform.position = mousePosition;
+
+            _gameObjectToDrag.transform.position = mousePosition;
         }
     }
 }

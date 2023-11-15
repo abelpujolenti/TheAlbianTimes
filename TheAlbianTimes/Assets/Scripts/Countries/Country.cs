@@ -129,6 +129,11 @@ public class Country : MonoBehaviour
     }
 
     #region Getters/Setters
+    public void ModifyValue(string key, float value)
+    {
+        if (!data.values.ContainsKey(key)) return;
+        data.values[key] += value;
+    }
     public float GetReputation()
     {
         return data.values["reputation"];

@@ -1,0 +1,66 @@
+{
+    "type": 3,
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 6,
+            "key": "reputation",
+            "value": -0.1
+        },
+        {
+            "country": 5,
+            "key": "reputation",
+            "value": 0.05
+        },
+        {
+            "country": 7,
+            "key": "reputation",
+            "value": 0.05
+        }
+    ],
+    "biases": [
+        {
+            "name": "Innocent",
+            "description": "Dr. Panyella's presence was likely an unfortunate coincidence.",
+            "headline": "Dr. Oscar Garcia Panyella, PhD, pioneer of culture in Madia, arrested by Albian police in strange party.",
+            "text": "Former Madian deputy vice-president of technology and culture Oscar Garcia Panyella, PhD was placed in custody by Albian police after the raid of a party he was attending. It is rumored that individuals inside might have engaged in unregulated activities relating to networking, but there is no credible evidence of Dr. Panyella's direct involvement. While Madian authorities have called for his release, he will appear before court in January 6th.",
+            "additionalConsequences": [
+                {
+                    "country": 6,
+                    "key": "reputation",
+                    "value": 0.2
+                },
+                {
+                    "country": 5,
+                    "key": "reputation",
+                    "value": -0.1
+                }
+            ]
+        },
+        {
+            "name": "Guilty",
+            "description": "The authorities are right, he needs to be held accountable.",
+            "headline": "Disgraced Madian politician Oscar Garcia Panyella, PhD arrested in illegal scandalous linkedin party.",
+            "text": "Former Madian deputy vice-president of technology and culture Oscar Garcia Panyella, PhD was placed in custody by Albian police after the raid of an illegal linkedin party. Individuals in the party were found to be engaging in networking and profile sharing, and Dr's panyella's involvement is strongly suspected. Despite Madian authorities begging for his release, he will be judged by the Royal Albian Court in January 6th for his alleged crimes.",
+            "additionalConsequences": [
+                {
+                    "country": 6,
+                    "key": "reputation",
+                    "value": -0.05
+                },
+                {
+                    "country": 5,
+                    "key": "reputation",
+                    "value": 0.05
+                }
+            ]
+        },
+        {
+            "name": "Neutral",
+            "description": "Take a neutral stance.",
+            "headline": "Madian politician Oscar Garcia Panyella, PhD caught in scandalous linkedin party.",
+            "text": "Former Madian deputy vice-president of technology and culture Oscar Garcia Panyella, PhD was placed in custody by Albian police after the raid of an illegal linkedin party. Sources close to the case claim individuals in the party were engaging in networking and profile sharing. While Madian authorities have called for his release, he will appear before court in January 6th.",        
+            "additionalConsequences": []
+        }
+    ]
+}

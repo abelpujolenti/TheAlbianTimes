@@ -292,7 +292,6 @@ namespace Editorial
             {
                 return;
             }
-            Debug.Log("On");
             _biasContainer.SetActive(true);
         }
 

@@ -42,8 +42,6 @@ namespace CameraController
 
             PointerEventData pointerData = (PointerEventData)data;
             
-            Debug.Log("Enter");
-            
             EventsManager.OnAssignGameObjectToDrag(
                 EventsManager.OnCrossMidPointWhileScrolling(pointerData));
             
@@ -120,7 +118,6 @@ namespace CameraController
             {
                 if (mousePosition.x < _midPoint)
                 {
-                    Debug.Log("Transfer");
                     _transfer = !_transfer;
                     _rightSide = false;
                     EventsManager.OnAssignGameObjectToDrag(
@@ -130,9 +127,7 @@ namespace CameraController
             else
             {
                 if (mousePosition.x > _midPoint)
-                {
-                    Debug.Log("Transfer");
-                    _transfer = !_transfer;
+                { _transfer = !_transfer;
                     _rightSide = true;
                     EventsManager.OnAssignGameObjectToDrag(
                         EventsManager.OnCrossMidPointWhileScrolling(pointerData));

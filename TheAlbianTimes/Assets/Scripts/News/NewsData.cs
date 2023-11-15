@@ -5,7 +5,8 @@ using NoMonoBehavior;
 public class NewsConsequenceData
 {
     public Country.Id country;
-    public float reputationChange;
+    public string key;
+    public float value;
 }
 [Serializable]
 public class BiasData
@@ -28,4 +29,5 @@ public class NewsData
     public NewsConsequenceData[] consequences;
 
     public BiasData[] biases;
+    public int currentBias;
 }

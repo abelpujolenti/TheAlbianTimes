@@ -1,5 +1,6 @@
 using System;
 using Managers;
+using TMPro;
 using UnityEngine;
 
 namespace Editorial
@@ -8,20 +9,24 @@ namespace Editorial
     {
         [SerializeField] private Bias[] _bias;
 
-        private int _totalBiasActive;
+        [SerializeField] private TextMeshProUGUI _biasesdescriptionText;
+
+        private String[] _biasesDescriptions;
+
+        private int _totalBiasesToActive;
 
         private void OnEnable()
         {
             EventsManager.OnChangeFrontNewsHeadline += ChangeSelectedBias;
-            EventsManager.OnSettingNewBiasDescription += SetBias;
-            EventsManager.OnChangeToNewBias += DeactivateBias;
+            EventsManager.OnChangeSelectedBiasIndex += ChangeBiasDescription;
+            EventsManager.OnSettingNewBiases += SetBias;
         }
 
         private void OnDisable()
         {
             EventsManager.OnChangeFrontNewsHeadline -= ChangeSelectedBias;
-            EventsManager.OnSettingNewBiasDescription -= SetBias;
-            EventsManager.OnChangeToNewBias -= DeactivateBias;
+            EventsManager.OnChangeSelectedBiasIndex -= ChangeBiasDescription;
+            EventsManager.OnSettingNewBiases -= SetBias;
         }
 
         private void Start()
@@ -30,15 +35,44 @@ namespace Editorial
             gameObject.SetActive(false);
         }
 
-        private void SetBias(String[] shortBiasDescription)
+        private void SetBias(String[] biasesNames, String[] biasesDescriptions)
         {
-            _totalBiasActive = shortBiasDescription.Length;
-            
-            for (int i = 0; i < _totalBiasActive; i++)
+            _totalBiasesToActive = biasesDescriptions.Length;
+
+            GameObject bias;
+
+            for (int i = 0; i < _bias.Length; i++)
             {
-                _bias[i].gameObject.SetActive(true);
-                _bias[i].SetText(shortBiasDescription[i]);
+                bias = _bias[i].gameObject;
+                
+                if (i < _totalBiasesToActive)
+                {
+                    _bias[i].SetText(biasesNames[i]);
+                    if (bias.activeSelf)
+                    {
+                        continue;
+                    }
+
+                    bias.SetActive(true);
+                }
+                else
+                {
+                    if (bias.activeSelf)
+                    {
+                        bias.SetActive(false);
+                    }
+                }
             }
+
+            if (_totalBiasesToActive == 0)
+            {
+                _biasesdescriptionText.transform.parent.gameObject.SetActive(false);
+                return;
+            }
+            _biasesdescriptionText.transform.parent.gameObject.SetActive(true);
+
+            _biasesDescriptions = new String[biasesDescriptions.Length];
+            _biasesDescriptions = biasesDescriptions;
         }
 
         private void ChangeSelectedBias(int newSelectedBiasIndex)
@@ -51,12 +85,9 @@ namespace Editorial
             EventsManager.OnChangeSelectedBiasIndex(newSelectedBiasIndex);
         }
 
-        private void DeactivateBias()
+        private void ChangeBiasDescription(int newSelectedBiasIndex)
         {
-            for (int i = 0; i < _totalBiasActive; i++)
-            {
-                _bias[i].gameObject.SetActive(false);
-            }
+            _biasesdescriptionText.text = _biasesDescriptions[newSelectedBiasIndex];
         }
     }
 }

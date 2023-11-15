@@ -123,8 +123,6 @@ namespace Layout
 
         private Cell[] TakeCells(NewsHeadlineSubPiece draggedSubPiece, Vector2 mousePosition, NewsHeadlineSubPiece[] newsHeadlinePieces)
         {
-            mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
-            
             if (!IsCoordinateInsideLayout(mousePosition))
             {
                 return null;
@@ -168,7 +166,8 @@ namespace Layout
 
             foreach (NewsHeadlineSubPiece piece in newsHeadlinePieces)
             {
-                if (!IsCoordinateInsideLayout((Vector2)piece.transform.position + (Vector2)(desiredCells[index].transform.position) - mousePosition))
+                if (!IsCoordinateInsideLayout((Vector2)piece.transform.position - (Vector2)draggedSubPiece.transform.position + 
+                                              (Vector2)(desiredCells[index].transform.position)))
                 {
                     return null;
                 }

@@ -61,13 +61,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a9d810aac66d4944b410af5dcea7348, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _newsType:
-    type: 3
-    piecesCoordinatesFromRootPiece: []
-  _newsHeadlinePieces:
-  - {fileID: 794707586131903947}
-  - {fileID: 5594272068635981705}
-  - {fileID: 6290034351826209086}
+  _newsType: 0
+  _newsHeadlineSubPieces: []
 --- !u!1 &1362347418118449459
 GameObject:
   m_ObjectHideFlags: 0
@@ -160,7 +155,7 @@ MonoBehaviour:
   draggable: 1
   hoverable: 0
   clickable: 0
-  newHeadlinePiece: {fileID: 2450070394529839749}
+  _newsHeadlinePiece: {fileID: 2450070394529839749}
   _coordinates: {x: 0, y: 0}
 --- !u!1 &2737687966269793172
 GameObject:
@@ -254,7 +249,7 @@ MonoBehaviour:
   draggable: 1
   hoverable: 0
   clickable: 0
-  newHeadlinePiece: {fileID: 2450070394529839749}
+  _newsHeadlinePiece: {fileID: 2450070394529839749}
   _coordinates: {x: 0, y: 1}
 --- !u!1 &9093653330955355531
 GameObject:
@@ -348,5 +343,5 @@ MonoBehaviour:
   draggable: 1
   hoverable: 0
   clickable: 0
-  newHeadlinePiece: {fileID: 2450070394529839749}
+  _newsHeadlinePiece: {fileID: 2450070394529839749}
   _coordinates: {x: 1, y: 0}

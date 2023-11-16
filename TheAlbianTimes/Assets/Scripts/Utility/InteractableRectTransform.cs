@@ -100,7 +100,6 @@ namespace Utility
         
         protected virtual void BeginDragCamera(BaseEventData data)
         {
-            Debug.Log("beginmovecam");
             PointerEventData pointerData = (PointerEventData) data;            
 
             _initialMouseXPosition = Camera.main.ScreenToWorldPoint(pointerData.position).x;
@@ -110,7 +109,6 @@ namespace Utility
 
         protected virtual void DragCamera(BaseEventData data)
         {
-            Debug.Log("movecam");
             if (!held && !moveCamera) return;
 
             PointerEventData pointerData = (PointerEventData) data;

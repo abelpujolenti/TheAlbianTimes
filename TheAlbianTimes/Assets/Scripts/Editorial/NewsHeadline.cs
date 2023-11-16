@@ -18,21 +18,23 @@ namespace Editorial
         private const float SPEED_MOVEMENT = 10;
         private const float Y_DISTANCE_TO_MOVE_ON_HOVER = 10f;
         private const float SECONDS_AWAITING_TO_RETURN_TO_FOLDER = 3;
-        
+
         private readonly float _midPoint = MIN_X_POSITION_CAMERA + (MAX_X_POSITION_CAMERA - MIN_X_POSITION_CAMERA) / 2;
 
         private Coroutine _moveCoroutine;
 
         private GameObject _gameObjectToTransferDrag;
 
-        [SerializeField]private NewsHeadlinePiece _newsHeadlinePieceToTransferDrag;
+        [SerializeField] private NewsHeadlinePiece _newsHeadlinePieceToTransferDrag;
 
         [SerializeField] private TextMeshProUGUI _headlineText;
         [SerializeField] private TextMeshProUGUI _contentText;
-        
+        [SerializeField] private TextMeshProUGUI _articleTagText;
+
         private NewsFolder _newsFolder;
 
-        [SerializeField]private NewsType _newsType;
+        [SerializeField] private NewsType _newsType;
+        public static readonly string[] newsTypeName = {"Politics", "Opinion", "Entertainment", "Diplomacy", "Economics", "Military", "Cultural", "Technology", "Labor", "Ideology"};
 
         private String _imagePath;
 
@@ -57,6 +59,7 @@ namespace Editorial
         {
             _headlineText.text = _headlinesText[0];
             _contentText.text = _biasesContents[0];
+            _articleTagText.text = newsTypeName[(int)_newsType];
 
             gameObject.GetComponent<Image>().color =
                 new Color(Random.Range(0.85f, 1f), Random.Range(0.85f, 1f), Random.Range(0.85f, 1f));
@@ -290,7 +293,7 @@ namespace Editorial
             _chosenBiasIndex = newChosenBiasIndex;
             _headlineText.text = _headlinesText[_chosenBiasIndex];
             _contentText.text = _biasesContents[_chosenBiasIndex];
-            
+
             EventsManager.OnChangeFolderOrderIndexWhenGoingToFolder += GiveDestinationToReturnToFolder;
             
             _newsFolder.ProcedureOnChangeBias();

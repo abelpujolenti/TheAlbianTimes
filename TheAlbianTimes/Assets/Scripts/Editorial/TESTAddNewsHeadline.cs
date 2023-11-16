@@ -3,6 +3,7 @@ using System.IO;
 using Editorial;
 using Layout;
 using Managers;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Utility;
@@ -17,11 +18,19 @@ public class TESTAddNewsHeadline : InteractableRectTransform
     [SerializeField] private GameObject _newsHeadlinesPiecesContainer;
 
     [SerializeField] private NewsFolder _newsFolder;
-    
+
+    int a = 1;
 
     protected override void PointerClick(BaseEventData data)
     {
-        string filePath = Application.streamingAssetsPath + NEWS_PATH + "test.json";
+        string filePath = Application.streamingAssetsPath + NEWS_PATH + "test" + a + ".json";
+        if (a == 2) {
+            a = 1;
+        }
+        else
+        {
+            a++;
+        }
 
         if (!File.Exists(filePath))
         {

@@ -21,6 +21,7 @@ namespace Editorial
         private String _text;
 
         private Color _selectedColor;
+        private Color _unselectedColor;
         
         private bool _selected;
 
@@ -28,12 +29,18 @@ namespace Editorial
 
         void Start()
         {
-
+            
             float red = MathUtil.Map(SELECTED_COLOR_RED_VALUE, 0, 255, 0, 1);
             float green = MathUtil.Map(SELECTED_COLOR_GREEN_VALUE, 0, 255, 0, 1);
             float blue = MathUtil.Map(SELECTED_COLOR_BLUE_VALUE, 0, 255, 0, 1);
 
-            _selectedColor = new Color(red, green, blue);
+            _unselectedColor = _image.color;
+            Color hsv = new Color();
+            Color.RGBToHSV(_image.color, out hsv.r, out hsv.g, out hsv.b);
+            hsv.r = ((hsv.r * 255f + 128f) % 255) / 255f;
+            hsv.b *= .7f;
+            hsv.g *= 1.2f;
+            _selectedColor = Color.HSVToRGB(hsv.r, hsv.g, hsv.g);
 
             _textMeshPro.text = _text;
 
@@ -71,7 +78,7 @@ namespace Editorial
 
         private void UnselectBias()
         {
-            BiasButtonStuff(false, Color.white);
+            BiasButtonStuff(false, _unselectedColor);
         }
 
         private void BiasButtonStuff(bool isSelected, Color newColor)

@@ -20,14 +20,14 @@
     ],
     "biases": [
         {
-            "name": "Neutral",
+            "name": "NEUTRAL",
             "description": "Take a neutral stance.",
             "headline": "Oscar Garcia Panyella, PhD caught in linkedin party.",
             "text": "    Former Madian deputy vice-president of technology and culture Oscar Garcia Panyella, PhD was placed in custody by Albian police after the raid of an illegal linkedin party. Sources close to the case claim individuals in the party were engaging in networking and profile sharing. While Madian authorities have called for his release, he will appear before court in January 6th.",        
             "additionalConsequences": []
         },
         {
-            "name": "Innocent",
+            "name": "INNOCENT",
             "description": "Dr. Panyella's presence was likely an unfortunate coincidence.",
             "headline": "Cultural pioneer Oscar Garcia Panyella, PhD caught in strange party.",
             "text": "    Former Madian deputy vice-president of technology and culture Oscar Garcia Panyella, PhD was placed in custody by Albian police after the raid of a party he was attending. It is rumored that individuals inside might have engaged in unregulated activities relating to networking, but there is no credible evidence of Dr. Panyella's direct involvement. While Madian authorities have called for his release, he will appear before court in January 6th.",
@@ -45,7 +45,7 @@
             ]
         },
         {
-            "name": "Guilty",
+            "name": "GUILTY",
             "description": "The authorities are right, he needs to be held accountable.",
             "headline": "Disgraced politician Oscar Garcia Panyella, PhD arrested in scandalous party.",
             "text": "    Former Madian deputy vice-president of technology and culture Oscar Garcia Panyella, PhD was placed in custody by Albian police after the raid of an illegal linkedin party. Individuals in the party were found to be engaging in networking and profile sharing, and Dr's panyella's involvement is strongly suspected. Despite Madian authorities begging for his release, he will be judged by the Royal Albian Court in January 6th for his alleged crimes.",

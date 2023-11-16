@@ -59,7 +59,7 @@ namespace Editorial
             _contentText.text = _biasesContents[0];
 
             gameObject.GetComponent<Image>().color =
-                new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
+                new Color(Random.Range(0.85f, 1f), Random.Range(0.85f, 1f), Random.Range(0.85f, 1f));
         }
 
         public void SimulateBeginDrag(BaseEventData data)

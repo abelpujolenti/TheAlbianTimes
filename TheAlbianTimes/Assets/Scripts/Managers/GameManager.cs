@@ -9,6 +9,8 @@ namespace Managers
         public GameState gameState;
         private SaveManager saveManager;
 
+        public static int round = 1;
+
         private void Awake()
         {
             if (_instance == null)

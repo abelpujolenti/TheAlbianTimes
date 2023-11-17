@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Security.Cryptography;
 using Editorial;
 using Layout;
 using Managers;
@@ -8,35 +9,29 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using Utility;
 
-public class TESTAddNewsHeadline : InteractableRectTransform
+public class EditorialNewsLoader : MonoBehaviour
 {
-    private const String NEWS_PATH = "/Json/News/";
+    private const String NEWS_PATH = "News/Round";
     private const float SPAWN_Y_COORDINATE = 1000;
     
     [SerializeField] private GameObject _newsHeadline;
     [SerializeField] private GameObject _newsHeadlinePiece;
     [SerializeField] private GameObject _newsHeadlinesPiecesContainer;
-
     [SerializeField] private NewsFolder _newsFolder;
 
-    int a = 1;
-
-    protected override void PointerClick(BaseEventData data)
+    private void Start()
     {
-        string filePath = Application.streamingAssetsPath + NEWS_PATH + "test" + a + ".json";
-        if (a == 2) {
-            a = 1;
-        }
-        else
-        {
-            a++;
-        }
+        LoadLevelNews();
+    }
 
-        if (!File.Exists(filePath))
-        {
-            return;
-        }
-        
+    private void LoadLevelNews()
+    {
+        string path = NEWS_PATH + GameManager.round;
+        FileManager.LoadAllJsonFiles(path, LoadNewsFromFile);
+    }
+
+    private void LoadNewsFromFile(string json)
+    {   
         GameObject newsHeadlineGameObject = Instantiate(_newsHeadline, _newsFolder.transform);
         GameObject newsHeadlinePieceGameObject =
             Instantiate(_newsHeadlinePiece, _newsHeadlinesPiecesContainer.transform);
@@ -49,7 +44,7 @@ public class TESTAddNewsHeadline : InteractableRectTransform
         
         NewsHeadlineSubPiece[] newsHeadlineSubPieces = newsHeadlinePieceComponent.GetNewsHeadlinesSubPieces();
         
-        SetNewsHeadlineData(newsHeadlineGameObject, newsHeadlinePieceComponent, newsHeadlineSubPieces, filePath);
+        SetNewsHeadlineData(newsHeadlineGameObject, newsHeadlinePieceComponent, newsHeadlineSubPieces, json);
         
         SetNewsHeadlinePieceData(newsHeadlineGameObject, newsHeadlinePieceGameObject, newsHeadlineSubPieces);
 
@@ -57,7 +52,7 @@ public class TESTAddNewsHeadline : InteractableRectTransform
     }
 
     private void SetNewsHeadlineData(GameObject newsHeadlineGameObject, NewsHeadlinePiece newsHeadlinePiece,
-        NewsHeadlineSubPiece[] newsHeadlineSubPieces, String filePath)
+        NewsHeadlineSubPiece[] newsHeadlineSubPieces, String json)
     {
         NewsHeadline newsHeadlineComponent = newsHeadlineGameObject.GetComponent<NewsHeadline>();
 
@@ -73,8 +68,6 @@ public class TESTAddNewsHeadline : InteractableRectTransform
             newsHeadlineComponent.SetGameObjectToTransferDrag(newsHeadlineSubPieces[i].gameObject);      
         }
         newsHeadlineComponent.SetNewsHeadlineSubPieceToTransferDrag(newsHeadlinePiece);
-        
-        string json = File.ReadAllText(filePath);
         
         NewsData newsData = JsonUtility.FromJson<NewsData>(json);
         

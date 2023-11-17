@@ -27,20 +27,18 @@ namespace Editorial
 
         private int _siblingIndex;
 
+        protected override void Setup()
+        {
+            base.Setup();
+            SetupColor();
+        }
+
         void Start()
         {
             
             float red = MathUtil.Map(SELECTED_COLOR_RED_VALUE, 0, 255, 0, 1);
             float green = MathUtil.Map(SELECTED_COLOR_GREEN_VALUE, 0, 255, 0, 1);
             float blue = MathUtil.Map(SELECTED_COLOR_BLUE_VALUE, 0, 255, 0, 1);
-
-            _unselectedColor = _image.color;
-            Color hsv = new Color();
-            Color.RGBToHSV(_image.color, out hsv.r, out hsv.g, out hsv.b);
-            hsv.r = ((hsv.r * 255f + 128f) % 255) / 255f;
-            hsv.b *= .7f;
-            hsv.g *= 1.2f;
-            _selectedColor = Color.HSVToRGB(hsv.r, hsv.g, hsv.g);
 
             _textMeshPro.text = _text;
 
@@ -57,6 +55,16 @@ namespace Editorial
 
         }
         
+        public void SetupColor()
+        {
+            _unselectedColor = _image.color;
+            Color hsv = new Color();
+            Color.RGBToHSV(_image.color, out hsv.r, out hsv.g, out hsv.b);
+            hsv.r = ((hsv.r * 255f + 128f) % 255) / 255f;
+            hsv.b *= .8f;
+            _selectedColor = Color.HSVToRGB(hsv.r, hsv.g, hsv.b);
+        }
+
         protected override void PointerClick(BaseEventData data)
         {
             if (_selected)

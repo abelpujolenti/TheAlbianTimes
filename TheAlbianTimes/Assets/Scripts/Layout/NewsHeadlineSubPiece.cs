@@ -13,7 +13,7 @@ namespace Layout
         
         private GameObject _gameObjectToTransferDrag;
 
-        [SerializeField]private NewsHeadline _newsHeadlineToTransferDrag;
+        [SerializeField] private NewsHeadline _newsHeadlineToTransferDrag;
         
         [SerializeField] private NewsHeadlinePiece _newsHeadlinePiece;
         
@@ -126,6 +126,11 @@ namespace Layout
             auxColor.a = alpha;
 
             _image.color = auxColor;            
+        }
+
+        public NewsHeadline GetNewsHeadline()
+        {
+            return _newsHeadlineToTransferDrag;
         }
 
         public void SetNewsHeadlinePiece(NewsHeadlinePiece newsHeadlinePiece)

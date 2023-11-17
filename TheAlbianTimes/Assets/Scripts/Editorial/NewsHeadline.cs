@@ -38,6 +38,8 @@ namespace Editorial
 
         private String _imagePath;
 
+        private NewsData _data;
+
         private NewsConsequenceData[] _newsConsequencesData;
 
         private String[] _biasesNames;
@@ -408,6 +410,15 @@ namespace Editorial
         public void SetNewsType(NewsType newsType)
         {
             _newsType = newsType;
+        }
+
+        public void SetNewsData(NewsData data)
+        {
+            _data = data;
+        }
+        public NewsData GetNewsData()
+        {
+            return _data;
         }
 
         public NewsType GetNewsType()

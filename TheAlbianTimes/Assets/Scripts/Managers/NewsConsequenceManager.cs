@@ -6,8 +6,8 @@ using UnityEngine;
 
 public class NewsConsequenceManager : MonoBehaviour
 {
-    private NewsConsequenceManager _instance;
-    public NewsConsequenceManager Instance => _instance;
+    private static NewsConsequenceManager _instance;
+    public static NewsConsequenceManager Instance => _instance;
     private void Awake()
     {
         if (_instance == null)

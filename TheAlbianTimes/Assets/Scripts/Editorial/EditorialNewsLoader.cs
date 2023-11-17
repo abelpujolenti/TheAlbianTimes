@@ -70,7 +70,9 @@ public class EditorialNewsLoader : MonoBehaviour
         newsHeadlineComponent.SetNewsHeadlineSubPieceToTransferDrag(newsHeadlinePiece);
         
         NewsData newsData = JsonUtility.FromJson<NewsData>(json);
-        
+
+        newsHeadlineComponent.SetNewsData(newsData);
+
         newsHeadlineComponent.SetNewsType(newsData.type);
         
         newsHeadlineComponent.SetImagePath(newsData.imagePath);

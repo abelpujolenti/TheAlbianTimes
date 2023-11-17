@@ -32,6 +32,10 @@ public class NewsConsequenceManager : MonoBehaviour
                 ApplyNewsConsequencesToCountry(consequence);
             }
         }
+        foreach (Country c in GameManager.Instance.gameState.countries)
+        {
+            c.DebugValues();
+        }
     }
     private void ApplyNewsConsequencesToCountry(NewsConsequenceData consequence)
     {

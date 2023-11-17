@@ -174,5 +174,15 @@ public class Country : MonoBehaviour
     {
         return names[(int)GetId()];
     }
+    public void DebugValues()
+    {
+        string d = "";
+        d += GetName() + ":";
+        foreach (KeyValuePair<string, float> value in data.values)
+        {
+            d +=" // " + value.Key + ": " + value.Value;
+        }
+        Debug.Log(d);
+    }
     #endregion
 }

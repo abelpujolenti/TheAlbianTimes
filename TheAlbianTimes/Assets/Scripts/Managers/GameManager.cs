@@ -32,8 +32,8 @@ namespace Managers
             {
                 saveManager.LoadFromJson();
             }
-            /*LoadCountries();
-            LoadPlayerData();*/
+            LoadCountries();
+            LoadPlayerData();
         }
 
         private void GenerateCountryEvents()

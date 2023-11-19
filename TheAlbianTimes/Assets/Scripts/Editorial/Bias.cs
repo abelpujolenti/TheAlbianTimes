@@ -1,6 +1,7 @@
 using System;
 using Managers;
 using TMPro;
+using UnityEditor.Build.Content;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -54,7 +55,13 @@ namespace Editorial
             EventsManager.OnChangeSelectedBias += UnselectBias;
 
         }
-        
+
+        private void OnDisable()
+        {
+            //This is cringe but event wasnt getting unsubscribed
+            EventsManager.OnChangeSelectedBias -= UnselectBias;
+        }
+
         public void SetupColor()
         {
             _unselectedColor = _image.color;

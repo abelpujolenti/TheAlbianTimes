@@ -27,6 +27,8 @@ public class TESTDisplay : MonoBehaviour
     public void Continue()
     {
         PlayerDataManager.Instance.ApplyStaffChange();
+
+        GameManager.Instance.sceneLoader.SetScene("WorkspaceScene");
     }
     public void UpdateText()
     {

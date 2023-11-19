@@ -33,6 +33,6 @@ public class PublishingManager : MonoBehaviour
         Debug.Log(income);
         PlayerDataManager.Instance.UpdateMoney(income);
 
-        GameManager.Instance.sceneLoader.LoadScene("ConsequencesScene");
+        GameManager.Instance.sceneLoader.SetScene("StatsScene");
     } 
 }

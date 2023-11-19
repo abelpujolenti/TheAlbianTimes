@@ -13,6 +13,7 @@ public class PlayerDataManager : MonoBehaviour
     [SerializeField] const float hiringCost = 20f;
     public float staffCost = baseStaffCost;
     public float censorshipAverage = 0f;
+    public int staffChange = 0;
 
     private void Awake()
     {
@@ -27,21 +28,22 @@ public class PlayerDataManager : MonoBehaviour
     }
     public void HireStaff()
     {
-        UpdateMoney(-hiringCost);
-        UpdateStaff(1);
+        staffChange++;
     }
     public void FireStaff()
     {
-        UpdateMoney(-firingCost);
-        UpdateStaff(-1);
+        staffChange--;
     }
-    public void UpdateMoney(float amount)
+    public void ApplyStaffChange()
     {
-        float money = GameManager.Instance.gameState.playerData.money += amount;
-        if (money <= 0)
-        {
-            Debug.Log("no cash");
-        }
+        UpdateStaff(staffChange);
+        float cost = CalculateCostOfStaffChange();
+        UpdateMoney(cost);
+        staffChange = 0;
+    }
+    public float CalculateCostOfStaffChange()
+    {
+        return staffChange < 0 ? staffChange * firingCost : -staffChange * hiringCost;
     }
     public void UpdateStaff(int amount)
     {
@@ -49,6 +51,14 @@ public class PlayerDataManager : MonoBehaviour
         if (staffCount <= 0)
         {
             Debug.Log("no bitches");
+        }
+    }
+    public void UpdateMoney(float amount)
+    {
+        float money = GameManager.Instance.gameState.playerData.money += amount;
+        if (money <= 0)
+        {
+            Debug.Log("no cash");
         }
     }
     public float CalculateRevenue()

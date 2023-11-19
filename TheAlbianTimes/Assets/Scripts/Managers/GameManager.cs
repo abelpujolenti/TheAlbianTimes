@@ -36,7 +36,7 @@ namespace Managers
             LoadCountries();
             LoadPlayerData();
 
-            sceneLoader.LoadScene("WorkspaceScene");
+            sceneLoader.SetScene("WorkspaceScene");
         }
 
         private void GenerateCountryEvents()

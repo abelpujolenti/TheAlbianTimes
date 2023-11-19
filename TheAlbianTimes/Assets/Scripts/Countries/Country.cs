@@ -174,7 +174,7 @@ public class Country : MonoBehaviour
     {
         return names[(int)GetId()];
     }
-    public void DebugValues()
+    public string DebugValues()
     {
         string d = "";
         d += GetName() + ":";
@@ -183,6 +183,7 @@ public class Country : MonoBehaviour
             d +=" // " + value.Key + ": " + value.Value;
         }
         Debug.Log(d);
+        return d;
     }
     #endregion
 }

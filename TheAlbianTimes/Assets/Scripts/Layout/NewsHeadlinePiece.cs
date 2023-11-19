@@ -30,7 +30,7 @@ namespace Layout
 
         [SerializeField] private bool _transferDrag;
 
-        void Awake()
+        private void Start()
         {
             _subPiecesPositionsRelativeToRoot = new Vector2[_newsHeadlineSubPieces.Length];
 
@@ -240,6 +240,11 @@ namespace Layout
         private Vector2 DistanceToPosition(Vector2 position)
         {
             return (Vector2)transform.position - position;
+        }
+
+        public void SetSubPieces(NewsHeadlineSubPiece[] subPieces)
+        {
+            _newsHeadlineSubPieces = subPieces;
         }
     }
 }

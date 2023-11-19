@@ -308,10 +308,10 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  defaultPopulation: 0
-  defaultReputation: 0
+  defaultPopulation: 50000
+  defaultReputation: 0.4
   defaultCensorship: 0
-  defaultPurchasingPower: 0
+  defaultPurchasingPower: 0.65
   data:
     countryId: 6
 --- !u!1 &62019410
@@ -543,10 +543,10 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  defaultPopulation: 0
-  defaultReputation: 0
-  defaultCensorship: 0
-  defaultPurchasingPower: 0
+  defaultPopulation: 9000
+  defaultReputation: 0.5
+  defaultCensorship: 0.1
+  defaultPurchasingPower: 0.75
   data:
     countryId: 0
 --- !u!1 &532688764
@@ -598,7 +598,7 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.8
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -606,7 +606,16 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.3
+      time: 0.1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.67206293
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.25
       value: 0
       inSlope: 0
       outSlope: 0
@@ -734,10 +743,10 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  defaultPopulation: 0
-  defaultReputation: 0
+  defaultPopulation: 680
+  defaultReputation: 0.5
   defaultCensorship: 0
-  defaultPurchasingPower: 0
+  defaultPurchasingPower: 0.4
   data:
     countryId: 8
 --- !u!1 &663741450
@@ -925,10 +934,10 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  defaultPopulation: 0
-  defaultReputation: 0
+  defaultPopulation: 17000
+  defaultReputation: 0.5
   defaultCensorship: 0
-  defaultPurchasingPower: 0
+  defaultPurchasingPower: 0.4
   data:
     countryId: 3
 --- !u!1 &821472002
@@ -1156,10 +1165,10 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  defaultPopulation: 0
-  defaultReputation: 0
+  defaultPopulation: 65000
+  defaultReputation: 0.5
   defaultCensorship: 0
-  defaultPurchasingPower: 0
+  defaultPurchasingPower: 0.6
   data:
     countryId: 7
 --- !u!1 &959088540
@@ -1347,10 +1356,10 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  defaultPopulation: 0
-  defaultReputation: 0
-  defaultCensorship: 0
-  defaultPurchasingPower: 0
+  defaultPopulation: 4600
+  defaultReputation: 0.5
+  defaultCensorship: 0.2
+  defaultPurchasingPower: 0.9
   data:
     countryId: 4
 --- !u!1 &1002994397
@@ -1584,10 +1593,10 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  defaultPopulation: 0
-  defaultReputation: 0
+  defaultPopulation: 40000
+  defaultReputation: 0.7
   defaultCensorship: 0
-  defaultPurchasingPower: 0
+  defaultPurchasingPower: 0.55
   data:
     countryId: 5
 --- !u!1 &1419419051
@@ -1639,15 +1648,33 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.8
-      inSlope: 0
-      outSlope: 0
+      value: 1
+      inSlope: -2.4768136
+      outSlope: -2.4768136
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.3859683
     - serializedVersion: 3
-      time: 0.3
+      time: 0.35
+      value: 0.5
+      inSlope: -0.5875959
+      outSlope: -0.5875959
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.20852064
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.592106
+      value: 0.2982343
+      inSlope: -3.1206272
+      outSlope: -3.1206272
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.11247504
+      outWeight: 0.25850293
+    - serializedVersion: 3
+      time: 0.8
       value: 0
       inSlope: 0
       outSlope: 0
@@ -1775,10 +1802,10 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  defaultPopulation: 0
-  defaultReputation: 0
-  defaultCensorship: 0
-  defaultPurchasingPower: 0
+  defaultPopulation: 180000
+  defaultReputation: 0.3
+  defaultCensorship: 0.5
+  defaultPurchasingPower: 0.45
   data:
     countryId: 2
 --- !u!1 &1699620275
@@ -1966,9 +1993,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  defaultPopulation: 0
-  defaultReputation: 0
+  defaultPopulation: 120000
+  defaultReputation: 0.5
   defaultCensorship: 0
-  defaultPurchasingPower: 0
+  defaultPurchasingPower: 0.2
   data:
     countryId: 1

@@ -51,12 +51,14 @@ public class PlayerDataManager : MonoBehaviour
             Debug.Log("no bitches");
         }
     }
-    public float CalculateIncome()
+    public float CalculateRevenue()
     {
         float income = 0;
         foreach (Country country in GameManager.Instance.gameState.countries)
         {
-            income += incomeMultiplier * (1f - country.GetCensorship()) * country.GetPurchasingPower() * country.GetPopulation() * country.GetReputation();
+            float addIncome = incomeMultiplier * (1f - country.GetCensorship()) * country.GetPurchasingPower() * country.GetPopulation() * country.GetReputation();
+            income += addIncome;
+            Debug.Log(country.name + " Income: " + addIncome);
         }
         return income;
     }

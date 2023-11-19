@@ -29,5 +29,10 @@ public class PublishingManager : MonoBehaviour
             articles.Add(piece.GetNewsHeadlinesSubPieces()[0].GetNewsHeadline().GetNewsData());
         }
         NewsConsequenceManager.Instance.ApplyNewsConsequences(articles.ToArray());
+        float income = PlayerDataManager.Instance.CalculateRevenue() - PlayerDataManager.Instance.CalculateCosts();
+        Debug.Log(income);
+        PlayerDataManager.Instance.UpdateMoney(income);
+
+        GameManager.Instance.sceneLoader.LoadScene("ConsequencesScene");
     } 
 }

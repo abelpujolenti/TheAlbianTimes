@@ -8,6 +8,7 @@ namespace Managers
         public static GameManager Instance => _instance;
         public GameState gameState;
         private SaveManager saveManager;
+        public SceneLoader sceneLoader = new SceneLoader();
 
         public static int round = 1;
 
@@ -34,6 +35,8 @@ namespace Managers
             }
             LoadCountries();
             LoadPlayerData();
+
+            sceneLoader.LoadScene("WorkspaceScene");
         }
 
         private void GenerateCountryEvents()

@@ -29,9 +29,13 @@ public class PublishingManager : MonoBehaviour
             articles.Add(piece.GetNewsHeadlinesSubPieces()[0].GetNewsHeadline().GetNewsData());
         }
         NewsConsequenceManager.Instance.ApplyNewsConsequences(articles.ToArray());
+
         float income = PlayerDataManager.Instance.CalculateRevenue() - PlayerDataManager.Instance.CalculateCosts();
-        Debug.Log(income);
         PlayerDataManager.Instance.UpdateMoney(income);
+
+        float currentGlobalReputation = PlayerDataManager.Instance.CalculateGlobalReputation();
+        float diff = currentGlobalReputation - GameManager.Instance.gameState.playerData.reputation;
+        PlayerDataManager.Instance.UpdateReputation(currentGlobalReputation);
 
         GameManager.Instance.sceneLoader.SetScene("StatsScene");
     } 

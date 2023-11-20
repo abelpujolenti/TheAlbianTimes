@@ -49,7 +49,9 @@ public class TESTDisplay : MonoBehaviour
         string staffChangeCostStr = staffChangeCost > 0 ? "<color=green>(+" + staffChangeCost + ")</color>" : "<color=red>(" + staffChangeCost + ")</color>";
         pt += "Money: " + GameManager.Instance.gameState.playerData.money + staffChangeCostStr + "\n";
         pt += "Staff: " + GameManager.Instance.gameState.playerData.staff + staffChangeStr + "\n";
-        pt += "Reputation: " + GameManager.Instance.gameState.playerData.reputation + "\n";
+        pt += "Reputation: " + GameManager.Instance.gameState.playerData.reputation.ToString("p") + "\n";
         playerText.text = pt;
+
+        // TODO: Change in stats should definetely be saved somewhere
     }
 }

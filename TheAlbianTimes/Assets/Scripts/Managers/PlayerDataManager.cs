@@ -8,6 +8,7 @@ public class PlayerDataManager : MonoBehaviour
 
     [SerializeField] const float incomeMultiplier = 0.5f;
     [SerializeField] const float censorshipMarkup = 10f;
+    [SerializeField] const float reputationDiscount = 6f;
     [SerializeField] const float baseStaffCost = 20f;
     [SerializeField] const float firingCost = 10f;
     [SerializeField] const float hiringCost = 20f;
@@ -61,6 +62,10 @@ public class PlayerDataManager : MonoBehaviour
             Debug.Log("no cash");
         }
     }
+    public void UpdateReputation(float amount)
+    {
+        GameManager.Instance.gameState.playerData.reputation = amount;
+    }
     public float CalculateRevenue()
     {
         float income = 0;
@@ -78,7 +83,9 @@ public class PlayerDataManager : MonoBehaviour
     }
     public float UpdateStaffCost()
     {
-        staffCost = baseStaffCost + UpdateAverageCensorship() * censorshipMarkup;
+        float censorshipCost = UpdateAverageCensorship() * censorshipMarkup;
+        float reputationGain = GameManager.Instance.gameState.playerData.reputation * reputationDiscount;
+        staffCost = baseStaffCost + censorshipCost - reputationGain;
         return staffCost;
     }
     public float UpdateAverageCensorship()
@@ -90,5 +97,18 @@ public class PlayerDataManager : MonoBehaviour
         }
         censorshipAverage /= (float)Country.Id.AMOUNT;
         return censorshipAverage;
+    }
+    public float CalculateGlobalReputation()
+    {
+        float globalReputation = 0f;
+        float populationSqrt = 0f;
+        foreach (Country country in GameManager.Instance.gameState.countries)
+        {
+            float p = Mathf.Sqrt(country.GetPopulation());
+            populationSqrt += p;
+            globalReputation += country.GetReputation() * p;
+        }
+        globalReputation /= populationSqrt;
+        return globalReputation;
     }
 }

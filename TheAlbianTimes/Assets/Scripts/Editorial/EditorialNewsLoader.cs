@@ -5,6 +5,7 @@ using Editorial;
 using Layout;
 using Managers;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Utility;
@@ -18,6 +19,7 @@ public class EditorialNewsLoader : MonoBehaviour
     [SerializeField] private GameObject _newsHeadlinePiece;
     [SerializeField] private GameObject _newsHeadlinesPiecesContainer;
     [SerializeField] private NewsFolder _newsFolder;
+    private PieceGenerator pieceGenerator = new PieceGenerator();
 
     private void Start()
     {
@@ -31,10 +33,10 @@ public class EditorialNewsLoader : MonoBehaviour
     }
 
     private void LoadNewsFromFile(string json)
-    {   
+    {
+        NewsData newsData = JsonUtility.FromJson<NewsData>(json);
         GameObject newsHeadlineGameObject = Instantiate(_newsHeadline, _newsFolder.transform);
-        GameObject newsHeadlinePieceGameObject =
-            Instantiate(_newsHeadlinePiece, _newsHeadlinesPiecesContainer.transform);
+        GameObject newsHeadlinePieceGameObject = pieceGenerator.Generate(newsData.type, _newsHeadlinesPiecesContainer.transform).gameObject;
 
         newsHeadlineGameObject.transform.localPosition = new Vector2(0, SPAWN_Y_COORDINATE);
         
@@ -44,7 +46,7 @@ public class EditorialNewsLoader : MonoBehaviour
         
         NewsHeadlineSubPiece[] newsHeadlineSubPieces = newsHeadlinePieceComponent.GetNewsHeadlinesSubPieces();
         
-        SetNewsHeadlineData(newsHeadlineGameObject, newsHeadlinePieceComponent, newsHeadlineSubPieces, json);
+        SetNewsHeadlineData(newsHeadlineGameObject, newsHeadlinePieceComponent, newsHeadlineSubPieces, newsData);
         
         SetNewsHeadlinePieceData(newsHeadlineGameObject, newsHeadlinePieceGameObject, newsHeadlineSubPieces);
 
@@ -52,7 +54,7 @@ public class EditorialNewsLoader : MonoBehaviour
     }
 
     private void SetNewsHeadlineData(GameObject newsHeadlineGameObject, NewsHeadlinePiece newsHeadlinePiece,
-        NewsHeadlineSubPiece[] newsHeadlineSubPieces, String json)
+        NewsHeadlineSubPiece[] newsHeadlineSubPieces, NewsData newsData)
     {
         NewsHeadline newsHeadlineComponent = newsHeadlineGameObject.GetComponent<NewsHeadline>();
 
@@ -68,8 +70,6 @@ public class EditorialNewsLoader : MonoBehaviour
             newsHeadlineComponent.SetGameObjectToTransferDrag(newsHeadlineSubPieces[i].gameObject);      
         }
         newsHeadlineComponent.SetNewsHeadlineSubPieceToTransferDrag(newsHeadlinePiece);
-        
-        NewsData newsData = JsonUtility.FromJson<NewsData>(json);
 
         newsHeadlineComponent.SetNewsData(newsData);
 

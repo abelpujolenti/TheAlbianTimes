@@ -17,7 +17,7 @@ namespace Editorial
         private const float CHANGE_CONTENT_Y_COORDINATE = 1000;
         private const float SPEED_MOVEMENT = 10;
         private const float Y_DISTANCE_TO_MOVE_ON_HOVER = 10f;
-        private const float SECONDS_AWAITING_TO_RETURN_TO_FOLDER = 3;
+        private const float SECONDS_AWAITING_TO_RETURN_TO_FOLDER = 1.5f;
 
         private readonly float _midPoint = MIN_X_POSITION_CAMERA + (MAX_X_POSITION_CAMERA - MIN_X_POSITION_CAMERA) / 2;
 

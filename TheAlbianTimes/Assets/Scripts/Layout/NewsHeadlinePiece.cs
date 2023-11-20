@@ -30,7 +30,7 @@ namespace Layout
 
         [SerializeField] private bool _transferDrag;
 
-        void Awake()
+        private void Start()
         {
             _subPiecesPositionsRelativeToRoot = new Vector2[_newsHeadlineSubPieces.Length];
 
@@ -75,7 +75,7 @@ namespace Layout
         {
 
             if (EventsManager.OnPreparingCells == null ||
-                EventsManager.OnSuccessFulSnap == null)
+                EventsManager.OnSuccessfulSnap == null)
             {
                 return;
             }
@@ -120,7 +120,7 @@ namespace Layout
                 return;
             }
 
-            transform.position = EventsManager.OnSuccessFulSnap(_snappedCells, transform.position) + _offset;
+            transform.position = EventsManager.OnSuccessfulSnap(_snappedCells, transform.position);
         }
 
         public void SlideFromOriginToDestination(Vector2 origin)
@@ -240,6 +240,16 @@ namespace Layout
         private Vector2 DistanceToPosition(Vector2 position)
         {
             return (Vector2)transform.position - position;
+        }
+
+        public void SetSubPieces(NewsHeadlineSubPiece[] subPieces)
+        {
+            _newsHeadlineSubPieces = subPieces;
+        }
+
+        public int GetSubPieceCount()
+        {
+            return _newsHeadlineSubPieces.Length;
         }
     }
 }

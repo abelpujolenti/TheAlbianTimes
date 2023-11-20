@@ -75,7 +75,7 @@ namespace Layout
         {
 
             if (EventsManager.OnPreparingCells == null ||
-                EventsManager.OnSuccessFulSnap == null)
+                EventsManager.OnSuccessfulSnap == null)
             {
                 return;
             }
@@ -120,7 +120,7 @@ namespace Layout
                 return;
             }
 
-            transform.position = EventsManager.OnSuccessFulSnap(_snappedCells, transform.position) + _offset;
+            transform.position = EventsManager.OnSuccessfulSnap(_snappedCells, transform.position);
         }
 
         public void SlideFromOriginToDestination(Vector2 origin)

@@ -35,13 +35,13 @@ namespace Layout
         private void OnEnable()
         {
             EventsManager.OnPreparingCells += TakeCells;
-            EventsManager.OnSuccessFulSnap += SnapNewsHeadline;
+            EventsManager.OnSuccessfulSnap += SnapNewsHeadline;
         }
 
         private void OnDisable()
         {
             EventsManager.OnPreparingCells -= TakeCells;
-            EventsManager.OnSuccessFulSnap -= SnapNewsHeadline;
+            EventsManager.OnSuccessfulSnap -= SnapNewsHeadline;
         }
 
         private Vector2 ModifySizeDelta()
@@ -172,7 +172,6 @@ namespace Layout
                     return null;
                 }
             }
-
             return LookForCellsForNeighborPieces(index, draggedSubPiece, desiredCells, newsHeadlinePieces);
         }
 
@@ -238,29 +237,45 @@ namespace Layout
                 (int)(newsHeadlinePieces[i].GetCoordinates().x - draggedSubPiece.GetCoordinates().x);
                 
             int yCoordinateRelativeToDraggedPiece =
-                (int)(newsHeadlinePieces[i].GetCoordinates().y - draggedSubPiece.GetCoordinates().y);
+                (int)(newsHeadlinePieces[i].GetCoordinates().y - draggedSubPiece.GetCoordinates().y) * -1;
 
             int finalCellCoordinateX = (int)(desiredCells[index].GetColumn() + xCoordinateRelativeToDraggedPiece);
 
             int finalCellCoordinateY = (int)(desiredCells[index].GetRow() + yCoordinateRelativeToDraggedPiece);
-            
+
             return _cells[finalCellCoordinateX][finalCellCoordinateY];
         }
 
         private Vector3 SnapNewsHeadline(Cell[] snappedCells, Vector2 newsHeadlinePosition)
         {
-            Vector2 baryCenter = new Vector2();
+            //Vector2 baryCenter = new Vector2();
 
+            //foreach (Cell cell in snappedCells)
+            //{
+            //    cell.SetFree(false);
+            //    Vector2 position = cell.transform.position;
+            //    baryCenter += position;
+            //}
+
+            //baryCenter /= snappedCells.Length;
+
+            //return baryCenter;
+
+            Cell centerCell = snappedCells[0];
+            float dist = -1f;
             foreach (Cell cell in snappedCells)
             {
                 cell.SetFree(false);
                 Vector2 position = cell.transform.position;
-                baryCenter += position;
+
+                float curDist = Vector2.Distance(newsHeadlinePosition, position);
+                if (dist < 0 || curDist < dist)
+                {
+                    dist = curDist;
+                    centerCell = cell;
+                }
             }
-
-            baryCenter /= snappedCells.Length;
-
-            return baryCenter;
+            return centerCell.transform.position;
         }
     }
 }

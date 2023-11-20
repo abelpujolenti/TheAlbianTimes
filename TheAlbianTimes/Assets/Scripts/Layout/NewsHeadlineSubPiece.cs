@@ -19,12 +19,16 @@ namespace Layout
         
         [SerializeField] private Vector2 _coordinates;
 
+        private float size = 61.66667f; //lmao
+
         private Image _image;
 
         private new void Awake()
         {
+            draggable = true;
             base.Awake();
             _image = GetComponent<Image>();
+            _image.rectTransform.sizeDelta = new Vector2(size, size);
             gameObjectToDrag = transform.parent.gameObject;
             
         }
@@ -146,6 +150,11 @@ namespace Layout
         public Vector2 GetCoordinates()
         {
             return _coordinates;
+        }
+
+        public void SetPositionFromCoordinates(Vector2 pieceSize)
+        {
+            transform.localPosition = new Vector2(_coordinates.x * size, _coordinates.y * size);
         }
 
         public void SetGameObjectToTransferDrag(GameObject gameObjectToTransferDrag)

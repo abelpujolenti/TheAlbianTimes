@@ -246,5 +246,10 @@ namespace Layout
         {
             _newsHeadlineSubPieces = subPieces;
         }
+
+        public int GetSubPieceCount()
+        {
+            return _newsHeadlineSubPieces.Length;
+        }
     }
 }

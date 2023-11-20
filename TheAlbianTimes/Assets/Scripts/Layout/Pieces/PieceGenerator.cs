@@ -12,18 +12,23 @@ public class PieceGenerator
     {
         PieceData pieceData = new PieceData((int)type, PieceData.pivots[(int)type]);
         Vector2[] pieceCoords = pieceData.ConvertToRelativeTileCoordinates();
+        Vector2 pieceSize = pieceData.GetPieceSize();
         List<NewsHeadlineSubPiece> subPieces = new List<NewsHeadlineSubPiece>();
         GameObject op = FakeInstantiate(newsHeadlinesPiecesContainer);
         NewsHeadlinePiece newsHeadlinePiece = op.AddComponent<NewsHeadlinePiece>();
-        
+
         foreach (Vector2 v in pieceCoords)
         {
             GameObject os = FakeInstantiate(op.transform);
-            os.AddComponent<Image>();
+            Image subPieceImage = os.AddComponent<Image>();
             NewsHeadlineSubPiece subPiece = os.AddComponent<NewsHeadlineSubPiece>();
+
             subPiece.SetCoordinates(v);
+            subPiece.SetPositionFromCoordinates(pieceSize);
             subPiece.SetNewsHeadlinePiece(newsHeadlinePiece);
-            subPiece.draggable = true;
+
+            subPieceImage.color = Color.gray;
+
             subPieces.Add(subPiece);
         }
         newsHeadlinePiece.SetSubPieces(subPieces.ToArray());

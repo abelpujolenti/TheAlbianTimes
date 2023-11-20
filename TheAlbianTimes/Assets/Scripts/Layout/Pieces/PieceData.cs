@@ -7,7 +7,7 @@ public class PieceData
 {
     public const int size = 5;
     public static readonly int[] shapes = { 35, 1057, 3138, 99, 1123, 199, 486, 68705, 101473, 7239, 3567, 9711, 7399, 6383 };
-    public static readonly int[] pivots = { 0, 5, 6, 0, 5, 1, 6, 5, 10, 6, 6, 6, 6, 6 };
+    public static readonly int[] pivots = { 0, 5, 6, 5, 5, 1, 6, 5, 10, 6, 6, 6, 6, 6 };
     public int shape;
     public int pivot;
 
@@ -33,6 +33,29 @@ public class PieceData
             }
         }
         return ret.ToArray();
+    }
+    public Vector2 GetPieceSize()
+    {
+        Vector2 ret = Vector2.zero;
+        for (int i = 0; i < size; i++)
+        {
+            for (int j = 0; j < size; j++)
+            {
+                int index = i * size + j;
+                int p = (1 << index);
+                int bit = (shape & p) / p;
+                if (bit == 1)
+                {
+                    if (ret.x < j)
+                    {
+                        ret.x = j;
+                    }
+                    ret.y = i;
+                }
+            }
+        }
+        ret += Vector2.one;
+        return ret;
     }
     /*public Vector2[] ConvertToAbsoluteCoordinates(Vector2 pivotCoordinate, Vector2 pieceSize)
     {

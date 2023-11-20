@@ -128,6 +128,18 @@ public class Country : MonoBehaviour
         }
     }
 
+    public string DisplayValues()
+    {
+        string d = "";
+        d += "<b>" + GetName() + ":</b>\n";
+        foreach (KeyValuePair<string, float> value in data.values)
+        {
+            d += value.Key + ": " + value.Value + "  ";
+        }
+        Debug.Log(d);
+        return d;
+    }
+
     #region Getters/Setters
     public void ModifyValue(string key, float value)
     {
@@ -174,16 +186,6 @@ public class Country : MonoBehaviour
     {
         return names[(int)GetId()];
     }
-    public string DebugValues()
-    {
-        string d = "";
-        d += GetName() + ":";
-        foreach (KeyValuePair<string, float> value in data.values)
-        {
-            d +=" // " + value.Key + ": " + value.Value;
-        }
-        Debug.Log(d);
-        return d;
-    }
+
     #endregion
 }

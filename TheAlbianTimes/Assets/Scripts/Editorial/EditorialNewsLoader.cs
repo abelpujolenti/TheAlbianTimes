@@ -36,7 +36,7 @@ public class EditorialNewsLoader : MonoBehaviour
     {
         NewsData newsData = JsonUtility.FromJson<NewsData>(json);
         GameObject newsHeadlineGameObject = Instantiate(_newsHeadline, _newsFolder.transform);
-        GameObject newsHeadlinePieceGameObject = pieceGenerator.Generate(newsData.type, _newsHeadlinesPiecesContainer.transform).gameObject;
+        GameObject newsHeadlinePieceGameObject = pieceGenerator.Generate(newsData, _newsHeadlinesPiecesContainer.transform).gameObject;
 
         newsHeadlineGameObject.transform.localPosition = new Vector2(0, SPAWN_Y_COORDINATE);
         

@@ -13,7 +13,6 @@ public class StatsDisplay : MonoBehaviour
     TextMeshProUGUI moneyText;
     TextMeshProUGUI staffText;
     TextMeshProUGUI reputationText;
-    float a = 40;
     void Start()
     {
         moneyText = transform.Find("money").GetComponent<TextMeshProUGUI>();

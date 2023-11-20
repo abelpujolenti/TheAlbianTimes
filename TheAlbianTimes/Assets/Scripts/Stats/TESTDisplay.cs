@@ -38,7 +38,7 @@ public class TESTDisplay : MonoBehaviour
         string ct = "";
         foreach (Country c in GameManager.Instance.gameState.countries)
         {
-            ct += c.DebugValues() + "\n";
+            ct += c.DisplayValues() + "\n";
         }
         countriesText.text = ct;
 

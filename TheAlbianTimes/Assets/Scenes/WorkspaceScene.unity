@@ -1224,10 +1224,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 11.95
-  m_fontSizeBase: 24
+  m_fontSize: 10
+  m_fontSizeBase: 10
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 5
   m_fontSizeMax: 72
   m_fontStyle: 0
@@ -2075,8 +2075,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -334.6, y: -6.1}
-  m_SizeDelta: {x: 0, y: 370}
+  m_AnchoredPosition: {x: -277, y: -34.7}
+  m_SizeDelta: {x: 0, y: 345}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &1114375430
 MonoBehaviour:
@@ -2091,8 +2091,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rectTransform: {fileID: 1114375429}
-  _columns: 4
-  _rows: 6
+  _columns: 5
+  _rows: 7
   _cellPrefab: {fileID: 5001575583076229145, guid: 7afb0b2eef9fd8f439956c2815be0b9a, type: 3}
 --- !u!114 &1114375431
 MonoBehaviour:
@@ -2753,8 +2753,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 71.6, y: -94.18}
-  m_SizeDelta: {x: 39.3, y: 27.63}
+  m_AnchoredPosition: {x: 98.7, y: -106.4}
+  m_SizeDelta: {x: 39.3, y: 22.08}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1704330279
 MonoBehaviour:
@@ -2920,7 +2920,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: 27.1k
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ea96b8f86a6fce342b929837b9da15e8, type: 2}
   m_sharedMaterial: {fileID: 5390329355709460458, guid: ea96b8f86a6fce342b929837b9da15e8, type: 2}
@@ -3352,8 +3352,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.75, y: 0.5}
   m_AnchorMax: {x: 0.75, y: 0.5}
-  m_AnchoredPosition: {x: -295.8, y: 47.2}
-  m_SizeDelta: {x: 185, y: 211.2}
+  m_AnchoredPosition: {x: -272.7, y: -23.45}
+  m_SizeDelta: {x: 214.59, y: 273.29}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2074077134
 CanvasRenderer:

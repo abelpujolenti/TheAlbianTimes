@@ -19,7 +19,7 @@ namespace Layout
         
         [SerializeField] private Vector2 _coordinates;
 
-        private float size = 61.66667f; //lmao
+        public static readonly float size = 49.286f; //lmao
 
         private Image _image;
 

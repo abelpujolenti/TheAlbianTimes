@@ -55,7 +55,7 @@ namespace Editorial
 
         }
 
-        private void OnDisable()
+        private void OnDestroy()
         {
             //This is cringe but event wasnt getting unsubscribed
             EventsManager.OnChangeSelectedBias -= UnselectBias;

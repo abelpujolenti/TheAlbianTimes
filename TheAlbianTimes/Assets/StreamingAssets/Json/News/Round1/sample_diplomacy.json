@@ -1,5 +1,5 @@
 {
-    "type": 8,
+    "type": 3,
     "imagePath": null,
     "consequences": [
         {
@@ -49,24 +49,6 @@
             "description": "The authorities are right, he needs to be held accountable.",
             "headline": "Disgraced politician Oscar Garcia Panyella, PhD arrested in scandalous party.",
             "text": "    Former Madian deputy vice-president of technology and culture Oscar Garcia Panyella, PhD was placed in custody by Albian police after the raid of an illegal linkedin party. Individuals in the party were found to be engaging in networking and profile sharing, and Dr's panyella's involvement is strongly suspected. Despite Madian authorities begging for his release, he will be judged by the Royal Albian Court in January 6th for his alleged crimes.",
-            "additionalConsequences": [
-                {
-                    "country": 6,
-                    "key": "reputation",
-                    "value": -0.05
-                },
-                {
-                    "country": 5,
-                    "key": "reputation",
-                    "value": 0.05
-                }
-            ]
-        },
-        {
-            "name": "DEATH",
-            "description": "He should be hanged.",
-            "headline": "I hate linkedin i hate linkedin i hate linkedin",
-            "text": "    ingame",
             "additionalConsequences": [
                 {
                     "country": 6,

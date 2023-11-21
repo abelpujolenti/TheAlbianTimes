@@ -19,7 +19,7 @@ public class PieceGenerator
         GameObject op = FakeInstantiate(newsHeadlinesPiecesContainer);
         NewsHeadlinePiece newsHeadlinePiece = op.AddComponent<NewsHeadlinePiece>();
 
-        Color subPieceColor = Color.gray + new Color(Random.Range(0f, .2f), Random.Range(0f, .2f), Random.Range(0f, .2f));
+        Color subPieceColor = PieceData.colors[(int)newsData.type];
 
         foreach (Vector2 v in pieceCoords)
         {

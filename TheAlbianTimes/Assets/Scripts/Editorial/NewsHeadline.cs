@@ -63,8 +63,9 @@ namespace Editorial
             _contentText.text = _biasesContents[0];
             _articleTagText.text = newsTypeName[(int)_newsType];
 
-            gameObject.GetComponent<Image>().color =
-                new Color(Random.Range(0.85f, 1f), Random.Range(0.85f, 1f), Random.Range(0.85f, 1f));
+            Color color = PieceData.colors[(int)_newsType];
+            _articleTagText.GetComponentInParent<Image>().color = ColorUtil.SetSaturationMultiplicative(color, 0.5f);
+            gameObject.GetComponent<Image>().color = ColorUtil.SetSaturationMultiplicative(color, 0.15f);
         }
 
         public void SimulateBeginDrag(BaseEventData data)

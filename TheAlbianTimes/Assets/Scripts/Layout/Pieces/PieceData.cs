@@ -8,6 +8,10 @@ public class PieceData
     public const int size = 5;
     public static readonly int[] shapes = { 35, 1057, 3138, 99, 1123, 199, 486, 68705, 101473, 7239, 3567, 9711, 7399, 6383 };
     public static readonly int[] pivots = { 0, 5, 6, 5, 5, 1, 6, 5, 10, 6, 6, 6, 6, 6 };
+    public static readonly Color[] colors = { new Color32(230, 76, 166, 255), new Color32(76, 137, 230, 255), new Color32(229, 177, 75, 255),
+        new Color32(85, 230, 76, 255), new Color32(230, 86, 71, 255), new Color32(85, 71, 230, 255), new Color32(155, 77, 229, 255),
+        new Color32(131, 153, 178, 255), new Color32(171, 230, 71, 255), new Color32(71, 202, 230, 255), Color.gray, Color.gray, Color.gray, Color.gray};
+    
     public int shape;
     public int pivot;
 

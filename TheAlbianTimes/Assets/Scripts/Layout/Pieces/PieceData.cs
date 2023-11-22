@@ -11,7 +11,9 @@ public class PieceData
     public static readonly Color[] colors = { new Color32(230, 76, 166, 255), new Color32(76, 137, 230, 255), new Color32(229, 177, 75, 255),
         new Color32(85, 230, 76, 255), new Color32(230, 86, 71, 255), new Color32(85, 71, 230, 255), new Color32(155, 77, 229, 255),
         new Color32(131, 153, 178, 255), new Color32(171, 230, 71, 255), new Color32(71, 202, 230, 255), Color.gray, Color.gray, Color.gray, Color.gray};
-    
+    public static readonly string[] newsTypeName = { "Politics", "Opinion", "Entertainment", "Diplomacy", "Economics", "Military", "Cultural", "Technology", "Labor", "Ideology" };
+
+
     public int shape;
     public int pivot;
 

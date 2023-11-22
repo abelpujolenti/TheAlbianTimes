@@ -34,7 +34,6 @@ namespace Editorial
         private NewsFolder _newsFolder;
 
         [SerializeField] private NewsType _newsType;
-        public static readonly string[] newsTypeName = {"Politics", "Opinion", "Entertainment", "Diplomacy", "Economics", "Military", "Cultural", "Technology", "Labor", "Ideology"};
 
         private String _imagePath;
 
@@ -61,7 +60,7 @@ namespace Editorial
         {
             _headlineText.text = _headlinesText[0];
             _contentText.text = _biasesContents[0];
-            _articleTagText.text = newsTypeName[(int)_newsType];
+            _articleTagText.text = PieceData.newsTypeName[(int)_newsType];
 
             Color color = PieceData.colors[(int)_newsType];
             _articleTagText.GetComponentInParent<Image>().color = ColorUtil.SetSaturationMultiplicative(color, 0.5f);

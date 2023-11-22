@@ -1,3 +1,4 @@
+using System;
 using Managers;
 using UnityEngine;
 using Utility;
@@ -9,8 +10,8 @@ namespace Layout
         private const int PADDING = 5;
         private const int MIN_ANCHOR_X = 0;
         private const int MAX_ANCHOR_X = 1;
-        private const int MIN_ANCHOR_Y = 1;
-        private const int MAX_ANCHOR_Y = 0;
+        private const int MIN_ANCHOR_Y = 0;
+        private const int MAX_ANCHOR_Y = 1;
 
         [SerializeField] private RectTransform _rectTransform;
         
@@ -97,10 +98,10 @@ namespace Layout
         private void DefineMinMaxAnchors(Vector2 sizeDelta)
         {
             _minAnchorForCell.x = MathUtil.Map(_cellSize - _cellSize / 2, 0, sizeDelta.x, MIN_ANCHOR_X, MAX_ANCHOR_X);
-            _maxAnchorForCell.x = 1 + _minAnchorForCell.x;
+            _maxAnchorForCell.x = _minAnchorForCell.x + 1;
 
-            _minAnchorForCell.y = MathUtil.Map(sizeDelta.y - (_cellSize - _cellSize / 2), sizeDelta.y, 0, MIN_ANCHOR_Y, MAX_ANCHOR_Y);
-            _maxAnchorForCell.y = _minAnchorForCell.y - 1;
+            _minAnchorForCell.y = MathUtil.Map(_cellSize - _cellSize / 2, 0, sizeDelta.y, MIN_ANCHOR_Y, MAX_ANCHOR_Y);
+            _maxAnchorForCell.y = _minAnchorForCell.y + 1;
         }
 
         private void CreateCell(int i, int j, float cellSize, Vector2 sizeDelta)
@@ -123,6 +124,8 @@ namespace Layout
 
         private Cell[] TakeCells(NewsHeadlineSubPiece draggedSubPiece, Vector2 mousePosition, NewsHeadlineSubPiece[] newsHeadlinePieces)
         {
+            String holi = "";
+            
             if (!IsCoordinateInsideLayout(mousePosition))
             {
                 return null;
@@ -137,27 +140,18 @@ namespace Layout
 
             foreach (Cell cell in desiredCells)
             {
-                if (!cell.IsFree())
+                if (cell.IsFree())
                 {
-                    return null;
+                    continue;
                 }
+                return null;
             }
 
             return desiredCells;
-
         }
 
         private Cell[] LookForCells(NewsHeadlineSubPiece draggedSubPiece, Vector2 mousePosition, NewsHeadlineSubPiece[] newsHeadlinePieces)
         {
-
-            foreach (NewsHeadlineSubPiece piece in newsHeadlinePieces)
-            {
-                if (!IsCoordinateInsideLayout(piece.transform.position))
-                {
-                    return null;
-                }
-            }
-            
             Cell[] desiredCells = new Cell[newsHeadlinePieces.Length];
 
             int index = LookingForPieceInsideArray(draggedSubPiece, newsHeadlinePieces);
@@ -166,11 +160,15 @@ namespace Layout
 
             foreach (NewsHeadlineSubPiece piece in newsHeadlinePieces)
             {
-                if (!IsCoordinateInsideLayout((Vector2)piece.transform.position - (Vector2)draggedSubPiece.transform.position + 
-                                              (Vector2)(desiredCells[index].transform.position)))
+                if (IsCoordinateInsideLayout((Vector2)piece.transform.position -
+                                             (Vector2)draggedSubPiece.transform.position +
+                                             (Vector2)(desiredCells[index].transform.position)))
                 {
-                    return null;
+                    continue;
                 }
+
+                Debug.Log("SubPieces Outside");
+                return null;
             }
             return LookForCellsForNeighborPieces(index, draggedSubPiece, desiredCells, newsHeadlinePieces);
         }
@@ -237,7 +235,7 @@ namespace Layout
                 (int)(newsHeadlinePieces[i].GetCoordinates().x - draggedSubPiece.GetCoordinates().x);
                 
             int yCoordinateRelativeToDraggedPiece =
-                (int)(newsHeadlinePieces[i].GetCoordinates().y - draggedSubPiece.GetCoordinates().y) * -1;
+                (int)(newsHeadlinePieces[i].GetCoordinates().y - draggedSubPiece.GetCoordinates().y);
 
             int finalCellCoordinateX = (int)(desiredCells[index].GetColumn() + xCoordinateRelativeToDraggedPiece);
 
@@ -246,36 +244,14 @@ namespace Layout
             return _cells[finalCellCoordinateX][finalCellCoordinateY];
         }
 
-        private Vector3 SnapNewsHeadline(Cell[] snappedCells, Vector2 newsHeadlinePosition)
+        private Vector3 SnapNewsHeadline(Cell[] snappedCells)
         {
-            //Vector2 baryCenter = new Vector2();
-
-            //foreach (Cell cell in snappedCells)
-            //{
-            //    cell.SetFree(false);
-            //    Vector2 position = cell.transform.position;
-            //    baryCenter += position;
-            //}
-
-            //baryCenter /= snappedCells.Length;
-
-            //return baryCenter;
-
-            Cell centerCell = snappedCells[0];
-            float dist = -1f;
             foreach (Cell cell in snappedCells)
             {
                 cell.SetFree(false);
-                Vector2 position = cell.transform.position;
-
-                float curDist = Vector2.Distance(newsHeadlinePosition, position);
-                if (dist < 0 || curDist < dist)
-                {
-                    dist = curDist;
-                    centerCell = cell;
-                }
             }
-            return centerCell.transform.position;
+            
+            return snappedCells[0].transform.position;
         }
     }
 }

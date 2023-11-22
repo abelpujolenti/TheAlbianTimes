@@ -67,6 +67,7 @@ namespace Layout
 
             foreach (Cell cell in _snappedCells)
             {
+                //Debug.Log("True " + cell.GetCoordinates());
                 cell.SetFree(true);
             }
         }
@@ -120,7 +121,7 @@ namespace Layout
                 return;
             }
 
-            transform.position = EventsManager.OnSuccessfulSnap(_snappedCells, transform.position);
+            transform.position = EventsManager.OnSuccessfulSnap(_snappedCells);
         }
 
         public void SlideFromOriginToDestination(Vector2 origin)

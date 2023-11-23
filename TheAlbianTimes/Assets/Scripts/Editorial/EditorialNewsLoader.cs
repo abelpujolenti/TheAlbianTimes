@@ -28,7 +28,7 @@ public class EditorialNewsLoader : MonoBehaviour
 
     private void LoadLevelNews()
     {
-        string path = NEWS_PATH + GameManager.round;
+        string path = NEWS_PATH + GameManager.Instance.GetRound();
         FileManager.LoadAllJsonFiles(path, LoadNewsFromFile);
     }
 

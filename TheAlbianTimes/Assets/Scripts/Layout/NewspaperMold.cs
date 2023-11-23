@@ -124,8 +124,6 @@ namespace Layout
 
         private Cell[] TakeCells(NewsHeadlineSubPiece draggedSubPiece, Vector2 mousePosition, NewsHeadlineSubPiece[] newsHeadlinePieces)
         {
-            String holi = "";
-            
             if (!IsCoordinateInsideLayout(mousePosition))
             {
                 return null;

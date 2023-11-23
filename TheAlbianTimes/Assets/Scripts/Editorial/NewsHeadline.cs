@@ -15,7 +15,8 @@ namespace Editorial
     public class NewsHeadline : InteractableRectTransform
     {
         private const float CHANGE_CONTENT_Y_COORDINATE = 1000;
-        private const float SPEED_MOVEMENT = 10;
+        private const float SPEED_MOVEMENT = 15;
+        private const float TIME_TO_SLIDE = 2f;
         private const float Y_DISTANCE_TO_MOVE_ON_HOVER = 10f;
         private const float SECONDS_AWAITING_TO_RETURN_TO_FOLDER = 1.5f;
 
@@ -83,7 +84,7 @@ namespace Editorial
             EventsManager.OnCrossMidPointWhileScrolling += GetGameObjectToTransferDrag;
             EventsManager.OnCheckDistanceToMouse += DistanceToPosition;
             EventsManager.OnPrepareNewsHeadlineActions(this);
-            _newsFolder.TurnOff();
+            EditorialManager.Instance.TurnOffBiasContainer();
             _newsFolder.SetDragging(true);
         }
 
@@ -147,7 +148,7 @@ namespace Editorial
         {
             if (_newsHeadlinePieceToTransferDrag.GetTransferDrag())
             {
-                EventsManager.OnReturnNewsHeadlineToFolder(this);
+                EventsManager.OnReturnNewsHeadlineToFolder(this, false);
             }
             
             if (!draggable)
@@ -253,10 +254,12 @@ namespace Editorial
             ModifyFlags(isInFront);
             if (_inFront)
             {
+                //Debug.Log("Subscribe " + gameObject.GetInstanceID());
                 EventsManager.OnChangeNewsHeadlineContent += ChangeContent;
                 EventsManager.OnChangeSelectedBiasIndex += SetSelectedBiasIndex;
                 return;
             }
+            //Debug.Log("Unsubscribe " + gameObject.GetInstanceID());
             UnsubscribeEvents();
         }
 
@@ -274,7 +277,7 @@ namespace Editorial
         private float MoveToDestination(Vector2 origin, Vector2 destination, float timer)
         {
             timer += Time.deltaTime * SPEED_MOVEMENT;
-            transform.localPosition = Vector3.Lerp(origin, destination, timer);
+            transform.localPosition = Vector3.Lerp(origin, destination, timer / TIME_TO_SLIDE);
             
             return timer;
         }
@@ -283,7 +286,7 @@ namespace Editorial
         {
             float timer = 0;
 
-            while (timer < 1)
+            while (timer < TIME_TO_SLIDE)
             {
                 timer = MoveToDestination(origin, destination, timer);
                 yield return null;
@@ -311,7 +314,7 @@ namespace Editorial
         {
             float timer = 0;
 
-            while (timer < 1)
+            while (timer < TIME_TO_SLIDE)
             {
                 timer = MoveToDestination(_origin, destination, timer);
                 yield return null;
@@ -350,7 +353,7 @@ namespace Editorial
 
             Vector2 origin = transform.localPosition;
 
-            while (timer < 1)
+            while (timer < TIME_TO_SLIDE)
             {
                 timer = MoveToDestination(origin, _destination, timer);
                 yield return null;
@@ -360,18 +363,13 @@ namespace Editorial
 
             _origin = _destination;
 
-            if (!_inFront)
-            {
-                SetInFront(_folderOrderIndex == 0);    
-            }
-
-            _newsFolder.SubtractOneToSentNewsHeadline();
+            _newsFolder.SubtractOneToSentNewsHeadline(this, _folderOrderIndex);
         }
 
         public void DropOnFolder()
         {
             //TODO BUG ON RETURN NEWSHEADLINEPIECE TO LAYOUT 
-            _newsFolder.TurnOn();    
+            EditorialManager.Instance.TurnOnBiasContainer();    
             StartCoroutine(Slide(transform.localPosition, _origin));
         }
 

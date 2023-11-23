@@ -1,0 +1,56 @@
+{
+    "type": 7,
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 7,
+            "key": "reputation",
+            "value": 0.05
+        },
+        {
+            "country": 6,
+            "key": "reputation",
+            "value": -0.03
+        }
+    ],
+    "biases": [
+        {
+            "name": "NEUTRAL",
+            "description": "",
+            "headline": "Felon Dusk announces new vehicle which is unlikely to explode.",
+            "text": "   The Suokan enterpreneur and self-proclaimed angel investor unveiled a new vehicle from his Besla brand. Its batteries boast 700km of autonomy and an explosion rate of 12%",        
+            "additionalConsequences": []
+        },
+        {
+            "name": "INNOVATIVE!",
+            "description": "",
+            "headline": "Felon Dusk announces groundbreaking new vehicle with a record-low chance of explosion.",
+            "text": "",
+            "additionalConsequences": [
+                {
+                    "country": 7,
+                    "key": "reputation",
+                    "value": 0.03
+                }
+            ]
+        },
+        {
+            "name": "TRASH",
+            "description": "",
+            "headline": "If you want an exploding car, Felon Dusk has you covered.",
+            "text": "",
+            "additionalConsequences": [
+                {
+                    "country": 7,
+                    "key": "reputation",
+                    "value": -0.08
+                },
+                {
+                    "country": 6,
+                    "key": "reputation",
+                    "value": 0.1
+                }
+            ]
+        }
+    ]
+}

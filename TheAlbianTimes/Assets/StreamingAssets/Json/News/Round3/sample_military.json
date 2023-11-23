@@ -1,0 +1,46 @@
+{
+    "type": 5,
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 6,
+            "key": "reputation",
+            "value": -0.1
+        }
+    ],
+    "biases": [
+        {
+            "name": "NEUTRAL",
+            "description": "",
+            "headline": "Xayan military conducts missile test within Zuanian airspace.",
+            "text": "",        
+            "additionalConsequences": []
+        },
+        {
+            "name": "INNOCENT",
+            "description": "",
+            "headline": "",
+            "text": "",
+            "additionalConsequences": [
+                {
+                    "country": 6,
+                    "key": "reputation",
+                    "value": 0.1
+                }
+            ]
+        },
+        {
+            "name": "GUILTY",
+            "description": "",
+            "headline": "",
+            "text": "",
+            "additionalConsequences": [
+                {
+                    "country": 6,
+                    "key": "reputation",
+                    "value": -0.1
+                }
+            ]
+        }
+    ]
+}

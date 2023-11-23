@@ -1,0 +1,46 @@
+{
+    "type": 8,
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 6,
+            "key": "reputation",
+            "value": -0.1
+        }
+    ],
+    "biases": [
+        {
+            "name": "NEUTRAL",
+            "description": "Take a neutral stance.",
+            "headline": "Suoka Electric Corp. strikes continue as negotiations stall.",
+            "text": "",        
+            "additionalConsequences": []
+        },
+        {
+            "name": "COMPANY",
+            "description": "The workers are selfishly disrupting the lives of everyone else by refusing to meet the company halfway.",
+            "headline": "Outages continue and lives are ruined by Suoka Electric Corporation strike.",
+            "text": "",
+            "additionalConsequences": [
+                {
+                    "country": 6,
+                    "key": "reputation",
+                    "value": 0.1
+                }
+            ]
+        },
+        {
+            "name": "WORKERS",
+            "description": "The company must accept the worker's demands, or else the strike has to continue for the sake of their work conditions.",
+            "headline": "Suoka Electric Corp. fails to meet striking workers' demands.",
+            "text": "",
+            "additionalConsequences": [
+                {
+                    "country": 6,
+                    "key": "reputation",
+                    "value": -0.1
+                }
+            ]
+        }
+    ]
+}

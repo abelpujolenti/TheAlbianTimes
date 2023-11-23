@@ -288,6 +288,10 @@ namespace Editorial
 
         public void TurnOn()
         {
+            if (_biasContainer == null)
+            {
+                return;
+            }
             if (_biasContainer.activeSelf)
             {
                 return;

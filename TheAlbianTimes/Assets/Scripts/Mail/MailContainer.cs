@@ -62,12 +62,15 @@ public class MailContainer : InteractableRectTransform
         float elapsedT = 0f;
         while (elapsedT <= t)
         {
-            Vector2 newPos = gameObjectToDrag.transform.position;
-            newPos.x = Mathf.SmoothStep(start, end, Mathf.Pow((elapsedT / t), 2));
+            Vector3 newPos = gameObjectToDrag.transform.position;
+            newPos.x = Mathf.SmoothStep(start, end, Mathf.Pow(Mathf.Min(1f, elapsedT / t), 2));
             gameObjectToDrag.transform.position = newPos;
             yield return new WaitForFixedUpdate();
-            elapsedT = Mathf.Min(elapsedT + Time.fixedDeltaTime, t);
+            elapsedT += Time.fixedDeltaTime;
         }
+        Vector3 endPos = gameObjectToDrag.transform.position;
+        endPos.x = end;
+        gameObjectToDrag.transform.position = endPos;
     }
 
     public bool IsOpen()

@@ -7,13 +7,12 @@ namespace Utility
     public class InteractableRectTransform : MonoBehaviour
     {
         #region config
-        public bool moveCamera;
         public bool draggable;
         public bool hoverable;
         public bool clickable;
         #endregion
-        #region variables
 
+        #region variables
         protected const float MIN_X_POSITION_CAMERA = 0;
         protected const float MAX_X_POSITION_CAMERA = 17.8f;
         public bool held { get; protected set; }
@@ -24,8 +23,8 @@ namespace Utility
         protected EventTrigger eventTrigger;
         protected GameObject gameObjectToDrag;
         protected Vector2 _vectorOffset;
-        private float _initialMouseXPosition;
         #endregion
+
         protected void Awake()
         {
             gameObjectToDrag = gameObject;
@@ -48,12 +47,6 @@ namespace Utility
                 AddEventTrigger(EventTriggerType.Drag, Drag);
                 AddEventTrigger(EventTriggerType.BeginDrag, BeginDrag);
                 AddEventTrigger(EventTriggerType.EndDrag, EndDrag);
-            }
-            if (moveCamera)
-            {
-                AddEventTrigger(EventTriggerType.Drag, DragCamera);
-                AddEventTrigger(EventTriggerType.BeginDrag, BeginDragCamera);
-                AddEventTrigger(EventTriggerType.EndDrag, EndDragCamera);
             }
             if (hoverable)
             {
@@ -95,40 +88,6 @@ namespace Utility
         }
         
         protected virtual void EndDrag(BaseEventData data)
-        {
-            held = false;
-        }
-        
-        protected virtual void BeginDragCamera(BaseEventData data)
-        {
-            PointerEventData pointerData = (PointerEventData) data;            
-
-            _initialMouseXPosition = Camera.main.ScreenToWorldPoint(pointerData.position).x;
-        
-            held = true;
-        }
-
-        protected virtual void DragCamera(BaseEventData data)
-        {
-            if (!held && !moveCamera) return;
-
-            PointerEventData pointerData = (PointerEventData) data;
-            
-            float mouseXPosition = Camera.main.ScreenToWorldPoint(new Vector3(pointerData.position.x, 0, 0)).x;
-
-            float difference = mouseXPosition - Camera.main.transform.position.x;
-
-            float nextXPosition = _initialMouseXPosition - difference;
-
-            if (nextXPosition < MIN_X_POSITION_CAMERA || nextXPosition > MAX_X_POSITION_CAMERA)
-            {
-                return;
-            }
-
-            Camera.main.transform.position = new Vector3(_initialMouseXPosition - difference, 0, -10);
-        }
-
-        protected virtual void EndDragCamera(BaseEventData data)
         {
             held = false;
         }

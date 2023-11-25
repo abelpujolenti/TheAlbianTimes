@@ -63,6 +63,7 @@ namespace Utility
             if (clickable)
             {
                 AddEventTrigger(EventTriggerType.PointerClick, PointerClick);   
+                AddEventTrigger(EventTriggerType.PointerUp, PointerUp);   
             }
         }
         private void AddEventTrigger(EventTriggerType triggerType, Action<BaseEventData> func)
@@ -143,7 +144,11 @@ namespace Utility
         {
         }
 
-        private Vector2 GetMousePositionOnCanvas(BaseEventData data)
+        protected virtual void PointerUp(BaseEventData data)
+        {
+        }
+
+        protected Vector2 GetMousePositionOnCanvas(BaseEventData data)
         {
             Vector2 mousePosition;
         

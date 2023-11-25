@@ -38,5 +38,19 @@ namespace Managers
         {
             _biasContainerCanvas = biasContainerCanvasGameObject;
         }
+
+        public void TurnOnBiasContainer()
+        {
+            if (_biasContainerCanvas.activeSelf)
+            {
+                return;
+            }
+            _biasContainerCanvas.SetActive(true);
+        }
+
+        public void TurnOffBiasContainer()
+        {
+            _biasContainerCanvas.SetActive(false);
+        }
     }
 }

@@ -10,14 +10,14 @@ namespace CameraController
     public class CameraSideScroll : InteractableRectTransform
     {
         private const float SCROLL_SPEED = 5;
+        
+        private readonly float _midPoint = MIN_X_POSITION_CAMERA + (MAX_X_POSITION_CAMERA - MIN_X_POSITION_CAMERA) / 2;
 
         [SerializeField] private Camera _camera;
 
         [SerializeField] private CameraScrollContainer _container;
         
         [SerializeField] private bool _scrollRight;
-
-        private readonly float _midPoint = MIN_X_POSITION_CAMERA + (MAX_X_POSITION_CAMERA - MIN_X_POSITION_CAMERA) / 2;
 
         private Coroutine _coroutine;
 
@@ -29,6 +29,32 @@ namespace CameraController
         private void OnEnable()
         {
             EventsManager.OnAssignGameObjectToDrag += SetGameObjectToDrag;
+            
+            CheckIfEnableOnLimit();
+        }
+
+        private void CheckIfEnableOnLimit()
+        {
+            Vector3 nextPosition = _camera.transform.position;
+            
+            if (_scrollRight)
+            {
+                nextPosition.x += Time.deltaTime * SCROLL_SPEED;
+                
+                if (nextPosition.x > MAX_X_POSITION_CAMERA)
+                {
+                    LimitReached();
+                }
+            }
+            else
+            {
+                nextPosition.x -= Time.deltaTime * SCROLL_SPEED;
+
+                if (nextPosition.x < MIN_X_POSITION_CAMERA)
+                {
+                    LimitReached();
+                }
+            }
         }
 
         private void OnDisable()
@@ -74,16 +100,12 @@ namespace CameraController
 
                     if (EventsManager.OnExceedCameraLimitsWhileDragging != null)
                     {
-                        EventsManager.OnExceedCameraLimitsWhileDragging(true);
+                        EventsManager.OnExceedCameraLimitsWhileDragging();
                     }
 
                     if (nextPosition.x > MAX_X_POSITION_CAMERA)
                     {
-                        _container.SubscribeOnExceedEvent();
-                        _transfer = false;
-                        _scrolling = false;
-                        gameObject.SetActive(false);
-                        StopCoroutine(_coroutine);
+                        LimitReached();
                     }
                 }
                 else
@@ -92,22 +114,36 @@ namespace CameraController
 
                     if (EventsManager.OnExceedCameraLimitsWhileDragging != null) 
                     {
-                        EventsManager.OnExceedCameraLimitsWhileDragging(true);
+                        EventsManager.OnExceedCameraLimitsWhileDragging();
                     }
 
                     if (nextPosition.x < MIN_X_POSITION_CAMERA)
                     {
-                        _container.SubscribeOnExceedEvent();
-                        _transfer = false;
-                        _scrolling = false;
-                        gameObject.SetActive(false);
-                        StopCoroutine(_coroutine);
+                        LimitReached();
                     }
                 }
-                
+
+                if (_exceed)
+                {
+                   yield break; 
+                }
                 _camera.transform.position = nextPosition;
                 yield return null;
             }
+        }
+
+        private void LimitReached()
+        {
+            _container.SubscribeOnExceedEvent();
+            _transfer = false;
+            _scrolling = false;
+            _exceed = true;
+            gameObject.SetActive(false);
+            if (_coroutine == null)
+            {
+                return;
+            }
+            StopCoroutine(_coroutine);
         }
 
         private void DragGameObject(PointerEventData pointerData, Vector2 offset)
@@ -149,6 +185,16 @@ namespace CameraController
         private void SetGameObjectToDrag(GameObject gameObjectToDrag)
         {
             this.gameObjectToDrag = gameObjectToDrag;
+        }
+
+        public void SetExceed(bool exceed)
+        {
+            _exceed = exceed;
+        }
+
+        public bool IsExceed()
+        {
+            return _exceed;
         }
     }
 }

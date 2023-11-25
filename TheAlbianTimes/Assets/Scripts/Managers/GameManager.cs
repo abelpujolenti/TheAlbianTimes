@@ -6,11 +6,15 @@ namespace Managers
     {
         private static GameManager _instance;
         public static GameManager Instance => _instance;
+        
         public GameState gameState;
         private SaveManager saveManager;
         public SceneLoader sceneLoader = new SceneLoader();
 
-        public static int round = 1;
+        private int _round = 1;
+
+        //Ets un porquet *OINK OINK*
+        //public static int round = 1;
 
         private void Awake()
         {
@@ -72,6 +76,16 @@ namespace Managers
             {
                 gameState.playerData = new GameStatePlayerData();
             }
+        }
+
+        public void AddToRound()
+        {
+            _round++;
+        }
+
+        public int GetRound()
+        {
+            return _round;
         }
     }
 }

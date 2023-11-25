@@ -26,8 +26,6 @@ namespace Layout
             rectTransform.anchoredPosition = new Vector2(0, 0);
 
             rectTransform.sizeDelta = new Vector2(cellSize, cellSize);
-            
-            //Debug.Log(gameObject.GetComponent<Image>().sprite.bounds.size.x);
 
             _rectTransform = rectTransform;
         }

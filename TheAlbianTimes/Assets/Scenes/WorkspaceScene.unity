@@ -1325,7 +1325,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _newsHeadlines: []
-  _biasContainer: {fileID: 1808916514}
 --- !u!222 &429106999
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1641,8 +1640,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cameraSideScrolls:
-  - {fileID: 781438956}
-  - {fileID: 85867895}
+  - {fileID: 781438960}
+  - {fileID: 85867899}
 --- !u!1 &710236220
 GameObject:
   m_ObjectHideFlags: 0
@@ -3027,7 +3026,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1808916515
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3500,8 +3499,8 @@ RectTransform:
   m_LocalScale: {x: 0.022233203, y: 0.022233203, z: 0.022233203}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 429106996}
   - {fileID: 2074077133}
+  - {fileID: 429106996}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

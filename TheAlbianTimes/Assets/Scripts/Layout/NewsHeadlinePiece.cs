@@ -10,7 +10,8 @@ namespace Layout
     {
         private const float TRANSPARENCY_VALUE = 0.9f;
         private const float FULL_OPACITY = 1;
-        private const float SPEED_MOVEMENT = 10;
+        private const float SPEED_MOVEMENT = 15;
+        private const float TIME_TO_SLIDE = 2f;
 
         [SerializeField] private NewsType _newsType;
 
@@ -22,43 +23,25 @@ namespace Layout
 
         private Vector2 _containerMinCoordinates;
         private Vector2 _containerMaxCoordinates;
-
-        private Vector3 _offset;
         private Vector2 _initialPosition;
-
-        private int _newsHeadlineId;
 
         [SerializeField] private bool _transferDrag;
 
         private void Start()
         {
             _subPiecesPositionsRelativeToRoot = new Vector2[_newsHeadlineSubPieces.Length];
-
-            _offset = new Vector3();
-
-            for (int i = 0; i < _newsHeadlineSubPieces.Length; i++)
-            {
-                _offset += _newsHeadlineSubPieces[i].transform.position;
-                _subPiecesPositionsRelativeToRoot[i] =
-                    _newsHeadlineSubPieces[i].transform.position - transform.position;
-            }
-
-            _offset /= _newsHeadlineSubPieces.Length;
-
-            _offset = transform.position - _offset;
         }
 
         public void BeginDrag()
         {
             transform.SetAsLastSibling();
+            
+            EventsManager.OnCheckDistanceToMouse += DistanceToPosition;
 
             foreach (NewsHeadlineSubPiece newsHeadlineSubPiece in _newsHeadlineSubPieces)
             {
                 newsHeadlineSubPiece.Fade(TRANSPARENCY_VALUE);
             }
-
-            EventsManager.OnDropNewsHeadlinePiece += EndDrag;
-            EventsManager.OnCheckDistanceToMouse += DistanceToPosition;
 
             if (_snappedCells == null)
             {
@@ -67,35 +50,25 @@ namespace Layout
 
             foreach (Cell cell in _snappedCells)
             {
-                //Debug.Log("True " + cell.GetCoordinates());
                 cell.SetFree(true);
             }
         }
 
-        private void EndDrag(NewsHeadlineSubPiece draggedSubPiece, Vector2 mousePosition)
+        public void EndDrag(NewsHeadlineSubPiece draggedSubPiece, Vector2 mousePosition)
         {
-
-            if (EventsManager.OnPreparingCells == null ||
-                EventsManager.OnSuccessfulSnap == null)
-            {
-                return;
-            }
-
-            mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
-
+            EventsManager.OnCheckDistanceToMouse -= DistanceToPosition;
+            
             foreach (NewsHeadlineSubPiece newsHeadlineSubPiece in _newsHeadlineSubPieces)
             {
                 newsHeadlineSubPiece.Fade(FULL_OPACITY);
             }
-
-            EventsManager.OnDropNewsHeadlinePiece -= EndDrag;
-            EventsManager.OnCheckDistanceToMouse -= DistanceToPosition;
 
             if (!gameObject.activeSelf)
             {
                 return;
             }
 
+            mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
             _snappedCells = EventsManager.OnPreparingCells(draggedSubPiece, mousePosition, _newsHeadlineSubPieces);
 
             if (_snappedCells == null)
@@ -133,7 +106,7 @@ namespace Layout
         {
             float timer = 0;
 
-            while (timer < 1)
+            while (timer < TIME_TO_SLIDE)
             {
                 timer = MoveToDestination(origin, destination, timer);
 
@@ -144,7 +117,7 @@ namespace Layout
         private float MoveToDestination(Vector2 origin, Vector2 destination, float timer)
         {
             timer += Time.deltaTime * SPEED_MOVEMENT;
-            transform.position = Vector2.Lerp(origin, destination, timer);
+            transform.position = Vector2.Lerp(origin, destination, timer / TIME_TO_SLIDE);
             return timer;
         }
 
@@ -197,16 +170,6 @@ namespace Layout
         public Vector2 GetInitialPosition()
         {
             return _initialPosition;
-        }
-
-        public void SetNewsHeadlineId(int newsHeadlineId)
-        {
-            _newsHeadlineId = newsHeadlineId;
-        }
-
-        public int GetNewsHeadlineId()
-        {
-            return _newsHeadlineId;
         }
 
         public void SetPieceToSubPieces()

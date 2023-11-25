@@ -28,7 +28,7 @@ public class PieceGenerator
             NewsHeadlineSubPiece subPiece = os.AddComponent<NewsHeadlineSubPiece>();
 
             subPiece.SetCoordinates(v);
-            subPiece.SetPositionFromCoordinates(pieceSize);
+            subPiece.SetPositionFromCoordinates();
             subPiece.SetNewsHeadlinePiece(newsHeadlinePiece);
 
             subPieceImage.color = subPieceColor;

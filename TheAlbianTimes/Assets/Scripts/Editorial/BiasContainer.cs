@@ -30,7 +30,7 @@ namespace Editorial
             EventsManager.OnSettingNewBiases -= SetBias;
         }
 
-        private void Start()
+        private void Awake()
         {
             EditorialManager.Instance.SetBiasContainerCanvas(gameObject);
             gameObject.SetActive(false);

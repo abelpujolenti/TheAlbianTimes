@@ -8,6 +8,6 @@ public class TESTPublishButton : MonoBehaviour
     public void PressPublishButton()
     {
         PublishingManager.Instance.Publish();
-        GameManager.round++;
+        GameManager.Instance.AddToRound();
     }
 }

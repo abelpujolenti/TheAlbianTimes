@@ -13,14 +13,13 @@ namespace Managers
         public static Action <bool> OnStartEndDrag;
         public static Func <PointerEventData, GameObject> OnCrossMidPointWhileScrolling;
         public static Func <Vector2, Vector2> OnCheckDistanceToMouse;
-        public static Action <bool> OnExceedCameraLimitsWhileDragging;
+        public static Action OnExceedCameraLimitsWhileDragging;
         public static Action<GameObject> OnAssignGameObjectToDrag;
 
         #endregion        
         
         #region LayoutEvents
         
-        public static Action <NewsHeadlineSubPiece, Vector2> OnDropNewsHeadlinePiece;
         public static Func <NewsHeadlineSubPiece, Vector2, NewsHeadlineSubPiece[], Cell[]> OnPreparingCells;
         public static Func <Cell[], Vector3> OnSuccessfulSnap;
         public static Action <NewsHeadlinePiece> OnFailSnap;
@@ -31,9 +30,9 @@ namespace Managers
         
         public static Action OnChangeSelectedBias;
         public static Action <int> OnChangeSelectedBiasIndex;
-        public static Action <int> OnChangeNewsHeadlineContent;
+        public static Action OnChangeNewsHeadlineContent;
         public static Action <GameObject> OnAddNewsHeadlineToFolder;
-        public static Action <NewsHeadline> OnReturnNewsHeadlineToFolder;
+        public static Action <NewsHeadline, bool> OnReturnNewsHeadlineToFolder;
         public static Action <int> OnChangeFrontNewsHeadline;
         public static Action <String[], String[]> OnSettingNewBiases;
         public static Action OnChangeFolderOrderIndexWhenGoingToFolder;

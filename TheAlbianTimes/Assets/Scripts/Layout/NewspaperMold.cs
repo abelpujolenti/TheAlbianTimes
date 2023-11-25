@@ -124,8 +124,6 @@ namespace Layout
 
         private Cell[] TakeCells(NewsHeadlineSubPiece draggedSubPiece, Vector2 mousePosition, NewsHeadlineSubPiece[] newsHeadlinePieces)
         {
-            String holi = "";
-            
             if (!IsCoordinateInsideLayout(mousePosition))
             {
                 return null;
@@ -167,7 +165,6 @@ namespace Layout
                     continue;
                 }
 
-                Debug.Log("SubPieces Outside");
                 return null;
             }
             return LookForCellsForNeighborPieces(index, draggedSubPiece, desiredCells, newsHeadlinePieces);

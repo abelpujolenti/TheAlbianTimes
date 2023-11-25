@@ -9,26 +9,29 @@ namespace Layout
 {
     public class NewsHeadlineSubPiece : InteractableRectTransform
     {
+        private const float SIZE = 49.286f;
+        
         private readonly float _midPoint = MIN_X_POSITION_CAMERA + (MAX_X_POSITION_CAMERA - MIN_X_POSITION_CAMERA) / 2;
         
         private GameObject _gameObjectToTransferDrag;
 
-        [SerializeField] private NewsHeadline _newsHeadlineToTransferDrag;
+        private NewsHeadline _newsHeadlineToTransferDrag;
         
-        [SerializeField] private NewsHeadlinePiece _newsHeadlinePiece;
+        private NewsHeadlinePiece _newsHeadlinePiece;
         
-        [SerializeField] private Vector2 _coordinates;
-
-        public static readonly float size = 49.286f; //lmao
-
+        private Vector2 _coordinates;
+        
         private Image _image;
+        
+        //Ets un porquet *OINK OINK*
+        //public static readonly float size = 49.286f;
 
         private new void Awake()
         {
             draggable = true;
             base.Awake();
             _image = GetComponent<Image>();
-            _image.rectTransform.sizeDelta = new Vector2(size, size);
+            _image.rectTransform.sizeDelta = new Vector2(SIZE, SIZE);
             gameObjectToDrag = transform.parent.gameObject;
             
         }
@@ -51,44 +54,33 @@ namespace Layout
 
         protected override void Drag(BaseEventData data)
         {
-            if (_newsHeadlinePiece.GetTransferDrag()) 
-            {
-                return;
-            }
+            base.Drag(data);
 
             PointerEventData pointerData = (PointerEventData)data;
-
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(pointerData.position);
-            
-            if (mousePosition.x < _midPoint)
+
+            if (mousePosition.x >= _midPoint)
             {
-                CrossMidPoint(pointerData, mousePosition);  
-                
                 return;
             }
-            
-            base.Drag(data);
+
+            CrossMidPoint(pointerData, mousePosition);  
         }
         private void CrossMidPoint(PointerEventData pointerData, Vector2 mousePosition)
         {
-            if (!_newsHeadlineToTransferDrag.GetTransferDrag())
-            {
-                _newsHeadlinePiece.SetTransferDrag(true);
-            }
-            else
-            {
-                _newsHeadlineToTransferDrag.SetTransferDrag(false);
-            }
+            
+            _newsHeadlinePiece.SetTransferDrag(true);
+            _newsHeadlineToTransferDrag.SetTransferDrag(false);
                 
+            _newsHeadlinePiece.gameObject.SetActive(false);  
+            
             _gameObjectToTransferDrag.transform.position = mousePosition;
             _gameObjectToTransferDrag.gameObject.SetActive(true);
             _newsHeadlineToTransferDrag.SimulateBeginDrag(pointerData);
             
             pointerData.pointerDrag = _gameObjectToTransferDrag;
-            
-            transform.parent.gameObject.SetActive(false);  
 
-            SimulateEndDrag(pointerData);
+            EndDrag(pointerData);
         }
 
         private void SimulateEndDrag(BaseEventData data)
@@ -104,9 +96,9 @@ namespace Layout
                 _newsHeadlineToTransferDrag.SetTransferDrag(false);
             }
             
-            EventsManager.OnCrossMidPointWhileScrolling -= GetGameObjectToTransferDrag;
-            
             base.EndDrag(data);
+            
+            EventsManager.OnCrossMidPointWhileScrolling -= GetGameObjectToTransferDrag;
             
             if (_newsHeadlinePiece.gameObject.activeSelf)
             {
@@ -114,13 +106,7 @@ namespace Layout
             }
             
             PointerEventData pointerData = (PointerEventData) data;
-            
-            if (EventsManager.OnDropNewsHeadlinePiece == null)
-            {
-                return;
-            }
-
-            EventsManager.OnDropNewsHeadlinePiece(this, pointerData.position);
+            _newsHeadlinePiece.EndDrag(this, pointerData.position);
         }
 
         public void Fade(float alpha) { 
@@ -130,11 +116,6 @@ namespace Layout
             auxColor.a = alpha;
 
             _image.color = auxColor;            
-        }
-
-        public NewsHeadline GetNewsHeadline()
-        {
-            return _newsHeadlineToTransferDrag;
         }
 
         public void SetNewsHeadlinePiece(NewsHeadlinePiece newsHeadlinePiece)
@@ -152,9 +133,9 @@ namespace Layout
             return _coordinates;
         }
 
-        public void SetPositionFromCoordinates(Vector2 pieceSize)
+        public void SetPositionFromCoordinates()
         {
-            transform.localPosition = new Vector2(_coordinates.x * size, _coordinates.y * size);
+            transform.localPosition = new Vector2(_coordinates.x * SIZE, _coordinates.y * SIZE);
         }
 
         public void SetGameObjectToTransferDrag(GameObject gameObjectToTransferDrag)
@@ -165,6 +146,11 @@ namespace Layout
         public void SetNewsHeadlineToTransferDrag(NewsHeadline newsHeadlineToTransferDrag)
         {
             _newsHeadlineToTransferDrag = newsHeadlineToTransferDrag;
+        }
+
+        public NewsHeadline GetNewsHeadline()
+        {
+            return _newsHeadlineToTransferDrag;
         }
 
         private GameObject GetGameObjectToTransferDrag(PointerEventData pointerData)

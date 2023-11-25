@@ -165,7 +165,6 @@ namespace Layout
                     continue;
                 }
 
-                Debug.Log("SubPieces Outside");
                 return null;
             }
             return LookForCellsForNeighborPieces(index, draggedSubPiece, desiredCells, newsHeadlinePieces);

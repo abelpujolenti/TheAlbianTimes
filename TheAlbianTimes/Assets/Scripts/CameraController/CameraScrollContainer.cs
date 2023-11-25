@@ -5,7 +5,7 @@ namespace CameraController
 {
     public class CameraScrollContainer : MonoBehaviour
     {
-        [SerializeField] private GameObject[] _cameraSideScrolls;
+        [SerializeField] private CameraSideScroll[] _cameraSideScrolls;
         
         private void OnEnable()
         {
@@ -19,18 +19,31 @@ namespace CameraController
 
         private void ModifyActiveCameraSideScrolls(bool active)
         {
-            //Debug.Log(active);
-            for (int i = 0; i < _cameraSideScrolls.Length; i++)
+            foreach (CameraSideScroll cameraSideScroll in _cameraSideScrolls)
             {
-                _cameraSideScrolls[i].SetActive(active);
+                if (cameraSideScroll.IsExceed())
+                {
+                    continue;
+                }
+                cameraSideScroll.gameObject.SetActive(active);
             }
+        }
 
-            EventsManager.OnExceedCameraLimitsWhileDragging -= ModifyActiveCameraSideScrolls;
+        private void EnableExceedCameraSideScrolls()
+        {
+            foreach (CameraSideScroll cameraSideScroll in _cameraSideScrolls)
+            {
+                cameraSideScroll.SetExceed(false);
+            }
+            
+            ModifyActiveCameraSideScrolls(true);
+
+            EventsManager.OnExceedCameraLimitsWhileDragging -= EnableExceedCameraSideScrolls;
         }
 
         public void SubscribeOnExceedEvent() 
         {
-            EventsManager.OnExceedCameraLimitsWhileDragging += ModifyActiveCameraSideScrolls;
+            EventsManager.OnExceedCameraLimitsWhileDragging += EnableExceedCameraSideScrolls;
         }
     }
 }

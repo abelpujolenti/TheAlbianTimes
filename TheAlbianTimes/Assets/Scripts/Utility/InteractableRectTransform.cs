@@ -23,7 +23,7 @@ namespace Utility
         protected RectTransform canvasRect;
         protected EventTrigger eventTrigger;
         protected GameObject gameObjectToDrag;
-        private Vector2 _vectorOffset;
+        protected Vector2 _vectorOffset;
         private float _initialMouseXPosition;
         #endregion
         protected void Awake()

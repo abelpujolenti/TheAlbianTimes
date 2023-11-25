@@ -13,6 +13,9 @@ namespace Managers
 
         private int _round = 1;
 
+        //Ets un porquet *OINK OINK*
+        //public static int round = 1;
+
         private void Awake()
         {
             if (_instance == null)

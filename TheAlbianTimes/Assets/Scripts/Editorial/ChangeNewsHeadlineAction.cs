@@ -42,7 +42,7 @@ namespace Editorial
             
             newsHeadline.SetOrigin(newsHeadline.transform.localPosition);
             
-            EventsManager.OnChangeNewsHeadlineContent(newsHeadline.GetSelectedBiasIndex());
+            EventsManager.OnChangeNewsHeadlineContent();
             
             gameObject.SetActive(false);
         }

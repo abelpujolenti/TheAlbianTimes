@@ -21,7 +21,7 @@ public class PlayButton : MonoBehaviour
         yield return new WaitForFixedUpdate();
         AnimatorClipInfo[] currentClipInfo = backgroundAnimator.GetCurrentAnimatorClipInfo(0);
         yield return new WaitForSeconds(currentClipInfo[0].clip.length);
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(.2f);
         GameManager.Instance.sceneLoader.SetScene("WorkspaceScene");
     }
 }

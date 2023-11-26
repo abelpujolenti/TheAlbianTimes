@@ -40,7 +40,7 @@ namespace Managers
             LoadCountries();
             LoadPlayerData();
 
-            sceneLoader.SetScene("WorkspaceScene");
+            sceneLoader.SetScene("MainMenu");
         }
 
         private void GenerateCountryEvents()

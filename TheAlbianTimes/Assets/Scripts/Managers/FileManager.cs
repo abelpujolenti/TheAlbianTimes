@@ -2,21 +2,30 @@ using System;
 using System.IO;
 using UnityEngine;
 
-public static class FileManager
+namespace Managers
 {
-    public static void LoadAllJsonFiles(string jsonPath, Action<string> addTo)
+    public static class FileManager
     {
-        string path = Application.streamingAssetsPath + "/Json/" + jsonPath;
-        if (Directory.Exists(path))
+        public static void LoadAllJsonFiles(string jsonPath, Action<string> addTo)
         {
-            DirectoryInfo d = new DirectoryInfo(path);
-            foreach (var file in d.GetFiles("*.json"))
+            string path = Application.streamingAssetsPath + "/Json/" + jsonPath;
+            if (Directory.Exists(path))
             {
-                using (StreamReader sr = file.OpenText())
+                DirectoryInfo d = new DirectoryInfo(path);
+                foreach (var file in d.GetFiles("*.json"))
                 {
-                    addTo(sr.ReadToEnd());
+                    using (StreamReader sr = file.OpenText())
+                    {
+                        addTo(sr.ReadToEnd());
+                    }
                 }
             }
+        }
+
+        public static string LoadJsonFile(string jsonPath)
+        {
+            string path = Application.streamingAssetsPath + "/Json/" + jsonPath;
+            return !File.Exists(path) ? "" : File.ReadAllText(Application.streamingAssetsPath + jsonPath);
         }
     }
 }

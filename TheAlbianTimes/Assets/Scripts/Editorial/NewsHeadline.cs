@@ -50,13 +50,13 @@ namespace Editorial
         private Vector2 _destination;
         private Vector2 _origin;
         
-        [SerializeField]private int _folderOrderIndex;
-        [SerializeField]private int _chosenBiasIndex;
-        [SerializeField]private int _selectedBiasIndex;
+        private int _folderOrderIndex;
+        private int _chosenBiasIndex;
+        private int _selectedBiasIndex;
         
-        [SerializeField]private bool _inFront;
-        [SerializeField]private bool _transferDrag;
-        [SerializeField]private bool _send;
+        private bool _inFront;
+        private bool _transferDrag;
+        private bool _send;
 
         void Start()
         {
@@ -86,8 +86,11 @@ namespace Editorial
             EventsManager.OnCrossMidPointWhileScrolling += GetGameObjectToTransferDrag;
             EventsManager.OnCheckDistanceToMouse += DistanceToPosition;
             EventsManager.OnPrepareNewsHeadlineActions(this);
-            
-            EditorialManager.Instance.TurnOffBiasContainer();
+
+            if (!_newsHeadlinePieceToTransferDrag.GetTransferDrag())
+            {
+                EditorialManager.Instance.TurnOffBiasContainer();    
+            }
             
             _newsFolder.SetDragging(true);
         }
@@ -156,11 +159,15 @@ namespace Editorial
 
         protected override void EndDrag(BaseEventData data)
         {
-            if (_newsHeadlinePieceToTransferDrag.GetTransferDrag() && _send)
+            if (_newsHeadlinePieceToTransferDrag.GetTransferDrag())
             {
-                EventsManager.OnReturnNewsHeadlineToFolder(this, false);
                 _newsHeadlinePieceToTransferDrag.SetTransferDrag(false);
-                _send = false;
+                
+                if (_send)
+                {
+                    EventsManager.OnReturnNewsHeadlineToFolder(this, false);
+                    _send = false;
+                }
             }
             
             if (!draggable)

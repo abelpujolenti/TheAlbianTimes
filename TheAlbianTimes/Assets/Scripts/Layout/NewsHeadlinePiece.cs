@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using Managers;
 using NoMonoBehavior;
@@ -25,7 +24,7 @@ namespace Layout
         private Vector2 _containerMaxCoordinates;
         private Vector2 _initialPosition;
 
-        [SerializeField] private bool _transferDrag;
+        private bool _transferDrag;
 
         private void Start()
         {

@@ -1,14 +1,8 @@
 using System;
-using System.IO;
-using System.Security.Cryptography;
 using Editorial;
 using Layout;
 using Managers;
-using Unity.Mathematics;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using Utility;
 
 public class EditorialNewsLoader : MonoBehaviour
 {

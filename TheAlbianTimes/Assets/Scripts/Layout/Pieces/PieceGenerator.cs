@@ -1,8 +1,6 @@
-using Layout;
-using Managers;
-using NoMonoBehavior;
-using System.Collections;
 using System.Collections.Generic;
+using Layout;
+using NoMonoBehavior;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

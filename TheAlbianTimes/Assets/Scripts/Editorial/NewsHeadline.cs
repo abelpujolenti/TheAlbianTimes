@@ -30,6 +30,7 @@ namespace Editorial
         [SerializeField] private TextMeshProUGUI _headlineText;
         [SerializeField] private TextMeshProUGUI _contentText;
         [SerializeField] private TextMeshProUGUI _articleTagText;
+        [SerializeField] private GameObject _biasMarker;
 
         private NewsFolder _newsFolder;
 
@@ -63,7 +64,7 @@ namespace Editorial
             _contentText.text = _biasesContents[0];
             _articleTagText.text = PieceData.newsTypeName[(int)_newsType];
 
-            Color color = PieceData.colors[(int)_newsType];
+            Color color = PieceData.newsTypeColors[(int)_newsType];
             _articleTagText.GetComponentInParent<Image>().color = ColorUtil.SetSaturationMultiplicative(color, 0.5f);
             gameObject.GetComponent<Image>().color = ColorUtil.SetSaturationMultiplicative(color, 0.15f);
         }
@@ -265,6 +266,7 @@ namespace Editorial
             {
                 EventsManager.OnChangeNewsHeadlineContent += ChangeContent;
                 EventsManager.OnChangeSelectedBiasIndex += SetSelectedBiasIndex;
+                EventsManager.OnChangeSelectedBiasIndex += EnableBiasMarks;
                 return;
             }
             UnsubscribeEvents();
@@ -274,6 +276,7 @@ namespace Editorial
         {
             EventsManager.OnChangeNewsHeadlineContent -= ChangeContent;
             EventsManager.OnChangeSelectedBiasIndex -= SetSelectedBiasIndex;
+            EventsManager.OnChangeSelectedBiasIndex -= EnableBiasMarks;
         }
 
         public void SetOrigin(Vector2 newOrigin)
@@ -309,6 +312,8 @@ namespace Editorial
             EventsManager.OnChangeFolderOrderIndexWhenGoingToFolder += GiveDestinationToReturnToFolder;
             
             _newsFolder.ProcedureOnChangeBias();
+
+            DisableBiasMarks();
             
             Vector2 destination = new Vector2(0, CHANGE_CONTENT_Y_COORDINATE);
             
@@ -395,6 +400,28 @@ namespace Editorial
             }
             
             _destination = new Vector2(0, _newsFolder.GiveNewFolderYCoordinate(_folderOrderIndex, countOfTotalNewsHeadline));
+        }
+
+        private void EnableBiasMarks(int biasIndex)
+        {
+            if (_biasMarker == null) return;
+
+            if (biasIndex == _chosenBiasIndex)
+            {
+                DisableBiasMarks();
+                return;
+            }
+
+            _biasMarker.SetActive(true);
+            foreach(Image image in _biasMarker.GetComponentsInChildren<Image>())
+            {
+                image.color = PieceData.biasColors[biasIndex];
+            }
+        }
+        private void DisableBiasMarks()
+        {
+            if (_biasMarker == null) return;
+            _biasMarker.SetActive(false);
         }
 
         public void SetNewsFolder(NewsFolder newsFolder)

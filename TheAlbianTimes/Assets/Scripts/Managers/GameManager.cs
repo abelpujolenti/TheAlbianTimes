@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Managers
 {
@@ -12,9 +13,6 @@ namespace Managers
         public SceneLoader sceneLoader = new SceneLoader();
 
         private int _round = 1;
-
-        //Ets un porquet *OINK OINK*
-        //public static int round = 1;
 
         private void Awake()
         {
@@ -40,15 +38,12 @@ namespace Managers
             LoadCountries();
             LoadPlayerData();
 
-            sceneLoader.SetScene("MainMenu");
-        }
-
-        private void GenerateCountryEvents()
-        {
-            foreach (Country country in gameState.countries)
+            if (SceneManager.GetSceneByName("WorkspaceScene").isLoaded)
             {
-                CountryEventManager.Instance.AddEventToQueue(country.GenerateEvent());
+                sceneLoader.SetScene("WorkspaceScene");
+                return;
             }
+            sceneLoader.SetScene("MainMenu");
         }
 
         private void LoadCountries()

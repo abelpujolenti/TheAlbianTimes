@@ -22,6 +22,12 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioClip openDrawerSound;
     [SerializeField] private AudioClip closeDrawerSound;
 
+    [SerializeField] private AudioClip phoneSound;
+    [SerializeField] private AudioClip typeSound;
+
+
+    [SerializeField] private AudioClip introSound;
+
     private void Awake()
     {
         if (_instance == null)
@@ -42,6 +48,19 @@ public class SoundManager : MonoBehaviour
     {
     }
 
+    public void IntroSound()
+    {
+        oneShotAudioSource.PlayOneShot(introSound);
+
+    }
+    public void PhoneSound()
+    {
+        oneShotAudioSource.PlayOneShot(phoneSound);
+    }
+    public void TypeSound()
+    {
+        oneShotAudioSource.PlayOneShot(typeSound, .4f);
+    }
     public void ChangeBiasSound()
     {
         oneShotAudioSource.PlayOneShot(changeBiasSound, .6f);

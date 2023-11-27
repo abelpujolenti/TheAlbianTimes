@@ -53,6 +53,7 @@ namespace Mail
             Debug.Log("Click");
             EventsManager.OnAddEnvelopeContent(gameObject, _envelopeContentGameObject);
             _envelopeContentGameObject.transform.position = transform.position;
+            Destroy(gameObject);
         }
 
         protected override void BeginDrag(BaseEventData data)
@@ -78,12 +79,17 @@ namespace Mail
             _envelopeContentGameObject = envelopContentGameObject;
         }
 
+        public GameObject GetEnvelopeGameObject()
+        {
+            return _envelopeContentGameObject;
+        }
+
         public void SetEnvelopeContentType(EnvelopeContentType mailContent)
         {
             _envelopeContentType = mailContent;
         }
 
-        private EnvelopeContentType GetEnvelopeContentType()
+        public EnvelopeContentType GetEnvelopeContentType()
         {
             return _envelopeContentType;
         }

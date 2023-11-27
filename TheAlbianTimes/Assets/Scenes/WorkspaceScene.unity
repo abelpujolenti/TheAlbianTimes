@@ -579,7 +579,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &245228338
 GameObject:
@@ -820,7 +820,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &299459687
 GameObject:
@@ -852,7 +852,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &299459690
 MonoBehaviour:
@@ -2057,6 +2057,54 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!1 &878600061
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 878600063}
+  - component: {fileID: 878600062}
+  m_Layer: 0
+  m_Name: MailManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &878600062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 878600061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7e8960dad53e064c84dc046b58f8e52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _envelope: {fileID: 5844093104737616194, guid: 3386ea7c25f7a23419e9e134db3fdafe, type: 3}
+  _envelopesContainer: {fileID: 2125733625}
+  _envelopeContents:
+  - {fileID: 7593100940485372904, guid: cb74b6a90435b1f46bcc5e81de13276f, type: 3}
+--- !u!4 &878600063
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 878600061}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &888113598 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7761201008241955963, guid: c5218dff6a8b0764784f08ee64c3e567, type: 3}
@@ -2744,7 +2792,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1575203456
 GameObject:
@@ -3583,7 +3631,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2074077132
 GameObject:
@@ -4114,7 +4162,7 @@ MonoBehaviour:
   hoverable: 0
   clickable: 1
   _envelope: {fileID: 5844093104737616194, guid: 3386ea7c25f7a23419e9e134db3fdafe, type: 3}
-  _mailContainer: {fileID: 6325355704779021480}
+  _mailData: {fileID: 11400000, guid: 785523878d3f48940a595792bd8b2c9b, type: 2}
   _envelopeContents:
   - {fileID: 7593100940485372904, guid: cb74b6a90435b1f46bcc5e81de13276f, type: 3}
   _envelopesContainer: {fileID: 2125733625}
@@ -4460,7 +4508,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: -146.70001, y: 10.3}
-  m_SizeDelta: {x: 125.56, y: 118.37}
+  m_SizeDelta: {x: 125.56, y: 131.49}
   m_Pivot: {x: 0, y: 0}
 --- !u!222 &3407196129385636399
 CanvasRenderer:
@@ -4712,7 +4760,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ee1f471ee2e8d8e45987aa8511eaae21, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7740ac09cb41c874c81799d65368a709, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4743,6 +4791,8 @@ MonoBehaviour:
   openTime: 0.4
   closeTime: 0.25
   _envelopesContainerRectTransform: {fileID: 2125733625}
+  _envelopes: []
+  _envelopesContent: []
 --- !u!114 &6521223271263968149
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,10 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Mail.Content;
 using Managers;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Utility;
+using Random = UnityEngine.Random;
 
 namespace Mail
 {
@@ -31,12 +34,14 @@ namespace Mail
         private void OnEnable()
         {
             EventsManager.OnAddEnvelope += ReceiveEnvelope;
+            EventsManager.OnAddEnvelopeContentToList += ReceiveEnvelopeContent;
             EventsManager.OnAddEnvelopeContent += OpenEnvelope;
         }
 
         private void OnDisable()
         {
             EventsManager.OnAddEnvelope -= ReceiveEnvelope;
+            EventsManager.OnAddEnvelopeContentToList -= ReceiveEnvelopeContent;
             EventsManager.OnAddEnvelopeContent -= OpenEnvelope;
         }
 
@@ -49,11 +54,27 @@ namespace Mail
             
             SetContainerLimiters();
 
-             GameObject[] envelopes = MailManager.Instance.CreateEnvelopesFromJson();
+             GameObject[] envelopes = MailManager.Instance.LoadEnvelopesFromJson();
 
-             foreach (GameObject envelope in envelopes)
+             if (envelopes != null)
              {
-                 _envelopes.Add(envelope);
+                 foreach (GameObject envelope in envelopes)
+                 {
+                     ReceiveEnvelope(envelope);
+                     ReceiveEnvelopeContent(envelope.GetComponent<Envelope>().GetEnvelopeGameObject(), false);
+                 }
+             }
+
+             GameObject[] envelopesContent = MailManager.Instance.LoadEnvelopesContentFromJson();
+
+             if (envelopesContent.Length == 0)
+             {
+                 return;
+             }
+
+             foreach (GameObject envelopeContent in envelopesContent)
+             {
+                 ReceiveEnvelopeContent(envelopeContent, true);
              }
         }
         
@@ -148,25 +169,38 @@ namespace Mail
             envelope.GetComponent<Envelope>().SetCanvas(_envelopesContainerRectTransform.gameObject.GetComponent<Canvas>());
         }
 
-        private void AddEnvelopeContentToList(GameObject envelopeContent)
+        private void ReceiveEnvelopeContent(GameObject envelopeContent, bool alone)
         {
+            Debug.Log("Hello");
             _envelopesContent.Add(envelopeContent);
-            envelopeContent.transform.SetParent(_envelopesContainerRectTransform);
-            envelopeContent.GetComponent<EnvelopeContent>().SetCanvas(_envelopesContainerRectTransform.gameObject.GetComponent<Canvas>());
-            if (envelopeContent.activeSelf)
+            
+            if (!alone)
             {
-                envelopeContent.transform.position = PositionInsideContainer();
                 return;
             }
-            envelopeContent.SetActive(true);
+            
+            SetEnvelopeContentProperties(envelopeContent);
+        }
+
+        private void SetEnvelopeContentProperties(GameObject envelopeContent)
+        {
+            envelopeContent.transform.SetParent(_envelopesContainerRectTransform);
+            envelopeContent.transform.position = PositionInsideContainer();
+            envelopeContent.GetComponent<EnvelopeContent>().SetCanvas(_envelopesContainerRectTransform.gameObject.GetComponent<Canvas>());
         }
 
         private void OpenEnvelope(GameObject envelope, GameObject envelopeContent)
         {
             Debug.Log("Open");
-            AddEnvelopeContentToList(envelopeContent);
+            SetEnvelopeContentProperties(envelopeContent);
+            envelopeContent.SetActive(true);
 
             _envelopes.Remove(envelope);
+        }
+
+        private void OnDestroy()
+        {
+            MailManager.Instance.SaveEnvelopesToJson(_envelopes.ToArray(), _envelopesContent.ToArray());
         }
     }
 }

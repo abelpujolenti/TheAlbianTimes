@@ -44,7 +44,8 @@ namespace Managers
         #region Mail
 
         public static Action <GameObject> OnAddEnvelope;
-        public static Action <GameObject, GameObject> OnAddEnvelopeContent;
+        public static Action <GameObject, bool> OnAddEnvelopeContentToList;
+        public static Action<GameObject, GameObject> OnAddEnvelopeContent;
 
         #endregion
     }

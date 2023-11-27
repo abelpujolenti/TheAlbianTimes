@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faf64190ea8fc1b4f9584db41b168b93, type: 3}
   m_Name: MailData
   m_EditorClassIdentifier: 
-  _envelopes: []
-  _envelopeContents: []
+  envelopes: []
+  envelopeContents:
+  - {fileID: 0}
+  - {fileID: 0}

@@ -7,6 +7,8 @@ namespace Mail.Content
     {
         private int _jointId;
         
+        private EnvelopeContentType _envelopeContentType;
+        
         protected override void BeginDrag(BaseEventData data)
         {
             
@@ -18,6 +20,16 @@ namespace Mail.Content
         }
 
         protected abstract void ContentAction();
+
+        public void SetEnvelopeContentType(EnvelopeContentType envelopeContentType)
+        {
+            _envelopeContentType = envelopeContentType;
+        }
+
+        public EnvelopeContentType GetEnvelopeContentType()
+        {
+            return _envelopeContentType;
+        }
 
         public void SetJointId(int jointId)
         {

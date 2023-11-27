@@ -24,8 +24,8 @@ namespace Managers
 
         public static string LoadJsonFile(string jsonPath)
         {
-            string path = Application.streamingAssetsPath + "/Json/" + jsonPath;
-            return !File.Exists(path) ? "" : File.ReadAllText(Application.streamingAssetsPath + jsonPath);
+            string path = Application.streamingAssetsPath + jsonPath;
+            return !File.Exists(path) ? "" : File.ReadAllText(path);
         }
     }
 }

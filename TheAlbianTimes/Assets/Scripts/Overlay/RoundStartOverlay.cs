@@ -10,19 +10,27 @@ public class RoundStartOverlay : MonoBehaviour
     [SerializeField] private GameObject fadeOverlayText;
     private Animator fadeOverlayAnimator;
     private Animator fadeOverlayTextAnimator;
+    private Coroutine roundStartCoroutine;
     private void Start()
     {
         fadeOverlayAnimator = fadeOverlay.GetComponent<Animator>();
         fadeOverlayTextAnimator = fadeOverlayText.GetComponent<Animator>();
 
-        if (GameManager.Instance == null)
-        {
-            fadeOverlay.gameObject.SetActive(false);
-            fadeOverlayText.gameObject.SetActive(false);
-            return;
-        }
+        roundStartCoroutine = StartCoroutine(RoundStartCoroutine());
+    }
 
-        StartCoroutine(RoundStartCoroutine());
+    private void OnGUI()
+    {
+        Event e = Event.current;
+        if (!e.isKey || !(e.type == EventType.KeyDown)) return;
+        if (!fadeOverlay.activeSelf) return;
+
+        if (e.keyCode == KeyCode.S)
+        {
+            StopCoroutine(roundStartCoroutine);
+            fadeOverlay.SetActive(false);
+            fadeOverlayText.SetActive(false);
+        }
     }
 
     private IEnumerator RoundStartCoroutine()

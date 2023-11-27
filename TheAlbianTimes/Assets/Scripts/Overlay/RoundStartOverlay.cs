@@ -15,6 +15,13 @@ public class RoundStartOverlay : MonoBehaviour
         fadeOverlayAnimator = fadeOverlay.GetComponent<Animator>();
         fadeOverlayTextAnimator = fadeOverlayText.GetComponent<Animator>();
 
+        if (GameManager.Instance == null)
+        {
+            fadeOverlay.gameObject.SetActive(false);
+            fadeOverlayText.gameObject.SetActive(false);
+            return;
+        }
+
         StartCoroutine(RoundStartCoroutine());
     }
 

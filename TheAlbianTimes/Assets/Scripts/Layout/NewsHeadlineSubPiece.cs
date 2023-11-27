@@ -9,7 +9,7 @@ namespace Layout
 {
     public class NewsHeadlineSubPiece : InteractableRectTransform
     {
-        private const float SIZE = 49.286f;
+        private const float SIZE = 45.12856f;
         
         private readonly float _midPoint = MIN_X_POSITION_CAMERA + (MAX_X_POSITION_CAMERA - MIN_X_POSITION_CAMERA) / 2;
         
@@ -22,9 +22,6 @@ namespace Layout
         private Vector2 _coordinates;
         
         private Image _image;
-        
-        //Ets un porquet *OINK OINK*
-        //public static readonly float size = 49.286f;
 
         private new void Awake()
         {

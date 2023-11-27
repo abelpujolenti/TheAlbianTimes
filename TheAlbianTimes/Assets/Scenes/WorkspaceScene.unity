@@ -1551,7 +1551,7 @@ MonoBehaviour:
   frictionSound: {fileID: 8300000, guid: 705d926f80e2ac74f89516df89c4ae86, type: 3}
   thudSound: {fileID: 8300000, guid: a7e35e3beab199b499697075647433d0, type: 3}
   snapPieceSound: {fileID: 8300000, guid: 4f13110de2968184580f96f8ac1f98c8, type: 3}
-  grabPieceSound: {fileID: 8300000, guid: 5046e1e74d5605b4ca119a8b1257973c, type: 3}
+  grabPieceSound: {fileID: 8300000, guid: 4763662a333c7cf4fa7551660367dbe5, type: 3}
   openDrawerSound: {fileID: 8300000, guid: c4024fef39aced846b614d0c4103e326, type: 3}
   closeDrawerSound: {fileID: 8300000, guid: 02a75b5914e494041895b03d8593a309, type: 3}
 --- !u!4 &432756236

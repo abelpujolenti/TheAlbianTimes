@@ -50,11 +50,13 @@ public class Drawer : InteractableRectTransform
     protected virtual void OpenContainer()
     {
         _moveContainerCoroutine = StartCoroutine(MoveContainerEnum(gameObjectToDrag.transform.position.x, maxX, openTime));
+        SoundManager.Instance.OpenDrawerSound();
     }
 
     protected virtual void CloseContainer()
     {
         _moveContainerCoroutine = StartCoroutine(MoveContainerEnum(gameObjectToDrag.transform.position.x, minX, closeTime));
+        SoundManager.Instance.CloseDrawerSound();
     }
 
     private IEnumerator MoveContainerEnum(float start, float end, float t)

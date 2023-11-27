@@ -18,14 +18,14 @@
             "name": "NEUTRAL",
             "description": "",
             "headline": "Felon Dusk announces new vehicle which is unlikely to explode.",
-            "text": "   The Suokan enterpreneur and self-proclaimed angel investor unveiled a new vehicle from his Besla brand. Its batteries boast 700km of autonomy and an explosion rate of 12%",        
+            "text": "   The Suokan enterpreneur and self-proclaimed angel investor unveiled a new vehicle from his Besla brand. Its batteries boast 700km of autonomy and an explosion rate of 12%.",        
             "additionalConsequences": []
         },
         {
             "name": "INNOVATIVE!",
             "description": "",
             "headline": "Felon Dusk announces groundbreaking new vehicle with a record-low chance of explosion.",
-            "text": "",
+            "text": "   The Suokan enterpreneur and angel investor unveiled a groundbreaking new vehicle from his Besla brand. Its batteries boast 700km of autonomy and a yet unseen explosion rate of only 12%. What are you waiting for? What are any of us waiting for, really?",        
             "additionalConsequences": [
                 {
                     "country": 7,
@@ -38,7 +38,7 @@
             "name": "TRASH",
             "description": "",
             "headline": "If you want an exploding car, Felon Dusk has you covered.",
-            "text": "",
+            "text": "   The Suokan enterpreneur, former wealthy child and self-proclaimed angel investor unveiled a new groundbreaking vehicle from his Besla brand. Groundbreaking in the sense that at any given time it may form a crater and blast its driver into outer space.",        
             "additionalConsequences": [
                 {
                     "country": 7,

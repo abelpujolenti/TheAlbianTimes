@@ -1,0 +1,46 @@
+{
+    "type": 5,
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 6,
+            "key": "reputation",
+            "value": -0.1
+        }
+    ],
+    "biases": [
+        {
+            "name": "NEUTRAL",
+            "description": "Take a neutral stance.",
+            "headline": "Terkán lunar research station is taken over by Dalmian military.",
+            "text": "After a week of intermittent crossfire, Terkán troops have retreated from the Iota research station near the moon's south pole. The twist is, the base has been abandoned for nearly a decade, as Terkán's lunar research investment plummeted. Dalme's military offensive has been deemed \"overkill\" by international peace observers. The Dalmian government has re-stated their intention to \"re-conquer\" the moon.",        
+            "additionalConsequences": []
+        },
+        {
+            "name": "DALME",
+            "description": "Side with Dalme. Terkán's handling of the moon is nonsensical and their conquered land must be reclaimed.",
+            "headline": "Dalmian troops capture key location in lunar conflict.",
+            "text": "After a week of intermittent crossfire, Terkán troops have retreated from the Iota research station near the moon's south pole as the position has been taken over by the Dalme military. The base is considered an important strategic location, although Dalme's offensive has been deemed \"overkill\" by detractors, as it has effortlessly surpassed Terkán's meager defense. The Dalmian government has re-stated their intention to \"re-conquer\" the moon after Terkán's unlawful territorial expansion.",        
+            "additionalConsequences": [
+                {
+                    "country": 6,
+                    "key": "reputation",
+                    "value": 0.1
+                }
+            ]
+        },
+        {
+            "name": "TERKÁN",
+            "description": "Side with Terkán. The lunar conflict is an act of unwarranted violence and zealotry.",
+            "headline": "International bewilderment as Dalmian troops attack abandoned Terkán lunar base.",
+            "text": "After a week of intermittent crossfire, Terkán troops have successfully retreated from the Iota research station without casualties. The base has been abandoned for nearly a decade, as Terkán's lunar research budget was re-allocated into more urgent sectors. Dalme's military offensive has been deemed \"overkill\" by international peace observers, as its government insists on re-conquering pointless lunar land.",        
+            "additionalConsequences": [
+                {
+                    "country": 6,
+                    "key": "reputation",
+                    "value": -0.1
+                }
+            ]
+        }
+    ]
+}

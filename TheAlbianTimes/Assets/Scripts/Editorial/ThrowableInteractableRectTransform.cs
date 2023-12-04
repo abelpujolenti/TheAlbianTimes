@@ -77,7 +77,6 @@ public class ThrowableInteractableRectTransform : InteractableRectTransform
         Vector3 direction = dragVelocity.normalized;
 
         float initialAngularUnscaledVelocity = Mathf.Min(maxAngularUnscaledVelocity, (1 - Vector3.Dot(_vectorOffset.normalized, direction)) * _vectorOffset.magnitude * (100f / (rectTransform.sizeDelta.x + rectTransform.sizeDelta.y)));
-        Debug.Log(initialAngularUnscaledVelocity);
         Vector3 cross = Vector3.Cross(_vectorOffset.normalized, direction);
         float spinDirection = -cross.z / Mathf.Abs(cross.z);
 

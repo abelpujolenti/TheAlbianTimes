@@ -1,13 +1,10 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using Mail.Content;
 using Managers;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Utility;
-using Random = UnityEngine.Random;
 
 namespace Mail
 {
@@ -171,7 +168,6 @@ namespace Mail
 
         private void ReceiveEnvelopeContent(GameObject envelopeContent, bool alone)
         {
-            Debug.Log("Hello");
             _envelopesContent.Add(envelopeContent);
             
             if (!alone)

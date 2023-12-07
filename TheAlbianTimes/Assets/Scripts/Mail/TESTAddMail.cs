@@ -43,6 +43,8 @@ public class TESTAddMail : InteractableRectTransform
     {
         GameObject envelopeGameObject = Instantiate(_envelope, _envelopesContainer);
         
+        Debug.Log(envelopeGameObject.GetInstanceID());
+        
         Vector3 position = envelopeGameObject.transform.position;
 
         envelopeGameObject.transform.position = new Vector3(position.x, position.y, 0);

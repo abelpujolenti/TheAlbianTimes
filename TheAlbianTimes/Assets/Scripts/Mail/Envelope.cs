@@ -19,6 +19,8 @@ namespace Mail
 
         private EnvelopeContentType _envelopeContentType;
 
+        private EnvelopeContent _envelopeContent;
+
         private int _jointId;
 
         private bool _hover;
@@ -51,6 +53,7 @@ namespace Mail
         protected override void PointerClick(BaseEventData data)
         {
             Debug.Log("Click");
+            _envelopeContent.SetJointId(0);
             EventsManager.OnAddEnvelopeContent(gameObject, _envelopeContentGameObject);
             _envelopeContentGameObject.transform.position = transform.position;
             Destroy(gameObject);
@@ -77,6 +80,7 @@ namespace Mail
         public void SetEnvelopeContent(GameObject envelopContentGameObject)
         {
             _envelopeContentGameObject = envelopContentGameObject;
+            _envelopeContent = _envelopeContentGameObject.GetComponent<EnvelopeContent>();
         }
 
         public GameObject GetEnvelopeGameObject()

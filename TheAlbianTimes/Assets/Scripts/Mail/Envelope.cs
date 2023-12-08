@@ -52,7 +52,6 @@ namespace Mail
 
         protected override void PointerClick(BaseEventData data)
         {
-            Debug.Log("Click");
             MailManager.Instance.SubtractJointId(_jointId);
             _envelopeContent.SetJointId(0);
             EventsManager.OnAddEnvelopeContent(gameObject, _envelopeContentGameObject);

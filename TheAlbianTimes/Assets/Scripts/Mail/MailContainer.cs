@@ -51,28 +51,28 @@ namespace Mail
             
             SetContainerLimiters();
 
-             GameObject[] envelopes = MailManager.Instance.LoadEnvelopesFromJson();
-
-             if (envelopes != null)
-             {
-                 foreach (GameObject envelope in envelopes)
-                 {
-                     ReceiveEnvelope(envelope);
-                     ReceiveEnvelopeContent(envelope.GetComponent<Envelope>().GetEnvelopeGameObject(), false);
-                 }
-             }
-
-             GameObject[] envelopesContent = MailManager.Instance.LoadEnvelopesContentFromJson();
-
-             if (envelopesContent.Length == 0)
-             {
-                 return;
-             }
-
-             foreach (GameObject envelopeContent in envelopesContent)
-             {
-                 ReceiveEnvelopeContent(envelopeContent, true);
-             }
+            GameObject[] envelopes = MailManager.Instance.LoadEnvelopesFromJson();
+    
+            if (envelopes != null)
+            {
+                foreach (GameObject envelope in envelopes)
+                {
+                    ReceiveEnvelope(envelope);
+                    ReceiveEnvelopeContent(envelope.GetComponent<Envelope>().GetEnvelopeGameObject(), false);
+                }
+            }
+    
+            GameObject[] envelopesContent = MailManager.Instance.LoadEnvelopesContentFromJson();
+    
+            if (envelopesContent.Length == 0)
+            {
+                return;
+            }
+    
+            foreach (GameObject envelopeContent in envelopesContent)
+            {
+                ReceiveEnvelopeContent(envelopeContent, true);
+            }
         }
         
         private void SetContainerLimiters()

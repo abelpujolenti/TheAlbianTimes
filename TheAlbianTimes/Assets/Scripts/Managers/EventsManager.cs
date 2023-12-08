@@ -14,7 +14,7 @@ namespace Managers
         public static Func <PointerEventData, GameObject> OnCrossMidPointWhileScrolling;
         public static Func <Vector2, Vector2> OnCheckDistanceToMouse;
         public static Action OnExceedCameraLimitsWhileDragging;
-        public static Action<GameObject> OnAssignGameObjectToDrag;
+        public static Action <GameObject> OnAssignGameObjectToDrag;
 
         #endregion        
         
@@ -38,6 +38,14 @@ namespace Managers
         public static Action OnChangeFolderOrderIndexWhenGoingToFolder;
         public static Action <NewsHeadline> OnPrepareNewsHeadlineActions;
         public static Action <NewsHeadline, Vector3> OnDropNewsHeadline;
+
+        #endregion
+
+        #region Mail
+
+        public static Action <GameObject> OnAddEnvelope;
+        public static Action <GameObject, bool> OnAddEnvelopeContentToList;
+        public static Action<GameObject, GameObject> OnAddEnvelopeContent;
 
         #endregion
     }

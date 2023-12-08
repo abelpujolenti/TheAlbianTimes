@@ -28,13 +28,25 @@ namespace Utility
         protected void Awake()
         {
             gameObjectToDrag = gameObject;
+            canvas = GetComponentInParent<Canvas>();
             Setup();
         }
         protected virtual void Setup()
         {
             rectTransform = (RectTransform)transform;
-            canvas = GetComponentInParent<Canvas>();
-            if (canvas == null) canvas = transform.parent.GetComponentInParent<Canvas>();
+            if (canvas == null)
+            {
+                if (transform.parent)
+                {
+                    if (transform.parent.GetComponentInParent<Canvas>() == null)
+                    {
+                        return;
+                    }
+                    
+                    canvas = transform.parent.GetComponentInParent<Canvas>();
+                }
+                return;
+            }
             canvasRect = canvas.GetComponent<RectTransform>();
 
             eventTrigger = GetComponent<EventTrigger>();
@@ -125,6 +137,12 @@ namespace Utility
             mousePosition.y = Math.Max(Math.Min(mousePosition.y, canvasTopRight.y), canvasBottomLeft.y);
 
             return mousePosition;
+        }
+
+        public void SetCanvas(Canvas canvas)
+        {
+            this.canvas = canvas;
+            Setup();
         }
     }
 }

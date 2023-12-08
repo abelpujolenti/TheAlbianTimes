@@ -1,3 +1,4 @@
+
 namespace Mail.Content
 {
     public class Bribe : EnvelopeContent

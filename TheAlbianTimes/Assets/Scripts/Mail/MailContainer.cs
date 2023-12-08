@@ -187,9 +187,9 @@ namespace Mail
 
         private void OpenEnvelope(GameObject envelope, GameObject envelopeContent)
         {
-            Debug.Log("Open");
             SetEnvelopeContentProperties(envelopeContent);
             envelopeContent.SetActive(true);
+            envelopeContent.transform.localScale = new Vector3(1, 1, 1);
 
             _envelopes.Remove(envelope);
         }

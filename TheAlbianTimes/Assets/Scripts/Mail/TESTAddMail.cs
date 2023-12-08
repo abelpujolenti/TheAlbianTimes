@@ -25,12 +25,14 @@ public class TESTAddMail : InteractableRectTransform
         Envelope envelopeComponent = envelopeGameObject.GetComponent<Envelope>();
         
         EnvelopeContent envelopeContentComponent = envelopeContentGameObject.GetComponent<EnvelopeContent>();
+
+        int newRandomJointId = CreateNewJointId();
         
-        envelopeComponent.SetJointId(envelopeGameObject.GetInstanceID());
+        envelopeComponent.SetJointId(newRandomJointId);
         envelopeComponent.SetEnvelopeContentType(envelopeContentComponent.GetEnvelopeContentType());
         envelopeComponent.SetEnvelopeContent(envelopeContentGameObject);
         
-        envelopeContentComponent.SetJointId(envelopeGameObject.GetInstanceID());
+        envelopeContentComponent.SetJointId(newRandomJointId);
         
         _mailData.envelopes.Add(envelopeGameObject);        
 
@@ -42,8 +44,6 @@ public class TESTAddMail : InteractableRectTransform
     private GameObject CreateEnvelope()
     {
         GameObject envelopeGameObject = Instantiate(_envelope, _envelopesContainer);
-        
-        Debug.Log(envelopeGameObject.GetInstanceID());
         
         Vector3 position = envelopeGameObject.transform.position;
 
@@ -64,5 +64,33 @@ public class TESTAddMail : InteractableRectTransform
         envelopeContentGameObject.SetActive(false);
 
         return envelopeContentGameObject;
+    }
+
+    private int CreateNewJointId()
+    {
+        int[] jointsIds = MailManager.Instance.GetJointsIds();
+
+        bool match = false;
+
+        int newRandomJointId;
+        
+        do
+        {
+            newRandomJointId = Random.Range(0, 100000);
+
+            foreach (int jointId in jointsIds)
+            {
+                if (jointId != newRandomJointId)
+                {
+                    continue;
+                }
+                match = true;
+                break;
+            }
+        } while (match);
+        
+        MailManager.Instance.AddJointId(newRandomJointId);
+
+        return newRandomJointId;
     }
 }

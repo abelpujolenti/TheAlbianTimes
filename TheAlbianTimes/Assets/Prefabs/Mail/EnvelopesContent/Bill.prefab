@@ -92,3 +92,4 @@ MonoBehaviour:
   draggable: 1
   hoverable: 0
   clickable: 1
+  _totalMoney: 20

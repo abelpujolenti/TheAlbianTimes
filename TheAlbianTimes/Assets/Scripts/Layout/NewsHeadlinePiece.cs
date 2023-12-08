@@ -34,7 +34,9 @@ namespace Layout
         public void BeginDrag()
         {
             transform.SetAsLastSibling();
-            
+
+            SoundManager.Instance.GrabPieceSound();
+
             EventsManager.OnCheckDistanceToMouse += DistanceToPosition;
 
             foreach (NewsHeadlineSubPiece newsHeadlineSubPiece in _newsHeadlineSubPieces)
@@ -90,10 +92,14 @@ namespace Layout
                 }
 
                 EventsManager.OnFailSnap(this);
+
+                SoundManager.Instance.DropPieceSound();
                 return;
             }
 
             transform.position = EventsManager.OnSuccessfulSnap(_snappedCells);
+
+            SoundManager.Instance.SnapPieceSound();
         }
 
         public void SlideFromOriginToDestination(Vector2 origin)

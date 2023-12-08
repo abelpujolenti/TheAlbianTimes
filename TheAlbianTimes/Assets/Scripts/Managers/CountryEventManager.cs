@@ -1,3 +1,4 @@
+using Managers;
 using System.Collections.Generic;
 using System.Linq;
 using Managers;
@@ -24,7 +25,21 @@ public class CountryEventManager : MonoBehaviour
         {
             Destroy( _instance );
         }
+    }
 
+    private void Start()
+    {
+        LoadEvents();
+    }
+
+    private void LoadEvents()
+    {
+        for (Country.Id i = 0; i < Country.Id.AMOUNT; i++)
+        {
+            bribeCountryEvents.Add(i, new List<BribeCountryEvent>());
+            threatCountryEvents.Add(i, new List<ThreatCountryEvent>());
+            giftCountryEvents.Add(i, new List<GiftCountryEvent>());
+        }
         FileManager.LoadAllJsonFiles("CountryEvents/ThreatCountryEvent", AddThreatEventFromJson);
         FileManager.LoadAllJsonFiles("CountryEvents/BribeCountryEvent", AddBribeEventFromJson);
         FileManager.LoadAllJsonFiles("CountryEvents/GiftCountryEvent", AddGiftEventFromJson);

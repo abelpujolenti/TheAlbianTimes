@@ -16,6 +16,7 @@ public class StatsDisplay : MonoBehaviour
         staffText = transform.Find("staff").GetComponent<TextMeshProUGUI>();
         reputationText = transform.Find("reputation").GetComponent<TextMeshProUGUI>();
 
+        if (GameManager.Instance.gameState == null) return;
         moneyText.text = FormatThreeDigitFloat(GameManager.Instance.gameState.playerData.money);
         staffText.text = GameManager.Instance.gameState.playerData.staff.ToString("D3");
         reputationText.text = GameManager.Instance.gameState.playerData.reputation.ToString("P0");

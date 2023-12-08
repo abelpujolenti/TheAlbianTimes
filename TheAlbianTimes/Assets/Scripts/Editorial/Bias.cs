@@ -83,6 +83,8 @@ namespace Editorial
             _selected = true;
             _image.color = _selectedColor;
             EventsManager.OnChangeSelectedBias += UnselectBias;
+
+            SoundManager.Instance.ChangeBiasSound();
         }
 
         public void SelectBias()

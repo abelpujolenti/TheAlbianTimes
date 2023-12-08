@@ -35,6 +35,21 @@ public class PublishingManager : MonoBehaviour
         float diff = currentGlobalReputation - GameManager.Instance.gameState.playerData.reputation;
         PlayerDataManager.Instance.UpdateReputation(currentGlobalReputation);
 
+        GenerateCountryEvents();
+        Debug.Log("Events:");
+        foreach (KeyValuePair<int, CountryEvent> ev in CountryEventManager.Instance.currentEvents)
+        {
+            Debug.Log(ev.Value.id);
+        }
+
         GameManager.Instance.sceneLoader.SetScene("StatsScene");
-    } 
+    }
+
+    private void GenerateCountryEvents()
+    {
+        foreach (Country country in GameManager.Instance.gameState.countries)
+        {
+            CountryEventManager.Instance.AddEventToQueue(country.GenerateEvent());
+        }
+    }
 }

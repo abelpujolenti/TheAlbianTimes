@@ -24,6 +24,7 @@ public abstract class CountryEvent
     public bool conditionsFulfilled => IsFulfilled();
     private bool IsFulfilled()
     {
+        if (conditions == null) return true;
         bool ret = true;
         foreach(CountryEventCondition condition in conditions)
         {

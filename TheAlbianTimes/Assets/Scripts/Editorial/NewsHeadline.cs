@@ -54,9 +54,10 @@ namespace Editorial
         private int _chosenBiasIndex;
         private int _selectedBiasIndex;
         
-        private bool _inFront;
-        private bool _transferDrag;
-        private bool _send;
+        [SerializeField]private bool _inFront;
+        [SerializeField]private bool _transferDrag;
+        [SerializeField]private bool _send;
+        [SerializeField]private bool _modified = false;
 
         void Start()
         {
@@ -93,6 +94,8 @@ namespace Editorial
             }
             
             _newsFolder.SetDragging(true);
+
+            SoundManager.Instance.GrabPaperSound();
         }
 
         protected override void Drag(BaseEventData data)
@@ -192,11 +195,15 @@ namespace Editorial
             if (EventsManager.OnDropNewsHeadline == null)
             {
                 DropOnFolder();
+                SoundManager.Instance.DropPaperSound();
                 return;
             }
             
             PointerEventData pointerData = (PointerEventData) data;
             EventsManager.OnDropNewsHeadline(this, pointerData.position);
+
+            SoundManager.Instance.SubmitPaperSound();
+
         }
 
         protected override void PointerEnter(BaseEventData data)
@@ -333,12 +340,14 @@ namespace Editorial
         {
             float timer = 0;
 
+            _modified = true;
+
             while (timer < TIME_TO_SLIDE)
             {
                 timer = MoveToDestination(_origin, destination, timer);
                 yield return null;
             }
-            
+
             yield return new WaitForSeconds(SECONDS_AWAITING_TO_RETURN_TO_FOLDER);
 
             ReturnToFolder();
@@ -376,6 +385,11 @@ namespace Editorial
             float timer = 0;
 
             Vector2 origin = transform.localPosition;
+
+            if (_modified)
+            {
+                SoundManager.Instance.ReturnPaperSound();
+            }
 
             while (timer < TIME_TO_SLIDE)
             {

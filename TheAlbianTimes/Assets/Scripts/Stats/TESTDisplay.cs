@@ -26,7 +26,14 @@ public class TESTDisplay : MonoBehaviour
     {
         PlayerDataManager.Instance.ApplyStaffChange();
 
-        GameManager.Instance.sceneLoader.SetScene("WorkspaceScene");
+        if (GameManager.Instance.GetRound() == 2)
+        {
+            GameManager.Instance.sceneLoader.SetScene("Dialogue");
+        }
+        else
+        {
+            GameManager.Instance.sceneLoader.SetScene("WorkspaceScene");
+        }
     }
     public void UpdateText()
     {

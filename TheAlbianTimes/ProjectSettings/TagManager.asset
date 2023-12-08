@@ -44,7 +44,10 @@ TagManager:
   - name: Background
     uniqueID: 267891189
     locked: 0
-  - name: Foreground
+  - name: Foreground-1
+    uniqueID: 1028309513
+    locked: 0
+  - name: Foreground-2
     uniqueID: 1050050191
     locked: 0
   - name: Overlay

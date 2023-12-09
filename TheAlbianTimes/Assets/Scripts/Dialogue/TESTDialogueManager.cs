@@ -1,4 +1,5 @@
 using Managers;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +13,10 @@ public class TESTDialogueManager : MonoBehaviour
     string text1 = "We are aware of the article your newspaper published. This is not a threat. But that might have to change... Do not publish information regarding the internal affairs of ";
     string text2 = ".";
     string text;
-    TextMeshProUGUI tmpText;
-    TextMeshProUGUI tmpTitle;
-    Image bg;
-    Button button;
+    [SerializeField] TextMeshProUGUI tmpText;
+    [SerializeField] TextMeshProUGUI tmpTitle;
+    [SerializeField] Image bg;
+    [SerializeField] Button button;
 
     void Start()
     {

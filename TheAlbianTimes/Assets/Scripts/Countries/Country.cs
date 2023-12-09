@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -8,6 +10,15 @@ public class CountryData
 {
     public Country.Id countryId;
     public Dictionary<string, float> values = new Dictionary<string, float>();
+    public CountryData() { }
+    public CountryData(CountryData d)
+    {
+        countryId = d.countryId;
+        foreach (KeyValuePair<string, float> v in d.values)
+        {
+            values.Add(v.Key, v.Value);
+        }
+    }
 }
 
 public class Country : MonoBehaviour
@@ -45,6 +56,7 @@ public class Country : MonoBehaviour
 
     #region Properties
     public CountryData data = new CountryData();
+    private CountryData previousData = new CountryData();
     protected float lastReputationChange = 0f;
     #endregion
 
@@ -134,17 +146,47 @@ public class Country : MonoBehaviour
         d += "<b>" + GetName() + ":</b>\n";
         foreach (KeyValuePair<string, float> value in data.values)
         {
-            d += value.Key + ": " + value.Value + "  ";
+            if (value.Value <= 1f && value.Value >= 0f)
+            {
+                d += value.Key + ": " + value.Value.ToString("p0") + " " + StatFormat.FormatValueChange(GetValueChange(value.Key)) + "  ";
+            }
+            else
+            {
+
+            }
         }
         Debug.Log(d);
         return d;
     }
 
-    #region Getters/Setters
-    public void ModifyValue(string key, float value)
+    public void SaveRoundData()
     {
-        if (!data.values.ContainsKey(key)) return;
-        data.values[key] += value;
+        previousData = new CountryData(data);
+    }
+
+    public float GetValueChange(string key)
+    {
+        if (!data.values.ContainsKey(key)) return 0f;
+        return data.values[key] - previousData.values[key];
+    }
+
+    #region Getters/Setters
+    public void AddToValue(string key, float value)
+    {
+        Debug.Log(data.values[key]);
+        if (!data.values.ContainsKey(key))
+        {
+            SetValue(key, value);
+        }
+        else
+        {
+            SetValue(key, value + data.values[key]);
+        }
+        Debug.Log(data.values[key]);
+    }
+    public void SetValue(string key, float value)
+    {
+        data.values[key] = value;
     }
     public float GetReputation()
     {
@@ -160,7 +202,7 @@ public class Country : MonoBehaviour
     }
     public void SetPurchasingPower(float v)
     {
-        data.values["purchasingPower"] = v;
+        SetValue("purchasingPower", v);
     }
     public int GetPopulation()
     {
@@ -168,7 +210,7 @@ public class Country : MonoBehaviour
     }
     public void SetPopulation(int v)
     {
-        data.values["population"] = v;
+        SetValue("population", v);
     }
     public float GetCensorship()
     {
@@ -176,7 +218,7 @@ public class Country : MonoBehaviour
     }
     public void SetCensorship(float v)
     {
-        data.values["censorship"] = v;
+        SetValue("censorship", v);
     }
     public Id GetId()
     {

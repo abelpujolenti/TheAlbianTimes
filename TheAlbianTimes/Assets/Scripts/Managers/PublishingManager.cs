@@ -22,12 +22,19 @@ public class PublishingManager : MonoBehaviour
     }
     public void Publish()
     {
+        //this is bad
         NewsHeadlinePiece[] pieces = FindObjectsByType<NewsHeadlinePiece>(FindObjectsSortMode.None);
         List<NewsData> articles = new List<NewsData>();
         foreach (NewsHeadlinePiece piece in pieces)
         {
             articles.Add(piece.GetNewsHeadlinesSubPieces()[0].GetNewsHeadline().GetNewsData());
         }
+
+        foreach (Country country in GameManager.Instance.gameState.countries)
+        {
+            country.SaveRoundData();
+        }
+
         NewsConsequenceManager.Instance.ApplyNewsConsequences(articles.ToArray());
 
         float income = PlayerDataManager.Instance.CalculateRevenue() - PlayerDataManager.Instance.CalculateCosts();

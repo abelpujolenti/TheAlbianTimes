@@ -3,7 +3,7 @@ using Utility;
 
 namespace Mail.Content
 {
-    public abstract class EnvelopeContent : InteractableRectTransform
+    public abstract class EnvelopeContent : ThrowableInteractableRectTransform      
     {
         private int _jointId;
         

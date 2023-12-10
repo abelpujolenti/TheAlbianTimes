@@ -7,7 +7,7 @@ using Utility;
 
 namespace Layout
 {
-    public class NewsHeadlineSubPiece : InteractableRectTransform
+    public class NewsHeadlineSubPiece : ThrowableInteractableRectTransform
     {
         private const float SIZE = 45.12856f;
         

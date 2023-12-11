@@ -1,5 +1,7 @@
+using NoMonoBehavior;
 using System.IO;
 using UnityEngine;
+using UnityEngine.Android;
 using UnityEngine.UI;
 
 namespace NoMonoBehavior
@@ -12,7 +14,7 @@ namespace NoMonoBehavior
     public class DialogueObject
     {
         public string character;
-        public string name; 
+        public string name;
         public DialogueData[] dialogue;
     }
 }
@@ -26,12 +28,13 @@ namespace Managers
         [SerializeField] private Image character;
         [SerializeField] private RawImage background;
 
-        private string[] words = new string[4]
+        private string[] words = new string[5]
         {
         "hey ho, hello, i'm here",
         "im a pen",
         "use me to mark positive stuff",
-        "oh yeah and to make sure i speak correctly i really wanted to express my gratitude to Albia for letting me write this paper its been amazing"
+        "oh yeah and to make sure i speak correctly i really wanted to express my gratitude to Albia for letting me write this paper its been amazing", 
+        ""
         };
 
         private int currentWords = 0;
@@ -52,6 +55,9 @@ namespace Managers
 
         public void ContinueText()
         {
+            //todo : make it move to the next scene when the text is finished
+            //if (currentWords == ) { }
+
             currentWords++;
             architect.Build(words[currentWords]);
         }
@@ -67,6 +73,13 @@ namespace Managers
 
             string json = File.ReadAllText(path);
 
+            DialogueObject dialogueObject = JsonUtility.FromJson<DialogueObject>(json);
+            //todo: add the name of the character speaking, and make the picture match 
+
+            foreach (DialogueData dialogue in dialogueObject.dialogue)
+            {
+                //todo: add each piece of dialogue into the vector of strings 
+            }
         }
     }
 }

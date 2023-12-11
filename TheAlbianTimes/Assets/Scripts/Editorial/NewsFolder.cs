@@ -14,6 +14,7 @@ namespace Editorial
         [SerializeField]private List<NewsHeadline> _newsHeadlines = new ();
 
         private int _sentNewsHeadlines;
+        private int _newsHeadlinesOutOfFolder;
         
         private bool _folderEmpty;
         private bool _dragging;
@@ -45,7 +46,7 @@ namespace Editorial
             AddNewsHeadlineComponent(newsHeadlineGameObject.GetComponent<NewsHeadline>(), true);
         }
 
-        private void AddNewsHeadlineComponent(NewsHeadline newsHeadline, bool start)
+        public void AddNewsHeadlineComponent(NewsHeadline newsHeadline, bool start)
         {
             AddNewsHeadlineComponentToList(newsHeadline);
 
@@ -100,7 +101,7 @@ namespace Editorial
         private void PositionNewsHeadlinesByGivenIndex(int totalIndicesToPosition)
         {
             int newsHeadlineListLength = _newsHeadlines.Count;
-            int countOfTotalNewsHeadline = newsHeadlineListLength - 1;
+            int countOfTotalNewsHeadline = newsHeadlineListLength - (1 + _newsHeadlinesOutOfFolder);
             
             if (newsHeadlineListLength == 1)
             {
@@ -130,7 +131,7 @@ namespace Editorial
             {
                 ReindexFolderOrderInsideRange(0, _newsHeadlines.Count);
                 RedirectInComingNewsHeadlineToFolder();
-                PositionNewsHeadlinesByGivenIndex(_newsHeadlines.Count - _sentNewsHeadlines);
+                PositionNewsHeadlinesByGivenIndex(_newsHeadlines.Count - (_sentNewsHeadlines + _newsHeadlinesOutOfFolder));
                 return;
             }
             
@@ -178,10 +179,9 @@ namespace Editorial
             newsHeadline.SetInFront(isFront);
         }
 
-        public void ProcedureOnChangeBias()
+        public void ProcedureOnDropOutOfFolder()
         {
-            _sentNewsHeadlines++;
-            _folderEmpty = _newsHeadlines.Count == _sentNewsHeadlines;
+            _folderEmpty = _newsHeadlines.Count == _sentNewsHeadlines + _newsHeadlinesOutOfFolder;
             
             if (_newsHeadlines.Count != 1)
             {
@@ -198,7 +198,7 @@ namespace Editorial
                     {
                         RedirectInComingNewsHeadlineToFolder();    
                     }
-                    PositionNewsHeadlinesByGivenIndex(_newsHeadlines.Count - _sentNewsHeadlines);
+                    PositionNewsHeadlinesByGivenIndex(_newsHeadlines.Count - (_sentNewsHeadlines + _newsHeadlinesOutOfFolder));
                 }
             }
             else
@@ -208,7 +208,7 @@ namespace Editorial
             }
         }
 
-        private void CheckCurrentNewsHeadlinesSent()
+        public void CheckCurrentNewsHeadlinesSent()
         {
             if (_folderEmpty)
             {
@@ -264,9 +264,10 @@ namespace Editorial
             
             frontNewsHeadline.SetSend(true);
             
+            
             _newsHeadlines.RemoveAt(0);
             _folderEmpty = _newsHeadlines.Count == _sentNewsHeadlines;
-
+            
             CheckCurrentNewsHeadlinesSent();
             
             if (_newsHeadlines.Count == 0)
@@ -292,7 +293,7 @@ namespace Editorial
             frontNewsHeadline = _newsHeadlines[0];
             ChangeBias(frontNewsHeadline.GetSelectedBiasIndex(), frontNewsHeadline.GetBiasesNames(), frontNewsHeadline.GetBiasesDescription());
             
-            PositionNewsHeadlinesByGivenIndex(_newsHeadlines.Count - _sentNewsHeadlines);
+            PositionNewsHeadlinesByGivenIndex(_newsHeadlines.Count - (_sentNewsHeadlines + _newsHeadlinesOutOfFolder));
         }
 
         private void ChangeBias(int newChosenBiasIndex, String[] biasesNames, String[] newBiasesDescriptions)
@@ -314,6 +315,21 @@ namespace Editorial
         public bool IsFolderEmpty()
         {
             return _folderEmpty;
+        }
+
+        public void AddNewsHeadlinesSent()
+        {
+            _sentNewsHeadlines++;
+        }
+
+        public void AddNewsHeadlineOutOfFolder()
+        {
+            _newsHeadlinesOutOfFolder++;
+        }
+
+        public void SubtractNewsHeadlineOutOfFolder()
+        {
+            _newsHeadlinesOutOfFolder--;
         }
     }
 }

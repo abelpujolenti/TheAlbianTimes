@@ -8,6 +8,10 @@ namespace Editorial
     {
         protected override void PointerClick(BaseEventData data)
         {
+            if (EventsManager.OnPressPanicButton == null)
+            {
+                return;
+            }
             EventsManager.OnPressPanicButton();
         }
     }

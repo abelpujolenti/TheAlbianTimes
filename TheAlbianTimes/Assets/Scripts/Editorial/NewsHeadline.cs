@@ -50,14 +50,15 @@ namespace Editorial
         private Vector2 _destination;
         private Vector2 _origin;
         
-        private int _folderOrderIndex;
-        private int _chosenBiasIndex;
-        private int _selectedBiasIndex;
+        [SerializeField]private int _folderOrderIndex;
+        [SerializeField]private int _chosenBiasIndex;
+        [SerializeField]private int _selectedBiasIndex;
         
         [SerializeField]private bool _inFront;
-        [SerializeField]private bool _transferDrag;
-        [SerializeField]private bool _send;
-        [SerializeField]private bool _modified = false;
+        private bool _transferDrag;
+        private bool _send;
+        private bool _modified;
+        private bool _onFolder = true;
 
         void Start()
         {
@@ -92,6 +93,8 @@ namespace Editorial
             {
                 EditorialManager.Instance.TurnOffBiasContainer();    
             }
+            
+            SlideToRotation(0f, 0f);
             
             _newsFolder.SetDragging(true);
 
@@ -149,7 +152,7 @@ namespace Editorial
             
             if (!_send)
             {
-                StateOnSendToLayout();
+                StateOnDropOutOfFolder();
             
                 _newsFolder.SendNewsHeadlineToLayout();
             }
@@ -168,19 +171,36 @@ namespace Editorial
                 
                 if (_send)
                 {
-                    EventsManager.OnReturnNewsHeadlineToFolder(this, false);
+                    _newsFolder.AddNewsHeadlineComponent(this, false);
                     _send = false;
                 }
             }
             
+            ////
             if (!draggable)
             {
                 return;
+            }
+            ////
+
+            if (_onFolder)
+            {
+                DropOutFolder();    
+                _newsFolder.AddNewsHeadlineOutOfFolder();
+                _newsFolder.ProcedureOnDropOutOfFolder();
+                StateOnDropOutOfFolder();
+            }            
+            else
+            {
+                _rotate = false;
+                _newsFolder.SubtractNewsHeadlineOutOfFolder();
+                _newsFolder.AddNewsHeadlineComponent(this, false);
             }
             
             base.EndDrag(data);
             
             _newsFolder.SetDragging(false);
+            _newsFolder.CheckCurrentNewsHeadlinesSent();
             
             EventsManager.OnCrossMidPointWhileScrolling -= GetGameObjectToTransferDrag;
             EventsManager.OnCheckDistanceToMouse -= DistanceToPosition;
@@ -194,7 +214,6 @@ namespace Editorial
             
             if (EventsManager.OnDropNewsHeadline == null)
             {
-                //DropOnFolder();
                 SoundManager.Instance.DropPaperSound();
                 return;
             }
@@ -203,6 +222,17 @@ namespace Editorial
             EventsManager.OnDropNewsHeadline(this, pointerData.position);
 
             SoundManager.Instance.SubmitPaperSound();
+        }
+
+        public void DropOutFolder()
+        {
+            if (!_onFolder)
+            {
+                return;
+            }
+            //EventsManager.OnPressPanicButton +=
+            StateOnDropOutOfFolder();
+            _onFolder = false;
         }
 
         protected override void PointerEnter(BaseEventData data)
@@ -258,9 +288,12 @@ namespace Editorial
             _folderOrderIndex = newFolderOrderIndex;
         }
 
-        private void StateOnSendToLayout()
+        private void StateOnDropOutOfFolder()
         {
             _inFront = false;
+            draggable = true;
+            clickable = false;
+            hoverable = false;
             UnsubscribeEvents();
         }
 
@@ -324,7 +357,8 @@ namespace Editorial
 
             EventsManager.OnChangeFolderOrderIndexWhenGoingToFolder += GiveDestinationToReturnToFolder;
             
-            _newsFolder.ProcedureOnChangeBias();
+            _newsFolder.AddNewsHeadlinesSent();
+            _newsFolder.ProcedureOnDropOutOfFolder();
 
             DisableBiasMarks();
             
@@ -354,6 +388,7 @@ namespace Editorial
 
         public void AddToFolder()
         {
+            SlideToRotation(0f, 0f);
             EventsManager.OnChangeFolderOrderIndexWhenGoingToFolder += GiveDestinationToReturnToFolder;
             ReturnToFolder();
         }
@@ -364,6 +399,8 @@ namespace Editorial
             draggable = false;
             hoverable = false;
             clickable = false;
+            
+            SlideToRotation(0f, 0f);
             
             int countOfTotalNewsHeadline = _newsFolder.GetNewsHeadlinesLength();
 
@@ -401,11 +438,13 @@ namespace Editorial
             _origin = _destination;
 
             _newsFolder.SubtractOneToSentNewsHeadline(this, _folderOrderIndex);
+            
+            _rotate = true;
+            _onFolder = true;
         }
 
-        public void DropOnFolder()
+        private void DropOnFolder()
         {
-            //TODO BUG ON RETURN NEWSHEADLINEPIECE TO LAYOUT 
             EditorialManager.Instance.TurnOnBiasContainer();    
             StartCoroutine(Slide(transform.localPosition, _origin));
         }
@@ -440,13 +479,21 @@ namespace Editorial
         }
         private void DisableBiasMarks()
         {
-            if (_biasMarker == null) return;
+            if (_biasMarker == null)
+            {
+                return;
+            }
             _biasMarker.SetActive(false);
         }
 
         public void SetNewsFolder(NewsFolder newsFolder)
         {
             _newsFolder = newsFolder;
+        }
+
+        public NewsFolder GetNewsFolder()
+        {
+            return _newsFolder;
         }
 
         private void SetSelectedBiasIndex(int newSelectedBiasIndex)
@@ -536,8 +583,6 @@ namespace Editorial
         private GameObject GetGameObjectToTransferDrag(PointerEventData pointerData)
         {
             Drag(pointerData);
-            
-            //TODO BUG ON TRANSFER WITH SCROLL
             
             return !_transferDrag ? gameObject : _newsHeadlinePieceToTransferDrag.gameObject;
         }

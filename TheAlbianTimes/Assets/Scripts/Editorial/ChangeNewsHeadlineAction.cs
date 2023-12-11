@@ -35,7 +35,6 @@ namespace Editorial
             
             if (!IsCoordinateInsideBounds(mousePosition))
             {
-                //newsHeadline.DropOnFolder();
                 gameObject.SetActive(false);
                 return;
             }   

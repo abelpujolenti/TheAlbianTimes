@@ -1,9 +1,10 @@
 {
-    "chracter": "pen",
-    "imagePath": null,
+    "character": "pen",
+    "background" : "",
     "text": [
         "penLover",
-        "i love being a pen"
+        "i love being a pen", 
+        "me when pen and the love of pen is  toooooooooooooooooo long and the existence booms"
     ]
 
 }

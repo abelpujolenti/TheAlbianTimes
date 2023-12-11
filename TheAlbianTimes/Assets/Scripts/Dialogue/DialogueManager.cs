@@ -1,47 +1,72 @@
-using System.Collections;
-using TMPro;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DialogueManager : MonoBehaviour
+namespace NoMonoBehavior
 {
-    #region Stats
-    [SerializeField] private Button continueButton;
-    [SerializeField] private RawImage background;
-    [SerializeField] private Image character;
-
-    private string[] words = new string[4]
+    public class DialogueData
     {
+        public string[] piecesCoordinatesFromRootPiece;
+    }
+
+    public class DialogueObject
+    {
+        public string character;
+        public string name; 
+        public DialogueData[] dialogue;
+    }
+}
+
+
+namespace Managers
+{
+    public class DialogueManager : MonoBehaviour
+    {
+        #region Stats
+        [SerializeField] private Image character;
+        [SerializeField] private RawImage background;
+
+        private string[] words = new string[4]
+        {
         "hey ho, hello, i'm here",
         "im a pen",
         "use me to mark positive stuff",
         "oh yeah and to make sure i speak correctly i really wanted to express my gratitude to Albia for letting me write this paper its been amazing"
-    };
+        };
 
-    private int currentWords = 0;
+        private int currentWords = 0;
 
-    DialogueSystem ds;
-    TextArchitect architect;
+        DialogueSystem ds;
+        NoMonoBehavior.TextArchitect architect;
 
-    #endregion
+        #endregion
 
-    void Start()
-    {
-        ds = DialogueSystem.instance;
-        architect = new TextArchitect(ds.container.dialogueText);
-        architect.Build(words[currentWords]);
+        void Start()
+        {
+            ds = DialogueSystem.instance;
+            architect = new NoMonoBehavior.TextArchitect(ds.container.dialogueText);
+            architect.Build(words[currentWords]);
 
-        /*ds.container.nameText = transform.Find("Name").GetComponentInChildren<TextMeshProUGUI>();
-        ds.container.dialogueText = transform.Find("Dialogue").GetComponentInChildren<TextMeshProUGUI>();
-        
-        continueButton = transform.Find("ContinueButton").GetComponentInChildren<Button>();
-        background = transform.Find("Background").GetComponentInChildren<Image>();
-        character = transform.Find("Pen").GetComponentInChildren<Image>();*/
-    }
+            LoadDialogueFromJson("test.json");
+        }
 
-    public void ContinueText()
-    {
-        currentWords++;
-        architect.Build(words[currentWords]);
+        public void ContinueText()
+        {
+            currentWords++;
+            architect.Build(words[currentWords]);
+        }
+
+        //private void SaveDialogueToJson<TContent>(TContent)
+
+        private void LoadDialogueFromJson(string fileName)
+        {
+            string path = Application.streamingAssetsPath + "/Json/Dialogues/" + fileName;
+
+            if (!File.Exists(path))
+                return;
+
+            string json = File.ReadAllText(path);
+
+        }
     }
 }

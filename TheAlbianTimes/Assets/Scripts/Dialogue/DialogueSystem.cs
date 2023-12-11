@@ -5,7 +5,7 @@ using TMPro;
 
 public class DialogueSystem : MonoBehaviour
 {
-    public DialogueContainer container = new DialogueContainer();
+    public NoMonoBehavior.DialogueContainer container = new NoMonoBehavior.DialogueContainer();
 
     public static DialogueSystem instance;
 

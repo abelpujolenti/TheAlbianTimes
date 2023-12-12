@@ -54,9 +54,9 @@ namespace Editorial
         [SerializeField]private int _chosenBiasIndex;
         [SerializeField]private int _selectedBiasIndex;
         
-        [SerializeField]private bool _inFront;
+        private bool _inFront;
         private bool _transferDrag;
-        private bool _send;
+        private bool _sendToLayout;
         private bool _modified;
         private bool _onFolder = true;
 
@@ -150,7 +150,7 @@ namespace Editorial
         {
             EndDrag(data);
             
-            if (!_send)
+            if (!_sendToLayout)
             {
                 StateOnDropOutOfFolder();
             
@@ -169,10 +169,10 @@ namespace Editorial
             {
                 _newsHeadlinePieceToTransferDrag.SetTransferDrag(false);
                 
-                if (_send)
+                if (_sendToLayout)
                 {
                     _newsFolder.AddNewsHeadlineComponent(this, false);
-                    _send = false;
+                    _sendToLayout = false;
                 }
             }
             
@@ -185,16 +185,11 @@ namespace Editorial
 
             if (_onFolder)
             {
-                DropOutFolder();    
-                _newsFolder.AddNewsHeadlineOutOfFolder();
-                _newsFolder.ProcedureOnDropOutOfFolder();
-                StateOnDropOutOfFolder();
+                DropOutFolder();
             }            
             else
             {
-                _rotate = false;
-                _newsFolder.SubtractNewsHeadlineOutOfFolder();
-                _newsFolder.AddNewsHeadlineComponent(this, false);
+                DropOnFolder();
             }
             
             base.EndDrag(data);
@@ -224,15 +219,12 @@ namespace Editorial
             SoundManager.Instance.SubmitPaperSound();
         }
 
-        public void DropOutFolder()
+        private void DropOutFolder()
         {
-            if (!_onFolder)
-            {
-                return;
-            }
             //EventsManager.OnPressPanicButton +=
-            StateOnDropOutOfFolder();
             _onFolder = false;
+            _newsFolder.DropNewsHeadlineOutOfFolder(false);
+            StateOnDropOutOfFolder();
         }
 
         protected override void PointerEnter(BaseEventData data)
@@ -358,7 +350,7 @@ namespace Editorial
             EventsManager.OnChangeFolderOrderIndexWhenGoingToFolder += GiveDestinationToReturnToFolder;
             
             _newsFolder.AddNewsHeadlinesSent();
-            _newsFolder.ProcedureOnDropOutOfFolder();
+            _newsFolder.DropNewsHeadlineOutOfFolder(true);
 
             DisableBiasMarks();
             
@@ -424,7 +416,7 @@ namespace Editorial
 
             if (_modified)
             {
-                SoundManager.Instance.ReturnPaperSound();
+                SoundManager.Instance.ReturnPaperSound();    
             }
 
             while (timer < TIME_TO_SLIDE)
@@ -437,7 +429,7 @@ namespace Editorial
 
             _origin = _destination;
 
-            _newsFolder.SubtractOneToSentNewsHeadline(this, _folderOrderIndex);
+            _newsFolder.ReturnNewsHeadline(this, _folderOrderIndex, !_onFolder);
             
             _rotate = true;
             _onFolder = true;
@@ -445,6 +437,8 @@ namespace Editorial
 
         private void DropOnFolder()
         {
+            _rotate = false;
+            _newsFolder.AddNewsHeadlineComponent(this, false);
             EditorialManager.Instance.TurnOnBiasContainer();    
             StartCoroutine(Slide(transform.localPosition, _origin));
         }
@@ -597,9 +591,9 @@ namespace Editorial
             return _transferDrag;
         }
 
-        public void SetSend(bool send)
+        public void SetSendToLayout(bool send)
         {
-            _send = send;
+            _sendToLayout = send;
         }
         
         private Vector2 DistanceToPosition(Vector2 position)

@@ -172,6 +172,13 @@ MonoBehaviour:
   draggable: 1
   hoverable: 1
   clickable: 1
+  speed: 90
+  minVelocity: 6
+  maxVelocity: 30
+  deceleration: -60
+  maxAngularUnscaledVelocity: 1.5
+  spinFactor: 30
+  grabRotationSnapBackTime: 0.2
   _newsHeadlinePieceToTransferDrag: {fileID: 0}
   _headlineText: {fileID: 1873051352297877941}
   _contentText: {fileID: 1029335324776157074}
@@ -182,8 +189,6 @@ MonoBehaviour:
   _chosenBiasIndex: 0
   _selectedBiasIndex: 0
   _inFront: 0
-  _transferDrag: 0
-  _send: 0
 --- !u!1 &1677909394098575661
 GameObject:
   m_ObjectHideFlags: 0

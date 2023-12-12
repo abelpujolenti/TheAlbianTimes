@@ -13,8 +13,8 @@ namespace Editorial
         
         [SerializeField]private List<NewsHeadline> _newsHeadlines = new ();
 
-        private int _sentNewsHeadlines;
-        private int _newsHeadlinesOutOfFolder;
+        [SerializeField]private int _newsHeadlinesSentToChangeBias;
+        [SerializeField]private int _newsHeadlinesOutOfFolder;
         
         private bool _folderEmpty;
         private bool _dragging;
@@ -50,8 +50,9 @@ namespace Editorial
         {
             AddNewsHeadlineComponentToList(newsHeadline);
 
-            _sentNewsHeadlines++;
-            _folderEmpty = _newsHeadlines.Count == _sentNewsHeadlines;
+            _newsHeadlinesSentToChangeBias++;
+            _newsHeadlinesOutOfFolder++;
+            _folderEmpty = _newsHeadlines.Count == _newsHeadlinesSentToChangeBias;
             
             newsHeadline.AddToFolder();
 
@@ -65,14 +66,14 @@ namespace Editorial
                 return;
             }
             
-            PositionNewsHeadlinesByGivenIndex((_newsHeadlines.Count - _sentNewsHeadlines) + 1);
+            PositionNewsHeadlinesByGivenIndex((_newsHeadlines.Count - _newsHeadlinesSentToChangeBias) + 1);
         }
 
         private void AddNewsHeadlineComponentToList(NewsHeadline newsHeadline)
         {
-            bool atStartNoOneInFolder = _newsHeadlines.Count == _sentNewsHeadlines;
+            bool atStartNoOneInFolder = _newsHeadlines.Count == _newsHeadlinesSentToChangeBias;
             
-            if (_sentNewsHeadlines == 0)
+            if (_newsHeadlinesSentToChangeBias == 0)
             {
                 _newsHeadlines.Add(newsHeadline);
                 newsHeadline.SetFolderOrderIndex(_newsHeadlines.Count - 1);
@@ -83,7 +84,7 @@ namespace Editorial
                 {
                     ModifyInFrontProperties(false);
                 }
-                int indexToInsert = _newsHeadlines.Count - _sentNewsHeadlines;
+                int indexToInsert = _newsHeadlines.Count - _newsHeadlinesSentToChangeBias;
                 _newsHeadlines.Insert(indexToInsert, newsHeadline);
                 ReindexFolderOrderInsideRange(indexToInsert, _newsHeadlines.Count);
                 RedirectInComingNewsHeadlineToFolder();
@@ -111,6 +112,10 @@ namespace Editorial
             NewsHeadline newsHeadline;
             Vector2 newOrigin;
             
+            Debug.Log(_newsHeadlinesOutOfFolder);
+            Debug.Log(_newsHeadlinesSentToChangeBias);
+            Debug.Log(totalIndicesToPosition);
+            
             for (int i = 0; i < totalIndicesToPosition; i++)
             {
                 newsHeadline = _newsHeadlines[i];
@@ -131,7 +136,7 @@ namespace Editorial
             {
                 ReindexFolderOrderInsideRange(0, _newsHeadlines.Count);
                 RedirectInComingNewsHeadlineToFolder();
-                PositionNewsHeadlinesByGivenIndex(_newsHeadlines.Count - (_sentNewsHeadlines + _newsHeadlinesOutOfFolder));
+                PositionNewsHeadlinesByGivenIndex(_newsHeadlines.Count - (_newsHeadlinesSentToChangeBias + _newsHeadlinesOutOfFolder));
                 return;
             }
             
@@ -179,9 +184,18 @@ namespace Editorial
             newsHeadline.SetInFront(isFront);
         }
 
-        public void ProcedureOnDropOutOfFolder()
+        public void DropNewsHeadlineOutOfFolder(bool isSent)
         {
-            _folderEmpty = _newsHeadlines.Count == _sentNewsHeadlines + _newsHeadlinesOutOfFolder;
+            if (isSent)
+            {
+                _newsHeadlinesSentToChangeBias++;
+            }
+            else
+            {
+                _newsHeadlinesOutOfFolder++;
+            }
+            
+            _folderEmpty = _newsHeadlines.Count == _newsHeadlinesSentToChangeBias + _newsHeadlinesOutOfFolder;
             
             if (_newsHeadlines.Count != 1)
             {
@@ -194,11 +208,11 @@ namespace Editorial
                 }
                 else
                 {
-                    if (_sentNewsHeadlines > 1)
+                    if (_newsHeadlinesSentToChangeBias > 1)
                     {
                         RedirectInComingNewsHeadlineToFolder();    
                     }
-                    PositionNewsHeadlinesByGivenIndex(_newsHeadlines.Count - (_sentNewsHeadlines + _newsHeadlinesOutOfFolder));
+                    PositionNewsHeadlinesByGivenIndex(_newsHeadlines.Count - (_newsHeadlinesSentToChangeBias + _newsHeadlinesOutOfFolder));
                 }
             }
             else
@@ -206,6 +220,8 @@ namespace Editorial
                 ModifyInFrontProperties(false);
                 EditorialManager.Instance.TurnOffBiasContainer();
             }
+            
+            _newsHeadlines.RemoveAt(0);
         }
 
         public void CheckCurrentNewsHeadlinesSent()
@@ -234,11 +250,20 @@ namespace Editorial
                 FOLDER_MIN_Y_COORDINATE, FOLDER_MAX_Y_COORDINATE);
         }
 
-        public void SubtractOneToSentNewsHeadline(NewsHeadline newsHeadline, int folderOrderIndex)
+        public void ReturnNewsHeadline(NewsHeadline newsHeadline, int folderOrderIndex, bool isSent)
         {
-            bool atStartFolderEmpty = _newsHeadlines.Count == _sentNewsHeadlines;
-            _sentNewsHeadlines--;
-            _folderEmpty = _newsHeadlines.Count == _sentNewsHeadlines;
+            bool atStartFolderEmpty = _newsHeadlines.Count == _newsHeadlinesSentToChangeBias;
+
+            if (isSent)
+            {
+                _newsHeadlinesSentToChangeBias--;
+            }
+            else
+            {
+                _newsHeadlinesOutOfFolder--;
+            }
+            
+            _folderEmpty = _newsHeadlines.Count == _newsHeadlinesSentToChangeBias;
             
             newsHeadline.SetInFront(folderOrderIndex == 0);
 
@@ -262,11 +287,10 @@ namespace Editorial
         {
             NewsHeadline frontNewsHeadline = _newsHeadlines[0];
             
-            frontNewsHeadline.SetSend(true);
-            
+            frontNewsHeadline.SetSendToLayout(true);
             
             _newsHeadlines.RemoveAt(0);
-            _folderEmpty = _newsHeadlines.Count == _sentNewsHeadlines;
+            _folderEmpty = _newsHeadlines.Count == _newsHeadlinesSentToChangeBias;
             
             CheckCurrentNewsHeadlinesSent();
             
@@ -279,7 +303,7 @@ namespace Editorial
                 
             ModifyInFrontProperties(true);
 
-            if (_sentNewsHeadlines > 0)
+            if (_newsHeadlinesSentToChangeBias > 0)
             {
                 RedirectInComingNewsHeadlineToFolder();
                 
@@ -293,7 +317,7 @@ namespace Editorial
             frontNewsHeadline = _newsHeadlines[0];
             ChangeBias(frontNewsHeadline.GetSelectedBiasIndex(), frontNewsHeadline.GetBiasesNames(), frontNewsHeadline.GetBiasesDescription());
             
-            PositionNewsHeadlinesByGivenIndex(_newsHeadlines.Count - (_sentNewsHeadlines + _newsHeadlinesOutOfFolder));
+            PositionNewsHeadlinesByGivenIndex(_newsHeadlines.Count - (_newsHeadlinesSentToChangeBias + _newsHeadlinesOutOfFolder));
         }
 
         private void ChangeBias(int newChosenBiasIndex, String[] biasesNames, String[] newBiasesDescriptions)
@@ -319,7 +343,7 @@ namespace Editorial
 
         public void AddNewsHeadlinesSent()
         {
-            _sentNewsHeadlines++;
+            _newsHeadlinesSentToChangeBias++;
         }
 
         public void AddNewsHeadlineOutOfFolder()

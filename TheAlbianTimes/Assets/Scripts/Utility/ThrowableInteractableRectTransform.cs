@@ -7,13 +7,13 @@ namespace Utility
 {
     public class ThrowableInteractableRectTransform : InteractableRectTransform
     {
-        private const float SPEED = 260f;
-        private const float MIN_VELOCITY = 6f;
-        private const float MAX_VELOCITY = 30f;
-        private const float DECELERATION = -60f;
-        private const float MAX_ANGULAR_UNSCALED_VELOCITY = 1.5f;
-        private const float SPIN_FACTOR = 30f;
-        private const float GRAB_ROTATION_SNAP_BACK_TIME = .2f;
+        [SerializeField] float speed = 260f;
+        [SerializeField] float minVelocity = 6f;
+        [SerializeField] float maxVelocity = 30f;
+        [SerializeField] float deceleration = -60f;
+        [SerializeField] float maxAngularUnscaledVelocity = 1.5f;
+        [SerializeField] float spinFactor = 30f;
+        [SerializeField] float grabRotationSnapBackTime = .2f;
         
         Vector3 dragVelocity;
         
@@ -28,7 +28,7 @@ namespace Utility
             base.Drag(data);
             Vector3 currPosition = transform.position;
             dragVelocity = currPosition - prevPosition;
-            dragVelocity = dragVelocity.magnitude > MIN_VELOCITY / SPEED ? dragVelocity : Vector3.zero;
+            dragVelocity = dragVelocity.magnitude > minVelocity / speed ? dragVelocity : Vector3.zero;
         }
         protected override void BeginDrag(BaseEventData data)
         {
@@ -36,7 +36,7 @@ namespace Utility
             {
                 StopCoroutine(slideCoroutine);
             }
-            SlideToRotation(0f, GRAB_ROTATION_SNAP_BACK_TIME);
+            SlideToRotation(0f, grabRotationSnapBackTime);
             base.BeginDrag(data);
         }
 
@@ -86,19 +86,19 @@ namespace Utility
 
         private IEnumerator SlideCoroutine()
         {
-            float slideVelocity = Mathf.Min(MAX_VELOCITY, dragVelocity.magnitude * SPEED);
+            float slideVelocity = Mathf.Min(maxVelocity, dragVelocity.magnitude * speed);
             Vector3 direction = dragVelocity.normalized;
 
-            float initialAngularUnscaledVelocity = Mathf.Min(MAX_ANGULAR_UNSCALED_VELOCITY, (1 - Vector3.Dot(_vectorOffset.normalized, direction)) * _vectorOffset.magnitude * (100f / (rectTransform.sizeDelta.x + rectTransform.sizeDelta.y)));
+            float initialAngularUnscaledVelocity = Mathf.Min(maxAngularUnscaledVelocity, (1 - Vector3.Dot(_vectorOffset.normalized, direction)) * _vectorOffset.magnitude * (100f / (rectTransform.sizeDelta.x + rectTransform.sizeDelta.y)));
             Vector3 cross = Vector3.Cross(_vectorOffset.normalized, direction);
             float spinDirection = -cross.z / Mathf.Abs(cross.z);
 
             while (slideVelocity > 0)
             {
                 gameObjectToDrag.transform.position += direction * slideVelocity * Time.fixedDeltaTime;
-                slideVelocity += DECELERATION * Time.fixedDeltaTime;
+                slideVelocity += deceleration * Time.fixedDeltaTime;
 
-                float angularVelocity = slideVelocity * initialAngularUnscaledVelocity * spinDirection * SPIN_FACTOR;
+                float angularVelocity = slideVelocity * initialAngularUnscaledVelocity * spinDirection * spinFactor;
                 Vector3 rotation = gameObjectToDrag.transform.rotation.eulerAngles;
                 rotation.z += angularVelocity * Time.fixedDeltaTime;
 

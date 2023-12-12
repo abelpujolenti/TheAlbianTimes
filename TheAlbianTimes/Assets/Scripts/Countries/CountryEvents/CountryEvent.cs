@@ -2,13 +2,47 @@ using System;
 using Managers;
 
 [Serializable]
-public class CountryEventCondition
+public class CountryCondition
 {
     public enum Predicate { EQUAL, LESS, GREATER, LESSEQUAL, GREATEREQUAL }
     public Country.Id country;
     public Predicate predicate = Predicate.EQUAL;
     public string field;
     public float value;
+    public bool IsFulfilled()
+    {
+        if (predicate == Predicate.EQUAL &&
+        GameManager.Instance.gameState.countries[(int)country].data.values[field] != value
+            )
+        {
+            return false;
+        }
+        else if (predicate == Predicate.LESS &&
+            GameManager.Instance.gameState.countries[(int)country].data.values[field] >= value
+            )
+        {
+            return false;
+        }
+        else if (predicate == Predicate.GREATER &&
+            GameManager.Instance.gameState.countries[(int)country].data.values[field] <= value
+            )
+        {
+            return false;
+        }
+        else if (predicate == Predicate.LESSEQUAL &&
+            GameManager.Instance.gameState.countries[(int)country].data.values[field] > value
+            )
+        {
+            return false;
+        }
+        else if (predicate == Predicate.GREATEREQUAL &&
+            GameManager.Instance.gameState.countries[(int)country].data.values[field] < value
+            )
+        {
+            return false;
+        }
+        return true;
+    }
 }
 
 
@@ -19,46 +53,15 @@ public abstract class CountryEvent
     public int priority = 0;
     public Country.Id triggerCountry;
     public Country.Id[] countriesInvolved;
-    public CountryEventCondition[] conditions;
+    public CountryCondition[] conditions;
 
-    public bool conditionsFulfilled => IsFulfilled();
-    private bool IsFulfilled()
+    public bool ConditionsFulfilled()
     {
         if (conditions == null) return true;
         bool ret = true;
-        foreach(CountryEventCondition condition in conditions)
+        foreach(CountryCondition condition in conditions)
         {
-            if (condition.predicate == CountryEventCondition.Predicate.EQUAL &&
-                GameManager.Instance.gameState.countries[(int)condition.country].data.values[condition.field] != condition.value
-                )
-            {
-                ret = false;
-                break;
-            }
-            else if (condition.predicate == CountryEventCondition.Predicate.LESS &&
-                GameManager.Instance.gameState.countries[(int)condition.country].data.values[condition.field] >= condition.value
-                )
-            {
-                ret = false;
-                break;
-            }
-            else if (condition.predicate == CountryEventCondition.Predicate.GREATER &&
-                GameManager.Instance.gameState.countries[(int)condition.country].data.values[condition.field] <= condition.value
-                )
-            {
-                ret = false;
-                break;
-            }
-            else if (condition.predicate == CountryEventCondition.Predicate.LESSEQUAL &&
-                GameManager.Instance.gameState.countries[(int)condition.country].data.values[condition.field] > condition.value
-                )
-            {
-                ret = false;
-                break;
-            }
-            else if (condition.predicate == CountryEventCondition.Predicate.GREATEREQUAL &&
-                GameManager.Instance.gameState.countries[(int)condition.country].data.values[condition.field] < condition.value
-                )
+            if (!condition.IsFulfilled())
             {
                 ret = false;
                 break;

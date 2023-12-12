@@ -85,14 +85,17 @@ public class Country : MonoBehaviour
         {
             foreach (GiftCountryEvent giftEvent in CountryEventManager.Instance.giftCountryEvents[data.countryId])
             {
-                GenerateEventAddToList(giftEvent, events);
+                if (giftEvent.ConditionsFulfilled())
+                {
+                    GenerateEventAddToList(giftEvent, events);
+                }
             }
         }
         else if (random < (giftChance + bribeChance) / totalChance)
         {
             foreach (BribeCountryEvent bribeEvent in CountryEventManager.Instance.bribeCountryEvents[data.countryId])
             {
-                if (bribeEvent.conditionsFulfilled)
+                if (bribeEvent.ConditionsFulfilled())
                 {
                     GenerateEventAddToList(bribeEvent, events);
                 }
@@ -102,7 +105,7 @@ public class Country : MonoBehaviour
         {
             foreach (ThreatCountryEvent threatEvent in CountryEventManager.Instance.threatCountryEvents[data.countryId])
             {
-                if (threatEvent.conditionsFulfilled)
+                if (threatEvent.ConditionsFulfilled())
                 {
                     GenerateEventAddToList(threatEvent, events);
                 }
@@ -122,7 +125,7 @@ public class Country : MonoBehaviour
 
     private void GenerateEventAddToList(CountryEvent ev, SortedList<int, CountryEvent> events)
     {
-        if (ev.conditionsFulfilled)
+        if (ev.ConditionsFulfilled())
         {
             events.Add(ev.priority, ev);
         }

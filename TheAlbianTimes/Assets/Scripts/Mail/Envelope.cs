@@ -7,7 +7,7 @@ using Utility;
 
 namespace Mail
 {
-    public class Envelope : ThrowableInteractableRectTransform
+    public class Envelope : InteractableRectTransform
     {
         private const String HOVER_CONDITION = "Hover";
 

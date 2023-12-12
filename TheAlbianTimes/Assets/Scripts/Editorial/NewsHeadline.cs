@@ -11,7 +11,7 @@ using Utility;
 
 namespace Editorial
 {
-    public class NewsHeadline : ThrowableInteractableRectTransform
+    public class NewsHeadline : InteractableRectTransform
     {
         private const float CHANGE_CONTENT_Y_COORDINATE = 1000;
         private const float SPEED_MOVEMENT = 15;
@@ -194,7 +194,7 @@ namespace Editorial
             
             if (EventsManager.OnDropNewsHeadline == null)
             {
-                //DropOnFolder();
+                DropOnFolder();
                 SoundManager.Instance.DropPaperSound();
                 return;
             }

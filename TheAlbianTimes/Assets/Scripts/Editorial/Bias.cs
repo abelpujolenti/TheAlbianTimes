@@ -17,7 +17,16 @@ namespace Editorial
         [SerializeField] private TextMeshProUGUI _textMeshPro;
 
         [SerializeField] private Image _image;
-        
+        [SerializeField] private Image _cap;
+        private Animator _animator;
+
+        private Coroutine _openCapPositionCoroutine;
+        private Coroutine _openCapRotationCoroutine;
+        private Coroutine _closeCapPositionCoroutine;
+        private Coroutine _closeCapRotationCoroutine;
+
+        [SerializeField] private float openCapOffset = 10f;
+
         private String _text;
 
         private Color _selectedColor;
@@ -27,10 +36,13 @@ namespace Editorial
 
         private int _siblingIndex;
 
+        private Vector3 _capStartPosition;
+
         protected override void Setup()
         {
             base.Setup();
             SetupColor();
+            _capStartPosition = _cap.transform.position;
         }
 
         void Start()
@@ -44,15 +56,15 @@ namespace Editorial
 
             _siblingIndex = transform.GetSiblingIndex();
 
+            _animator = GetComponent<Animator>();
+
             if (_siblingIndex != 0)
             {
                 return;
             }
 
             _selected = true;
-            _image.color = _selectedColor;
             EventsManager.OnChangeSelectedBias += UnselectBias;
-
         }
 
         private void OnDestroy()
@@ -81,10 +93,34 @@ namespace Editorial
             EventsManager.OnChangeSelectedBiasIndex(_siblingIndex);
             EventsManager.OnChangeSelectedBias();
             _selected = true;
-            _image.color = _selectedColor;
             EventsManager.OnChangeSelectedBias += UnselectBias;
 
             SoundManager.Instance.ChangeBiasSound();
+        }
+
+        protected override void PointerEnter(BaseEventData data)
+        {
+            base.PointerEnter(data);
+            OpenCap();
+        }
+
+        protected override void PointerExit(BaseEventData data)
+        {
+            base.PointerExit(data);
+            CloseCap();
+        }
+
+        private void OpenCap()
+        {
+            if (_openCapPositionCoroutine != null) StopCoroutine(_openCapPositionCoroutine);
+            _openCapPositionCoroutine = StartCoroutine(TransformUtility.SetPositionCoroutine(_cap.transform, _cap.transform.position.x, _capStartPosition.x - openCapOffset, 0.2f));
+        
+        }
+
+        private void CloseCap()
+        {
+            if (_closeCapPositionCoroutine != null) StopCoroutine(_closeCapPositionCoroutine);
+            _closeCapPositionCoroutine = StartCoroutine(TransformUtility.SetPositionCoroutine(_cap.transform, _cap.transform.position.x, _capStartPosition.x, 0.2f));
         }
 
         public void SelectBias()
@@ -100,7 +136,6 @@ namespace Editorial
         private void BiasButtonStuff(bool isSelected, Color newColor)
         {
             _selected = isSelected;
-            _image.color = newColor;
             if (isSelected)
             {
                 EventsManager.OnChangeSelectedBias += UnselectBias;

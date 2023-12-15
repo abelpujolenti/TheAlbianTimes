@@ -147,7 +147,7 @@ namespace Utility
             Setup();
         }
 
-        protected IEnumerator SetPositionCoroutine(float start, float end, float t)
+        protected IEnumerator SetPositionCoroutine(Vector3 start, Vector3 end, float t)
         {
             yield return TransformUtility.SetPositionCoroutine(gameObjectToDrag.transform, start, end, t);
         }

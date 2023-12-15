@@ -48,13 +48,15 @@ public class Drawer : InteractableRectTransform
 
     protected virtual void OpenContainer()
     {
-        _moveContainerCoroutine = StartCoroutine(SetPositionCoroutine(gameObjectToDrag.transform.position.x, maxX, openTime));
+        Vector3 end = new Vector3(maxX, gameObjectToDrag.transform.position.y, gameObjectToDrag.transform.position.z);
+        _moveContainerCoroutine = StartCoroutine(SetPositionCoroutine(gameObjectToDrag.transform.position, end, openTime));
         SoundManager.Instance.OpenDrawerSound();
     }
 
     protected virtual void CloseContainer()
     {
-        _moveContainerCoroutine = StartCoroutine(SetPositionCoroutine(gameObjectToDrag.transform.position.x, minX, closeTime));
+        Vector3 end = new Vector3(minX, gameObjectToDrag.transform.position.y, gameObjectToDrag.transform.position.z);
+        _moveContainerCoroutine = StartCoroutine(SetPositionCoroutine(gameObjectToDrag.transform.position, end, closeTime));
         SoundManager.Instance.CloseDrawerSound();
     }
 

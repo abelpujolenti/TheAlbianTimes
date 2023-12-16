@@ -50,6 +50,8 @@ namespace Editorial
         [SerializeField] private float markAnimationPassNewlineTime = .5f;
         [SerializeField] private float markAnimationPassLingerTime = .3f;
         [SerializeField] private float markAnimationReturnTime = .3f;
+        [SerializeField] private float resetBiasWiggleIntensity = 25f;
+        [SerializeField] private float resetBiasWiggleTime = .5f;
 
         private String _text;
 
@@ -128,12 +130,16 @@ namespace Editorial
             {
                 MarkAnimation();
             }
+            else
+            {
+                StartCoroutine(WiggleCoroutine(resetBiasWiggleIntensity, resetBiasWiggleTime));
+            }
         }
 
         protected override void PointerEnter(BaseEventData data)
         {
             base.PointerEnter(data);
-            if (!_markAnimationRunning)
+            if (!_markAnimationRunning && !_selected)
             {
                 OpenCap();
             }
@@ -228,6 +234,25 @@ namespace Editorial
             CloseCap();
         }
 
+        private IEnumerator WiggleCoroutine(float intensity, float t)
+        {
+            _markAnimationRunning = true;
+
+            float elapsedT = 0f;
+            while (elapsedT <= t)
+            {
+                float p = (1 - Mathf.Pow(elapsedT / t, 2f)) * t * 100f;
+                float angle = Mathf.Sin(p * t) * intensity * (1f - (elapsedT / t));
+                transform.rotation = Quaternion.Euler(0f, 0f, angle);
+                yield return new WaitForFixedUpdate();
+                elapsedT += Time.fixedDeltaTime;
+            }
+            transform.rotation = Quaternion.identity;
+            CloseCap();
+
+            _markAnimationRunning = false;
+        }
+
         public void SelectBias()
         {
             BiasButtonStuff(true, _selectedColor);
@@ -255,6 +280,16 @@ namespace Editorial
         {
             _text = newText;
             _textMeshPro.text = _text;
+        }
+
+        public bool IsMarkAnimationRunning()
+        {
+            return _markAnimationRunning;
+        }
+
+        public bool IsSelected()
+        {
+            return _selected;
         }
     }
 }

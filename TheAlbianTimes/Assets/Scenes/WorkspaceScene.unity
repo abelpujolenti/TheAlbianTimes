@@ -4678,8 +4678,9 @@ MonoBehaviour:
   - {fileID: 888113598}
   _biasDescriptionRoot: {fileID: 562062638}
   _biasDescriptionPostitPrefab: {fileID: 1253985461064584690, guid: 58d9916a72d14ba499571cd4cd52e460, type: 3}
-  postitInitialScale: 3
+  postitInitialScale: 2.7
   postitScaleAnimationTime: 0.2
+  postitAppearDelay: 0.1
 --- !u!1 &1869530576
 GameObject:
   m_ObjectHideFlags: 0

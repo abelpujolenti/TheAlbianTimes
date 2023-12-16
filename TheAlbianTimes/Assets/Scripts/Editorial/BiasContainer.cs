@@ -23,6 +23,7 @@ namespace Editorial
 
         [SerializeField] private float postitInitialScale = 3f;
         [SerializeField] private float postitScaleAnimationTime = .2f;
+        [SerializeField] private float postitAppearDelay = .5f;
 
         private void OnEnable()
         {
@@ -103,22 +104,31 @@ namespace Editorial
         {
             if (!_setupDone) return;
 
+            StartCoroutine(SpawnPostitCoroutine(newSelectedBiasIndex, postitAppearDelay));
+        }
+
+        private IEnumerator SpawnPostitCoroutine(int newSelectedBiasIndex, float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            yield return new WaitUntil(() => !_bias[newSelectedBiasIndex].IsMarkAnimationRunning());
+
+            if (!_bias[newSelectedBiasIndex].IsSelected()) yield break;
+
             Vector3 position = _biasDescriptionRoot.transform.position;
             Quaternion rotation = _biasDescriptionRoot.transform.childCount > 0 ? Quaternion.Euler(0f, 0f, (int)(Random.Range(-8f, 8f) / 2f) * 2) : Quaternion.identity;
             Image biasDescriptionPostit = Instantiate(_biasDescriptionPostitPrefab, position, rotation, _biasDescriptionRoot.transform).GetComponent<Image>();
-            
-            biasDescriptionPostit.color = ColorUtil.SetSaturation(PieceData.biasColors[newSelectedBiasIndex], .3f);
-
-            StartCoroutine(ScaleAnimationCoroutine(biasDescriptionPostit.transform, postitScaleAnimationTime, postitInitialScale, 1f));
-
-            TextMeshProUGUI biasdescriptionText = biasDescriptionPostit.transform.Find("BiasDescriptionText").GetComponent<TextMeshProUGUI>();
-            
-            biasdescriptionText.text = _biasesDescriptions[newSelectedBiasIndex];
 
             if (_biasDescriptionRoot.transform.childCount > maxPostits)
             {
                 Destroy(_biasDescriptionRoot.transform.GetChild(0).gameObject);
             }
+
+            biasDescriptionPostit.color = ColorUtil.SetSaturation(PieceData.biasColors[newSelectedBiasIndex], .3f);
+
+            yield return ScaleAnimationCoroutine(biasDescriptionPostit.transform, postitScaleAnimationTime, postitInitialScale, 1f);
+
+            TextMeshProUGUI biasdescriptionText = biasDescriptionPostit.transform.Find("BiasDescriptionText").GetComponent<TextMeshProUGUI>();
+            biasdescriptionText.text = _biasesDescriptions[newSelectedBiasIndex];
         }
 
         private IEnumerator ScaleAnimationCoroutine(Transform transformToChange, float t, float start, float end)

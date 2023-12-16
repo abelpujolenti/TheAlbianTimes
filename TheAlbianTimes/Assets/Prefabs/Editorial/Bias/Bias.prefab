@@ -297,6 +297,8 @@ MonoBehaviour:
   markAnimationPassNewlineTime: 0.4
   markAnimationPassLingerTime: 0.03
   markAnimationReturnTime: 0.3
+  resetBiasWiggleIntensity: 25
+  resetBiasWiggleTime: 0.25
 --- !u!95 &2397013507912438976
 Animator:
   serializedVersion: 5

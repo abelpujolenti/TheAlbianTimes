@@ -185,7 +185,9 @@ namespace Editorial
 
         public void StopMarkAnimation()
         {
-            if (_markAnimationCoroutine != null) StopCoroutine(_markAnimationCoroutine);
+            if (_markAnimationCoroutine == null) return;
+            StopCoroutine(_markAnimationCoroutine);
+            _markAnimationRunning = false;
         }
 
         private IEnumerator MarkAnimationCoroutine()

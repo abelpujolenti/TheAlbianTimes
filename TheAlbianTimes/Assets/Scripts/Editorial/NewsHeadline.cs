@@ -17,6 +17,9 @@ namespace Editorial
         private const float TIME_TO_SLIDE = 2f;
         private const float Y_DISTANCE_TO_MOVE_ON_HOVER = 10f;
         private const float SECONDS_AWAITING_TO_RETURN_TO_FOLDER = 1.5f;
+        private const float PAPER_BRIGHTNESS = .9f;
+        private const float PAPER_BRIGHTNESS_BASE_DECREASE = .14f;
+
 
         private readonly float _midPoint = MIN_X_POSITION_CAMERA + (MAX_X_POSITION_CAMERA - MIN_X_POSITION_CAMERA) / 2;
 
@@ -27,6 +30,7 @@ namespace Editorial
 
         [SerializeField] private NewsHeadlinePiece _newsHeadlinePieceToTransferDrag;
 
+        private Image _background;
         [SerializeField] private TextMeshProUGUI _headlineText;
         [SerializeField] private TextMeshProUGUI _contentText;
         [SerializeField] private TextMeshProUGUI _articleTagText;
@@ -68,7 +72,9 @@ namespace Editorial
 
             Color color = PieceData.newsTypeColors[(int)_newsType];
             _articleTagText.GetComponentInParent<Image>().color = ColorUtil.SetSaturationMultiplicative(color, 0.5f);
-            gameObject.GetComponent<Image>().color = ColorUtil.SetSaturationMultiplicative(color, 0.15f);
+            _background = gameObject.GetComponent<Image>();
+            _background.color = ColorUtil.SetSaturationMultiplicative(color, 0.15f);
+            UpdateShading(transform.parent.childCount - 1 - transform.GetSiblingIndex());
         }
 
         public void SimulateBeginDrag(BaseEventData data)
@@ -291,6 +297,11 @@ namespace Editorial
             EventsManager.OnChangeSelectedBiasIndex -= SetSelectedBiasIndex;
         }
 
+        public void UpdateShading(int index)
+        {
+            _background.color = ColorUtil.SetBrightness(_background.color, Mathf.Max(.2f, PAPER_BRIGHTNESS - index * PAPER_BRIGHTNESS_BASE_DECREASE));
+        }
+
         public void SetOrigin(Vector2 newOrigin)
         {
             _origin = newOrigin;
@@ -425,10 +436,10 @@ namespace Editorial
         {
             if (_biasMarker == null) return;
 
-            float positionOffset = Random.Range(.3f, 2.7f);
+            float positionOffset = Random.Range(1f, 2.7f);
             position += new Vector3(positionOffset, 0f, 0f);
 
-            Quaternion rotation = Quaternion.Euler(0f, 0f, Random.Range(-7f, 7f));
+            Quaternion rotation = Quaternion.Euler(0f, 0f, Random.Range(-6f, 6f));
             Image markerInk = Instantiate(_markerInkPrefab, position, rotation, _biasMarker.transform).GetComponent<Image>();
             markerInk.color = PieceData.biasColors[biasIndex];
 

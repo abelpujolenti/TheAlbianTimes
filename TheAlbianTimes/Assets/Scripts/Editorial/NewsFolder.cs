@@ -119,6 +119,8 @@ namespace Editorial
                 newsHeadline.SlideInFolder(newsHeadline.transform.localPosition, newOrigin);
                 newsHeadline.SetOrigin(newOrigin);
             }
+
+            UpdateHeadlineShading();
         }
 
         public void ReorderNewsHeadline(int newsHeadlineToSwitchIndex, int newSelectedBiasIndex, String[] biasesNames, String[] newBiasesDescriptions)
@@ -294,6 +296,19 @@ namespace Editorial
             ChangeBias(frontNewsHeadline.GetSelectedBiasIndex(), frontNewsHeadline.GetBiasesNames(), frontNewsHeadline.GetBiasesDescription());
             
             PositionNewsHeadlinesByGivenIndex(_newsHeadlines.Count - _sentNewsHeadlines);
+        }
+
+        private void UpdateHeadlineShading()
+        {
+            int s = 0;
+            for (int i = 0; i < _newsHeadlines.Count; i++)
+            {
+                if (_newsHeadlines[i].isActiveAndEnabled)
+                {
+                    _newsHeadlines[i].UpdateShading(s);
+                    s++;
+                }
+            }
         }
 
         private void ChangeBias(int newChosenBiasIndex, String[] biasesNames, String[] newBiasesDescriptions)

@@ -1,6 +1,7 @@
 using Managers;
 using System.Collections;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -30,6 +31,8 @@ namespace Editorial
             EventsManager.OnChangeFrontNewsHeadline += ChangeSelectedBias;
             EventsManager.OnChangeSelectedBiasIndex += ChangeBiasDescription;
             EventsManager.OnSettingNewBiases += SetBias;
+
+            FixPostitScale();
         }
 
         private void OnDisable()
@@ -109,8 +112,9 @@ namespace Editorial
 
         private IEnumerator SpawnPostitCoroutine(int newSelectedBiasIndex, float delay)
         {
-            yield return new WaitForSeconds(delay);
+            yield return new WaitForFixedUpdate();
             yield return new WaitUntil(() => !_bias[newSelectedBiasIndex].IsMarkAnimationRunning());
+            yield return new WaitForSeconds(delay);
 
             if (!_bias[newSelectedBiasIndex].IsSelected()) yield break;
 
@@ -123,12 +127,26 @@ namespace Editorial
                 Destroy(_biasDescriptionRoot.transform.GetChild(0).gameObject);
             }
 
-            biasDescriptionPostit.color = ColorUtil.SetSaturation(PieceData.biasColors[newSelectedBiasIndex], .3f);
+            ApplyPostitShading();
 
-            yield return ScaleAnimationCoroutine(biasDescriptionPostit.transform, postitScaleAnimationTime, postitInitialScale, 1f);
+            biasDescriptionPostit.color = ColorUtil.SetSaturation(PieceData.biasColors[newSelectedBiasIndex], .3f);
 
             TextMeshProUGUI biasdescriptionText = biasDescriptionPostit.transform.Find("BiasDescriptionText").GetComponent<TextMeshProUGUI>();
             biasdescriptionText.text = _biasesDescriptions[newSelectedBiasIndex];
+
+            yield return ScaleAnimationCoroutine(biasDescriptionPostit.transform, postitScaleAnimationTime, postitInitialScale, 1f);
+        }
+
+        private void ApplyPostitShading()
+        {
+            float v;
+            for (int i = _biasDescriptionRoot.transform.childCount - 2; i >= 0; i--)
+            {
+                Image postitImage = _biasDescriptionRoot.transform.GetChild(i).GetComponent<Image>();
+
+                v = .2f + (maxPostits - (_biasDescriptionRoot.transform.childCount - 2 - i)) * .12f;
+                postitImage.color = ColorUtil.SetBrightness(postitImage.color, v);
+            }
         }
 
         private IEnumerator ScaleAnimationCoroutine(Transform transformToChange, float t, float start, float end)
@@ -142,6 +160,15 @@ namespace Editorial
                 elapsedT += Time.fixedDeltaTime;
             }
             transformToChange.localScale = new Vector3(end, end, end);
+        }
+
+        private void FixPostitScale()
+        {
+            for (int i = 0; i < _biasDescriptionRoot.transform.childCount; i++)
+            {
+                Transform t = _biasDescriptionRoot.transform.GetChild(i);
+                t.localScale = new Vector3(1f, 1f, 1f);
+            }
         }
     }
 }

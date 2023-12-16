@@ -95,6 +95,14 @@ namespace Editorial
             EventsManager.OnChangeSelectedBias += UnselectBias;
         }
 
+        private void OnEnable()
+        {
+            _image.transform.position = _markerStartPosition;
+            _image.transform.rotation = Quaternion.identity;
+            _cap.transform.position = _capStartPosition;
+            _cap.transform.rotation = Quaternion.identity;
+        }
+
         private void OnDestroy()
         {
             //This is cringe but event wasnt getting unsubscribed
@@ -200,6 +208,7 @@ namespace Editorial
         {
             _markAnimationRunning = true;
             yield return new WaitForSeconds(markAnimationStartDelay);
+            StartCoroutine(TransformUtility.SetRotationCoroutine(_image.transform, 0f, markAnimationStartTime));
             yield return TransformUtility.SetPositionCoroutine(_image.transform, _image.transform.position, markAnimationStart, markAnimationStartTime);
 
             float y = 0f;

@@ -25,12 +25,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3182539640637581752}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3431029387715111428}
+  m_Father: {fileID: 686871841539124223}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -164,7 +164,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2636057861008538165}
   m_Father: {fileID: 3431029387715111428}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -195,7 +196,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 0
+  m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -244,7 +245,6 @@ RectTransform:
   m_Children:
   - {fileID: 686871841539124223}
   - {fileID: 4745700347615533914}
-  - {fileID: 2636057861008538165}
   m_Father: {fileID: 0}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -277,6 +277,7 @@ MonoBehaviour:
   hoverable: 1
   clickable: 1
   _textMeshPro: {fileID: 1392757449047932225}
+  newsFolder: {fileID: 0}
   _image: {fileID: 5529821363963962048}
   _cap: {fileID: 4587410891916809666}
   openCapOffset: {x: -0.8, y: 0, z: 0}
@@ -285,17 +286,17 @@ MonoBehaviour:
   separateCapOffset: {x: -1.7, y: 1.5, z: 0}
   separateCapRotation: -12
   separateCapTime: 0.18
-  markAnimationStart: {x: 0.4, y: 0.15, z: 90}
+  markAnimationStart: {x: 0.4, y: 0.1, z: 90}
   markAnimationWidth: 3
   markAnimationHeight: 4
-  markAnimationPassMinHeight: 0.6
-  markAnimationPassMaxHeight: 1.6
-  markAnimationStartDelay: 0.1
-  markAnimationStartTime: 0.4
+  markAnimationPassMinHeight: 0.9
+  markAnimationPassMaxHeight: 1.4
+  markAnimationStartDelay: 0.05
+  markAnimationStartTime: 0.3
   markAnimationPassTime: 0.3
   markAnimationPassNewlineTime: 0.4
-  markAnimationPassLingerTime: 0.1
-  markAnimationReturnTime: 0.2
+  markAnimationPassLingerTime: 0.03
+  markAnimationReturnTime: 0.3
 --- !u!95 &2397013507912438976
 Animator:
   serializedVersion: 5
@@ -377,7 +378,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 0
+  m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:

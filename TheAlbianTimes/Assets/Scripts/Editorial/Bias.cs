@@ -18,6 +18,7 @@ namespace Editorial
 
         [SerializeField] private TextMeshProUGUI _textMeshPro;
 
+        [SerializeField] private NewsFolder newsFolder;
         [SerializeField] private Image _image;
         [SerializeField] private Image _cap;
         private Animator _animator;
@@ -27,6 +28,8 @@ namespace Editorial
         private Coroutine _closeCapPositionCoroutine;
         private Coroutine _closeCapRotationCoroutine;
         private Coroutine _markAnimationCoroutine;
+
+        private bool _markAnimationRunning = false;
 
         [Header("Cap Animation")]
         [SerializeField] private Vector3 openCapOffset = new Vector3(-0.8f, 0f, 0f);
@@ -119,19 +122,30 @@ namespace Editorial
             EventsManager.OnChangeSelectedBias += UnselectBias;
 
             SoundManager.Instance.ChangeBiasSound();
-            MarkAnimation();
+
+            newsFolder.GetCurrentHeadline().ClearBiasMarks();
+            if (newsFolder.GetCurrentHeadline().GetChosenBiasIndex() != _siblingIndex)
+            {
+                MarkAnimation();
+            }
         }
 
         protected override void PointerEnter(BaseEventData data)
         {
             base.PointerEnter(data);
-            OpenCap();
+            if (!_markAnimationRunning)
+            {
+                OpenCap();
+            }
         }
 
         protected override void PointerExit(BaseEventData data)
         {
             base.PointerExit(data);
-            CloseCap();
+            if (!_markAnimationRunning)
+            {
+                CloseCap();
+            }
         }
 
         private void OpenCap()
@@ -163,12 +177,15 @@ namespace Editorial
         {
             SeparateCap();
 
+            markAnimationHeight = 0.16f * (newsFolder.GetCurrentHeadline().transform.Find("Text").GetComponent<TextMeshProUGUI>().textInfo.lineCount - 1);
+
             if (_markAnimationCoroutine != null) StopCoroutine(_markAnimationCoroutine);
             _markAnimationCoroutine = StartCoroutine(MarkAnimationCoroutine());
         }
 
         private IEnumerator MarkAnimationCoroutine()
         {
+            _markAnimationRunning = true;
             yield return new WaitForSeconds(markAnimationStartDelay);
             yield return TransformUtility.SetPositionCoroutine(_image.transform, _image.transform.position, markAnimationStart, markAnimationStartTime);
 
@@ -181,6 +198,7 @@ namespace Editorial
                 y += inc;
 
                 Vector3 passMovement = new Vector3(markAnimationWidth, -inc1, 0f);
+                newsFolder.GetCurrentHeadline().SpawnBiasMark(_siblingIndex, _image.transform.position);
                 yield return TransformUtility.SetPositionCoroutine(_image.transform, _image.transform.position, _image.transform.position + passMovement, markAnimationPassTime);
 
                 yield return new WaitForSeconds(markAnimationPassLingerTime);
@@ -193,6 +211,8 @@ namespace Editorial
             }
             
             yield return TransformUtility.SetPositionCoroutine(_image.transform, _image.transform.position, _markerStartPosition, markAnimationReturnTime);
+            CloseCap();
+            _markAnimationRunning = false;
         }
 
         public void SelectBias()

@@ -1,8 +1,7 @@
-using System;
-using System.Collections;
 using Layout;
 using Managers;
 using NoMonoBehavior;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -22,6 +21,7 @@ namespace Editorial
         private readonly float _midPoint = MIN_X_POSITION_CAMERA + (MAX_X_POSITION_CAMERA - MIN_X_POSITION_CAMERA) / 2;
 
         private Coroutine _moveCoroutine;
+        private Coroutine _spawnBiasMarkCoroutine;
 
         private GameObject _gameObjectToTransferDrag;
 
@@ -31,21 +31,22 @@ namespace Editorial
         [SerializeField] private TextMeshProUGUI _contentText;
         [SerializeField] private TextMeshProUGUI _articleTagText;
         [SerializeField] private GameObject _biasMarker;
+        [SerializeField] private Transform _markerInkPrefab;
 
         private NewsFolder _newsFolder;
 
         [SerializeField] private NewsType _newsType;
 
-        private String _imagePath;
+        private string _imagePath;
 
         private NewsData _data;
 
         private NewsConsequenceData[] _newsConsequencesData;
 
-        private String[] _biasesNames;
-        private String[] _headlinesText;
-        private String[] _biasesDescription;
-        private String[] _biasesContents;
+        private string[] _biasesNames;
+        private string[] _headlinesText;
+        private string[] _biasesDescription;
+        private string[] _biasesContents;
 
         private Vector2 _destination;
         private Vector2 _origin;
@@ -279,7 +280,6 @@ namespace Editorial
             {
                 EventsManager.OnChangeNewsHeadlineContent += ChangeContent;
                 EventsManager.OnChangeSelectedBiasIndex += SetSelectedBiasIndex;
-                EventsManager.OnChangeSelectedBiasIndex += EnableBiasMarks;
                 return;
             }
             UnsubscribeEvents();
@@ -289,7 +289,6 @@ namespace Editorial
         {
             EventsManager.OnChangeNewsHeadlineContent -= ChangeContent;
             EventsManager.OnChangeSelectedBiasIndex -= SetSelectedBiasIndex;
-            EventsManager.OnChangeSelectedBiasIndex -= EnableBiasMarks;
         }
 
         public void SetOrigin(Vector2 newOrigin)
@@ -326,8 +325,8 @@ namespace Editorial
             
             _newsFolder.ProcedureOnChangeBias();
 
-            DisableBiasMarks();
-            
+            ClearBiasMarks();
+
             Vector2 destination = new Vector2(0, CHANGE_CONTENT_Y_COORDINATE);
             
             StartCoroutine(SendToChangeContent(destination));
@@ -422,26 +421,47 @@ namespace Editorial
             _destination = new Vector2(0, _newsFolder.GiveNewFolderYCoordinate(_folderOrderIndex, countOfTotalNewsHeadline));
         }
 
-        private void EnableBiasMarks(int biasIndex)
+        public void SpawnBiasMark(int biasIndex, Vector3 position)
         {
             if (_biasMarker == null) return;
 
-            if (biasIndex == _chosenBiasIndex)
-            {
-                DisableBiasMarks();
-                return;
-            }
+            float positionOffset = Random.Range(.3f, 2.7f);
+            position += new Vector3(positionOffset, 0f, 0f);
 
-            _biasMarker.SetActive(true);
-            foreach(Image image in _biasMarker.GetComponentsInChildren<Image>())
-            {
-                image.color = PieceData.biasColors[biasIndex];
-            }
+            Quaternion rotation = Quaternion.Euler(0f, 0f, Random.Range(-8f, 8f));
+            Image markerInk = Instantiate(_markerInkPrefab, position, rotation, _biasMarker.transform).GetComponent<Image>();
+            markerInk.color = PieceData.biasColors[biasIndex];
+
+            float widthMultiplier = Random.Range(1f, 2f);
+            markerInk.transform.localScale =  new Vector3(markerInk.transform.localScale.x * widthMultiplier, markerInk.transform.localScale.y, markerInk.transform.localScale.z);
+            float fillTime = widthMultiplier * .1f;
+
+            if (_spawnBiasMarkCoroutine != null) StopCoroutine(_spawnBiasMarkCoroutine);
+            float startT = positionOffset * .1f;
+            _spawnBiasMarkCoroutine = StartCoroutine(SpawnBiasMarkCoroutine(markerInk, fillTime, startT));
         }
-        private void DisableBiasMarks()
+
+        private IEnumerator SpawnBiasMarkCoroutine(Image markerInkImage, float t, float startT)
+        {
+            yield return new WaitForSeconds(startT);
+            float elapsedT = 0f;
+            while (elapsedT <= t)
+            {
+                markerInkImage.fillAmount = elapsedT / t;
+                yield return new WaitForFixedUpdate();
+                elapsedT += Time.fixedDeltaTime;
+            }
+            markerInkImage.fillAmount = 1f;
+        }
+
+        public void ClearBiasMarks()
         {
             if (_biasMarker == null) return;
-            _biasMarker.SetActive(false);
+            if (_spawnBiasMarkCoroutine != null) StopCoroutine(_spawnBiasMarkCoroutine);
+            for (int i = 0; i < _biasMarker.transform.childCount; i++)
+            {
+                Destroy(_biasMarker.transform.GetChild(i).gameObject);
+            }
         }
 
         public void SetNewsFolder(NewsFolder newsFolder)
@@ -483,7 +503,7 @@ namespace Editorial
             return _newsType;
         }
 
-        public void SetImagePath(String imagePath)
+        public void SetImagePath(string imagePath)
         {
             _imagePath = imagePath;
         }
@@ -493,32 +513,32 @@ namespace Editorial
             _newsConsequencesData = newsConsequencesData;
         }
 
-        public void SetBiasNames(String[] biasesNames)
+        public void SetBiasNames(string[] biasesNames)
         {
             _biasesNames = biasesNames;
         }
 
-        public String[] GetBiasesNames()
+        public string[] GetBiasesNames()
         {
             return _biasesNames;
         }
 
-        public void SetBiasesDescription(String[] biasesDescription)
+        public void SetBiasesDescription(string[] biasesDescription)
         {
             _biasesDescription = biasesDescription;
         }
 
-        public String[] GetBiasesDescription()
+        public string[] GetBiasesDescription()
         {
             return _biasesDescription;
         }
 
-        public void SetHeadlinesText(String[] headlinesText)
+        public void SetHeadlinesText(string[] headlinesText)
         {
             _headlinesText = headlinesText;
         }
 
-        public void SetBiasContent(String[] biasesContents)
+        public void SetBiasContent(string[] biasesContents)
         {
             _biasesContents = biasesContents;
         }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Managers;
 using UnityEngine;
 using Utility;
@@ -314,6 +315,11 @@ namespace Editorial
         public bool IsFolderEmpty()
         {
             return _folderEmpty;
+        }
+
+        public NewsHeadline GetCurrentHeadline()
+        {
+            return _newsHeadlines[0];
         }
     }
 }

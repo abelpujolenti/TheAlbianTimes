@@ -299,6 +299,10 @@ PrefabInstance:
       propertyPath: _text
       value: Son of a bitch
       objectReference: {fileID: 0}
+    - target: {fileID: 7761201008241955963, guid: c5218dff6a8b0764784f08ee64c3e567, type: 3}
+      propertyPath: newsFolder
+      value: 
+      objectReference: {fileID: 429106997}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1271,6 +1275,10 @@ PrefabInstance:
       propertyPath: _text
       value: Son of a bitch
       objectReference: {fileID: 0}
+    - target: {fileID: 7761201008241955963, guid: c5218dff6a8b0764784f08ee64c3e567, type: 3}
+      propertyPath: newsFolder
+      value: 
+      objectReference: {fileID: 429106997}
     - target: {fileID: 8146245475368786087, guid: c5218dff6a8b0764784f08ee64c3e567, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -0.000015258789
@@ -3607,6 +3615,10 @@ PrefabInstance:
       propertyPath: _text
       value: Son of a bitch
       objectReference: {fileID: 0}
+    - target: {fileID: 7761201008241955963, guid: c5218dff6a8b0764784f08ee64c3e567, type: 3}
+      propertyPath: newsFolder
+      value: 
+      objectReference: {fileID: 429106997}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6162,6 +6174,10 @@ PrefabInstance:
       propertyPath: _text
       value: Son of a bitch
       objectReference: {fileID: 0}
+    - target: {fileID: 7761201008241955963, guid: c5218dff6a8b0764784f08ee64c3e567, type: 3}
+      propertyPath: newsFolder
+      value: 
+      objectReference: {fileID: 429106997}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

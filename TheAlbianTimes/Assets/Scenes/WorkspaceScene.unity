@@ -1043,6 +1043,22 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.9098039
       objectReference: {fileID: 0}
+    - target: {fileID: 1392757449047932225, guid: c5218dff6a8b0764784f08ee64c3e567, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1392757449047932225, guid: c5218dff6a8b0764784f08ee64c3e567, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1392757449047932225, guid: c5218dff6a8b0764784f08ee64c3e567, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1392757449047932225, guid: c5218dff6a8b0764784f08ee64c3e567, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4278190080
+      objectReference: {fileID: 0}
     - target: {fileID: 2170471681268639135, guid: c5218dff6a8b0764784f08ee64c3e567, type: 3}
       propertyPath: m_Color.b
       value: 0.7490196
@@ -1165,16 +1181,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4587410891916809666, guid: c5218dff6a8b0764784f08ee64c3e567, type: 3}
       propertyPath: m_Color.b
-      value: 0.7490196
+      value: 0.2264151
       objectReference: {fileID: 0}
     - target: {fileID: 4587410891916809666, guid: c5218dff6a8b0764784f08ee64c3e567, type: 3}
       propertyPath: m_Color.g
-      value: 0.8
+      value: 0.2264151
       objectReference: {fileID: 0}
     - target: {fileID: 4587410891916809666, guid: c5218dff6a8b0764784f08ee64c3e567, type: 3}
       propertyPath: m_Color.r
-      value: 0.9098039
+      value: 0.2264151
       objectReference: {fileID: 0}
+    - target: {fileID: 5529821363963962048, guid: c5218dff6a8b0764784f08ee64c3e567, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 52f165f7f95e91e4bbcbd31e06145a61, type: 3}
     - target: {fileID: 5529821363963962048, guid: c5218dff6a8b0764784f08ee64c3e567, type: 3}
       propertyPath: m_Color.b
       value: 0.7490196

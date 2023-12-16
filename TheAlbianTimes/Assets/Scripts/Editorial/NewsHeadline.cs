@@ -428,13 +428,13 @@ namespace Editorial
             float positionOffset = Random.Range(.3f, 2.7f);
             position += new Vector3(positionOffset, 0f, 0f);
 
-            Quaternion rotation = Quaternion.Euler(0f, 0f, Random.Range(-8f, 8f));
+            Quaternion rotation = Quaternion.Euler(0f, 0f, Random.Range(-7f, 7f));
             Image markerInk = Instantiate(_markerInkPrefab, position, rotation, _biasMarker.transform).GetComponent<Image>();
             markerInk.color = PieceData.biasColors[biasIndex];
 
-            float widthMultiplier = Random.Range(1f, 2f);
+            float widthMultiplier = Random.Range(1.2f, 3f);
             markerInk.transform.localScale =  new Vector3(markerInk.transform.localScale.x * widthMultiplier, markerInk.transform.localScale.y, markerInk.transform.localScale.z);
-            float fillTime = widthMultiplier * .1f;
+            float fillTime = widthMultiplier * .09f;
 
             if (_spawnBiasMarkCoroutine != null) StopCoroutine(_spawnBiasMarkCoroutine);
             float startT = positionOffset * .1f;

@@ -179,8 +179,13 @@ namespace Editorial
 
             markAnimationHeight = 0.16f * (newsFolder.GetCurrentHeadline().transform.Find("Text").GetComponent<TextMeshProUGUI>().textInfo.lineCount - 1);
 
-            if (_markAnimationCoroutine != null) StopCoroutine(_markAnimationCoroutine);
+            StopMarkAnimation();
             _markAnimationCoroutine = StartCoroutine(MarkAnimationCoroutine());
+        }
+
+        public void StopMarkAnimation()
+        {
+            if (_markAnimationCoroutine != null) StopCoroutine(_markAnimationCoroutine);
         }
 
         private IEnumerator MarkAnimationCoroutine()
@@ -209,10 +214,16 @@ namespace Editorial
                     yield return TransformUtility.SetPositionCoroutine(_image.transform, _image.transform.position, _image.transform.position + passMovement, markAnimationPassNewlineTime);
                 }
             }
-            
+
+            yield return ReturnMarkerCoroutine();
+
+            _markAnimationRunning = false;
+        }
+
+        private IEnumerator ReturnMarkerCoroutine()
+        {
             yield return TransformUtility.SetPositionCoroutine(_image.transform, _image.transform.position, _markerStartPosition, markAnimationReturnTime);
             CloseCap();
-            _markAnimationRunning = false;
         }
 
         public void SelectBias()
@@ -223,7 +234,8 @@ namespace Editorial
         private void UnselectBias()
         {
             BiasButtonStuff(false, _unselectedColor);
-            CloseCap();
+            StopMarkAnimation();
+            StartCoroutine(ReturnMarkerCoroutine());
         }
 
         private void BiasButtonStuff(bool isSelected, Color newColor)

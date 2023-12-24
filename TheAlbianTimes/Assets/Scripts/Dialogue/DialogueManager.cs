@@ -96,8 +96,7 @@ namespace Managers
             for (int i = 0; i < data.lines[currentLine].options.Length && i < dialogueOptionButtons.Length; i++)
             {
                 dialogueOptionButtons[i].gameObject.SetActive(true);
-                dialogueOptionButtons[i].optionId = data.lines[currentLine].options[i].id;
-                dialogueOptionButtons[i].SetButtonText(data.lines[currentLine].options[i].text);
+                dialogueOptionButtons[i].Setup(data.lines[currentLine].options[i]);
             }
         }
 

@@ -20,7 +20,15 @@
                 {
                     "id": 0,
                     "text": "No that's nonsense I'm never getting anyone back",
-                    "followupLines": 1
+                    "followupLines": 1,
+                    "conditions": [
+                        {
+                            "country": 6,
+                            "predicate": 4,
+                            "field": "reputation",
+                            "value": 0.4 
+                        }
+                    ]
                 },
                 {
                     "id": 1,

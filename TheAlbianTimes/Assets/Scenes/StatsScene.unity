@@ -221,7 +221,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7285287863280095593, guid: 3a37b295b7467db4b8a9985212ce6e9e, type: 3}
       propertyPath: m_Name
-      value: StatsDisplay (8)
+      value: zuania
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -423,7 +423,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7285287863280095593, guid: 3a37b295b7467db4b8a9985212ce6e9e, type: 3}
       propertyPath: m_Name
-      value: StatsDisplay (6)
+      value: dalme
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -501,7 +501,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &376001533 stripped
 RectTransform:
@@ -536,15 +536,15 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1318666025}
   - {fileID: 376001533}
   - {fileID: 1973638352}
+  - {fileID: 72118466}
+  - {fileID: 335743831}
   - {fileID: 1917076945}
   - {fileID: 2115086592}
   - {fileID: 691307587}
-  - {fileID: 1318666025}
-  - {fileID: 335743831}
   - {fileID: 900488129}
-  - {fileID: 72118466}
   m_Father: {fileID: 847468882}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -651,7 +651,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7285287863280095593, guid: 3a37b295b7467db4b8a9985212ce6e9e, type: 3}
       propertyPath: m_Name
-      value: StatsDisplay (4)
+      value: suoka
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -697,10 +697,10 @@ RectTransform:
   m_Father: {fileID: 1317026842}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -16, y: -16}
+  m_SizeDelta: {x: 673.44, y: 604.34}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &847468883
 MonoBehaviour:
@@ -838,7 +838,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7285287863280095593, guid: 3a37b295b7467db4b8a9985212ce6e9e, type: 3}
       propertyPath: m_Name
-      value: StatsDisplay (7)
+      value: rekka
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -860,9 +860,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1317026842}
   - component: {fileID: 1317026844}
-  - component: {fileID: 1317026843}
   m_Layer: 5
-  m_Name: MapBg
+  m_Name: MapRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -889,36 +888,6 @@ RectTransform:
   m_AnchoredPosition: {x: -0, y: -0}
   m_SizeDelta: {x: 673.44, y: 604.34}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1317026843
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1317026841}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.4991812, g: 0.6994233, b: 0.7735849, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!222 &1317026844
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1025,7 +994,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7285287863280095593, guid: 3a37b295b7467db4b8a9985212ce6e9e, type: 3}
       propertyPath: m_Name
-      value: StatsDisplay (5)
+      value: hetia
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1049,8 +1018,9 @@ GameObject:
   - component: {fileID: 1474933618}
   - component: {fileID: 1474933617}
   - component: {fileID: 1474933616}
+  - component: {fileID: 1474933620}
   m_Layer: 5
-  m_Name: TestDisplay
+  m_Name: MapDisplay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1141,6 +1111,26 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1228, y: 690.8}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1474933620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1474933615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9eec8655d609d4b488ada2d7b22d8f34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  statsRoot: {fileID: 381671916}
+  mapRoot: {fileID: 1317026841}
+  mapImage: {fileID: 847468883}
+  unfoldTime: 0.8
+  unfoldStartAngle: 80
+  unfoldDelay: 0.5
+  foldMinBrightness: 0.4
+  showStatsTime: 0.25
 --- !u!1 &1490839899
 GameObject:
   m_ObjectHideFlags: 0
@@ -1286,7 +1276,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7285287863280095593, guid: 3a37b295b7467db4b8a9985212ce6e9e, type: 3}
       propertyPath: m_Name
-      value: StatsDisplay (2)
+      value: albia
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1472,7 +1462,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7285287863280095593, guid: 3a37b295b7467db4b8a9985212ce6e9e, type: 3}
       propertyPath: m_Name
-      value: StatsDisplay (1)
+      value: xaya
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1484,6 +1474,51 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 693198426430745743, guid: 3a37b295b7467db4b8a9985212ce6e9e, type: 3}
   m_PrefabInstance: {fileID: 1973638351}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2111958826
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2111958828}
+  - component: {fileID: 2111958827}
+  m_Layer: 0
+  m_Name: NewsConsequenceManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2111958827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2111958826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a1952de5be0780489c871a97f0746e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  a: 5
+--- !u!4 &2111958828
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2111958826}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2115086591
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1582,7 +1617,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7285287863280095593, guid: 3a37b295b7467db4b8a9985212ce6e9e, type: 3}
       propertyPath: m_Name
-      value: StatsDisplay (3)
+      value: madia
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1692,7 +1727,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7285287863280095593, guid: 3a37b295b7467db4b8a9985212ce6e9e, type: 3}
       propertyPath: m_Name
-      value: StatsDisplay
+      value: terkan
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

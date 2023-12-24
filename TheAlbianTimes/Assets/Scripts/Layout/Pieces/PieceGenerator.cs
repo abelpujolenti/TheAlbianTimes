@@ -14,14 +14,14 @@ public class PieceGenerator
         Vector2[] pieceCoords = pieceData.ConvertToRelativeTileCoordinates();
         Vector2 pieceSize = pieceData.GetPieceSize();
         List<NewsHeadlineSubPiece> subPieces = new List<NewsHeadlineSubPiece>();
-        GameObject op = FakeInstantiate(newsHeadlinesPiecesContainer);
+        GameObject op = FakeInstantiate.Instantiate(newsHeadlinesPiecesContainer);
         NewsHeadlinePiece newsHeadlinePiece = op.AddComponent<NewsHeadlinePiece>();
 
         Color subPieceColor = PieceData.newsTypeColors[(int)newsData.type];
 
         foreach (Vector2 v in pieceCoords)
         {
-            GameObject os = FakeInstantiate(op.transform);
+            GameObject os = FakeInstantiate.Instantiate(op.transform);
             Image subPieceImage = os.AddComponent<Image>();
             NewsHeadlineSubPiece subPiece = os.AddComponent<NewsHeadlineSubPiece>();
 
@@ -35,7 +35,7 @@ public class PieceGenerator
         }
         newsHeadlinePiece.SetSubPieces(subPieces.ToArray());
 
-        GameObject h = FakeInstantiate(subPieces[subPieces.Count - 1].transform);
+        GameObject h = FakeInstantiate.Instantiate(subPieces[subPieces.Count - 1].transform);
         TextMeshProUGUI headline = h.AddComponent<TextMeshProUGUI>();
         
         headline.text = newsData.biases[0].headline;
@@ -48,14 +48,5 @@ public class PieceGenerator
         headline.rectTransform.sizeDelta = Vector2.zero;
 
         return newsHeadlinePiece;
-    }
-
-    private GameObject FakeInstantiate(Transform parent)
-    {
-        GameObject obj = new GameObject();
-        obj.transform.SetParent(parent);
-        obj.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
-        obj.transform.localScale = Vector3.one;
-        return obj;
     }
 }

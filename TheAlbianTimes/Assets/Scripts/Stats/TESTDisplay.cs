@@ -9,7 +9,6 @@ public class TESTDisplay : MonoBehaviour
 
     void Start()
     {
-        UpdateText();
     }
 
     public void HireStaff()

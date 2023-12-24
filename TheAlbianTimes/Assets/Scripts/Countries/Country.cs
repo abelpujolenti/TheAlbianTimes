@@ -167,7 +167,7 @@ public class Country : MonoBehaviour
 
     public float GetValueChange(string key)
     {
-        if (!data.values.ContainsKey(key)) return 0f;
+        if (!data.values.ContainsKey(key) || !previousData.values.ContainsKey(key)) return 0f;
         return data.values[key] - previousData.values[key];
     }
 

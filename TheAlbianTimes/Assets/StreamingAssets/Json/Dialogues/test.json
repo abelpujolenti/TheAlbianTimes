@@ -21,13 +21,15 @@
                     "id": 0,
                     "text": "No that's nonsense I'm never getting anyone back",
                     "followupLines": 1,
-                    "conditions": [
+                    "countryConditions": [
                         {
                             "entityId": 6,
                             "field": "reputation",
                             "value": 0.4,
                             "predicate": 4
                         }
+                    ],
+                    "characterConditions": [
                     ]
                 },
                 {

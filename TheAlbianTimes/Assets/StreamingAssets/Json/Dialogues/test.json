@@ -23,10 +23,10 @@
                     "followupLines": 1,
                     "conditions": [
                         {
-                            "country": 6,
-                            "predicate": 4,
+                            "entityId": 6,
                             "field": "reputation",
-                            "value": 0.4 
+                            "value": 0.4,
+                            "predicate": 4
                         }
                     ]
                 },

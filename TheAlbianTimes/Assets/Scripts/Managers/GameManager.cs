@@ -36,6 +36,7 @@ namespace Managers
                 saveManager.LoadFromJson();
             }
             LoadCountries();
+            LoadCharacters();
             LoadPlayerData();
 
             if (SceneManager.GetSceneByName("WorkspaceScene").isLoaded)
@@ -63,6 +64,21 @@ namespace Managers
                     country.data = saveManager.save.countryData[index];
                 }
                 gameState.countries[index] = country;
+            }
+        }
+
+        private void LoadCharacters()
+        {
+            Character[] characterObjects = transform.Find("Characters").GetComponentsInChildren<Character>();
+            gameState.characters = new Character[(int)Character.Id.AMOUNT];
+            foreach (Character character in characterObjects)
+            {
+                int index = (int)character.data.characterId;
+                if (saveManager.SaveFileExists() && saveManager.save.characterData[index] != null)
+                {
+                    character.data = saveManager.save.characterData[index];
+                }
+                gameState.characters[index] = character;
             }
         }
 

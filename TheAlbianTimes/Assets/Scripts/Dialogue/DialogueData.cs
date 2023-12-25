@@ -28,5 +28,5 @@ public class DialogueOption
     public int id;
     public string text;
     public int followupLines;
-    public CountryCondition[] conditions;
+    public CountryEventCondition[] conditions;
 }

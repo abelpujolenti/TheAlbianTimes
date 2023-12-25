@@ -9,4 +9,5 @@ public class GameState
 {
     public GameStatePlayerData playerData;
     public Country[] countries;
+    public Character[] characters;
 }

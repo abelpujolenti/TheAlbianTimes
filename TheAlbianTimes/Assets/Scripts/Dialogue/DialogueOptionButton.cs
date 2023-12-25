@@ -23,7 +23,6 @@ public class DialogueOptionButton : MonoBehaviour
         if (backgroundColor == new Color(0f, 0f, 0f, 0f))
         {
             backgroundColor = buttonBackground.color;
-            Debug.Log(buttonBackground.color);
         }
     }
 
@@ -56,7 +55,7 @@ public class DialogueOptionButton : MonoBehaviour
     {
         conditionsFulfilled = true;
         if (data.conditions == null) return;
-        foreach (CountryCondition condition in data.conditions)
+        foreach (CountryEventCondition condition in data.conditions)
         {
             if (!condition.IsFulfilled())
             {

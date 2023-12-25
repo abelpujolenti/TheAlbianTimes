@@ -7,10 +7,12 @@ using UnityEngine;
 public class SaveFile
 {
     public CountryData[] countryData;
+    public CharacterData[] characterData;
     public GameStatePlayerData playerData;
     public SaveFile()
     {
         countryData = new CountryData[0];
+        characterData = new CharacterData[0];
         playerData = new GameStatePlayerData();
     }
     public SaveFile(GameState gameState)
@@ -21,6 +23,12 @@ public class SaveFile
         {
             if (gameState.countries[i] == null) continue;
             countryData[i] = gameState.countries[i].data;
+        }
+        characterData = new CharacterData[gameState.characters.Length];
+        for (int i = 0; i < gameState.characters.Length; i++)
+        {
+            if (gameState.characters[i] == null) continue;
+            characterData[i] = gameState.characters[i].data;
         }
     }
 }

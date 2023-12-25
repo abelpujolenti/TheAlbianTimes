@@ -71,16 +71,6 @@ public class Country : MonoBehaviour
         SetPurchasingPower(defaultPurchasingPower);
     }
 
-    public void AffectReputation(float change)
-    {
-        float prevRep = GetReputation();
-        float newRep = Mathf.Max(0f, Mathf.Min(1f, prevRep + change));
-        SetReputation(newRep);
-        lastReputationChange += newRep - prevRep;
-
-        SetCensorship(censorshipCurve.Evaluate(GetReputation()));
-    }
-
     public virtual CountryEvent GenerateEvent()
     {
         float giftChance = giftCurve.Evaluate(GetReputation());
@@ -121,8 +111,6 @@ public class Country : MonoBehaviour
                 }
             }
         }
-
-        lastReputationChange = 0;
 
         CountryEvent ret = null;
         if (events.Count > 0) 
@@ -174,7 +162,6 @@ public class Country : MonoBehaviour
     #region Getters/Setters
     public void AddToValue(string key, float value)
     {
-        Debug.Log(data.values[key]);
         if (!data.values.ContainsKey(key))
         {
             SetValue(key, value);
@@ -183,7 +170,6 @@ public class Country : MonoBehaviour
         {
             SetValue(key, value + data.values[key]);
         }
-        Debug.Log(data.values[key]);
     }
     public void SetValue(string key, float value)
     {

@@ -1,5 +1,6 @@
 using System;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Managers;
 using NoMonoBehavior;
 
 [Serializable]
@@ -25,12 +26,13 @@ public class BiasData
 [Serializable]
 public class NewsData
 {
+    public string name;
+
     public int firstRound;
     public float duration;
     public float priority;
     public float leniency;
     public CountryEventCondition[] conditions;
-    public bool viewed = false;
 
     public NewsType type;
 
@@ -43,7 +45,7 @@ public class NewsData
 
     public bool ConditionsFulfilled(int round)
     {
-        if (viewed || round < firstRound || (leniency == 0f && round > firstRound + duration)) return false;
+        if (GameManager.Instance.gameState.viewedArticles.Contains(name) || round < firstRound || (leniency == 0f && round > firstRound + duration)) return false;
         if (conditions == null) return true;
         bool ret = true;
         foreach(CountryEventCondition condition in conditions)

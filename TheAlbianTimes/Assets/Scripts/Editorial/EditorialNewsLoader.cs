@@ -49,7 +49,6 @@ public class EditorialNewsLoader : MonoBehaviour
 
         int round = GameManager.Instance.GetRound();
 
-        //TODO: REMOVE VIEWED ALTOGETHER AND JUST SAVE STRING ARRAY(S)
         if (!newsData.ConditionsFulfilled(round)) return;
         float priority = -Mathf.Pow(round - newsData.firstRound, 2f) / (newsData.leniency + 1) + newsData.priority;
         news.Add(priority, newsData);
@@ -57,6 +56,8 @@ public class EditorialNewsLoader : MonoBehaviour
 
     private void CreateNewsObject(NewsData newsData)
     {
+        GameManager.Instance.gameState.viewedArticles.Add(newsData.name);
+
         GameObject newsHeadlineGameObject = Instantiate(_newsHeadline, _newsFolder.transform);
         GameObject newsHeadlinePieceGameObject = pieceGenerator.Generate(newsData, _newsHeadlinesPiecesContainer.transform).gameObject;
 

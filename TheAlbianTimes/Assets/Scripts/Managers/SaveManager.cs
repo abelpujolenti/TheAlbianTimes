@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using Newtonsoft.Json;
 using UnityEngine;
 
@@ -9,6 +10,9 @@ public class SaveFile
     public CountryData[] countryData;
     public CharacterData[] characterData;
     public GameStatePlayerData playerData;
+    public string[] viewedArticles;
+    public string[] publishedArticles;
+
     public SaveFile()
     {
         countryData = new CountryData[0];
@@ -30,6 +34,8 @@ public class SaveFile
             if (gameState.characters[i] == null) continue;
             characterData[i] = gameState.characters[i].data;
         }
+        viewedArticles = gameState.viewedArticles.ToArray();
+        publishedArticles = gameState.publishedArticles.ToArray();
     }
 }
 

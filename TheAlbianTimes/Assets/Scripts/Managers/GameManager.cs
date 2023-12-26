@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -38,6 +40,7 @@ namespace Managers
             LoadCountries();
             LoadCharacters();
             LoadPlayerData();
+            LoadViewedArticles();
 
             if (SceneManager.GetSceneByName("WorkspaceScene").isLoaded)
             {
@@ -79,6 +82,20 @@ namespace Managers
                     character.data = saveManager.save.characterData[index];
                 }
                 gameState.characters[index] = character;
+            }
+        }
+
+        private void LoadViewedArticles()
+        {
+            if (saveManager.SaveFileExists())
+            {
+                gameState.viewedArticles = saveManager.save.viewedArticles.ToHashSet();
+                gameState.publishedArticles = saveManager.save.publishedArticles.ToHashSet();
+            }
+            else
+            {
+                gameState.viewedArticles = new HashSet<string>();
+                gameState.publishedArticles = new HashSet<string>();
             }
         }
 

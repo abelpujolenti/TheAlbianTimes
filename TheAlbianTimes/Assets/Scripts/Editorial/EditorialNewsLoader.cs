@@ -1,12 +1,15 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Editorial;
 using Layout;
 using Managers;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class EditorialNewsLoader : MonoBehaviour
 {
-    private const String NEWS_PATH = "News/Round";
+    private const String NEWS_PATH = "News";
     private const float SPAWN_Y_COORDINATE = 1000;
     
     [SerializeField] private GameObject _newsHeadline;
@@ -15,6 +18,8 @@ public class EditorialNewsLoader : MonoBehaviour
     [SerializeField] private NewsFolder _newsFolder;
     private PieceGenerator pieceGenerator = new PieceGenerator();
 
+    SortedList<float, NewsData> news;
+
     private void Start()
     {
         LoadLevelNews();
@@ -22,26 +27,49 @@ public class EditorialNewsLoader : MonoBehaviour
 
     private void LoadLevelNews()
     {
-        string path = NEWS_PATH + GameManager.Instance.GetRound();
+        string path = NEWS_PATH;
+        news = new SortedList<float, NewsData>(new DuplicateKeyComparer<float>());
         FileManager.LoadAllJsonFiles(path, LoadNewsFromFile);
+        int newsCount = CalculateMaxArticles();
+        for (int i = 0; i < news.Keys.Count; i++)
+        {
+            CreateNewsObject(news.Last().Value);
+            news.RemoveAt(news.Count - 1);
+        }
+    }
+
+    private int CalculateMaxArticles()
+    {
+        return 3;
     }
 
     private void LoadNewsFromFile(string json)
     {
         NewsData newsData = JsonUtility.FromJson<NewsData>(json);
+
+        int round = GameManager.Instance.GetRound();
+
+        //TODO: REMOVE VIEWED ALTOGETHER AND JUST SAVE STRING ARRAY(S)
+        if (!newsData.ConditionsFulfilled(round)) return;
+        float priority = -Mathf.Pow(round - newsData.firstRound, 2f) / (newsData.leniency + 1) + newsData.priority;
+        news.Add(priority, newsData);
+    }
+
+    private void CreateNewsObject(NewsData newsData)
+    {
         GameObject newsHeadlineGameObject = Instantiate(_newsHeadline, _newsFolder.transform);
         GameObject newsHeadlinePieceGameObject = pieceGenerator.Generate(newsData, _newsHeadlinesPiecesContainer.transform).gameObject;
 
         newsHeadlineGameObject.transform.localPosition = new Vector2(0, SPAWN_Y_COORDINATE);
-        
+
         newsHeadlinePieceGameObject.SetActive(false);
-        
+
         NewsHeadlinePiece newsHeadlinePieceComponent = newsHeadlinePieceGameObject.GetComponent<NewsHeadlinePiece>();
-        
+
         NewsHeadlineSubPiece[] newsHeadlineSubPieces = newsHeadlinePieceComponent.GetNewsHeadlinesSubPieces();
-        
+
         SetNewsHeadlineData(newsHeadlineGameObject, newsHeadlinePieceComponent, newsHeadlineSubPieces, newsData);
-        
+
         SetNewsHeadlinePieceData(newsHeadlineGameObject, newsHeadlinePieceGameObject, newsHeadlineSubPieces);
 
         EventsManager.OnAddNewsHeadlineToFolder(newsHeadlineGameObject);

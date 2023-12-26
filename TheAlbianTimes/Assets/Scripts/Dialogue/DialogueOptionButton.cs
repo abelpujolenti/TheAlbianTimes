@@ -54,13 +54,26 @@ public class DialogueOptionButton : MonoBehaviour
     private void CheckConditions()
     {
         conditionsFulfilled = true;
-        if (data.conditions == null) return;
-        foreach (CountryEventCondition condition in data.conditions)
+        if (data.countryConditions != null)
         {
-            if (!condition.IsFulfilled())
+            foreach (CountryEventCondition condition in data.countryConditions)
             {
-                conditionsFulfilled = false;
-                break;
+                if (!condition.IsFulfilled())
+                {
+                    conditionsFulfilled = false;
+                    break;
+                }
+            }
+        }
+        if (data.characterConditions != null)
+        {
+            foreach (CharacterEventCondition condition in data.characterConditions)
+            {
+                if (!condition.IsFulfilled())
+                {
+                    conditionsFulfilled = false;
+                    break;
+                }
             }
         }
     }

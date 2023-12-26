@@ -329,6 +329,7 @@ namespace Editorial
         private void ChangeContent()
         {
             _chosenBiasIndex = _selectedBiasIndex;
+            _data.currentBias = _selectedBiasIndex;
             _headlineText.text = _headlinesText[_chosenBiasIndex];
             _contentText.text = _biasesContents[_chosenBiasIndex];
 

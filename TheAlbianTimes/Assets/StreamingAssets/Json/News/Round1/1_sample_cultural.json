@@ -1,4 +1,8 @@
 {
+    "firstRound":1,
+    "duration":1,
+    "priority":0.5,
+    "leniency":3,
     "type": 6,
     "imagePath": null,
     "consequences": [

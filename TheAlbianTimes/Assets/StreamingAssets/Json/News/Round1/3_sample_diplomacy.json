@@ -1,10 +1,18 @@
 {
     "name":"sample_diplomacy",
     "firstRound":1,
-    "duration":1,
+    "duration":3,
     "priority":1,
     "leniency":0,
     "type": 3,
+    "conditions": [
+        {
+            "entityId": 6,
+            "field": "reputation",
+            "value": 0.4,
+            "predicate": 1
+        }
+    ],
     "imagePath": null,
     "consequences": [
         {

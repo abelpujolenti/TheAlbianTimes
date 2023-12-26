@@ -1,4 +1,9 @@
 {
+    "name":"sample_technology",
+    "firstRound":1,
+    "duration":2,
+    "priority":0.7,
+    "leniency":4,
     "type": 7,
     "imagePath": null,
     "consequences": [

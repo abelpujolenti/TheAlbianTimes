@@ -44,7 +44,7 @@ public class PublishingManager : MonoBehaviour
 
         GenerateCountryEvents();
         Debug.Log("Events:");
-        foreach (KeyValuePair<int, CountryEvent> ev in CountryEventManager.Instance.currentEvents)
+        foreach (KeyValuePair<float, CountryEvent> ev in CountryEventManager.Instance.currentEvents)
         {
             Debug.Log(ev.Value.id);
         }

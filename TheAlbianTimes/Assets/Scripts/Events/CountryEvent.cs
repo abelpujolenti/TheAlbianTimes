@@ -5,10 +5,15 @@ using Managers;
 public abstract class CountryEvent
 {
     public string id = "";
-    public int priority = 0;
+    public float priority = 0;
     public Country.Id triggerCountry;
     public Country.Id[] countriesInvolved;
     public CountryEventCondition[] conditions;
+
+    public virtual void Run()
+    {
+        
+    }
 
     public bool ConditionsFulfilled()
     {

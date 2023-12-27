@@ -78,7 +78,7 @@ public class Country : MonoBehaviour
         float threatChance = threatCurve.Evaluate(GetReputation());
 
         float totalChance = Math.Max(1f, giftChance + bribeChance + threatChance);
-        SortedList<int, CountryEvent> events = new SortedList<int, CountryEvent>(new DuplicateKeyComparer<int>());
+        SortedList<float, CountryEvent> events = new SortedList<float, CountryEvent>(new DuplicateKeyComparer<float>());
 
         float random = Random.Range(0f, 1f);
         if (random < (giftChance) / totalChance) 
@@ -121,7 +121,7 @@ public class Country : MonoBehaviour
         return ret;
     }
 
-    private void GenerateEventAddToList(CountryEvent ev, SortedList<int, CountryEvent> events)
+    private void GenerateEventAddToList(CountryEvent ev, SortedList<float, CountryEvent> events)
     {
         if (ev.ConditionsFulfilled())
         {

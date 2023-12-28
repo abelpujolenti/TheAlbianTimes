@@ -24,7 +24,7 @@ public class TransformUtility
     public static IEnumerator SetRotationCoroutine(Transform gameObjectToDrag, float zRotation, float t)
     {
         float elapsedT = 0f;
-        Vector3 startRotation = gameObjectToDrag.transform.rotation.eulerAngles;
+        Vector3 startRotation = gameObjectToDrag.transform.rotation.eulerAngles * Mathf.Rad2Deg;
         while (elapsedT <= t)
         {
             float z = Mathf.LerpAngle(startRotation.z, zRotation, elapsedT / t);

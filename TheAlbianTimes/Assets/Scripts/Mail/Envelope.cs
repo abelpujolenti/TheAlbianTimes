@@ -1,6 +1,8 @@
 using System;
+using System.Collections;
 using Mail.Content;
 using Managers;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Utility;
@@ -13,9 +15,8 @@ namespace Mail
 
         [SerializeField] private RectTransform _rectTransform;
 
-        [SerializeField] private Animator _animator;
-
         [SerializeField] private GameObject _envelopeContentGameObject;
+        [SerializeField] private GameObject _envelopeCoverGameObject;
 
         private EnvelopeContentType _envelopeContentType;
 
@@ -26,16 +27,22 @@ namespace Mail
         private bool _hover;
         private bool _canHover = true;
 
+        [SerializeField] private float openCoverTime = .2f;
+        [SerializeField] private float closeCoverTime = .12f;
+
+        private Coroutine _openCoverCoroutine;
+        private Coroutine _closeCoverCoroutine;
+
         protected override void PointerEnter(BaseEventData data)
         {
             if (!_canHover)
             {
                 return;
             }
-            
+
+            OpenCover();
+
             _hover = true;
-            _animator.SetBool(HOVER_CONDITION, _hover);
-            //_rectTransform.sizeDelta = new Vector2(_rectTransform.sizeDelta.x, 30);
         }
 
         protected override void PointerExit(BaseEventData data)
@@ -44,10 +51,10 @@ namespace Mail
             {
                 return;
             }
-            
+
+            CloseCover();
+
             _hover = false;
-            _animator.SetBool(HOVER_CONDITION, _hover);
-            //_rectTransform.sizeDelta = new Vector2(_rectTransform.sizeDelta.x, 20);
         }
 
         protected override void PointerClick(BaseEventData data)
@@ -62,7 +69,6 @@ namespace Mail
         protected override void BeginDrag(BaseEventData data)
         {
             //base.BeginDrag(data);
-            _animator.SetBool(HOVER_CONDITION, false);
             _canHover = false;
         }
 
@@ -72,9 +78,35 @@ namespace Mail
             _canHover = true;
         }
 
-        public void SetAnimatorController(RuntimeAnimatorController animatorController)
+        private void OpenCover()
         {
-            _animator.runtimeAnimatorController = animatorController;
+            if (_hover) return;
+            if (_openCoverCoroutine != null) StopCoroutine(_openCoverCoroutine);
+            if (_closeCoverCoroutine != null) StopCoroutine(_closeCoverCoroutine);
+            _openCoverCoroutine = StartCoroutine(SetRotationCoroutine(_envelopeCoverGameObject.transform, 170f, openCoverTime));
+        }
+
+        private void CloseCover()
+        {
+            if (!_hover) return;
+            if (_openCoverCoroutine != null) StopCoroutine(_openCoverCoroutine);
+            if (_closeCoverCoroutine != null) StopCoroutine(_closeCoverCoroutine);
+            _closeCoverCoroutine = StartCoroutine(SetRotationCoroutine(_envelopeCoverGameObject.transform, 0f, closeCoverTime));
+        }
+
+        private IEnumerator SetRotationCoroutine(Transform gameObjectToDrag, float xRotation, float t)
+        {
+            float elapsedT = 0f;
+            Vector3 startRotation = gameObjectToDrag.transform.rotation.eulerAngles * Mathf.Rad2Deg;
+            while (elapsedT <= t)
+            {
+                float x = Mathf.LerpAngle(startRotation.x, xRotation, elapsedT / t);
+                gameObjectToDrag.transform.rotation = Quaternion.Euler(new Vector3(x, gameObjectToDrag.transform.rotation.y, gameObjectToDrag.transform.rotation.z));
+                yield return new WaitForFixedUpdate();
+                elapsedT += Time.fixedDeltaTime;
+            }
+            gameObjectToDrag.transform.rotation = Quaternion.Euler(new Vector3(xRotation, gameObjectToDrag.transform.rotation.y, gameObjectToDrag.transform.rotation.z));
+
         }
 
         public void SetEnvelopeContent(GameObject envelopContentGameObject)

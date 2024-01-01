@@ -7,7 +7,8 @@ namespace Mail.Content
         AD,
         BIAS,
         BRIBE,
-        LETTER
+        LETTER,
+        AMOUNT
     }
 
     public abstract class BaseContainer

@@ -7,7 +7,7 @@ using Utility;
 
 public class TESTAddMail : InteractableRectTransform
 {
-    [SerializeField] private GameObject _envelope;
+    [SerializeField] private GameObject[] _envelopePrefabs;
 
     [SerializeField] private MailData _mailData;
 
@@ -18,7 +18,7 @@ public class TESTAddMail : InteractableRectTransform
     
     protected override void PointerClick(BaseEventData data)
     {
-        GameObject envelopeGameObject = CreateEnvelope();
+        GameObject envelopeGameObject = CreateEnvelope((EnvelopeContentType)Random.Range(0, (int)EnvelopeContentType.AMOUNT));
 
         GameObject envelopeContentGameObject = CreateEnvelopeContent(envelopeGameObject);
 
@@ -41,9 +41,9 @@ public class TESTAddMail : InteractableRectTransform
         EventsManager.OnAddEnvelopeContentToList(envelopeContentGameObject, false);
     }
 
-    private GameObject CreateEnvelope()
+    private GameObject CreateEnvelope(EnvelopeContentType type)
     {
-        GameObject envelopeGameObject = Instantiate(_envelope, _envelopesContainer);
+        GameObject envelopeGameObject = Instantiate(_envelopePrefabs[(int)type], _envelopesContainer);
         
         Vector3 position = envelopeGameObject.transform.position;
 

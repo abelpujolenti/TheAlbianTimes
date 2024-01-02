@@ -56,6 +56,7 @@ namespace Editorial
         
         private bool _inFront;
         private bool _transferDrag;
+        private bool _sendToChange;
         private bool _sendToLayout;
         private bool _modified;
         private bool _onFolder = true;
@@ -183,11 +184,7 @@ namespace Editorial
             }
             ////
 
-            if (_onFolder)
-            {
-                DropOutFolder();
-            }            
-            else
+            if (!_onFolder)
             {
                 DropOnFolder();
             }
@@ -209,6 +206,10 @@ namespace Editorial
             
             if (EventsManager.OnDropNewsHeadline == null)
             {
+                if (_onFolder)
+                {
+                    DropOutFolder();    
+                }
                 SoundManager.Instance.DropPaperSound();
                 return;
             }
@@ -219,12 +220,12 @@ namespace Editorial
             SoundManager.Instance.SubmitPaperSound();
         }
 
-        private void DropOutFolder()
+        public void DropOutFolder()
         {
             //EventsManager.OnPressPanicButton +=
             _onFolder = false;
-            _newsFolder.DropNewsHeadlineOutOfFolder(false);
             StateOnDropOutOfFolder();
+            _newsFolder.DropNewsHeadlineOutOfFolder(false);
         }
 
         protected override void PointerEnter(BaseEventData data)
@@ -349,7 +350,6 @@ namespace Editorial
 
             EventsManager.OnChangeFolderOrderIndexWhenGoingToFolder += GiveDestinationToReturnToFolder;
             
-            _newsFolder.AddNewsHeadlinesSent();
             _newsFolder.DropNewsHeadlineOutOfFolder(true);
 
             DisableBiasMarks();
@@ -429,7 +429,7 @@ namespace Editorial
 
             _origin = _destination;
 
-            _newsFolder.ReturnNewsHeadline(this, _folderOrderIndex, !_onFolder);
+            _newsFolder.ReturnNewsHeadline(this, _folderOrderIndex, _onFolder);
             
             _rotate = true;
             _onFolder = true;
@@ -439,7 +439,6 @@ namespace Editorial
         {
             _rotate = false;
             _newsFolder.AddNewsHeadlineComponent(this, false);
-            EditorialManager.Instance.TurnOnBiasContainer();    
             StartCoroutine(Slide(transform.localPosition, _origin));
         }
 
@@ -589,6 +588,11 @@ namespace Editorial
         public bool GetTransferDrag()
         {
             return _transferDrag;
+        }
+
+        public bool WasOnFolder()
+        {
+            return _onFolder;
         }
 
         public void SetSendToLayout(bool send)

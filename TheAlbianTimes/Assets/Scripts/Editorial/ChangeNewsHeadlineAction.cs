@@ -33,17 +33,20 @@ namespace Editorial
         {
             mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
             
+            gameObject.SetActive(false);
+            
             if (!IsCoordinateInsideBounds(mousePosition))
             {
-                gameObject.SetActive(false);
+                if (newsHeadline.WasOnFolder())
+                {
+                    newsHeadline.DropOutFolder();   
+                }
                 return;
             }   
             
             newsHeadline.SetOrigin(newsHeadline.transform.localPosition);
             
             EventsManager.OnChangeNewsHeadlineContent();
-            
-            gameObject.SetActive(false);
         }
 
         private void SetContainerLimiters()

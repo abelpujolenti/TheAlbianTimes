@@ -37,25 +37,12 @@ namespace Layout
             _containerMaxCoordinates.y = _corners[3].y;
         }
 
-        private void AddNewsHeadlinePiece(NewsHeadlinePiece newsHeadlinePieceComponent)
+        private bool AddNewsHeadlinePiece(NewsHeadlinePiece newsHeadlinePieceComponent)
         {
-            bool mousePositionValid = TakePositionByMouse(newsHeadlinePieceComponent);
-
-            if (!mousePositionValid)
-            {
-                if (newsHeadlinePieceComponent.GetInitialPosition() == new Vector2())
-                {
-                    newsHeadlinePieceComponent.SetInitialPosition(PositionNewsHeadlinePiece(newsHeadlinePieceComponent));    
-                }
-                newsHeadlinePieceComponent.SlideFromOriginToDestination(newsHeadlinePieceComponent.transform.position);
-            }
-            else
-            {
-                newsHeadlinePieceComponent.SetInitialPosition(newsHeadlinePieceComponent.transform.position);
-            }
+            return TakeSubPiecesPositionByMouse(newsHeadlinePieceComponent);
         }
 
-        private bool TakePositionByMouse(NewsHeadlinePiece newsHeadlinePieceComponent)
+        private bool TakeSubPiecesPositionByMouse(NewsHeadlinePiece newsHeadlinePieceComponent)
         {
             foreach (Vector2 subPiecePosition in newsHeadlinePieceComponent.GetSubPiecesPositionsRelativeToRoot())
             {
@@ -67,34 +54,6 @@ namespace Layout
             }
 
             return true;
-        }
-
-        private Vector2 PositionNewsHeadlinePiece(NewsHeadlinePiece newsHeadlinePieceComponent)
-        {
-            Vector2 position;
-
-            bool allSubPiecesInside;
-
-            do
-            {
-                allSubPiecesInside = true;
-                
-                position.x = Random.Range(_containerMinCoordinates.x, _containerMaxCoordinates.x);
-                position.y = Random.Range(_containerMinCoordinates.y, _containerMaxCoordinates.y);
-
-                foreach (Vector2 subPiecePosition in newsHeadlinePieceComponent.GetSubPiecesPositionsRelativeToRoot())
-                {
-                    if (IsCoordinateInsideBounds(subPiecePosition + position))
-                    {
-                        continue;
-                    }
-                    allSubPiecesInside = false;
-                    break;
-                }
-
-            } while (!allSubPiecesInside);
-
-            return position;
         }
 
         private bool IsCoordinateInsideBounds(Vector2 coordinate)

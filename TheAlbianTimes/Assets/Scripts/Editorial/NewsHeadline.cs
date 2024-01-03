@@ -57,7 +57,6 @@ namespace Editorial
         private bool _inFront;
         private bool _transferDrag;
         private bool _sendToChange;
-        private bool _sendToLayout;
         private bool _modified;
         private bool _onFolder = true;
 
@@ -130,6 +129,7 @@ namespace Editorial
             }
             
             _transferDrag = true;
+            _rotate = false;
             _newsHeadlinePieceToTransferDrag.SetTransferDrag(false);
             
             gameObject.SetActive(false);
@@ -150,18 +150,7 @@ namespace Editorial
         public void SimulateEndDrag(BaseEventData data)
         {
             EndDrag(data);
-            
-            if (!_sendToLayout)
-            {
-                StateOnDropOutOfFolder();
-            
-                _newsFolder.SendNewsHeadlineToLayout();
-            }
-
-            if (!_newsFolder.IsFolderEmpty())
-            {
-                EditorialManager.Instance.TurnOnBiasContainer();
-            }
+            StateOnDropOutOfFolder();
         }
 
         protected override void EndDrag(BaseEventData data)
@@ -169,58 +158,54 @@ namespace Editorial
             if (_newsHeadlinePieceToTransferDrag.GetTransferDrag())
             {
                 _newsHeadlinePieceToTransferDrag.SetTransferDrag(false);
-                
-                if (_sendToLayout)
-                {
-                    _newsFolder.AddNewsHeadlineComponent(this, false);
-                    _sendToLayout = false;
-                }
             }
-            
-            ////
-            if (!draggable)
-            {
-                return;
-            }
-            ////
-
-            if (!_onFolder)
-            {
-                DropOnFolder();
-            }
-            
-            base.EndDrag(data);
             
             _newsFolder.SetDragging(false);
             _newsFolder.CheckCurrentNewsHeadlinesSent();
             
             EventsManager.OnCrossMidPointWhileScrolling -= GetGameObjectToTransferDrag;
             EventsManager.OnCheckDistanceToMouse -= DistanceToPosition;
-            
-            if (!gameObject.activeSelf)
-            {
-                return;
-            }
-            
             EventsManager.OnStartEndDrag(false);    
             
+            PointerEventData pointerData = (PointerEventData) data;
             if (EventsManager.OnDropNewsHeadline == null)
             {
-                if (_onFolder)
-                {
-                    DropOutFolder();    
-                }
-                SoundManager.Instance.DropPaperSound();
+                DropNewsHeadline(pointerData.position);
+                base.EndDrag(data);
                 return;
             }
-            
-            PointerEventData pointerData = (PointerEventData) data;
             EventsManager.OnDropNewsHeadline(this, pointerData.position);
 
             SoundManager.Instance.SubmitPaperSound();
+            base.EndDrag(data);
         }
 
-        public void DropOutFolder()
+        public void DropNewsHeadline(Vector2 position)
+        {
+            if (_onFolder)
+            {
+                if (_newsFolder.IsCoordinateInsideBounds(position))
+                {
+                    StartCoroutine(Slide(transform.localPosition, _origin));
+                }
+                else
+                {
+                    DropOutFolder();   
+                }
+            }
+            else if (_newsFolder.IsCoordinateInsideBounds(position))
+            {
+                DropOnFolder();
+            }
+            SoundManager.Instance.DropPaperSound();
+        }
+
+        private void DropOnFolder()
+        {
+            _newsFolder.AddNewsHeadlineComponent(this, false);
+        }
+
+        private void DropOutFolder()
         {
             //EventsManager.OnPressPanicButton +=
             _onFolder = false;
@@ -239,16 +224,6 @@ namespace Editorial
             SlideInFolder(_origin, _destination);
         }
 
-        public void SlideInFolder(Vector2 origin, Vector2 destination)
-        {
-            if (_moveCoroutine != null)
-            {
-                StopCoroutine(_moveCoroutine);
-            }
-            
-            _moveCoroutine = StartCoroutine(Slide(origin, destination));
-        }
-
         protected override void PointerExit(BaseEventData data)
         {
             if (!hoverable)
@@ -257,6 +232,16 @@ namespace Editorial
             }
             
             SlideInFolder(transform.localPosition, _origin);
+        }
+
+        public void SlideInFolder(Vector2 origin, Vector2 destination)
+        {
+            if (_moveCoroutine != null)
+            {
+                StopCoroutine(_moveCoroutine);
+            }
+            
+            _moveCoroutine = StartCoroutine(Slide(origin, destination));
         }
 
         protected override void PointerClick(BaseEventData data)
@@ -333,6 +318,7 @@ namespace Editorial
 
         private IEnumerator Slide(Vector2 origin, Vector2 destination)
         {
+            _rotate = false;
             float timer = 0;
 
             while (timer < TIME_TO_SLIDE)
@@ -340,6 +326,7 @@ namespace Editorial
                 timer = MoveToDestination(origin, destination, timer);
                 yield return null;
             }
+            _rotate = true;
         }
 
         private void ChangeContent()
@@ -435,13 +422,6 @@ namespace Editorial
             _onFolder = true;
         }
 
-        private void DropOnFolder()
-        {
-            _rotate = false;
-            _newsFolder.AddNewsHeadlineComponent(this, false);
-            StartCoroutine(Slide(transform.localPosition, _origin));
-        }
-
         private void GiveDestinationToReturnToFolder()
         {
             int countOfTotalNewsHeadline = _newsFolder.GetNewsHeadlinesLength();
@@ -484,11 +464,6 @@ namespace Editorial
             _newsFolder = newsFolder;
         }
 
-        public NewsFolder GetNewsFolder()
-        {
-            return _newsFolder;
-        }
-
         private void SetSelectedBiasIndex(int newSelectedBiasIndex)
         {
             _selectedBiasIndex = newSelectedBiasIndex;
@@ -516,11 +491,6 @@ namespace Editorial
         public NewsData GetNewsData()
         {
             return _data;
-        }
-
-        public NewsType GetNewsType()
-        {
-            return _newsType;
         }
 
         public void SetImagePath(String imagePath)
@@ -593,11 +563,6 @@ namespace Editorial
         public bool WasOnFolder()
         {
             return _onFolder;
-        }
-
-        public void SetSendToLayout(bool send)
-        {
-            _sendToLayout = send;
         }
         
         private Vector2 DistanceToPosition(Vector2 position)

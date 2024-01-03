@@ -31,16 +31,12 @@ namespace Editorial
         
         private void Action(NewsHeadline newsHeadline, Vector3 mousePosition)
         {
-            mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
-            
             gameObject.SetActive(false);
             
             if (!IsCoordinateInsideBounds(mousePosition))
             {
-                if (newsHeadline.WasOnFolder())
-                {
-                    newsHeadline.DropOutFolder();   
-                }
+                Debug.Log("Holi");
+                newsHeadline.DropNewsHeadline(mousePosition);
                 return;
             }   
             

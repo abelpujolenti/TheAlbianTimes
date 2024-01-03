@@ -23,7 +23,7 @@ namespace Managers
         
         public static Func <NewsHeadlineSubPiece, Vector2, NewsHeadlineSubPiece[], Cell[]> OnPreparingCells;
         public static Func <Cell[], Vector3> OnSuccessfulSnap;
-        public static Action <NewsHeadlinePiece> OnFailSnap;
+        public static Func <NewsHeadlinePiece, bool> OnFailSnap;
         
         #endregion
 

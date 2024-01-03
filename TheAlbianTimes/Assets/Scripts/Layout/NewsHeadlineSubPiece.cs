@@ -65,7 +65,7 @@ namespace Layout
         }
         private void CrossMidPoint(PointerEventData pointerData, Vector2 mousePosition)
         {
-            
+            _rotate = false;
             _newsHeadlinePiece.SetTransferDrag(true);
             _newsHeadlineToTransferDrag.SetTransferDrag(false);
                 
@@ -93,17 +93,18 @@ namespace Layout
                 _newsHeadlineToTransferDrag.SetTransferDrag(false);
             }
             
-            base.EndDrag(data);
-            
             EventsManager.OnCrossMidPointWhileScrolling -= GetGameObjectToTransferDrag;
+            
+            PointerEventData pointerData = (PointerEventData) data;
+            _newsHeadlinePiece.EndDrag(this, pointerData.position);
             
             if (_newsHeadlinePiece.gameObject.activeSelf)
             {
                 EventsManager.OnStartEndDrag(false);    
+                _rotate = _newsHeadlinePiece.CanRotate();
             }
             
-            PointerEventData pointerData = (PointerEventData) data;
-            _newsHeadlinePiece.EndDrag(this, pointerData.position);
+            base.EndDrag(data);
         }
 
         public void Fade(float alpha) { 

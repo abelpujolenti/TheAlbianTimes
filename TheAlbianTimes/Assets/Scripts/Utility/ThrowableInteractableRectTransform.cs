@@ -91,7 +91,7 @@ namespace Utility
 
             float initialAngularUnscaledVelocity = Mathf.Min(maxAngularUnscaledVelocity, (1 - Vector3.Dot(_vectorOffset.normalized, direction)) * _vectorOffset.magnitude * (100f / (rectTransform.sizeDelta.x + rectTransform.sizeDelta.y)));
             Vector3 cross = Vector3.Cross(_vectorOffset.normalized, direction);
-            float spinDirection = -cross.z / Mathf.Abs(cross.z);
+            float spinDirection = cross.z != 0 ? -cross.z / Mathf.Abs(cross.z) : 1f;
 
             while (slideVelocity > 0)
             {

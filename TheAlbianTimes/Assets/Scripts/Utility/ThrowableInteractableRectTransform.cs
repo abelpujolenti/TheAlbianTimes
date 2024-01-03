@@ -71,17 +71,15 @@ namespace Utility
         private IEnumerator SetRotationCoroutine(float zRotation, float t)
         {
             float elapsedT = 0f;
-            Quaternion rotation = gameObjectToDrag.transform.rotation;
-            Vector3 startRotation = rotation.eulerAngles;
+            Vector3 startRotation = gameObjectToDrag.transform.rotation.eulerAngles;
             while (elapsedT <= t)
             {
                 float z = Mathf.LerpAngle(startRotation.z, zRotation, elapsedT / t);
-                gameObjectToDrag.transform.rotation = Rotate(rotation, RotationZ, z);
+                gameObjectToDrag.transform.rotation = Quaternion.Euler(new Vector3(gameObjectToDrag.transform.rotation.x, gameObjectToDrag.transform.rotation.y, z));
                 yield return new WaitForFixedUpdate();
                 elapsedT += Time.fixedDeltaTime;
             }
-            
-            gameObjectToDrag.transform.rotation = Rotate(rotation, RotationZ, zRotation - startRotation.z);
+            gameObjectToDrag.transform.rotation = Quaternion.Euler(new Vector3(gameObjectToDrag.transform.rotation.x, gameObjectToDrag.transform.rotation.y, zRotation));
         }
 
         private IEnumerator SlideCoroutine()

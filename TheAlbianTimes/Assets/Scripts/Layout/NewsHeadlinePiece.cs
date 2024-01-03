@@ -22,6 +22,8 @@ namespace Layout
         private Vector2 _containerMinCoordinates;
         private Vector2 _containerMaxCoordinates;
         private Vector2 _initialPosition;
+        
+        private Coroutine _setRotationCoroutine;
 
         private bool _rotation;
         private bool _transferDrag;
@@ -75,17 +77,39 @@ namespace Layout
             if (_snappedCells == null)
             {
                 _rotation = !EventsManager.OnFailSnap(this);
-                Debug.Log("Snapped " + _rotation);
 
                 SoundManager.Instance.DropPieceSound();
                 return;
             }
-
+            
+            SlideToRotation(0f, 0.1f);
             transform.position = EventsManager.OnSuccessfulSnap(_snappedCells);
             _rotation = false;
-            Debug.Log("Not Snapped");
 
             SoundManager.Instance.SnapPieceSound();
+        }
+        
+
+        private void SlideToRotation(float rotation, float t)
+        {
+            if (_setRotationCoroutine != null)
+            {
+                StopCoroutine(_setRotationCoroutine);
+            }
+            _setRotationCoroutine = StartCoroutine(SetRotationCoroutine(rotation, t));
+        }
+        private IEnumerator SetRotationCoroutine(float zRotation, float t)
+        {
+            float elapsedT = 0f;
+            Vector3 startRotation = transform.rotation.eulerAngles;
+            while (elapsedT <= t)
+            {
+                float z = Mathf.LerpAngle(startRotation.z, zRotation, elapsedT / t);
+                transform.rotation = Quaternion.Euler(new Vector3(transform.rotation.x, transform.rotation.y, z));
+                yield return new WaitForFixedUpdate();
+                elapsedT += Time.fixedDeltaTime;
+            }
+            transform.rotation = Quaternion.Euler(new Vector3(transform.rotation.x, transform.rotation.y, zRotation));
         }
 
         public Vector2[] GetSubPiecesPositionsRelativeToRoot()

@@ -94,7 +94,7 @@ namespace Editorial
                 EditorialManager.Instance.TurnOffBiasContainer();    
             }
             
-            SlideToRotation(0f, 0f);
+            SlideToRotation(0f, 0.1f);
             
             _newsFolder.SetDragging(true);
 
@@ -157,7 +157,13 @@ namespace Editorial
         {
             if (_newsHeadlinePieceToTransferDrag.GetTransferDrag())
             {
+                _rotate = true;
                 _newsHeadlinePieceToTransferDrag.SetTransferDrag(false);
+            }
+
+            if (!draggable)
+            {
+                return;
             }
             
             _newsFolder.SetDragging(false);
@@ -367,7 +373,6 @@ namespace Editorial
 
         public void AddToFolder()
         {
-            SlideToRotation(0f, 0f);
             EventsManager.OnChangeFolderOrderIndexWhenGoingToFolder += GiveDestinationToReturnToFolder;
             ReturnToFolder();
         }
@@ -379,7 +384,7 @@ namespace Editorial
             hoverable = false;
             clickable = false;
             
-            SlideToRotation(0f, 0f);
+            transform.rotation = Quaternion.identity;
             
             int countOfTotalNewsHeadline = _newsFolder.GetNewsHeadlinesLength();
 

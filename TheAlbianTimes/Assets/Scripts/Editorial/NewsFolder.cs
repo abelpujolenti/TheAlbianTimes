@@ -148,11 +148,6 @@ namespace Editorial
                 newsHeadline.SetOrigin(newOrigin);
             }
 
-            if (_newsHeadlinesHasToReturnToFolder != 0)
-            {
-                EventsManager.OnChangeFolderOrderIndexWhenGoingToFolder();
-            }
-
             UpdateHeadlineShading();
         }
 

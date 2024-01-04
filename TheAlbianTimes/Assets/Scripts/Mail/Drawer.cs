@@ -48,30 +48,16 @@ public class Drawer : InteractableRectTransform
 
     protected virtual void OpenContainer()
     {
-        _moveContainerCoroutine = StartCoroutine(MoveContainerEnum(gameObjectToDrag.transform.position.x, maxX, openTime));
+        Vector3 end = new Vector3(maxX, gameObjectToDrag.transform.position.y, gameObjectToDrag.transform.position.z);
+        _moveContainerCoroutine = StartCoroutine(SetPositionCoroutine(gameObjectToDrag.transform.position, end, openTime));
         SoundManager.Instance.OpenDrawerSound();
     }
 
     protected virtual void CloseContainer()
     {
-        _moveContainerCoroutine = StartCoroutine(MoveContainerEnum(gameObjectToDrag.transform.position.x, minX, closeTime));
+        Vector3 end = new Vector3(minX, gameObjectToDrag.transform.position.y, gameObjectToDrag.transform.position.z);
+        _moveContainerCoroutine = StartCoroutine(SetPositionCoroutine(gameObjectToDrag.transform.position, end, closeTime));
         SoundManager.Instance.CloseDrawerSound();
-    }
-
-    private IEnumerator MoveContainerEnum(float start, float end, float t)
-    {
-        float elapsedT = 0f;
-        while (elapsedT <= t)
-        {
-            Vector3 newPos = gameObjectToDrag.transform.position;
-            newPos.x = Mathf.SmoothStep(start, end, Mathf.Pow(Mathf.Min(1f, elapsedT / t), 2));
-            gameObjectToDrag.transform.position = newPos;
-            yield return new WaitForFixedUpdate();
-            elapsedT += Time.fixedDeltaTime;
-        }
-        Vector3 endPos = gameObjectToDrag.transform.position;
-        endPos.x = end;
-        gameObjectToDrag.transform.position = endPos;
     }
 
     public bool IsOpen()

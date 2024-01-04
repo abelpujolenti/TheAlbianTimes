@@ -71,16 +71,6 @@ public class Country : MonoBehaviour
         SetPurchasingPower(defaultPurchasingPower);
     }
 
-    public void AffectReputation(float change)
-    {
-        float prevRep = GetReputation();
-        float newRep = Mathf.Max(0f, Mathf.Min(1f, prevRep + change));
-        SetReputation(newRep);
-        lastReputationChange += newRep - prevRep;
-
-        SetCensorship(censorshipCurve.Evaluate(GetReputation()));
-    }
-
     public virtual CountryEvent GenerateEvent()
     {
         float giftChance = giftCurve.Evaluate(GetReputation());
@@ -88,21 +78,24 @@ public class Country : MonoBehaviour
         float threatChance = threatCurve.Evaluate(GetReputation());
 
         float totalChance = Math.Max(1f, giftChance + bribeChance + threatChance);
-        SortedList<int, CountryEvent> events = new SortedList<int, CountryEvent>(new DuplicateKeyComparer<int>());
+        SortedList<float, CountryEvent> events = new SortedList<float, CountryEvent>(new DuplicateKeyComparer<float>());
 
         float random = Random.Range(0f, 1f);
         if (random < (giftChance) / totalChance) 
         {
             foreach (GiftCountryEvent giftEvent in CountryEventManager.Instance.giftCountryEvents[data.countryId])
             {
-                GenerateEventAddToList(giftEvent, events);
+                if (giftEvent.ConditionsFulfilled())
+                {
+                    GenerateEventAddToList(giftEvent, events);
+                }
             }
         }
         else if (random < (giftChance + bribeChance) / totalChance)
         {
             foreach (BribeCountryEvent bribeEvent in CountryEventManager.Instance.bribeCountryEvents[data.countryId])
             {
-                if (bribeEvent.conditionsFulfilled)
+                if (bribeEvent.ConditionsFulfilled())
                 {
                     GenerateEventAddToList(bribeEvent, events);
                 }
@@ -112,14 +105,12 @@ public class Country : MonoBehaviour
         {
             foreach (ThreatCountryEvent threatEvent in CountryEventManager.Instance.threatCountryEvents[data.countryId])
             {
-                if (threatEvent.conditionsFulfilled)
+                if (threatEvent.ConditionsFulfilled())
                 {
                     GenerateEventAddToList(threatEvent, events);
                 }
             }
         }
-
-        lastReputationChange = 0;
 
         CountryEvent ret = null;
         if (events.Count > 0) 
@@ -130,9 +121,9 @@ public class Country : MonoBehaviour
         return ret;
     }
 
-    private void GenerateEventAddToList(CountryEvent ev, SortedList<int, CountryEvent> events)
+    private void GenerateEventAddToList(CountryEvent ev, SortedList<float, CountryEvent> events)
     {
-        if (ev.conditionsFulfilled)
+        if (ev.ConditionsFulfilled())
         {
             events.Add(ev.priority, ev);
         }
@@ -164,14 +155,13 @@ public class Country : MonoBehaviour
 
     public float GetValueChange(string key)
     {
-        if (!data.values.ContainsKey(key)) return 0f;
+        if (!data.values.ContainsKey(key) || !previousData.values.ContainsKey(key)) return 0f;
         return data.values[key] - previousData.values[key];
     }
 
     #region Getters/Setters
     public void AddToValue(string key, float value)
     {
-        Debug.Log(data.values[key]);
         if (!data.values.ContainsKey(key))
         {
             SetValue(key, value);
@@ -180,7 +170,6 @@ public class Country : MonoBehaviour
         {
             SetValue(key, value + data.values[key]);
         }
-        Debug.Log(data.values[key]);
     }
     public void SetValue(string key, float value)
     {

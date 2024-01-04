@@ -1,4 +1,9 @@
 {
+    "name":"sample_labour",
+    "firstRound":1,
+    "duration":2,
+    "priority":1,
+    "leniency":3,
     "type": 8,
     "imagePath": null,
     "consequences": [

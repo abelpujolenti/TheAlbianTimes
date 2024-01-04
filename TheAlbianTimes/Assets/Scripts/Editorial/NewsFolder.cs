@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Managers;
 using UnityEngine;
 using Utility;
@@ -151,6 +152,8 @@ namespace Editorial
             {
                 EventsManager.OnChangeFolderOrderIndexWhenGoingToFolder();
             }
+
+            UpdateHeadlineShading();
         }
 
         public void ReorderNewsHeadline(int newsHeadlineToSwitchIndex, int newSelectedBiasIndex, String[] biasesNames, String[] newBiasesDescriptions)
@@ -318,6 +321,19 @@ namespace Editorial
             ChangeBias(frontNewsHeadline.GetSelectedBiasIndex(), frontNewsHeadline.GetBiasesNames(), frontNewsHeadline.GetBiasesDescription());
         }
 
+        private void UpdateHeadlineShading()
+        {
+            int s = 0;
+            for (int i = 0; i < _newsHeadlines.Count; i++)
+            {
+                if (_newsHeadlines[i].isActiveAndEnabled)
+                {
+                    _newsHeadlines[i].UpdateShading(s);
+                    s++;
+                }
+            }
+        }
+
         private void ChangeBias(int newSelectedBiasIndex, String[] biasesNames, String[] newBiasesDescriptions)
         {
             EventsManager.OnSettingNewBiases(biasesNames, newBiasesDescriptions);
@@ -352,6 +368,11 @@ namespace Editorial
             position = Camera.main.ScreenToWorldPoint(position);
             return position.x > _containerMinCoordinates.x && position.x < _containerMaxCoordinates.x &&
                    position.y > _containerMinCoordinates.y && position.y < _containerMaxCoordinates.y;
+        }
+
+        public NewsHeadline GetCurrentHeadline()
+        {
+            return _newsHeadlines[0];
         }
     }
 }

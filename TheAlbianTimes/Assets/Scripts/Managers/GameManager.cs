@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -36,11 +38,18 @@ namespace Managers
                 saveManager.LoadFromJson();
             }
             LoadCountries();
+            LoadCharacters();
             LoadPlayerData();
+            LoadViewedArticles();
 
             if (SceneManager.GetSceneByName("WorkspaceScene").isLoaded)
             {
                 sceneLoader.SetScene("WorkspaceScene");
+                return;
+            }
+            else if (SceneManager.GetSceneByName("StatsScene").isLoaded)
+            {
+                sceneLoader.SetScene("StatsScene");
                 return;
             }
             sceneLoader.SetScene("MainMenu");
@@ -58,6 +67,35 @@ namespace Managers
                     country.data = saveManager.save.countryData[index];
                 }
                 gameState.countries[index] = country;
+            }
+        }
+
+        private void LoadCharacters()
+        {
+            Character[] characterObjects = transform.Find("Characters").GetComponentsInChildren<Character>();
+            gameState.characters = new Character[(int)Character.Id.AMOUNT];
+            foreach (Character character in characterObjects)
+            {
+                int index = (int)character.data.characterId;
+                if (saveManager.SaveFileExists() && saveManager.save.characterData[index] != null)
+                {
+                    character.data = saveManager.save.characterData[index];
+                }
+                gameState.characters[index] = character;
+            }
+        }
+
+        private void LoadViewedArticles()
+        {
+            if (saveManager.SaveFileExists())
+            {
+                gameState.viewedArticles = saveManager.save.viewedArticles.ToHashSet();
+                gameState.publishedArticles = saveManager.save.publishedArticles.ToHashSet();
+            }
+            else
+            {
+                gameState.viewedArticles = new HashSet<string>();
+                gameState.publishedArticles = new HashSet<string>();
             }
         }
 

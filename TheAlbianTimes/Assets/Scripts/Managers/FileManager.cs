@@ -12,12 +12,21 @@ namespace Managers
             if (Directory.Exists(path))
             {
                 DirectoryInfo d = new DirectoryInfo(path);
-                foreach (var file in d.GetFiles("*.json"))
+                LoadAllJsonFilesInDirectory(d, addTo);
+                foreach (var folder in d.GetDirectories())
                 {
-                    using (StreamReader sr = file.OpenText())
-                    {
-                        addTo(sr.ReadToEnd());
-                    }
+                    LoadAllJsonFilesInDirectory(folder, addTo);
+                }
+            }
+        }
+
+        private static void LoadAllJsonFilesInDirectory(DirectoryInfo d, Action<string> addTo)
+        {
+            foreach (var file in d.GetFiles("*.json"))
+            {
+                using (StreamReader sr = file.OpenText())
+                {
+                    addTo(sr.ReadToEnd());
                 }
             }
         }

@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using Newtonsoft.Json;
 using UnityEngine;
 
@@ -7,10 +8,15 @@ using UnityEngine;
 public class SaveFile
 {
     public CountryData[] countryData;
+    public CharacterData[] characterData;
     public GameStatePlayerData playerData;
+    public string[] viewedArticles;
+    public string[] publishedArticles;
+
     public SaveFile()
     {
         countryData = new CountryData[0];
+        characterData = new CharacterData[0];
         playerData = new GameStatePlayerData();
     }
     public SaveFile(GameState gameState)
@@ -22,6 +28,14 @@ public class SaveFile
             if (gameState.countries[i] == null) continue;
             countryData[i] = gameState.countries[i].data;
         }
+        characterData = new CharacterData[gameState.characters.Length];
+        for (int i = 0; i < gameState.characters.Length; i++)
+        {
+            if (gameState.characters[i] == null) continue;
+            characterData[i] = gameState.characters[i].data;
+        }
+        viewedArticles = gameState.viewedArticles.ToArray();
+        publishedArticles = gameState.publishedArticles.ToArray();
     }
 }
 

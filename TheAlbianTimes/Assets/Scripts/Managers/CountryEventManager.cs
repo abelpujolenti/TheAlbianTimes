@@ -12,7 +12,7 @@ public class CountryEventManager : MonoBehaviour
     public Dictionary<Country.Id, List<GiftCountryEvent>> giftCountryEvents = new Dictionary<Country.Id, List<GiftCountryEvent>>();
     public Dictionary<Country.Id, List<ThreatCountryEvent>> threatCountryEvents = new Dictionary<Country.Id, List<ThreatCountryEvent>>();
 
-    public SortedList<int, CountryEvent> currentEvents = new SortedList<int, CountryEvent>(new DuplicateKeyComparer<int>());
+    public SortedList<float, CountryEvent> currentEvents = new SortedList<float, CountryEvent>(new DuplicateKeyComparer<float>());
 
     private void Awake()
     {

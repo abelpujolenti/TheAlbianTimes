@@ -1,4 +1,9 @@
 {
+    "name":"sample_military",
+    "firstRound":1,
+    "duration":2,
+    "priority":0.6,
+    "leniency":4,
     "type": 5,
     "imagePath": null,
     "consequences": [

@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -143,6 +145,16 @@ namespace Utility
         {
             this.canvas = canvas;
             Setup();
+        }
+
+        protected IEnumerator SetPositionCoroutine(Vector3 start, Vector3 end, float t)
+        {
+            yield return TransformUtility.SetPositionCoroutine(gameObjectToDrag.transform, start, end, t);
+        }
+
+        protected IEnumerator SetRotationCoroutine(float zRotation, float t)
+        {
+            yield return TransformUtility.SetRotationCoroutine(gameObjectToDrag.transform, zRotation, t);
         }
     }
 }

@@ -1497,8 +1497,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 51.7, y: -31.8}
-  m_SizeDelta: {x: -8.199997, y: 0}
+  m_AnchoredPosition: {x: 54.31, y: -30.932}
+  m_SizeDelta: {x: -603.49, y: -115.42}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &429106997
 MonoBehaviour:
@@ -4771,9 +4771,9 @@ MonoBehaviour:
   - {fileID: 888113598}
   _biasDescriptionRoot: {fileID: 562062638}
   _biasDescriptionPostitPrefab: {fileID: 1253985461064584690, guid: 58d9916a72d14ba499571cd4cd52e460, type: 3}
-  postitInitialScale: 2.7
+  postitInitialScale: 3
   postitScaleAnimationTime: 0.2
-  postitAppearDelay: 0.1
+  postitAppearDelay: 0.5
 --- !u!1 &1869530576
 GameObject:
   m_ObjectHideFlags: 0
@@ -5825,11 +5825,7 @@ MonoBehaviour:
   draggable: 0
   hoverable: 0
   clickable: 1
-  _envelopePrefabs:
-  - {fileID: 5844093104737616194, guid: 3386ea7c25f7a23419e9e134db3fdafe, type: 3}
-  - {fileID: 5844093104737616194, guid: 3386ea7c25f7a23419e9e134db3fdafe, type: 3}
-  - {fileID: 5844093104737616194, guid: 6bde4079835531847b4de025ac10431e, type: 3}
-  - {fileID: 5844093104737616194, guid: a13d5a7207b5ba740b0088fda5f87742, type: 3}
+  _envelopePrefabs: []
   _mailData: {fileID: 11400000, guid: 785523878d3f48940a595792bd8b2c9b, type: 2}
   _envelopeContents:
   - {fileID: 7593100940485372904, guid: cb74b6a90435b1f46bcc5e81de13276f, type: 3}

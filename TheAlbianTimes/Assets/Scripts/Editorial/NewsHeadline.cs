@@ -1,3 +1,4 @@
+using System;
 using Layout;
 using Managers;
 using NoMonoBehavior;
@@ -7,10 +8,11 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Utility;
+using Random = UnityEngine.Random;
 
 namespace Editorial
 {
-    public class NewsHeadline : InteractableRectTransform
+    public class NewsHeadline : ThrowableInteractableRectTransform
     {
         private const float CHANGE_CONTENT_Y_COORDINATE = 1000;
         private const float SPEED_MOVEMENT = 15;

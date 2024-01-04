@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace Mail.Content
 {
@@ -32,7 +33,14 @@ namespace Mail.Content
 
         public override void SetContent(BaseContent[] baseContents)
         {
-            contentEnvelopes = (EnvelopeData[])baseContents;
+            try
+            {
+                contentEnvelopes = (EnvelopeData[])baseContents;
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e);
+            }
         }
 
         public override BaseContent[] GetContent()
@@ -53,7 +61,14 @@ namespace Mail.Content
 
         public override void SetContent(BaseContent[] baseContents)
         {
-            contentAds = (ContentAd[])baseContents;
+            try
+            {
+                contentAds = (ContentAd[])baseContents;
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e);
+            }
         }
 
         public override BaseContent[] GetContent()
@@ -74,7 +89,14 @@ namespace Mail.Content
 
         public override void SetContent(BaseContent[] baseContents)
         {
-            contentBribes = (ContentBribe[])baseContents;
+            try
+            {
+                contentBribes = (ContentBribe[])baseContents;
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e);
+            }
         }
 
         public override BaseContent[] GetContent()
@@ -95,7 +117,14 @@ namespace Mail.Content
 
         public override void SetContent(BaseContent[] baseContents)
         {
-            contentBiases = (ContentBias[])baseContents;
+            try
+            {
+                contentBiases = (ContentBias[])baseContents;
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e);
+            }
         }
 
         public override BaseContent[] GetContent()
@@ -116,7 +145,14 @@ namespace Mail.Content
 
         public override void SetContent(BaseContent[] baseContents)
         {
-            contentLetters = (ContentLetter[])baseContents;
+            try
+            {
+                contentLetters = (ContentLetter[])baseContents;
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e);
+            }
         }
 
         public override BaseContent[] GetContent()

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -13,9 +14,14 @@ namespace Utility
         [SerializeField] float maxAngularUnscaledVelocity = 1.5f;
         [SerializeField] float spinFactor = 30f;
         [SerializeField] float grabRotationSnapBackTime = .2f;
+        
         Vector3 dragVelocity;
+        
         Coroutine slideCoroutine;
         Coroutine setRotationCoroutine;
+
+        protected bool _rotate = true;
+        
         protected override void Drag(BaseEventData data)
         {
             Vector3 prevPosition = transform.position;
@@ -44,11 +50,16 @@ namespace Utility
             {
                 StopCoroutine(slideCoroutine);
             }
-            slideCoroutine = StartCoroutine(SlideCoroutine());
+            
+            if (_rotate)
+            {
+                slideCoroutine = StartCoroutine(SlideCoroutine());    
+            }
+            
             base.EndDrag(data);
         }
 
-        public void SlideToRotation(float rotation, float t)
+        protected void SlideToRotation(float rotation, float t)
         {
             if (setRotationCoroutine != null)
             {
@@ -64,7 +75,7 @@ namespace Utility
 
             float initialAngularUnscaledVelocity = Mathf.Min(maxAngularUnscaledVelocity, (1 - Vector3.Dot(_vectorOffset.normalized, direction)) * _vectorOffset.magnitude * (100f / (rectTransform.sizeDelta.x + rectTransform.sizeDelta.y)));
             Vector3 cross = Vector3.Cross(_vectorOffset.normalized, direction);
-            float spinDirection = -cross.z / Mathf.Abs(cross.z);
+            float spinDirection = cross.z != 0 ? -cross.z / Mathf.Abs(cross.z) : 1f;
 
             while (slideVelocity > 0)
             {
@@ -79,6 +90,68 @@ namespace Utility
 
                 yield return new WaitForFixedUpdate();
             }
+        }
+
+        private float Deg2Rad(float angle)
+        {
+            return angle * ((float)Math.PI / 180f);
+        }
+        
+        private static Vector3 RotationX
+        {
+            get
+            {
+                Vector3 vector;
+                vector.x = 1;
+                vector.y = 0;
+                vector.z = 0;
+                return vector;
+            }
+        }
+        
+        private static Vector3 RotationY
+        {
+            get
+            {
+                Vector3 vector;
+                vector.x = 0;
+                vector.y = 1;
+                vector.z = 0;
+                return vector;
+            }
+        }
+
+        private static Vector3 RotationZ
+        {
+            get
+            {
+                Vector3 vector;
+                vector.x = 0;
+                vector.y = 0;
+                vector.z = 1;
+                return vector;
+            }
+        }
+        
+        private Quaternion Rotate(Quaternion currentRotation, Vector3 axis, float angle)
+        {
+            angle /= 2;
+
+            Quaternion quaternionRotationZ = Quaternion.identity;
+            quaternionRotationZ.w = (float)Math.Cos(Deg2Rad(angle) * axis.z);
+            quaternionRotationZ.z = (float)Math.Sin(Deg2Rad(angle) * axis.z);
+
+            Quaternion quaternionRotationY = Quaternion.identity;
+            quaternionRotationY.w = (float)Math.Cos(Deg2Rad(angle) * axis.y);
+            quaternionRotationY.y = (float)Math.Sin(Deg2Rad(angle) * axis.y);
+
+            Quaternion quaternionRotationX = Quaternion.identity;
+            quaternionRotationX.w = (float)Math.Cos(Deg2Rad(angle) * axis.x);
+            quaternionRotationX.x = (float)Math.Sin(Deg2Rad(angle) * axis.x);
+
+            Quaternion result = quaternionRotationZ * quaternionRotationX * quaternionRotationY;
+
+            return currentRotation * result;
         }
     }
 }

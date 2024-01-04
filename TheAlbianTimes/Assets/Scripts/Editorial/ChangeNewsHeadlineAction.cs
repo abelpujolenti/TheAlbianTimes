@@ -31,20 +31,19 @@ namespace Editorial
         
         private void Action(NewsHeadline newsHeadline, Vector3 mousePosition)
         {
-            mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+            gameObject.SetActive(false);
             
-            if (!IsCoordinateInsideBounds(mousePosition))
+            Vector3 screenWorldMousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+            
+            if (!IsCoordinateInsideBounds(screenWorldMousePosition))
             {
-                newsHeadline.DropOnFolder();
-                gameObject.SetActive(false);
+                newsHeadline.DropNewsHeadline(mousePosition);
                 return;
             }   
             
             newsHeadline.SetOrigin(newsHeadline.transform.localPosition);
             
             EventsManager.OnChangeNewsHeadlineContent();
-            
-            gameObject.SetActive(false);
         }
 
         private void SetContainerLimiters()

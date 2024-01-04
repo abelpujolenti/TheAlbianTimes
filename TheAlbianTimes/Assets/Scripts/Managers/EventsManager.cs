@@ -15,7 +15,8 @@ namespace Managers
         public static Func <Vector2, Vector2> OnCheckDistanceToMouse;
         public static Action OnExceedCameraLimitsWhileDragging;
         public static Action <GameObject> OnAssignGameObjectToDrag;
-        public static Action OnPressPanicButton;
+        public static Action <bool> OnPressPanicButton;
+        public static Action OnPressPanicButtonForPieces;
 
         #endregion        
         
@@ -23,7 +24,7 @@ namespace Managers
         
         public static Func <NewsHeadlineSubPiece, Vector2, NewsHeadlineSubPiece[], Cell[]> OnPreparingCells;
         public static Func <Cell[], Vector3> OnSuccessfulSnap;
-        public static Action <NewsHeadlinePiece> OnFailSnap;
+        public static Func <NewsHeadlinePiece, bool> OnFailSnap;
         
         #endregion
 

@@ -14,16 +14,18 @@ namespace Layout
 
         private void OnEnable()
         {
-            EventsManager.OnFailSnap += AddNewsHeadlinePiece; 
+            EventsManager.OnFailSnap += IsValidPiecePosition; 
         }
 
         private void OnDisable()
         {
-            EventsManager.OnFailSnap -= AddNewsHeadlinePiece; 
+            EventsManager.OnFailSnap -= IsValidPiecePosition; 
         }
 
         private void Start()
         {
+            LayoutManager.Instance.SetNewsHeadlinePiecesContainer(this);
+            
             _rectTransform.GetWorldCorners(_corners);
             
             SetContainerLimiters();
@@ -37,29 +39,23 @@ namespace Layout
             _containerMaxCoordinates.y = _corners[3].y;
         }
 
-        private void AddNewsHeadlinePiece(NewsHeadlinePiece newsHeadlinePieceComponent)
+        public void PositionPieceOnRandomPosition(NewsHeadlinePiece newsHeadlinePiece)
         {
-            bool mousePositionValid = TakePositionByMouse(newsHeadlinePieceComponent);
+            newsHeadlinePiece.SetInitialPosition(PositionNewsHeadlinePiece(newsHeadlinePiece));
 
-            if (!mousePositionValid)
-            {
-                if (newsHeadlinePieceComponent.GetInitialPosition() == new Vector2())
-                {
-                    newsHeadlinePieceComponent.SetInitialPosition(PositionNewsHeadlinePiece(newsHeadlinePieceComponent));    
-                }
-                newsHeadlinePieceComponent.SlideFromOriginToDestination(newsHeadlinePieceComponent.transform.position);
-            }
-            else
-            {
-                newsHeadlinePieceComponent.SetInitialPosition(newsHeadlinePieceComponent.transform.position);
-            }
+            newsHeadlinePiece.SlideFromOriginToDestination();
         }
 
-        private bool TakePositionByMouse(NewsHeadlinePiece newsHeadlinePieceComponent)
+        public bool IsValidPiecePosition(NewsHeadlinePiece newsHeadlinePiece)
         {
-            foreach (Vector2 subPiecePosition in newsHeadlinePieceComponent.GetSubPiecesPositionsRelativeToRoot())
+            return CheckSubPiecesPositionsByGivenPosition(newsHeadlinePiece, newsHeadlinePiece.gameObject.transform.position);
+        }
+
+        private bool CheckSubPiecesPositionsByGivenPosition(NewsHeadlinePiece newsHeadlinePiece, Vector2 position)
+        {
+            foreach (Vector2 subPiecePosition in newsHeadlinePiece.GetSubPiecesPositionsRelativeToRoot())
             {
-                if (IsCoordinateInsideBounds(subPiecePosition + (Vector2)newsHeadlinePieceComponent.gameObject.transform.position))
+                if (IsCoordinateInsideBounds(subPiecePosition + position))
                 {
                     continue;
                 }
@@ -69,30 +65,16 @@ namespace Layout
             return true;
         }
 
-        private Vector2 PositionNewsHeadlinePiece(NewsHeadlinePiece newsHeadlinePieceComponent)
+        private Vector2 PositionNewsHeadlinePiece(NewsHeadlinePiece newsHeadlinePiece)
         {
             Vector2 position;
-
-            bool allSubPiecesInside;
-
+            
             do
             {
-                allSubPiecesInside = true;
-                
                 position.x = Random.Range(_containerMinCoordinates.x, _containerMaxCoordinates.x);
                 position.y = Random.Range(_containerMinCoordinates.y, _containerMaxCoordinates.y);
 
-                foreach (Vector2 subPiecePosition in newsHeadlinePieceComponent.GetSubPiecesPositionsRelativeToRoot())
-                {
-                    if (IsCoordinateInsideBounds(subPiecePosition + position))
-                    {
-                        continue;
-                    }
-                    allSubPiecesInside = false;
-                    break;
-                }
-
-            } while (!allSubPiecesInside);
+            } while (!CheckSubPiecesPositionsByGivenPosition(newsHeadlinePiece, position));
 
             return position;
         }

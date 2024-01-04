@@ -11,7 +11,6 @@ namespace Mail.Content
         
         protected override void BeginDrag(BaseEventData data)
         {
-            
         }
 
         protected override void PointerClick(BaseEventData data)

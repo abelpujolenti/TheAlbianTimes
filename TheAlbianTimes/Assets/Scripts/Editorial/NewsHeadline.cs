@@ -1,3 +1,4 @@
+using System;
 using Layout;
 using Managers;
 using NoMonoBehavior;
@@ -7,10 +8,11 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Utility;
+using Random = UnityEngine.Random;
 
 namespace Editorial
 {
-    public class NewsHeadline : InteractableRectTransform
+    public class NewsHeadline : ThrowableInteractableRectTransform
     {
         private const float CHANGE_CONTENT_Y_COORDINATE = 1000;
         private const float SPEED_MOVEMENT = 15;
@@ -55,14 +57,15 @@ namespace Editorial
         private Vector2 _destination;
         private Vector2 _origin;
         
-        private int _folderOrderIndex;
-        private int _chosenBiasIndex;
-        private int _selectedBiasIndex;
+        [SerializeField]private int _folderOrderIndex;
+        [SerializeField]private int _chosenBiasIndex;
+        [SerializeField]private int _selectedBiasIndex;
         
-        [SerializeField]private bool _inFront;
-        [SerializeField]private bool _transferDrag;
-        [SerializeField]private bool _send;
-        [SerializeField]private bool _modified = false;
+        private bool _inFront;
+        private bool _transferDrag;
+        private bool _sendToChange;
+        private bool _modified;
+        private bool _onFolder = true;
 
         void Start()
         {
@@ -100,6 +103,8 @@ namespace Editorial
                 EditorialManager.Instance.TurnOffBiasContainer();    
             }
             
+            SlideToRotation(0f, 0.1f);
+            
             _newsFolder.SetDragging(true);
 
             SoundManager.Instance.GrabPaperSound();
@@ -133,6 +138,7 @@ namespace Editorial
             }
             
             _transferDrag = true;
+            _rotate = false;
             _newsHeadlinePieceToTransferDrag.SetTransferDrag(false);
             
             gameObject.SetActive(false);
@@ -153,63 +159,78 @@ namespace Editorial
         public void SimulateEndDrag(BaseEventData data)
         {
             EndDrag(data);
-            
-            if (!_send)
-            {
-                StateOnSendToLayout();
-            
-                _newsFolder.SendNewsHeadlineToLayout();
-            }
-
-            if (!_newsFolder.IsFolderEmpty())
-            {
-                EditorialManager.Instance.TurnOnBiasContainer();
-            }
+            StateOnDropOutOfFolder();
         }
 
         protected override void EndDrag(BaseEventData data)
         {
             if (_newsHeadlinePieceToTransferDrag.GetTransferDrag())
             {
+                _rotate = true;
                 _newsHeadlinePieceToTransferDrag.SetTransferDrag(false);
-                
-                if (_send)
-                {
-                    EventsManager.OnReturnNewsHeadlineToFolder(this, false);
-                    _send = false;
-                }
             }
-            
+
             if (!draggable)
             {
                 return;
             }
             
-            base.EndDrag(data);
-            
             _newsFolder.SetDragging(false);
+            _newsFolder.CheckCurrentNewsHeadlinesSent();
             
             EventsManager.OnCrossMidPointWhileScrolling -= GetGameObjectToTransferDrag;
             EventsManager.OnCheckDistanceToMouse -= DistanceToPosition;
+            EventsManager.OnStartEndDrag(false);    
             
+            PointerEventData pointerData = (PointerEventData) data;
+            if (EventsManager.OnDropNewsHeadline == null)
+            {
+                DropNewsHeadline(pointerData.position);
+                base.EndDrag(data);
+                return;
+            }
+            EventsManager.OnDropNewsHeadline(this, pointerData.position);
+
+            SoundManager.Instance.SubmitPaperSound();
+            base.EndDrag(data);
+        }
+
+        public void DropNewsHeadline(Vector2 position)
+        {
+            if (_onFolder)
+            {
+                if (_newsFolder.IsCoordinateInsideBounds(position))
+                {
+                    StartCoroutine(Slide(transform.localPosition, _origin));
+                }
+                else
+                {
+                    DropOutFolder();   
+                }
+            }
+            else if (_newsFolder.IsCoordinateInsideBounds(position))
+            {
+                DropOnFolder(false);
+            }
+            SoundManager.Instance.DropPaperSound();
+        }
+
+        private void DropOnFolder(bool allAtOnce)
+        {
             if (!gameObject.activeSelf)
             {
                 return;
             }
-            
-            EventsManager.OnStartEndDrag(false);    
-            
-            if (EventsManager.OnDropNewsHeadline == null)
-            {
-                DropOnFolder();
-                SoundManager.Instance.DropPaperSound();
-                return;
-            }
-            
-            PointerEventData pointerData = (PointerEventData) data;
-            EventsManager.OnDropNewsHeadline(this, pointerData.position);
+            EventsManager.OnPressPanicButton -= DropOnFolder;
+            _newsFolder.AddNewsHeadlineComponent(this, allAtOnce);
+        }
 
-            SoundManager.Instance.SubmitPaperSound();
+        private void DropOutFolder()
+        {
+            EventsManager.OnPressPanicButton += DropOnFolder;
+            _onFolder = false;
+            StateOnDropOutOfFolder();
+            _newsFolder.DropNewsHeadlineOutOfFolder(false);
         }
 
         protected override void PointerEnter(BaseEventData data)
@@ -223,16 +244,6 @@ namespace Editorial
             SlideInFolder(_origin, _destination);
         }
 
-        public void SlideInFolder(Vector2 origin, Vector2 destination)
-        {
-            if (_moveCoroutine != null)
-            {
-                StopCoroutine(_moveCoroutine);
-            }
-            
-            _moveCoroutine = StartCoroutine(Slide(origin, destination));
-        }
-
         protected override void PointerExit(BaseEventData data)
         {
             if (!hoverable)
@@ -241,6 +252,16 @@ namespace Editorial
             }
             
             SlideInFolder(transform.localPosition, _origin);
+        }
+
+        public void SlideInFolder(Vector2 origin, Vector2 destination)
+        {
+            if (_moveCoroutine != null)
+            {
+                StopCoroutine(_moveCoroutine);
+            }
+            
+            _moveCoroutine = StartCoroutine(Slide(origin, destination));
         }
 
         protected override void PointerClick(BaseEventData data)
@@ -265,9 +286,12 @@ namespace Editorial
             _folderOrderIndex = newFolderOrderIndex;
         }
 
-        private void StateOnSendToLayout()
+        private void StateOnDropOutOfFolder()
         {
             _inFront = false;
+            draggable = true;
+            clickable = false;
+            hoverable = false;
             UnsubscribeEvents();
         }
 
@@ -317,6 +341,7 @@ namespace Editorial
 
         private IEnumerator Slide(Vector2 origin, Vector2 destination)
         {
+            _rotate = false;
             float timer = 0;
 
             while (timer < TIME_TO_SLIDE)
@@ -324,6 +349,7 @@ namespace Editorial
                 timer = MoveToDestination(origin, destination, timer);
                 yield return null;
             }
+            _rotate = true;
         }
 
         private void ChangeContent()
@@ -332,10 +358,8 @@ namespace Editorial
             _data.currentBias = _selectedBiasIndex;
             _headlineText.text = _headlinesText[_chosenBiasIndex];
             _contentText.text = _biasesContents[_chosenBiasIndex];
-
-            EventsManager.OnChangeFolderOrderIndexWhenGoingToFolder += GiveDestinationToReturnToFolder;
             
-            _newsFolder.ProcedureOnChangeBias();
+            _newsFolder.DropNewsHeadlineOutOfFolder(true);
 
             ClearBiasMarks();
 
@@ -360,21 +384,17 @@ namespace Editorial
 
             yield return new WaitForSeconds(SECONDS_AWAITING_TO_RETURN_TO_FOLDER);
 
-            ReturnToFolder();
+            PrepareToAddToFolder();
         }
 
-        public void AddToFolder()
-        {
-            EventsManager.OnChangeFolderOrderIndexWhenGoingToFolder += GiveDestinationToReturnToFolder;
-            ReturnToFolder();
-        }
-
-        private void ReturnToFolder()
+        public void PrepareToAddToFolder()
         {
             _inFront = false;
             draggable = false;
             hoverable = false;
             clickable = false;
+            
+            transform.rotation = Quaternion.identity;
             
             int countOfTotalNewsHeadline = _newsFolder.GetNewsHeadlinesLength();
 
@@ -384,6 +404,8 @@ namespace Editorial
             }
             
             _destination = new Vector2(0, _newsFolder.GiveNewFolderYCoordinate(_folderOrderIndex, countOfTotalNewsHeadline));
+            
+            EventsManager.OnChangeFolderOrderIndexWhenGoingToFolder += GiveDestinationToReturnToFolder;
             
             StartCoroutine(SendToFolderAgain());
         }
@@ -398,7 +420,7 @@ namespace Editorial
 
             if (_modified)
             {
-                SoundManager.Instance.ReturnPaperSound();
+                SoundManager.Instance.ReturnPaperSound();    
             }
 
             while (timer < TIME_TO_SLIDE)
@@ -411,14 +433,10 @@ namespace Editorial
 
             _origin = _destination;
 
-            _newsFolder.SubtractOneToSentNewsHeadline(this, _folderOrderIndex);
-        }
-
-        public void DropOnFolder()
-        {
-            //TODO BUG ON RETURN NEWSHEADLINEPIECE TO LAYOUT 
-            EditorialManager.Instance.TurnOnBiasContainer();    
-            StartCoroutine(Slide(transform.localPosition, _origin));
+            _newsFolder.ReturnNewsHeadline(this, _folderOrderIndex, _onFolder);
+            
+            _rotate = true;
+            _onFolder = true;
         }
 
         private void GiveDestinationToReturnToFolder()
@@ -510,12 +528,7 @@ namespace Editorial
             return _data;
         }
 
-        public NewsType GetNewsType()
-        {
-            return _newsType;
-        }
-
-        public void SetImagePath(string imagePath)
+        public void SetImagePath(String imagePath)
         {
             _imagePath = imagePath;
         }
@@ -569,8 +582,6 @@ namespace Editorial
         {
             Drag(pointerData);
             
-            //TODO BUG ON TRANSFER WITH SCROLL
-            
             return !_transferDrag ? gameObject : _newsHeadlinePieceToTransferDrag.gameObject;
         }
 
@@ -584,9 +595,9 @@ namespace Editorial
             return _transferDrag;
         }
 
-        public void SetSend(bool send)
+        public bool WasOnFolder()
         {
-            _send = send;
+            return _onFolder;
         }
         
         private Vector2 DistanceToPosition(Vector2 position)

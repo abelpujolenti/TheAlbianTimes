@@ -15,8 +15,6 @@ namespace Managers
 
         private GameObject _biasContainerCanvas;
 
-        private NewsFolder _newsFolder;
-
         private void Awake()
         {
             if (_instance == null)
@@ -27,11 +25,6 @@ namespace Managers
             {
                 Destroy(gameObject);
             }
-        }
-
-        public void SetNewsFolder(NewsFolder newsFolder)
-        {
-            _newsFolder = newsFolder;
         }
 
         public void SetBiasContainerCanvas(GameObject biasContainerCanvasGameObject)

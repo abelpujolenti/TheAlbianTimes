@@ -16,6 +16,8 @@ namespace Layout
 
         [SerializeField] private NewsHeadlineSubPiece[] _newsHeadlineSubPieces;
 
+        private NewsHeadlinePiecesContainer _newsHeadlinePiecesContainer;
+
         private Cell[] _snappedCells;
 
         private Vector2[] _subPiecesPositionsRelativeToRoot;
@@ -23,11 +25,15 @@ namespace Layout
         private Vector2 _containerMinCoordinates;
         private Vector2 _containerMaxCoordinates;
         private Vector2 _initialPosition;
+        
+        private Coroutine _setRotationCoroutine;
 
+        private bool _rotate;
         private bool _transferDrag;
 
         private void Start()
         {
+            _newsHeadlinePiecesContainer = LayoutManager.Instance.GetNewsHeadlinePiecesContainer();
             _subPiecesPositionsRelativeToRoot = new Vector2[_newsHeadlineSubPieces.Length];
         }
 
@@ -74,37 +80,41 @@ namespace Layout
 
             if (_snappedCells == null)
             {
-                bool allSubPiecesInside = true;
-                foreach (NewsHeadlineSubPiece newsHeadlineSubPiece in _newsHeadlineSubPieces)
+                _rotate = !_newsHeadlinePiecesContainer.IsValidPiecePosition(this);
+
+                if (_rotate)
                 {
-                    if (IsCoordinateInsideBounds(newsHeadlineSubPiece.transform.position))
-                    {
-                        continue;
-                    }
-
-                    allSubPiecesInside = false;
-                    break;
+                    EventsManager.OnPressPanicButtonForPieces += GoToContainer;
                 }
-
-                if (allSubPiecesInside)
+                else
                 {
-                    _initialPosition = transform.position;
+                    EventsManager.OnPressPanicButtonForPieces -= GoToContainer;
                 }
-
-                EventsManager.OnFailSnap(this);
 
                 SoundManager.Instance.DropPieceSound();
                 return;
             }
-
+            SlideToRotation(0f, 0.1f);
             transform.position = EventsManager.OnSuccessfulSnap(_snappedCells);
+            _rotate = false;
 
             SoundManager.Instance.SnapPieceSound();
         }
 
-        public void SlideFromOriginToDestination(Vector2 origin)
+        private void GoToContainer()
         {
-            StartCoroutine(Slide(origin, _initialPosition));
+            if (!gameObject.activeSelf)
+            {
+                return;
+            }
+            EventsManager.OnPressPanicButtonForPieces -= GoToContainer;
+            _newsHeadlinePiecesContainer.PositionPieceOnRandomPosition(this);
+        }
+
+        public void SlideFromOriginToDestination()
+        {
+            SlideToRotation(0f, 0.1f);
+            StartCoroutine(Slide(transform.position, _initialPosition));
         }
 
         private IEnumerator Slide(Vector2 origin, Vector2 destination)
@@ -126,24 +136,27 @@ namespace Layout
             return timer;
         }
 
-        private NewsHeadlineSubPiece[] GetNewsHeadlineNeighborPieces(Vector2 coordinates)
+
+        private void SlideToRotation(float rotation, float t)
         {
-            NewsHeadlineSubPiece[] newsHeadlinePieces = { };
-
-            int index = 0;
-
-            foreach (NewsHeadlineSubPiece newsHeadlinePiece in _newsHeadlineSubPieces)
+            if (_setRotationCoroutine != null)
             {
-                if (newsHeadlinePiece.GetCoordinates() == coordinates)
-                {
-                    continue;
-                }
-
-                newsHeadlinePieces[index] = newsHeadlinePiece;
-                index++;
+                StopCoroutine(_setRotationCoroutine);
             }
-
-            return newsHeadlinePieces;
+            _setRotationCoroutine = StartCoroutine(SetRotationCoroutine(rotation, t));
+        }
+        private IEnumerator SetRotationCoroutine(float zRotation, float t)
+        {
+            float elapsedT = 0f;
+            Vector3 startRotation = transform.rotation.eulerAngles;
+            while (elapsedT <= t)
+            {
+                float z = Mathf.LerpAngle(startRotation.z, zRotation, elapsedT / t);
+                transform.rotation = Quaternion.Euler(new Vector3(transform.rotation.x, transform.rotation.y, z));
+                yield return new WaitForFixedUpdate();
+                elapsedT += Time.fixedDeltaTime;
+            }
+            transform.rotation = Quaternion.Euler(new Vector3(transform.rotation.x, transform.rotation.y, zRotation));
         }
 
         public Vector2[] GetSubPiecesPositionsRelativeToRoot()
@@ -151,51 +164,16 @@ namespace Layout
             return _subPiecesPositionsRelativeToRoot;
         }
 
-        public void SetNewsType(NewsType newsType)
+        public NewsHeadlineSubPiece[] GetNewsHeadlinesSubPieces()
         {
-            _newsType = newsType;
-        }
-
-        public NewsType GetNewsType()
-        {
-            return _newsType;
-        }
-
-        public void SetContainerLimiters(Vector2 containerMinCoordinates, Vector2 containerMaxCoordinates)
-        {
-            _containerMinCoordinates = containerMinCoordinates;
-            _containerMaxCoordinates = containerMaxCoordinates;
+            return _newsHeadlineSubPieces;
         }
 
         public void SetInitialPosition(Vector2 newInitialPosition)
         {
             _initialPosition = newInitialPosition;
         }
-
-        public Vector2 GetInitialPosition()
-        {
-            return _initialPosition;
-        }
-
-        public void SetPieceToSubPieces()
-        {
-            foreach (NewsHeadlineSubPiece newsHeadlineSubPiece in _newsHeadlineSubPieces)
-            {
-                newsHeadlineSubPiece.SetNewsHeadlinePiece(this);
-            }
-        }
-
-        public NewsHeadlineSubPiece[] GetNewsHeadlinesSubPieces()
-        {
-            return _newsHeadlineSubPieces;
-        }
-
-        private bool IsCoordinateInsideBounds(Vector2 coordinate)
-        {
-            return coordinate.x < _containerMaxCoordinates.x && coordinate.x > _containerMinCoordinates.x &&
-                   coordinate.y > _containerMaxCoordinates.y && coordinate.y < _containerMinCoordinates.y;
-        }
-
+        
         public void SetTransferDrag(bool transferDrag)
         {
             _transferDrag = transferDrag;
@@ -206,6 +184,11 @@ namespace Layout
             return _transferDrag;
         }
 
+        public bool CanRotate()
+        {
+            return _rotate;
+        }
+
         private Vector2 DistanceToPosition(Vector2 position)
         {
             return (Vector2)transform.position - position;
@@ -214,11 +197,6 @@ namespace Layout
         public void SetSubPieces(NewsHeadlineSubPiece[] subPieces)
         {
             _newsHeadlineSubPieces = subPieces;
-        }
-
-        public int GetSubPieceCount()
-        {
-            return _newsHeadlineSubPieces.Length;
         }
     }
 }

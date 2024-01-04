@@ -8,11 +8,17 @@ namespace Editorial
     {
         protected override void PointerClick(BaseEventData data)
         {
-            if (EventsManager.OnPressPanicButton == null)
+            if (EventsManager.OnPressPanicButton != null)
+            {
+                EventsManager.OnPressPanicButton(true);
+            }
+            
+            if (EventsManager.OnPressPanicButtonForPieces == null)
             {
                 return;
             }
-            EventsManager.OnPressPanicButton();
+
+            EventsManager.OnPressPanicButtonForPieces();
         }
     }
 }

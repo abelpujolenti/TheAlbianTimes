@@ -15,7 +15,8 @@ namespace Managers
         public static Func <Vector2, Vector2> OnCheckDistanceToMouse;
         public static Action OnExceedCameraLimitsWhileDragging;
         public static Action <GameObject> OnAssignGameObjectToDrag;
-        public static Action OnPressPanicButton;
+        public static Action <bool> OnPressPanicButton;
+        public static Action OnPressPanicButtonForPieces;
 
         #endregion        
         

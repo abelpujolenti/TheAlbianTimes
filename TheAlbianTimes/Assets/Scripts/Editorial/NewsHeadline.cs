@@ -201,15 +201,19 @@ namespace Editorial
             }
             else if (_newsFolder.IsCoordinateInsideBounds(position))
             {
-                DropOnFolder();
+                DropOnFolder(false);
             }
             SoundManager.Instance.DropPaperSound();
         }
 
-        private void DropOnFolder()
+        private void DropOnFolder(bool allAtOnce)
         {
+            if (!gameObject.activeSelf)
+            {
+                return;
+            }
             EventsManager.OnPressPanicButton -= DropOnFolder;
-            _newsFolder.AddNewsHeadlineComponent(this, false);
+            _newsFolder.AddNewsHeadlineComponent(this, allAtOnce);
         }
 
         private void DropOutFolder()

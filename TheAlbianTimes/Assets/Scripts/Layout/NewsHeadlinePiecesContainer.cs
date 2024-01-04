@@ -14,16 +14,18 @@ namespace Layout
 
         private void OnEnable()
         {
-            EventsManager.OnFailSnap += AddNewsHeadlinePiece; 
+            EventsManager.OnFailSnap += IsValidPiecePosition; 
         }
 
         private void OnDisable()
         {
-            EventsManager.OnFailSnap -= AddNewsHeadlinePiece; 
+            EventsManager.OnFailSnap -= IsValidPiecePosition; 
         }
 
         private void Start()
         {
+            LayoutManager.Instance.SetNewsHeadlinePiecesContainer(this);
+            
             _rectTransform.GetWorldCorners(_corners);
             
             SetContainerLimiters();
@@ -37,16 +39,23 @@ namespace Layout
             _containerMaxCoordinates.y = _corners[3].y;
         }
 
-        private bool AddNewsHeadlinePiece(NewsHeadlinePiece newsHeadlinePieceComponent)
+        public void PositionPieceOnRandomPosition(NewsHeadlinePiece newsHeadlinePiece)
         {
-            return TakeSubPiecesPositionByMouse(newsHeadlinePieceComponent);
+            newsHeadlinePiece.SetInitialPosition(PositionNewsHeadlinePiece(newsHeadlinePiece));
+
+            newsHeadlinePiece.SlideFromOriginToDestination();
         }
 
-        private bool TakeSubPiecesPositionByMouse(NewsHeadlinePiece newsHeadlinePieceComponent)
+        public bool IsValidPiecePosition(NewsHeadlinePiece newsHeadlinePiece)
         {
-            foreach (Vector2 subPiecePosition in newsHeadlinePieceComponent.GetSubPiecesPositionsRelativeToRoot())
+            return CheckSubPiecesPositionsByGivenPosition(newsHeadlinePiece, newsHeadlinePiece.gameObject.transform.position);
+        }
+
+        private bool CheckSubPiecesPositionsByGivenPosition(NewsHeadlinePiece newsHeadlinePiece, Vector2 position)
+        {
+            foreach (Vector2 subPiecePosition in newsHeadlinePiece.GetSubPiecesPositionsRelativeToRoot())
             {
-                if (IsCoordinateInsideBounds(subPiecePosition + (Vector2)newsHeadlinePieceComponent.gameObject.transform.position))
+                if (IsCoordinateInsideBounds(subPiecePosition + position))
                 {
                     continue;
                 }
@@ -54,6 +63,20 @@ namespace Layout
             }
 
             return true;
+        }
+
+        private Vector2 PositionNewsHeadlinePiece(NewsHeadlinePiece newsHeadlinePiece)
+        {
+            Vector2 position;
+            
+            do
+            {
+                position.x = Random.Range(_containerMinCoordinates.x, _containerMaxCoordinates.x);
+                position.y = Random.Range(_containerMinCoordinates.y, _containerMaxCoordinates.y);
+
+            } while (!CheckSubPiecesPositionsByGivenPosition(newsHeadlinePiece, position));
+
+            return position;
         }
 
         private bool IsCoordinateInsideBounds(Vector2 coordinate)

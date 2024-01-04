@@ -9,10 +9,14 @@ namespace Layout
     {
         private const float TRANSPARENCY_VALUE = 0.9f;
         private const float FULL_OPACITY = 1;
+        private const float SPEED_MOVEMENT = 15;
+        private const float TIME_TO_SLIDE = 2f;
 
         [SerializeField] private NewsType _newsType;
 
         [SerializeField] private NewsHeadlineSubPiece[] _newsHeadlineSubPieces;
+
+        private NewsHeadlinePiecesContainer _newsHeadlinePiecesContainer;
 
         private Cell[] _snappedCells;
 
@@ -24,11 +28,12 @@ namespace Layout
         
         private Coroutine _setRotationCoroutine;
 
-        private bool _rotation;
+        private bool _rotate;
         private bool _transferDrag;
 
         private void Start()
         {
+            _newsHeadlinePiecesContainer = LayoutManager.Instance.GetNewsHeadlinePiecesContainer();
             _subPiecesPositionsRelativeToRoot = new Vector2[_newsHeadlineSubPieces.Length];
         }
 
@@ -75,19 +80,62 @@ namespace Layout
 
             if (_snappedCells == null)
             {
-                _rotation = !EventsManager.OnFailSnap(this);
+                _rotate = !_newsHeadlinePiecesContainer.IsValidPiecePosition(this);
+
+                if (_rotate)
+                {
+                    EventsManager.OnPressPanicButtonForPieces += GoToContainer;
+                }
+                else
+                {
+                    EventsManager.OnPressPanicButtonForPieces -= GoToContainer;
+                }
 
                 SoundManager.Instance.DropPieceSound();
                 return;
             }
-            
             SlideToRotation(0f, 0.1f);
             transform.position = EventsManager.OnSuccessfulSnap(_snappedCells);
-            _rotation = false;
+            _rotate = false;
 
             SoundManager.Instance.SnapPieceSound();
         }
-        
+
+        private void GoToContainer()
+        {
+            if (!gameObject.activeSelf)
+            {
+                return;
+            }
+            EventsManager.OnPressPanicButtonForPieces -= GoToContainer;
+            _newsHeadlinePiecesContainer.PositionPieceOnRandomPosition(this);
+        }
+
+        public void SlideFromOriginToDestination()
+        {
+            SlideToRotation(0f, 0.1f);
+            StartCoroutine(Slide(transform.position, _initialPosition));
+        }
+
+        private IEnumerator Slide(Vector2 origin, Vector2 destination)
+        {
+            float timer = 0;
+
+            while (timer < TIME_TO_SLIDE)
+            {
+                timer = MoveToDestination(origin, destination, timer);
+
+                yield return null;
+            }
+        }
+
+        private float MoveToDestination(Vector2 origin, Vector2 destination, float timer)
+        {
+            timer += Time.deltaTime * SPEED_MOVEMENT;
+            transform.position = Vector2.Lerp(origin, destination, timer / TIME_TO_SLIDE);
+            return timer;
+        }
+
 
         private void SlideToRotation(float rotation, float t)
         {
@@ -120,6 +168,12 @@ namespace Layout
         {
             return _newsHeadlineSubPieces;
         }
+
+        public void SetInitialPosition(Vector2 newInitialPosition)
+        {
+            _initialPosition = newInitialPosition;
+        }
+        
         public void SetTransferDrag(bool transferDrag)
         {
             _transferDrag = transferDrag;
@@ -132,7 +186,7 @@ namespace Layout
 
         public bool CanRotate()
         {
-            return _rotation;
+            return _rotate;
         }
 
         private Vector2 DistanceToPosition(Vector2 position)

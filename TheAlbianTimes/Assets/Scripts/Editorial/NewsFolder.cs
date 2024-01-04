@@ -42,7 +42,6 @@ namespace Editorial
         {
             _rectTransform.GetWorldCorners(_corners);
             SetContainerLimiters();
-            EditorialManager.Instance.SetNewsFolder(this);
         }
 
         private void AddNewsHeadlineGameObject(GameObject newsHeadlineGameObject)
@@ -54,7 +53,7 @@ namespace Editorial
             AddNewsHeadlineComponent(newsHeadlineComponent, true);
         }
 
-        public void AddNewsHeadlineComponent(NewsHeadline newsHeadline, bool start)
+        public void AddNewsHeadlineComponent(NewsHeadline newsHeadline, bool allAtOnce)
         {
             AddNewsHeadlineComponentToList(newsHeadline);
             _newsHeadlinesHasToReturnToFolder++;
@@ -67,7 +66,7 @@ namespace Editorial
                 _newsHeadlines[i].transform.SetSiblingIndex((_newsHeadlines.Count - 1) - i);
             }
 
-            if (start)
+            if (allAtOnce)
             {
                 return;
             }

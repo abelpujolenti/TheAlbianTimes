@@ -33,9 +33,10 @@ namespace Editorial
         {
             gameObject.SetActive(false);
             
-            if (!IsCoordinateInsideBounds(mousePosition))
+            Vector3 screenWorldMousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+            
+            if (!IsCoordinateInsideBounds(screenWorldMousePosition))
             {
-                Debug.Log("Holi");
                 newsHeadline.DropNewsHeadline(mousePosition);
                 return;
             }   

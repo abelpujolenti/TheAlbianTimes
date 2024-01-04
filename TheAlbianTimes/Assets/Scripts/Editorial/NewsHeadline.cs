@@ -208,12 +208,13 @@ namespace Editorial
 
         private void DropOnFolder()
         {
+            EventsManager.OnPressPanicButton -= DropOnFolder;
             _newsFolder.AddNewsHeadlineComponent(this, false);
         }
 
         private void DropOutFolder()
         {
-            //EventsManager.OnPressPanicButton +=
+            EventsManager.OnPressPanicButton += DropOnFolder;
             _onFolder = false;
             StateOnDropOutOfFolder();
             _newsFolder.DropNewsHeadlineOutOfFolder(false);
@@ -340,8 +341,6 @@ namespace Editorial
             _chosenBiasIndex = _selectedBiasIndex;
             _headlineText.text = _headlinesText[_chosenBiasIndex];
             _contentText.text = _biasesContents[_chosenBiasIndex];
-
-            EventsManager.OnChangeFolderOrderIndexWhenGoingToFolder += GiveDestinationToReturnToFolder;
             
             _newsFolder.DropNewsHeadlineOutOfFolder(true);
 
@@ -368,16 +367,10 @@ namespace Editorial
 
             yield return new WaitForSeconds(SECONDS_AWAITING_TO_RETURN_TO_FOLDER);
 
-            ReturnToFolder();
+            PrepareToAddToFolder();
         }
 
-        public void AddToFolder()
-        {
-            EventsManager.OnChangeFolderOrderIndexWhenGoingToFolder += GiveDestinationToReturnToFolder;
-            ReturnToFolder();
-        }
-
-        private void ReturnToFolder()
+        public void PrepareToAddToFolder()
         {
             _inFront = false;
             draggable = false;
@@ -394,6 +387,8 @@ namespace Editorial
             }
             
             _destination = new Vector2(0, _newsFolder.GiveNewFolderYCoordinate(_folderOrderIndex, countOfTotalNewsHeadline));
+            
+            EventsManager.OnChangeFolderOrderIndexWhenGoingToFolder += GiveDestinationToReturnToFolder;
             
             StartCoroutine(SendToFolderAgain());
         }

@@ -38,6 +38,7 @@ namespace Managers
             {
                 Destroy(gameObject);
             }
+            DontDestroyOnLoad(gameObject);
         }
 
         #region SaveToJson

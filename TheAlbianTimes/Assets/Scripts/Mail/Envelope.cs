@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using Mail.Content;
 using Managers;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Utility;

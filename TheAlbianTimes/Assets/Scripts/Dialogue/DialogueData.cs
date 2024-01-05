@@ -1,28 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 
-[System.Serializable]
+[Serializable]
 public class DialogueData
 {
     public DialogueLine[] lines;
 }
 
-[System.Serializable]
+[Serializable]
 public class DialogueLine
 {
     public DialoguePart[] parts;
     public DialogueOption[] options;
 }
 
-[System.Serializable]
+[Serializable]
 public class DialoguePart
 {
     public string speaker;
     public string text;
 }
 
-[System.Serializable]
+[Serializable]
 public class DialogueOption
 {
     public int id;

@@ -1,5 +1,4 @@
 using System;
-using Managers;
 
 [Serializable]
 public abstract class CountryEvent

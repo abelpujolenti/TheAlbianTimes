@@ -5,7 +5,6 @@ using Editorial;
 using Layout;
 using Managers;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class EditorialNewsLoader : MonoBehaviour
 {

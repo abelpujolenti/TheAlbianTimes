@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Managers;
 using NoMonoBehavior;
@@ -7,6 +8,8 @@ namespace Layout
 {
     public class NewsHeadlinePiece : MonoBehaviour
     {
+        private const String GRAB_PIECE_SOUND = "Grab Piece";
+        private const String DROP_PIECE_SOUND = "Drop Piece"; 
         private const float TRANSPARENCY_VALUE = 0.9f;
         private const float FULL_OPACITY = 1;
         private const float SPEED_MOVEMENT = 15;
@@ -31,8 +34,15 @@ namespace Layout
         private bool _rotate;
         private bool _transferDrag;
 
+        private AudioSource _audioSourceGrabPiece;
+        private AudioSource _audioSourceDropPiece;
+
         private void Start()
         {
+            _audioSourceGrabPiece = gameObject.AddComponent<AudioSource>();
+            SoundManager.Instance.SetAudioSourceComponent(_audioSourceGrabPiece, GRAB_PIECE_SOUND);
+            _audioSourceDropPiece = gameObject.AddComponent<AudioSource>();
+            SoundManager.Instance.SetAudioSourceComponent(_audioSourceDropPiece, DROP_PIECE_SOUND);
             _newsHeadlinePiecesContainer = LayoutManager.Instance.GetNewsHeadlinePiecesContainer();
             _subPiecesPositionsRelativeToRoot = new Vector2[_newsHeadlineSubPieces.Length];
         }
@@ -41,7 +51,7 @@ namespace Layout
         {
             transform.SetAsLastSibling();
 
-            SoundManager.Instance.GrabPieceSound();
+            _audioSourceGrabPiece.Play();
 
             EventsManager.OnCheckDistanceToMouse += DistanceToPosition;
 
@@ -91,14 +101,14 @@ namespace Layout
                     EventsManager.OnPressPanicButtonForPieces -= GoToContainer;
                 }
 
-                SoundManager.Instance.DropPieceSound();
+                _audioSourceDropPiece.Play();
                 return;
             }
             SlideToRotation(0f, 0.1f);
             transform.position = EventsManager.OnSuccessfulSnap(_snappedCells);
             _rotate = false;
 
-            SoundManager.Instance.SnapPieceSound();
+            _audioSourceDropPiece.Play();
         }
 
         private void GoToContainer()

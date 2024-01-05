@@ -1,10 +1,9 @@
-using NoMonoBehavior;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using NoMonoBehavior;
 using TMPro;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -34,7 +33,7 @@ namespace Managers
         void Start()
         {
             ds = DialogueSystem.instance;
-            architect = new NoMonoBehavior.TextArchitect(ds.container.dialogueText);
+            architect = new TextArchitect(ds.container.dialogueText);
             dialogueOptionButtons = dialogueOptionButtonsRoot.GetComponentsInChildren<DialogueOptionButton>();
 
             LoadDialogueFromJson("test.json");

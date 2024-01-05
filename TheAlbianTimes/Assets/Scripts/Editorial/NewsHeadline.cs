@@ -4,6 +4,7 @@ using Managers;
 using NoMonoBehavior;
 using System.Collections;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -14,6 +15,11 @@ namespace Editorial
 {
     public class NewsHeadline : ThrowableInteractableRectTransform
     {
+        private const String DROP_PAPER_SOUND = "Drop Paper";
+        private const String GRAB_PAPER_SOUND = "Grab Paper";
+        private const String THUD_SOUND = "Thud";
+        private const String SUBMIT_PAPER_SOUND = "Submit Paper";
+        
         private const float CHANGE_CONTENT_Y_COORDINATE = 1000;
         private const float SPEED_MOVEMENT = 15;
         private const float TIME_TO_SLIDE = 2f;
@@ -67,8 +73,22 @@ namespace Editorial
         private bool _modified;
         private bool _onFolder = true;
 
+        private AudioSource _audioSourceDropPaper;
+        private AudioSource _audioSourceGrabPaper;
+        private AudioSource _audioSourceThud;
+        private AudioSource _audioSourceSubmitPaper;
+
         void Start()
         {
+            _audioSourceDropPaper = gameObject.AddComponent<AudioSource>();
+            SoundManager.Instance.SetAudioSourceComponent(_audioSourceDropPaper, DROP_PAPER_SOUND);
+            _audioSourceGrabPaper = gameObject.AddComponent<AudioSource>();
+            SoundManager.Instance.SetAudioSourceComponent(_audioSourceGrabPaper, GRAB_PAPER_SOUND);
+            _audioSourceThud = gameObject.AddComponent<AudioSource>();
+            SoundManager.Instance.SetAudioSourceComponent(_audioSourceThud, THUD_SOUND);
+            _audioSourceSubmitPaper = gameObject.AddComponent<AudioSource>();
+            SoundManager.Instance.SetAudioSourceComponent(_audioSourceSubmitPaper, SUBMIT_PAPER_SOUND);
+            
             _headlineText.text = _headlinesText[0];
             _contentText.text = _biasesContents[0];
             _articleTagText.text = PieceData.newsTypeName[(int)_newsType];
@@ -107,7 +127,8 @@ namespace Editorial
             
             _newsFolder.SetDragging(true);
 
-            SoundManager.Instance.GrabPaperSound();
+            _audioSourceDropPaper.Play();
+            _audioSourceGrabPaper.Play();
         }
 
         protected override void Drag(BaseEventData data)
@@ -191,7 +212,7 @@ namespace Editorial
             }
             EventsManager.OnDropNewsHeadline(this, pointerData.position);
 
-            SoundManager.Instance.SubmitPaperSound();
+            _audioSourceSubmitPaper.Play();
             base.EndDrag(data);
         }
 
@@ -212,7 +233,7 @@ namespace Editorial
             {
                 DropOnFolder(false);
             }
-            SoundManager.Instance.DropPaperSound();
+            _audioSourceDropPaper.Play();
         }
 
         private void DropOnFolder(bool allAtOnce)
@@ -420,7 +441,8 @@ namespace Editorial
 
             if (_modified)
             {
-                SoundManager.Instance.ReturnPaperSound();    
+                _audioSourceDropPaper.Play();
+                _audioSourceThud.Play();    
             }
 
             while (timer < TIME_TO_SLIDE)

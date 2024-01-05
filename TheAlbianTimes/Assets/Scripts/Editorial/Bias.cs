@@ -12,6 +12,8 @@ namespace Editorial
 {
     public class Bias : InteractableRectTransform
     {
+        private const String CHANGE_BIAS_SOUND = "Change Bias";
+        
         private const int SELECTED_COLOR_RED_VALUE = 255;
         private const int SELECTED_COLOR_GREEN_VALUE = 102;
         private const int SELECTED_COLOR_BLUE_VALUE = 0;
@@ -65,6 +67,8 @@ namespace Editorial
         private Vector3 _capStartPosition;
         private Vector3 _markerStartPosition;
 
+        private AudioSource _audioSourceChangeBias;
+
         protected override void Setup()
         {
             base.Setup();
@@ -75,6 +79,8 @@ namespace Editorial
 
         void Start()
         {
+            _audioSourceChangeBias = gameObject.AddComponent<AudioSource>();
+            SoundManager.Instance.SetAudioSourceComponent(_audioSourceChangeBias, CHANGE_BIAS_SOUND);
             
             float red = MathUtil.Map(SELECTED_COLOR_RED_VALUE, 0, 255, 0, 1);
             float green = MathUtil.Map(SELECTED_COLOR_GREEN_VALUE, 0, 255, 0, 1);
@@ -103,9 +109,8 @@ namespace Editorial
             _cap.transform.rotation = Quaternion.identity;
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
-            //This is cringe but event wasnt getting unsubscribed
             EventsManager.OnChangeSelectedBias -= UnselectBias;
         }
 
@@ -131,7 +136,7 @@ namespace Editorial
             _selected = true;
             EventsManager.OnChangeSelectedBias += UnselectBias;
 
-            SoundManager.Instance.ChangeBiasSound();
+            _audioSourceChangeBias.Play();
 
             newsFolder.GetCurrentHeadline().ClearBiasMarks();
             if (newsFolder.GetCurrentHeadline().GetChosenBiasIndex() != _siblingIndex)

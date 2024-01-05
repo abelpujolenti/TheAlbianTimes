@@ -1,11 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using TMPro;
 using UnityEngine;
 
 namespace NoMonoBehavior
 {
-    [System.Serializable]
+    [Serializable]
     public class DialogueContainer
     {
         public GameObject root;

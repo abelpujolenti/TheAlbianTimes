@@ -116,7 +116,6 @@ namespace Editorial
             
             EventsManager.OnCrossMidPointWhileScrolling += GetGameObjectToTransferDrag;
             EventsManager.OnCheckDistanceToMouse += DistanceToPosition;
-            EventsManager.OnPrepareNewsHeadlineActions(this);
 
             if (!_newsHeadlinePieceToTransferDrag.GetTransferDrag())
             {

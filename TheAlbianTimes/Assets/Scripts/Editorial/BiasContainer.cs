@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using Managers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 namespace Editorial
 {
@@ -13,11 +15,13 @@ namespace Editorial
         [SerializeField] private GameObject _biasDescriptionRoot;
         [SerializeField] private Transform _biasDescriptionPostitPrefab;
 
+        [SerializeField] private NewsFolder _newsFolder;
+        
+        [SerializeField] private Tray _tray;
+
         private string[] _biasesDescriptions;
 
         private int _totalBiasesToActive;
-
-        private bool _setupDone = false;
 
         private int maxPostits = 4;
 
@@ -49,7 +53,10 @@ namespace Editorial
 
         private void Start()
         {
-            _setupDone = true;
+            foreach (Bias bias in _bias)
+            {
+                bias.SetBiasContainer(this);
+            }
         }
 
         private void SetBias(string[] biasesNames, string[] biasesDescriptions)
@@ -99,14 +106,29 @@ namespace Editorial
                 EventsManager.OnChangeSelectedBias();
             }
             _bias[newSelectedBiasIndex].SelectBias();
-            EventsManager.OnChangeSelectedBiasIndex(newSelectedBiasIndex);
+            ChangeBiasDescription(newSelectedBiasIndex);
         }
 
         private void ChangeBiasDescription(int newSelectedBiasIndex)
         {
-            if (!_setupDone) return;
-
             StartCoroutine(SpawnPostitCoroutine(newSelectedBiasIndex, postitAppearDelay));
+             
+            if (_newsFolder.GetFrontHeadline().GetChosenBiasIndex() != newSelectedBiasIndex)
+            {            
+                ExtendTray();
+                return;
+            }
+            HideTray(null);
+        }
+
+        private void ExtendTray()
+        {
+            _tray.Extend();
+        }
+
+        private void HideTray(GameObject newsHeadline)
+        {
+            _tray.Hide(newsHeadline);
         }
 
         private IEnumerator SpawnPostitCoroutine(int newSelectedBiasIndex, float delay)

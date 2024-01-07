@@ -9,9 +9,7 @@ namespace Managers
         private static EditorialManager _instance;
 
         public static EditorialManager Instance => _instance;
-
-        [SerializeField] private EditorialManagerData _editorialManagerData;
-
+        
         private GameObject _biasContainerCanvas;
 
         private void Awake()

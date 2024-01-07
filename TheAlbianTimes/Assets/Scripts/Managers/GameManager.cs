@@ -21,6 +21,7 @@ namespace Managers
             if (_instance == null)
             {
                 _instance = this;
+                InitData();
                 DontDestroyOnLoad(gameObject);
             }
             else
@@ -29,7 +30,7 @@ namespace Managers
             }
         }
 
-        private void Start()
+        private void InitData()
         {
             gameState = new GameState();
             saveManager = new SaveManager();

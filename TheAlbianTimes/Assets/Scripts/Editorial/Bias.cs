@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using Managers;
 using TMPro;
-using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -13,17 +12,14 @@ namespace Editorial
     public class Bias : InteractableRectTransform
     {
         private const String CHANGE_BIAS_SOUND = "Change Bias";
-        
-        private const int SELECTED_COLOR_RED_VALUE = 255;
-        private const int SELECTED_COLOR_GREEN_VALUE = 102;
-        private const int SELECTED_COLOR_BLUE_VALUE = 0;
 
         [SerializeField] private TextMeshProUGUI _textMeshPro;
 
         [SerializeField] private NewsFolder newsFolder;
         [SerializeField] private Image _image;
         [SerializeField] private Image _cap;
-        private Animator _animator;
+
+        private BiasContainer _biasContainer;
 
         private Coroutine _openCapPositionCoroutine;
         private Coroutine _openCapRotationCoroutine;
@@ -31,7 +27,7 @@ namespace Editorial
         private Coroutine _closeCapRotationCoroutine;
         private Coroutine _markAnimationCoroutine;
 
-        private bool _markAnimationRunning = false;
+        private bool _markAnimationRunning;
 
         [Header("Cap Animation")]
         [SerializeField] private Vector3 openCapOffset = new Vector3(-0.8f, 0f, 0f);
@@ -56,11 +52,8 @@ namespace Editorial
         [SerializeField] private float resetBiasWiggleTime = .5f;
 
         private String _text;
-
-        private Color _selectedColor;
-        private Color _unselectedColor;
         
-        private bool _selected;
+        [SerializeField]private bool _selected;
 
         private int _siblingIndex;
 
@@ -72,7 +65,6 @@ namespace Editorial
         protected override void Setup()
         {
             base.Setup();
-            SetupColor();
             _capStartPosition = _cap.transform.position;
             _markerStartPosition = _image.transform.position;
         }
@@ -81,16 +73,10 @@ namespace Editorial
         {
             _audioSourceChangeBias = gameObject.AddComponent<AudioSource>();
             SoundManager.Instance.SetAudioSourceComponent(_audioSourceChangeBias, CHANGE_BIAS_SOUND);
-            
-            float red = MathUtil.Map(SELECTED_COLOR_RED_VALUE, 0, 255, 0, 1);
-            float green = MathUtil.Map(SELECTED_COLOR_GREEN_VALUE, 0, 255, 0, 1);
-            float blue = MathUtil.Map(SELECTED_COLOR_BLUE_VALUE, 0, 255, 0, 1);
 
             _textMeshPro.text = _text;
 
             _siblingIndex = transform.GetSiblingIndex();
-
-            _animator = GetComponent<Animator>();
 
             if (_siblingIndex != 0)
             {
@@ -109,19 +95,9 @@ namespace Editorial
             _cap.transform.rotation = Quaternion.identity;
         }
 
-        private void OnDisable()
+        private void OnDestroy()
         {
             EventsManager.OnChangeSelectedBias -= UnselectBias;
-        }
-
-        public void SetupColor()
-        {
-            _unselectedColor = _image.color;
-            Color hsv = new Color();
-            Color.RGBToHSV(_image.color, out hsv.r, out hsv.g, out hsv.b);
-            hsv.r = ((hsv.r * 255f + 128f) % 255) / 255f;
-            hsv.b *= .8f;
-            _selectedColor = Color.HSVToRGB(hsv.r, hsv.g, hsv.b);
         }
 
         protected override void PointerClick(BaseEventData data)
@@ -138,8 +114,8 @@ namespace Editorial
 
             _audioSourceChangeBias.Play();
 
-            newsFolder.GetCurrentHeadline().ClearBiasMarks();
-            if (newsFolder.GetCurrentHeadline().GetChosenBiasIndex() != _siblingIndex)
+            newsFolder.GetFrontHeadline().ClearBiasMarks();
+            if (newsFolder.GetFrontHeadline().GetChosenBiasIndex() != _siblingIndex)
             {
                 MarkAnimation();
             }
@@ -192,11 +168,11 @@ namespace Editorial
             _openCapRotationCoroutine = StartCoroutine(TransformUtility.SetRotationCoroutine(_cap.transform, separateCapRotation, separateCapTime));
         }
 
-        private void MarkAnimation()
+        public void MarkAnimation()
         {
             SeparateCap();
 
-            markAnimationHeight = 0.16f * (newsFolder.GetCurrentHeadline().transform.Find("Text").GetComponent<TextMeshProUGUI>().textInfo.lineCount - 1);
+            markAnimationHeight = 0.16f * (newsFolder.GetFrontHeadline().transform.Find("Text").GetComponent<TextMeshProUGUI>().textInfo.lineCount - 1);
 
             StopMarkAnimation();
             _markAnimationCoroutine = StartCoroutine(MarkAnimationCoroutine());
@@ -225,7 +201,7 @@ namespace Editorial
                 y += inc;
 
                 Vector3 passMovement = new Vector3(markAnimationWidth, -inc1, 0f);
-                newsFolder.GetCurrentHeadline().SpawnBiasMark(_siblingIndex, _image.transform.position);
+                newsFolder.GetFrontHeadline().SpawnBiasMark(_siblingIndex, _image.transform.position);
                 yield return TransformUtility.SetPositionCoroutine(_image.transform, _image.transform.position, _image.transform.position + passMovement, markAnimationPassTime);
 
                 yield return new WaitForSeconds(markAnimationPassLingerTime);
@@ -246,6 +222,11 @@ namespace Editorial
         {
             yield return TransformUtility.SetPositionCoroutine(_image.transform, _image.transform.position, _markerStartPosition, markAnimationReturnTime);
             CloseCap();
+        }
+
+        public void Wiggle()
+        {
+            StartCoroutine(WiggleCoroutine(resetBiasWiggleIntensity, resetBiasWiggleTime));
         }
 
         private IEnumerator WiggleCoroutine(float intensity, float t)
@@ -269,17 +250,17 @@ namespace Editorial
 
         public void SelectBias()
         {
-            BiasButtonStuff(true, _selectedColor);
+            BiasButtonStuff(true);
         }
 
         private void UnselectBias()
         {
-            BiasButtonStuff(false, _unselectedColor);
+            BiasButtonStuff(false);
             StopMarkAnimation();
             StartCoroutine(ReturnMarkerCoroutine());
         }
 
-        private void BiasButtonStuff(bool isSelected, Color newColor)
+        private void BiasButtonStuff(bool isSelected)
         {
             _selected = isSelected;
             if (isSelected)
@@ -304,6 +285,11 @@ namespace Editorial
         public bool IsSelected()
         {
             return _selected;
+        }
+
+        public void SetBiasContainer(BiasContainer biasContainer)
+        {
+            _biasContainer = biasContainer;
         }
     }
 }

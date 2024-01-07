@@ -7,6 +7,8 @@ namespace Editorial
     {
         [SerializeField] private RectTransform _rectTransform;
 
+        [SerializeField] private Tray _tray;
+
         private readonly Vector3[] _corners = new Vector3[4];
         
         private Vector2 _containerMinCoordinates;
@@ -42,6 +44,8 @@ namespace Editorial
             }   
             
             newsHeadline.SetOrigin(newsHeadline.transform.localPosition);
+            
+            _tray.Hide(newsHeadline.gameObject);
             
             EventsManager.OnChangeNewsHeadlineContent();
         }

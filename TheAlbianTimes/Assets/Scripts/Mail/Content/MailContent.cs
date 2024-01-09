@@ -9,7 +9,7 @@ namespace Mail.Content
         BIAS,
         BRIBE,
         LETTER,
-        AMOUNT
+        ENUM_SIZE
     }
 
     public abstract class BaseContainer
@@ -189,7 +189,7 @@ namespace Mail.Content
     [Serializable]
     public class ContentBias : BaseContent
     {
-        
+        public int linkId;
     }
 
     [Serializable]

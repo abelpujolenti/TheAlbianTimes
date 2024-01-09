@@ -1,4 +1,4 @@
-using Managers.ScriptableObjects;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Managers
@@ -11,6 +11,8 @@ namespace Managers
         public static EditorialManager Instance => _instance;
         
         private GameObject _biasContainerCanvas;
+
+        private List<int> _linkIds;
 
         private void Awake()
         {
@@ -41,6 +43,21 @@ namespace Managers
         public void TurnOffBiasContainer()
         {
             _biasContainerCanvas.SetActive(false);
+        }
+
+        public void AddLinkId(int linkId)
+        {
+            _linkIds.Add(linkId);
+        }
+
+        public void SubtractLinkId(int linkId)
+        {
+            _linkIds.Remove(linkId);
+        }
+
+        public int[] GetLinksIds()
+        {
+            return _linkIds.ToArray();
         }
     }
 }

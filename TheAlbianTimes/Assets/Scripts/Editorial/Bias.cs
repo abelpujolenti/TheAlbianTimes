@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Utility;
+using Random = UnityEngine.Random;
 
 namespace Editorial
 {
@@ -195,7 +196,7 @@ namespace Editorial
             float y = 0f;
             while (y <= markAnimationHeight)
             {
-                float inc = UnityEngine.Random.Range(markAnimationPassMinHeight, markAnimationPassMaxHeight);
+                float inc = Random.Range(markAnimationPassMinHeight, markAnimationPassMaxHeight);
                 float inc1 = inc * .1f;
                 float inc2 = inc - inc1;
                 y += inc;

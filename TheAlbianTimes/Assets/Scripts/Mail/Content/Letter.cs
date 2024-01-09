@@ -1,3 +1,5 @@
+using Managers;
+
 namespace Mail.Content
 {
     public class Letter : EnvelopeContent
@@ -6,7 +8,7 @@ namespace Mail.Content
         
         protected override void ContentAction()
         {
-            //TODO Popup letter
+            EventsManager.OnClickLetter(_letterText);
         }
 
         public void SetLetterText(string letterText)

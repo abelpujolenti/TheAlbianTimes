@@ -4,6 +4,7 @@ using System.IO;
 using Mail;
 using Mail.Content;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Managers
 {
@@ -23,6 +24,12 @@ namespace Managers
         [SerializeField] private RectTransform _envelopesContainer;
 
         [SerializeField] private GameObject[] _envelopeContents;
+        
+        [SerializeField] private GameObject[] _envelopePrefabs;
+
+        private Dictionary<EnvelopeContentType, Func<BaseContent, GameObject>> _loadEnvelopeContentDataDictionary;
+
+        private Dictionary<EnvelopeContentType, Action<EnvelopeContent, BaseContent>> _fillContentsDictionary;
 
         private List<int> _jointsIds;
 
@@ -32,6 +39,7 @@ namespace Managers
             {
                 _instance = this;
                 _jointsIds = new List<int>();
+                LoadDictionaries();
                 LoadJointsIds();
             }
             else
@@ -39,6 +47,25 @@ namespace Managers
                 Destroy(gameObject);
             }
             DontDestroyOnLoad(gameObject);
+        }
+
+        private void LoadDictionaries()
+        {
+            _loadEnvelopeContentDataDictionary = new Dictionary<EnvelopeContentType, Func<BaseContent, GameObject>>
+            {
+                { EnvelopeContentType.AD, LoadAdData },
+                { EnvelopeContentType.BIAS, LoadBiasData },
+                { EnvelopeContentType.BRIBE, LoadBribeData },
+                { EnvelopeContentType.LETTER, LoadLetterData }
+            };
+            
+            _fillContentsDictionary = new Dictionary<EnvelopeContentType, Action<EnvelopeContent, BaseContent>>
+            {
+                { EnvelopeContentType.AD , FillAdContent},
+                { EnvelopeContentType.BIAS , FillBiasContent},
+                { EnvelopeContentType.BRIBE , FillBribeContent},
+                { EnvelopeContentType.LETTER , FillLetterContent},
+            };
         }
 
         #region SaveToJson
@@ -148,7 +175,8 @@ namespace Managers
             {
                 biasesContainer.contentBiases[i] = new ContentBias
                 {
-                    jointId = biases[i].GetJointId()
+                    jointId = biases[i].GetJointId(),
+                    linkId = biases[i].GetLinkId()
                 };
             }
             
@@ -369,13 +397,7 @@ namespace Managers
                     continue;
                 }
 
-                envelopeContentGameObject = envelopeContentType switch
-                {
-                    EnvelopeContentType.AD => LoadAdData(baseContent),
-                    EnvelopeContentType.BIAS => LoadBiasData(baseContent),
-                    EnvelopeContentType.BRIBE => LoadBribeData(baseContent),
-                    EnvelopeContentType.LETTER => LoadLetterData(baseContent)
-                };
+                envelopeContentGameObject = _loadEnvelopeContentDataDictionary[envelopeContentType](baseContent);
 
                 if (envelopeContentGameObject == null)
                 {
@@ -423,6 +445,7 @@ namespace Managers
                 GameObject biasGameObject = Instantiate(_envelopeContents[0]);
                 Bias biasComponent = biasGameObject.GetComponent<Bias>();
                 biasComponent.SetJointId(contentBias.jointId);
+                biasComponent.SetLinkId(contentBias.linkId);
                 biasComponent.SetEnvelopeContentType(EnvelopeContentType.BIAS);
 
                 return biasGameObject;
@@ -554,6 +577,149 @@ namespace Managers
         private string LoadFromJson(string path)
         {
             return !File.Exists(Application.streamingAssetsPath + path) ? null : FileManager.LoadJsonFile(path);
+        }
+
+        #endregion
+
+        #region Send
+
+        public void SendEnvelope(EnvelopeContentType envelopeContentType, BaseContent baseContent)
+        {
+            GameObject envelopeGameObject = CreateEnvelope(envelopeContentType);
+
+            GameObject envelopeContentGameObject = CreateEnvelopeContent(envelopeGameObject, envelopeContentType, baseContent);
+
+            Envelope envelopeComponent = envelopeGameObject.GetComponent<Envelope>();
+        
+            EnvelopeContent envelopeContentComponent = envelopeContentGameObject.GetComponent<EnvelopeContent>();
+
+            int newRandomJointId = CreateNewJointId();
+        
+            envelopeComponent.SetJointId(newRandomJointId);
+            envelopeComponent.SetEnvelopeContentType(envelopeContentComponent.GetEnvelopeContentType());
+            envelopeComponent.SetEnvelopeContent(envelopeContentGameObject);
+        
+            envelopeContentComponent.SetJointId(newRandomJointId);
+
+            EventsManager.OnAddEnvelope(envelopeGameObject);
+        
+            EventsManager.OnAddEnvelopeContentToList(envelopeContentGameObject, false);
+        }
+        
+        private GameObject CreateEnvelope(EnvelopeContentType type)
+        {
+            GameObject envelopeGameObject = Instantiate(_envelopePrefabs[(int)type], _envelopesContainer);
+            
+            Vector3 position = envelopeGameObject.transform.position;
+
+            envelopeGameObject.transform.position = new Vector3(position.x, position.y, 0);
+
+            return envelopeGameObject;
+        }
+
+        private GameObject CreateEnvelopeContent(GameObject envelopeGameObject, 
+            EnvelopeContentType envelopeContentType, BaseContent baseContent)
+        {
+            ////
+            envelopeContentType = EnvelopeContentType.BRIBE;
+            ////
+            
+            GameObject envelopeContentGameObject = 
+                Instantiate(_envelopeContents[(int)envelopeContentType], envelopeGameObject.transform);
+
+            EnvelopeContent envelopeContentComponent = envelopeContentGameObject.GetComponent<EnvelopeContent>();
+            
+            envelopeContentComponent.SetEnvelopeContentType(envelopeContentType);
+
+            _fillContentsDictionary[envelopeContentType](envelopeContentComponent, baseContent);
+            
+            envelopeContentGameObject.SetActive(false);
+
+            return envelopeContentGameObject;
+        }
+
+        private int CreateNewJointId()
+        {
+            int[] jointsIds = GetJointsIds();
+
+            bool match = false;
+
+            int newRandomJointId;
+            
+            do
+            {
+                newRandomJointId = Random.Range(1, 100000);
+
+                foreach (int jointId in jointsIds)
+                {
+                    if (jointId != newRandomJointId)
+                    {
+                        continue;
+                    }
+                    match = true;
+                    break;
+                }
+            } while (match);
+            
+            AddJointId(newRandomJointId);
+
+            return newRandomJointId;
+        }
+
+        private void FillAdContent(EnvelopeContent envelopeContent, BaseContent baseContent)
+        {
+            try
+            {
+                Ad ad = (Ad)envelopeContent;
+                ContentAd contentAd = (ContentAd)baseContent;
+                //ad.
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e);
+            }
+        }
+        
+        private void FillBiasContent(EnvelopeContent envelopeContent, BaseContent baseContent)
+        {
+            try
+            {
+                Bias bias = (Bias)envelopeContent;
+                ContentBias contentBias = (ContentBias)baseContent;
+                bias.SetLinkId(contentBias.linkId);
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e);
+            }
+        }
+        
+        private void FillBribeContent(EnvelopeContent envelopeContent, BaseContent baseContent)
+        {
+            try
+            {
+                Bribe bribe = (Bribe)envelopeContent;
+                ContentBribe contentBribe = (ContentBribe)baseContent;
+                bribe.SetTotalMoney(contentBribe.totalMoney);
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e);
+            }
+        }
+        
+        private void FillLetterContent(EnvelopeContent envelopeContent, BaseContent baseContent)
+        {
+            try
+            {
+                Letter letter = (Letter)envelopeContent;
+                ContentLetter contentLetter = (ContentLetter)baseContent;
+                letter.SetLetterText(contentLetter.letterText);
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e);
+            }
         }
 
         #endregion

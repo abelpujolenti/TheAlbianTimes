@@ -1,10 +1,9 @@
 using System;
+using System.Collections;
 using Layout;
 using Managers;
 using NoMonoBehavior;
-using System.Collections;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -28,28 +27,28 @@ namespace Editorial
         private const float PAPER_BRIGHTNESS = .9f;
         private const float PAPER_BRIGHTNESS_BASE_DECREASE = .14f;
 
-
         private readonly float _midPoint = MIN_X_POSITION_CAMERA + (MAX_X_POSITION_CAMERA - MIN_X_POSITION_CAMERA) / 2;
+
+        [SerializeField] private NewsHeadlinePiece _newsHeadlinePieceToTransferDrag;
+
+        [SerializeField] private TextMeshProUGUI _headlineText;
+        [SerializeField] private TextMeshProUGUI _contentText;
+        [SerializeField] private TextMeshProUGUI _articleTagText;
+        
+        [SerializeField] private GameObject _biasMarker;
+        
+        [SerializeField] private Transform _markerInkPrefab;
+
+        [SerializeField] private NewsType _newsType;
 
         private Coroutine _moveCoroutine;
         private Coroutine _spawnBiasMarkCoroutine;
 
         private GameObject _gameObjectToTransferDrag;
 
-        [SerializeField] private NewsHeadlinePiece _newsHeadlinePieceToTransferDrag;
-
-        private Image _background;
-        [SerializeField] private TextMeshProUGUI _headlineText;
-        [SerializeField] private TextMeshProUGUI _contentText;
-        [SerializeField] private TextMeshProUGUI _articleTagText;
-        [SerializeField] private GameObject _biasMarker;
-        [SerializeField] private Transform _markerInkPrefab;
-
         private NewsFolder _newsFolder;
-
-        [SerializeField] private NewsType _newsType;
-
-        private string _imagePath;
+        
+        private Image _background;
 
         private NewsData _data;
 
@@ -60,12 +59,16 @@ namespace Editorial
         private string[] _biasesDescription;
         private string[] _biasesContents;
 
+        private string _imagePath;
+
         private Vector2 _destination;
         private Vector2 _origin;
-        
-        [SerializeField]private int _folderOrderIndex;
-        [SerializeField]private int _chosenBiasIndex;
-        [SerializeField]private int _selectedBiasIndex;
+
+        private int _linkId;
+        private int _totalBiasesToActivate;
+        private int _folderOrderIndex;
+        private int _chosenBiasIndex;
+        private int _selectedBiasIndex;
         
         private bool _inFront;
         private bool _transferDrag;
@@ -270,7 +273,6 @@ namespace Editorial
             {
                 return;
             }
-            
             SlideInFolder(transform.localPosition, _origin);
         }
 
@@ -291,7 +293,7 @@ namespace Editorial
                 return;
             }
             
-            _newsFolder.ReorderNewsHeadline(_folderOrderIndex, _selectedBiasIndex, _biasesNames, _biasesDescription);
+            _newsFolder.ReorderNewsHeadline(_folderOrderIndex, _selectedBiasIndex, _biasesNames, _biasesDescription, _totalBiasesToActivate);
             
             if (_moveCoroutine != null)
             {
@@ -518,6 +520,35 @@ namespace Editorial
         public void SetNewsFolder(NewsFolder newsFolder)
         {
             _newsFolder = newsFolder;
+        }
+
+        public void SetLinkId(int linkId)
+        {
+            _linkId = linkId;
+            _totalBiasesToActivate = _biasesNames.Length;
+            if (_linkId == 0)
+            {
+                return;
+            }
+
+            _totalBiasesToActivate--;
+            EventsManager.OnLinkFouthBiasWithNewsHeadline += LinkFourthBias;
+        }
+
+        private void LinkFourthBias(int linkId)
+        {
+            if (_linkId != linkId)
+            {
+                return;
+            }
+
+            _totalBiasesToActivate++;
+            EventsManager.OnLinkFouthBiasWithNewsHeadline -= LinkFourthBias;
+        }
+
+        public int GetTotalBiasesToActivate()
+        {
+            return _totalBiasesToActivate;
         }
 
         private void SetSelectedBiasIndex(int newSelectedBiasIndex)

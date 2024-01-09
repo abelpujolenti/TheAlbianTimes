@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Editorial;
 using Layout;
+using Mail.Content;
 using Managers;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class EditorialNewsLoader : MonoBehaviour
 {
@@ -80,12 +82,12 @@ public class EditorialNewsLoader : MonoBehaviour
         newsHeadlinePieceGameObject.SetActive(false);
 
         NewsHeadlinePiece newsHeadlinePieceComponent = newsHeadlinePieceGameObject.GetComponent<NewsHeadlinePiece>();
-
+        
         NewsHeadlineSubPiece[] newsHeadlineSubPieces = newsHeadlinePieceComponent.GetNewsHeadlinesSubPieces();
 
         SetNewsHeadlineData(newsHeadlineGameObject, newsHeadlinePieceComponent, newsHeadlineSubPieces, newsData);
 
-        SetNewsHeadlinePieceData(newsHeadlineGameObject, newsHeadlinePieceGameObject, newsHeadlineSubPieces);
+        SetNewsHeadlinePieceData(newsHeadlineGameObject, newsHeadlineSubPieces);
 
         EventsManager.OnAddNewsHeadlineToFolder(newsHeadlineGameObject);
     }
@@ -121,10 +123,43 @@ public class EditorialNewsLoader : MonoBehaviour
         newsHeadlineComponent.SetNewsConsequencesData(newsConsequencesData);
         
         SetBiasesData(newsHeadlineComponent, newsData);
+
+        int newLinkId = 0;
+
+        if (newsData.extraBias)
+        {
+            int[] linksIds = EditorialManager.Instance.GetLinksIds();
+
+            bool match = false;
+            
+            do
+            {
+                newLinkId = Random.Range(1, 100000);
+
+                foreach (int linkId in linksIds)
+                {
+                    if (linkId != newLinkId)
+                    {
+                        continue;
+                    }
+                    match = true;
+                    break;
+                }
+            } while (match);
+            EditorialManager.Instance.AddLinkId(newLinkId);
+
+            ContentBias contentBias = new ContentBias
+            {
+                linkId = newLinkId
+            };
+            
+            MailManager.Instance.SendEnvelope(EnvelopeContentType.BIAS, contentBias);
+        }
+        
+        newsHeadlineComponent.SetLinkId(newLinkId);
     }
 
-    private void SetNewsHeadlinePieceData(GameObject newsHeadlineGameObject, GameObject newsHeadlinePieceGameObject, 
-        NewsHeadlineSubPiece[] newsHeadlineSubPieces)
+    private void SetNewsHeadlinePieceData(GameObject newsHeadlineGameObject, NewsHeadlineSubPiece[] newsHeadlineSubPieces)
     {
         for (int i = 0; i < newsHeadlineSubPieces.Length; i++)
         {

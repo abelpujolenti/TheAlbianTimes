@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using Managers;
 using TMPro;
@@ -59,17 +58,15 @@ namespace Editorial
             }
         }
 
-        private void SetBias(string[] biasesNames, string[] biasesDescriptions)
+        private void SetBias(string[] biasesNames, string[] biasesDescriptions, int totalBiasesToActivate)
         {
-            _totalBiasesToActive = biasesDescriptions.Length;
-
             GameObject bias;
 
             for (int i = 0; i < _bias.Length; i++)
             {
                 bias = _bias[i].gameObject;
                 
-                if (i < _totalBiasesToActive)
+                if (i < totalBiasesToActivate)
                 {
                     _bias[i].SetText(biasesNames[i]);
                     if (bias.activeSelf)
@@ -87,13 +84,6 @@ namespace Editorial
                     }
                 }
             }
-
-            if (_totalBiasesToActive == 0)
-            {
-                _biasDescriptionRoot.transform.parent.gameObject.SetActive(false);
-                return;
-            }
-            _biasDescriptionRoot.transform.parent.gameObject.SetActive(true);
 
             _biasesDescriptions = new string[biasesDescriptions.Length];
             _biasesDescriptions = biasesDescriptions;

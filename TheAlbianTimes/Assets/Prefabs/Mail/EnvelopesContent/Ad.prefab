@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 1917683084727984878}
   - component: {fileID: 7502309316863067553}
   - component: {fileID: 5638280733360945277}
-  - component: {fileID: 4985327765386417641}
+  - component: {fileID: -989414521855520829}
   m_Layer: 5
-  m_Name: Bill
+  m_Name: Ad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,7 +77,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &4985327765386417641
+--- !u!114 &-989414521855520829
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -86,10 +86,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 7593100940485372904}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23448f593ac39f14592cc539be4a0d80, type: 3}
+  m_Script: {fileID: 11500000, guid: b2ec3ae37735a674d932eeb4b45b4826, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
   hoverable: 0
   clickable: 1
-  _totalMoney: 20

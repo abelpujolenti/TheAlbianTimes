@@ -8,7 +8,7 @@ using UnityEngine.UI;
 using Utility;
 using Random = UnityEngine.Random;
 
-namespace Editorial
+namespace Workspace.Editorial
 {
     public class Bias : InteractableRectTransform
     {

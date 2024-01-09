@@ -1,11 +1,11 @@
-using Editorial;
 using Managers;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Utility;
+using Workspace.Editorial;
 
-namespace Layout
+namespace Workspace.Layout
 {
     public class NewsHeadlineSubPiece : ThrowableInteractableRectTransform
     {

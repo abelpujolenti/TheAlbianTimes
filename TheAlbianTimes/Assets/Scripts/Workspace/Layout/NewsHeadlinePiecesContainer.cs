@@ -1,7 +1,7 @@
 using Managers;
 using UnityEngine;
 
-namespace Layout
+namespace Workspace.Layout
 {
     public class NewsHeadlinePiecesContainer : MonoBehaviour
     {

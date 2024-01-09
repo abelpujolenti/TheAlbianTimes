@@ -3,9 +3,10 @@ using Managers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Workspace.Layout.Pieces;
 using Random = UnityEngine.Random;
 
-namespace Editorial
+namespace Workspace.Editorial
 {
     public class BiasContainer : MonoBehaviour
     {

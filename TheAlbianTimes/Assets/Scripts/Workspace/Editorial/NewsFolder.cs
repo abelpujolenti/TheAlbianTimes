@@ -4,7 +4,7 @@ using Managers;
 using UnityEngine;
 using Utility;
 
-namespace Editorial
+namespace Workspace.Editorial
 {
     public class NewsFolder : MonoBehaviour
     {

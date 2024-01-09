@@ -1,4 +1,5 @@
 using Managers;
+using UnityEngine;
 
 namespace Mail.Content
 {
@@ -8,8 +9,13 @@ namespace Mail.Content
         
         protected override void ContentAction()
         {
+            if (EventsManager.OnLinkFouthBiasWithNewsHeadline == null)
+            {
+                return;
+            }
             EventsManager.OnLinkFouthBiasWithNewsHeadline(_linkId);
             EditorialManager.Instance.SubtractLinkId(_linkId);
+            Destroy(gameObject);
         }
 
         public void SetLinkId(int linkId)

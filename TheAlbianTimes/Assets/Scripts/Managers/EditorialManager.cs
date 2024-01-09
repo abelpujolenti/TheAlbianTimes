@@ -12,7 +12,7 @@ namespace Managers
         
         private GameObject _biasContainerCanvas;
 
-        private List<int> _linkIds;
+        private List<int> _linkIds = new List<int>();
 
         private void Awake()
         {

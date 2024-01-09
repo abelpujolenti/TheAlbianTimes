@@ -1,8 +1,8 @@
 using System;
-using Editorial;
-using Layout;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Workspace.Editorial;
+using Workspace.Layout;
 
 namespace Managers
 {

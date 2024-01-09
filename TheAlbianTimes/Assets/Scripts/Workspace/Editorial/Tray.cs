@@ -2,7 +2,7 @@ using System.Collections;
 using Managers;
 using UnityEngine;
 
-namespace Editorial
+namespace Workspace.Editorial
 {
     public class Tray : MonoBehaviour
     {
@@ -15,6 +15,8 @@ namespace Editorial
         private Vector3[] _corners = new Vector3[4];
         private Vector2 _containerMinCoordinates;
         private Vector2 _containerMaxCoordinates;
+        private float _initialContainerMinCoordinateY;
+        private float _initialContainerMaxCoordinateY;
         
         private Vector3 _hidedPosition;
         private Vector3 _extendedPosition;
@@ -33,6 +35,9 @@ namespace Editorial
 
         void Start()
         {
+            _rectTransform.GetWorldCorners(_corners);
+            SetContainerLimiters();
+            
             _hidedPosition = transform.position;
             _extendedPosition = new Vector2(_hidedPosition.x, _hidedPosition.y + DISTANCE_TO_SLIDE_ON_COORDINATE_Y);
         }
@@ -91,12 +96,9 @@ namespace Editorial
         private IEnumerator Slide(Vector3 origin, Vector3 destination)
         {
             float timer = 0;
-
+            
             while (timer < TIME_TO_SLIDE)
             {
-                _rectTransform.GetWorldCorners(_corners);
-            
-                SetContainerLimiters();
                 timer = MoveToDestination(origin, destination, timer);
                 yield return null;
             }
@@ -107,6 +109,10 @@ namespace Editorial
             timer += Time.deltaTime * SPEED;
             transform.position = Vector3.Lerp(origin, destination, timer / TIME_TO_SLIDE);
             
+            float distanceOnYCoordinate = transform.position.y - _hidedPosition.y;
+            _containerMinCoordinates.y = _initialContainerMinCoordinateY + distanceOnYCoordinate;
+            _containerMaxCoordinates.y = _initialContainerMaxCoordinateY + distanceOnYCoordinate;
+            
             return timer;
         }
 
@@ -116,6 +122,8 @@ namespace Editorial
             _containerMinCoordinates.y = _corners[1].y;
             _containerMaxCoordinates.x = _corners[2].x;
             _containerMaxCoordinates.y = _corners[3].y;
+            _initialContainerMinCoordinateY = _containerMinCoordinates.y;
+            _initialContainerMaxCoordinateY = _containerMaxCoordinates.y;
         }
 
         private bool IsCoordinateInsideBounds(Vector2 coordinate)

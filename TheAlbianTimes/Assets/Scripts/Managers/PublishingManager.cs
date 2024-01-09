@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using Layout;
 using Managers;
 using UnityEngine;
+using Workspace.Layout;
 
 public class PublishingManager : MonoBehaviour
 {

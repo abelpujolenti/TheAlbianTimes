@@ -3,6 +3,7 @@
     "firstRound":1,
     "duration":2,
     "priority":1,
+    "extraBias": true,
     "leniency":3,
     "type": 6,
     "imagePath": null,

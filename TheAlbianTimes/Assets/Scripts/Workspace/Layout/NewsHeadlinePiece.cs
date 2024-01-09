@@ -4,7 +4,7 @@ using Managers;
 using NoMonoBehavior;
 using UnityEngine;
 
-namespace Layout
+namespace Workspace.Layout
 {
     public class NewsHeadlinePiece : MonoBehaviour
     {

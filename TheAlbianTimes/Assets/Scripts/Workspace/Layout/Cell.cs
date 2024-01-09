@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Layout
+namespace Workspace.Layout
 {
     public class Cell : MonoBehaviour
     {

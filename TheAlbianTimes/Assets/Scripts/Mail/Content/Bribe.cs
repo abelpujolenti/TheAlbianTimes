@@ -1,14 +1,17 @@
 
+using Managers;
+using UnityEngine;
+
 namespace Mail.Content
 {
     public class Bribe : EnvelopeContent
     {
-
         private float _totalMoney;
         
         protected override void ContentAction()
         {
-            //TODO Add to money currency
+            GameManager.Instance.UpdateStatsDisplayMoney(_totalMoney);
+            Destroy(gameObject);
         }
 
         public void SetTotalMoney(float totalMoney)

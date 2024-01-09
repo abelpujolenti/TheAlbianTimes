@@ -2,7 +2,7 @@ using Managers;
 using UnityEngine.EventSystems;
 using Utility;
 
-namespace Editorial
+namespace Workspace.Editorial
 {
     public class PanicButton : InteractableRectTransform
     {

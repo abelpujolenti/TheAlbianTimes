@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using Layout;
 using Managers;
 using NoMonoBehavior;
 using TMPro;
@@ -8,9 +7,11 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Utility;
+using Workspace.Layout;
+using Workspace.Layout.Pieces;
 using Random = UnityEngine.Random;
 
-namespace Editorial
+namespace Workspace.Editorial
 {
     public class NewsHeadline : ThrowableInteractableRectTransform
     {
@@ -36,6 +37,7 @@ namespace Editorial
         [SerializeField] private TextMeshProUGUI _articleTagText;
         
         [SerializeField] private GameObject _biasMarker;
+        [SerializeField] private GameObject _extraLabel;
         
         [SerializeField] private Transform _markerInkPrefab;
 
@@ -542,6 +544,7 @@ namespace Editorial
                 return;
             }
 
+            _extraLabel.SetActive(true);
             _totalBiasesToActivate++;
             EventsManager.OnLinkFouthBiasWithNewsHeadline -= LinkFourthBias;
         }

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Workspace.Editorial;
 
 namespace Managers
 {
@@ -13,6 +14,8 @@ namespace Managers
         public GameState gameState;
         private SaveManager saveManager;
         public SceneLoader sceneLoader = new SceneLoader();
+
+        private StatsDisplay _statsDisplay;
 
         private int _round = 1;
 
@@ -110,6 +113,16 @@ namespace Managers
             {
                 gameState.playerData = new GameStatePlayerData();
             }
+        }
+
+        public void SetStatsDisplay(StatsDisplay statsDisplay)
+        {
+            _statsDisplay = statsDisplay;
+        }
+
+        public void UpdateStatsDisplayMoney(float money)
+        {
+            _statsDisplay.UpdateMoney(gameState.playerData.money += money);
         }
 
         public void AddToRound()

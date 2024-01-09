@@ -2,7 +2,7 @@ using Managers;
 using UnityEngine;
 using Utility;
 
-namespace Layout
+namespace Workspace.Layout
 {
     public class NewspaperMold : MonoBehaviour
     {

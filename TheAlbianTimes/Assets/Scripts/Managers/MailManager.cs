@@ -631,7 +631,7 @@ namespace Managers
                     envelopeContents.Add(new EnvelopeData
                     {
                         jointId = jointId,
-                        envelopeContentType = EnvelopeContentType.BRIBE
+                        envelopeContentType = envelopeContentType
                     });
                     content.jointId = jointId;
                     contentsList.Add(content);

@@ -17,6 +17,7 @@ namespace Managers
         public static Action <GameObject> OnAssignGameObjectToDrag;
         public static Action <bool> OnPressPanicButton;
         public static Action OnPressPanicButtonForPieces;
+        public static Action <String> OnClickLetter;
 
         #endregion        
         
@@ -24,7 +25,6 @@ namespace Managers
         
         public static Func <NewsHeadlineSubPiece, Vector2, NewsHeadlineSubPiece[], Cell[]> OnPreparingCells;
         public static Func <Cell[], Vector3> OnSuccessfulSnap;
-        public static Func <NewsHeadlinePiece, bool> OnFailSnap;
         
         #endregion
 
@@ -34,12 +34,11 @@ namespace Managers
         public static Action <int> OnChangeSelectedBiasIndex;
         public static Action OnChangeNewsHeadlineContent;
         public static Action <GameObject> OnAddNewsHeadlineToFolder;
-        public static Action <NewsHeadline, bool> OnReturnNewsHeadlineToFolder;
         public static Action <int> OnChangeFrontNewsHeadline;
-        public static Action <String[], String[]> OnSettingNewBiases;
+        public static Action <String[], String[], int> OnSettingNewBiases;
         public static Action OnChangeFolderOrderIndexWhenGoingToFolder;
-        public static Action <NewsHeadline> OnPrepareNewsHeadlineActions;
         public static Action <NewsHeadline, Vector3> OnDropNewsHeadline;
+        public static Action <int> OnLinkFouthBiasWithNewsHeadline;
 
         #endregion
 

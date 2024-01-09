@@ -35,6 +35,8 @@ public class NewsData
 
     public NewsType type;
 
+    public bool extraBias;
+
     public string imagePath;
 
     public NewsConsequenceData[] consequences;

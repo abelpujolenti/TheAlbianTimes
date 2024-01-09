@@ -20,7 +20,7 @@ public class SOS_RE_PUTO : InteractableRectTransform
 
     private void Start()
     {
-        GameObject envelopeGameObject = CreateEnvelope((EnvelopeContentType)Random.Range(0, (int)EnvelopeContentType.AMOUNT));
+        GameObject envelopeGameObject = CreateEnvelope((EnvelopeContentType)Random.Range(0, (int)EnvelopeContentType.ENUM_SIZE));
 
         GameObject envelopeContentGameObject = CreateEnvelopeContent(envelopeGameObject);
 

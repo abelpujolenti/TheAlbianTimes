@@ -12,16 +12,6 @@ namespace Layout
         private Vector2 _containerMinCoordinates;
         private Vector2 _containerMaxCoordinates;
 
-        private void OnEnable()
-        {
-            EventsManager.OnFailSnap += IsValidPiecePosition; 
-        }
-
-        private void OnDisable()
-        {
-            EventsManager.OnFailSnap -= IsValidPiecePosition; 
-        }
-
         private void Start()
         {
             LayoutManager.Instance.SetNewsHeadlinePiecesContainer(this);

@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using Mail.Content;
 using Managers;
@@ -10,8 +9,6 @@ namespace Mail
 {
     public class Envelope : InteractableRectTransform
     {
-        private const String HOVER_CONDITION = "Hover";
-
         [SerializeField] private RectTransform _rectTransform;
 
         [SerializeField] private GameObject _envelopeContentGameObject;
@@ -73,6 +70,8 @@ namespace Mail
         protected override void BeginDrag(BaseEventData data)
         {
             //base.BeginDrag(data);
+            transform.SetAsLastSibling();
+            CloseCover();
             _canHover = false;
         }
 
@@ -110,7 +109,6 @@ namespace Mail
                 elapsedT += Time.fixedDeltaTime;
             }
             gameObjectToDrag.transform.rotation = Quaternion.Euler(new Vector3(xRotation, gameObjectToDrag.transform.rotation.y, gameObjectToDrag.transform.rotation.z));
-
         }
 
         public void SetEnvelopeContent(GameObject envelopContentGameObject)

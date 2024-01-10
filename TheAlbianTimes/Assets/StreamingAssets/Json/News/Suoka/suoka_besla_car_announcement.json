@@ -1,7 +1,7 @@
 {
-    "name":"sample_technology",
-    "firstRound":1,
-    "duration":2,
+    "name":"suoka_besla_car_announcement",
+    "firstRound":5,
+    "duration":1,
     "priority":0.7,
     "leniency":4,
     "type": 7,

@@ -1,0 +1,76 @@
+{
+    "name":"hetia_immigration_policies_relaxation",
+    "firstRound":4,
+    "duration":1,
+    "priority":1,
+    "leniency":3,
+    "type": 0,
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 0,
+            "key": "reputation",
+            "value": 0.1
+        },
+        {
+            "country": 1,
+            "key": "reputation",
+            "value": -0.1
+        },
+        {
+            "country": 1,
+            "key": "dam_blowup_ending",
+            "value": 0.1
+        }
+    ],
+    "biases": [
+        {
+            "name": "IMPROVEMENT",
+            "description": "Hetia is willing to repair the damage and restore diplomacy with Terkan.",
+            "headline": "Hetia relaxes immigration policies to avoid future border tragedies.",
+            "text": "   The Hetian Parliament has approved a resolution on new avenues for legal labour migration, in order to facilitate migration from Terkan and avoid illegal border crossings.\n    The resolution, which is part of the restoration plan that came out from the emergency cabinet meeting that was held a week ago, also hopes to improve Terkani immigrants' working conditions.\n    Nomandla Alves, the Press Secretary of the Hetian government, announced in a press conference that the presidential cabinet is considering changing labor laws to handle the Terkani immigrant situation.",        
+            "additionalConsequences": []
+        },
+        {
+            "name": "SUPERFICIAL",
+            "description": "Linhares' dismissal is another hoax, as there are no planned changes to the Border police.",
+            "headline": "Hetia magnifies minimal changes in immigration policies to restore its image.",
+            "text": "   The Hetian Parliament has approved a resolution on new avenues for legal labour migration, in the hope of restoring its image after the Sumania massacre.\n    The requirements for legally entering Hetia have hardly changed, and most Terkani immigrants are still unable to meet them -in their country, they have a monthly income that equals less than 2500 apsars, as Terkan's currency is undervalued-.\n    Besides, immigrants are still unable to benefit from Hetia's national healthcare system even if they have acquired permanent residence.",        
+            "additionalConsequences": [
+                {
+                    "country": 0,
+                    "key": "reputation",
+                    "value": -0.2
+                },
+                {
+                    "country": 1,
+                    "key": "reputation",
+                    "value": 0.2
+                }
+            ]
+        },
+        {
+            "name": "TERRORISTS",
+            "description": "Hetia's relaxation of migratory policies will surely bring the establishment of Riparian Terkan Liberation Front Cells.",
+            "headline": "Hetia opens the door to Terkan's terrorists.",
+            "text": "   The Hetian Parliament has approved a resolution on 'new avenues for legal labour migration'. Actually, the resolution will turn Hetia into a terrorist-welcoming country, by allowing Terkan citizens to easily cross the borders with fewer controls and requirements. This will surely encourage the establishment of Riparian Terkan Liberation Front cells.\n    Moreover, Nomandle Alves, the Press Secretary of the Hetian government, announced that the presidential cabinet is considering changing labor laws. These changes could attract even more Terkani citizens to Hetia, who would be ideal recruits for terrorist cells.",        
+            "additionalConsequences": [
+                {
+                    "country": 0,
+                    "key": "reputation",
+                    "value": -0.2
+                },
+                {
+                    "country": 1,
+                    "key": "reputation",
+                    "value": -0.3
+                },
+                {
+                    "country": 1,
+                    "key": "dam_blowup_ending",
+                    "value": 0.1
+                }
+            ]
+        }
+    ]
+}

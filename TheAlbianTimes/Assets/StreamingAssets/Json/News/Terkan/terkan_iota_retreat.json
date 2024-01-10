@@ -1,9 +1,9 @@
 {
-    "name":"sample_military",
-    "firstRound":1,
+    "name":"terkan_iota_retreat",
+    "firstRound":3,
     "duration":2,
-    "priority":0.6,
-    "leniency":4,
+    "priority":0.85,
+    "leniency":2,
     "type": 5,
     "imagePath": null,
     "consequences": [

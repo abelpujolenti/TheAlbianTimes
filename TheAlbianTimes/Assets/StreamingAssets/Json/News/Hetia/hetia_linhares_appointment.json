@@ -1,0 +1,96 @@
+{
+    "name":"hetia_linhares_appointment",
+    "firstRound":1,
+    "duration":1,
+    "priority":1,
+    "leniency":3,
+    "type": 0,
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 0,
+            "key": "moreira_gov",
+            "value": 0.1
+        },
+        {
+            "country": 0,
+            "key": "reputation",
+            "value": 0.075
+        },
+        {
+            "country": 1,
+            "key": "reputation",
+            "value": -0.2
+        },
+        {
+            "country": 1,
+            "key": "dam_blowup_ending",
+            "value": 0.1
+        }
+    ],
+    "biases": [
+        {
+            "name": "SECURITY",
+            "description": "Linhares proved his commitement to Hetia during his time as Secretary of Security, and will surely decrease unrest.",
+            "headline": "Moreira appoints Mbuso Linhares as Head of Homeland Security.",
+            "text": "   Mbuso Linhares, former Secretary of Security, has been chosen as the new Head of Homeland Security. Moreira has stated that his appointment will bring more security to Hetia at this time of global growing instability. \n    Under his direction, the Secretariat of Security contributed to an international police operation against drug trafficking, and also helped dismantle a Terkani terrorist cell that planned to create tension between Hetia and Terkan.",        
+            "additionalConsequences": []
+        },
+        {
+            "name": "RACISM",
+            "description": "Moreira's new cabinet member has praised the Border police's brutality against Terkani migrants.",
+            "headline": "Moreira appoints a xenophobe as Head of Homeland Security.",
+            "text": "   Moreira's government continues with its radical stance on immigration as the appointment of Mbuso Linhares is made effective.\n    Linhares, who served as Secretary of Security under Moreira's previous mandate, has repeatedly praised the Border Police's disproportionate actions against Terkani immigrants.\n    He has also expressed his concern with Terkani irregular migrants, by saying that 'most of them have connections with terrorist organizations'.",        
+            "additionalConsequences": [
+                {
+                    "country": 0,
+                    "key": "moreira_gov",
+                    "value": -0.3
+                },
+                {
+                    "country": 0,
+                    "key": "reputation",
+                    "value": -0.225
+                },
+                {
+                    "country": 1,
+                    "key": "reputation",
+                    "value": 0.4
+                },
+                {
+                    "country": 1,
+                    "key": "dam_blowup_ending",
+                    "value": -0.2
+                }
+            ]
+        },
+        {
+            "name": "TERRORISM",
+            "description": "Could be linked to the River Protection Militia, an anti-Terkan organization suspected to be operated by the Hetian State.",
+            "headline": "Moreira's new Head of Homeland Security could have connections with terrorism.",
+            "text": "   Mbuso Linhares, who is known as the former Secretary of Security who contributed to an international police operation against drug trafficking and helped dismantle a Terkani terrorist cell, might be as well involved in a terrorist organization.\n    It is suspected that The River Protection Militia, which aims to 'protect the Dam' from foreign threats, is secretly operated by the Hetian State. If this supposition is confirmed, Linhares would not be the only one implicated.",        
+            "additionalConsequences": [
+                {
+                    "country": 0,
+                    "key": "moreira_gov",
+                    "value": -0.5
+                },
+                {
+                    "country": 0,
+                    "key": "reputation",
+                    "value": -0.375
+                },
+                {
+                    "country": 1,
+                    "key": "reputation",
+                    "value": 0.1
+                },
+                {
+                    "country": 1,
+                    "key": "dam_blowup_ending",
+                    "value": 0.1
+                }
+            ]
+        }
+    ]
+}

@@ -18,7 +18,7 @@ namespace Workspace.Editorial
         [SerializeField]private int _newsHeadlinesHasToReturnToFolder;
         [SerializeField]private int _newsHeadlinesOutOfFolder;
 
-        private List<NewsHeadline> _newsHeadlines = new ();
+        [SerializeField]private List<NewsHeadline> _newsHeadlines = new ();
         
         private readonly Vector3[] _corners = new Vector3[4];
         
@@ -182,18 +182,19 @@ namespace Workspace.Editorial
 
             if (_newsHeadlinesHasToReturnToFolder > 0)
             {
+                Debug.Log("Redirect");
                 RedirectInComingNewsHeadlineToFolder();
             }
+            
+            ReindexFolderOrderInsideRange(0, _newsHeadlines.Count);
+            ModifyInFrontProperties(true);    
 
             if (_folderEmpty)
             {
                 _tray.Hide(null);
                 EditorialManager.Instance.TurnOffBiasContainer();
                 return;
-            }
-            
-            ReindexFolderOrderInsideRange(0, _newsHeadlines.Count);
-            ModifyInFrontProperties(true);            
+            }        
             
             frontNewsHeadline = _newsHeadlines[0];
             ChangeBias(frontNewsHeadline.GetSelectedBiasIndex(), frontNewsHeadline.GetBiasesNames(),
@@ -246,6 +247,12 @@ namespace Workspace.Editorial
             {
                 ChangeFolderOrderIndex(i);
             }
+
+            if (indexToStartReorder <= 0)
+            {
+                return;
+            }
+            UpdateHeadlineShading();
         }
 
         private void ChangeFolderOrderIndex(int i)

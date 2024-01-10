@@ -59,6 +59,9 @@ namespace Workspace.Mail
                 (_audioSourceCloseDrawer, CLOSE_DRAWER_SOUND)
             };
             SoundManager.Instance.SetMultipleAudioSourcesComponents(tuples);
+            
+            MailManager.Instance.SetEnvelopesContainer(_envelopesContainerRectTransform);
+            
             _envelopes = new List<GameObject>();
             _envelopesContent = new List<GameObject>();
             

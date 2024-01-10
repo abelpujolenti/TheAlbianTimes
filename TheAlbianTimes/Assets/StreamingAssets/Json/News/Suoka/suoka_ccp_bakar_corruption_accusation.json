@@ -1,9 +1,9 @@
 {
     "name":"suoka_ccp_bakar_corruption_accusation",
     "firstRound":4,
-    "duration":5,
+    "duration":2,
     "priority":0.85,
-    "leniency":4,
+    "leniency":3,
     "type": 0,
     "imagePath": null,
     "consequences": [

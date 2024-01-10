@@ -2,8 +2,8 @@
     "name":"suoka_military_retiree_manifesto",
     "firstRound":3,
     "duration":3,
-    "priority":0.90,
-    "leniency":5,
+    "priority":1,
+    "leniency":0,
     "type": 5,
     "imagePath": null,
     "consequences": [

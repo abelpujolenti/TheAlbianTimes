@@ -2,7 +2,7 @@
     "name":"albia_trainofpassion_record_audiences",
     "firstRound": 4,
     "duration":2,
-    "priority":0.70,
+    "priority":0.50,
     "extraBias": true,
     "leniency":4,
     "type": 2,

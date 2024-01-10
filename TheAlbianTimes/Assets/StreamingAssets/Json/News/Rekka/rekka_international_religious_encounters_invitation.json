@@ -2,7 +2,7 @@
     "name":"rekka_international_religious_encounters_invitation",
     "firstRound":2,
     "duration":2,
-    "priority":0.50,
+    "priority":0.70,
     "leniency":3,
     "type": 6,
     "conditions": [

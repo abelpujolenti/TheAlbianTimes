@@ -3,7 +3,7 @@
     "firstRound":1,
     "duration":2,
     "priority":1,
-    "leniency":3,
+    "leniency":2,
     "type": 5,
     "imagePath": null,
     "consequences": [

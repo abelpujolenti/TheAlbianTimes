@@ -4,7 +4,7 @@
     "duration":2,
     "priority":0.80,
     "extraBias": true,
-    "leniency":3,
+    "leniency":2,
     "type": 8,
     "imagePath": null,
     "consequences": [

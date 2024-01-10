@@ -1,0 +1,66 @@
+{
+    "name":"suoka_military_retiree_manifesto",
+    "firstRound":3,
+    "duration":3,
+    "priority":0.90,
+    "leniency":5,
+    "type": 5,
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 6,
+            "key": "reputation",
+            "value": -0.2
+        },
+        {
+            "country": 7,
+            "key": "reputation",
+            "value": -0.1
+        }
+    ],
+    "biases": [
+        {
+            "name": "SUPPORTIVE",
+            "description": "Support the manifesto and encourage the military operation against Madia.",
+            "headline": "Suokan military retirees call for the restoration of their country's dignity.",
+            "text": "   More than a hundred retirees from the Suokan Armed forces have signed a manifesto against Suoka's submission to Madia, following the unfair land division after the countries split. They call for a military opperation to achieve the restitution of territories seized from Suoka by Madia, as the Suokan government has sided with the oppressors by not intervening in 40 years.\n    Even if the Suokan Armed Forces has officially opposed the manifesto, many of its service members believe in the Suokan cause, and are willing to follow their duty.",        
+            "additionalConsequences": []
+        },
+        {
+            "name": "UNTROUBLED",
+            "description": "Disregard the event as the delusions of greatness of angry old men.",
+            "headline": "Suokan military retirees are stuck in the past.",
+            "text": "   A minority of the Suokan Armed Forces retirees have signed a manifesto expressing their displeasure with the government's handling of the land the division after the Suoka-Madia split, which happened more than four decades ago. \n    Their intention of carrying out military operations in Madia contradicts the fact that most of them are in their 70s and the Suokan Armed Forces' opposition to the manifesto. As they have not received support from the civil society either, their delusions of greatness are condemned to failure.",        
+            "additionalConsequences": [
+                {
+                    "country": 6,
+                    "key": "reputation",
+                    "value": 0.4
+                },
+                {
+                    "country": 7,
+                    "key": "otar_ending",
+                    "value": 0.2
+                }
+            ]
+        },
+        {
+            "name": "ALARMED",
+            "description": "Express concern for a future attack if the manifesto gains support among the civil society.",
+            "headline": "Suokan military retirees call for the invasion of Madia.",
+            "text": "   More that a hundred retirees from the Suokan Armed Forces have signed a manifesto against what they call 'Suoka's submission to Madia'. The document protests against the Suokan government's peaceful handling of the land division after the Suoka-Madia split 40 years ago, as they believe that 'the government has always been compliant with this direct attack to Suoka's dignity'.\n    Even if the army has officially opposed the manifesto, the situation is alarming, as they could gain support from the civil society and eventually launch an attack.",        
+            "additionalConsequences": [
+                {
+                    "country": 6,
+                    "key": "reputation",
+                    "value": 0.4
+                },
+                {
+                    "country": 7,
+                    "key": "reputation",
+                    "value": -0.25
+                }
+            ]
+        }
+    ]
+}

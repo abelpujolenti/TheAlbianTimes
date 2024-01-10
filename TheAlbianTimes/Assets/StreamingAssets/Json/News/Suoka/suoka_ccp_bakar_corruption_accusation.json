@@ -1,0 +1,51 @@
+{
+    "name":"suoka_ccp_bakar_corruption_accusation",
+    "firstRound":4,
+    "duration":5,
+    "priority":0.85,
+    "leniency":4,
+    "type": 0,
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 7,
+            "key": "ppc",
+            "value": 0.1
+        }
+    ],
+    "biases": [
+        {
+            "name": "FAKE NEWS",
+            "description": "Dismiss accusations and trust the company's declarations.",
+            "headline": "PPC candidate faces false accusations of corruption.",
+            "text": "   Only a few days after the beginning of her announcement speech, Jenab binti Bakar, who is running for Suoka President on behalf of the People's Prosperity Coalition, has been accused of corruption.\n    The accuser, who cleverly chose to stay anonymous, has stated that she commited stock market manipulation during her time as Chief Financial Officer of Aeres Care. However, Daamir bin Saeed, the company's current CFO, has proved that there were no irregularities in her management.",        
+            "additionalConsequences": []
+        },
+        {
+            "name": "TRUTH",
+            "description": "Back accusations and doubt the company's declarations.",
+            "headline": "PPC candidate has a skeleton in her cupboard: corruption.",
+            "text": "   In her announcement speech, Jenab binti Bakar asked citizens to put their trust in her and the People's Prosperity Coalition again, in order to 'futher expand Suoka's economy'. Until now, she had managed to cover the fact that she commited fraud and stock market manipulation, taking advantage of her position as Chief Financial Officer of Aeres Care.\n    Daamir bin Saeed, the company's current CFO, has stated that there were no irregularities in her management, but her sudden resignation 5 years ago seems to tell otherwise.",        
+            "additionalConsequences": [
+                {
+                    "country": 7,
+                    "key": "ppc",
+                    "value": -0.4
+                }
+            ]
+        },
+        {
+            "name": "MANEUVER",
+            "description": "Defend candidate and accuse rival party of misinformation.",
+            "headline": "CAP's new move: spreading fake accusations about PPC's Jenab binti Bakar.",
+            "text": "   This time, the Collective Advancement Party has gone too far in its electoral campaign. The party has pulled the strings so that Jenab binti Bakar, its rival candidate from the People's Prosperity Coalition and current Suoka president, is accused of corruption and stock market manipulation during her time as Chief Financial Officer of Aeres Care.\n    Daamir bin Saeed, the company's current CFO, has proff that she did not commit any of those crimes, and has stated that 'she is a honest and trustworthy leader'.",        
+            "additionalConsequences": [
+                {
+                    "country": 7,
+                    "key": "cap",
+                    "value": -0.2
+                }
+            ]
+        }
+    ]
+}

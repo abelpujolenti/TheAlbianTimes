@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Mail;
-using Mail.Content;
 using UnityEngine;
-using Workspace;
-using Letter = Mail.Content.Letter;
+using Workspace.Mail;
+using Workspace.Mail.Content;
+using Letter = Workspace.Mail.Content.Letter;
 using Random = UnityEngine.Random;
 
 namespace Managers

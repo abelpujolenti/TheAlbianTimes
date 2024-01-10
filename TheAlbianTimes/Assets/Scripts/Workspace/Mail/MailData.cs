@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Mail
+namespace Workspace.Mail
 {
     [CreateAssetMenu(fileName = "MailData", menuName = "MailData")]
     public class MailData : ScriptableObject

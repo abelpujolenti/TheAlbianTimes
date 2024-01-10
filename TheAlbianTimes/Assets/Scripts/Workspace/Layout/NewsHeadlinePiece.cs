@@ -9,7 +9,9 @@ namespace Workspace.Layout
     public class NewsHeadlinePiece : MonoBehaviour
     {
         private const String GRAB_PIECE_SOUND = "Grab Piece";
-        private const String DROP_PIECE_SOUND = "Drop Piece"; 
+        private const String DROP_PIECE_IN_BOX_SOUND = "Drop Piece In Box";
+        private const String SNAP_PIECE_SOUND = "Snap Piece";
+        
         private const float TRANSPARENCY_VALUE = 0.9f;
         private const float FULL_OPACITY = 1;
         private const float SPEED_MOVEMENT = 15;
@@ -35,14 +37,21 @@ namespace Workspace.Layout
         private bool _transferDrag;
 
         private AudioSource _audioSourceGrabPiece;
-        private AudioSource _audioSourceDropPiece;
+        private AudioSource _audioSourceDropPieceInBox;
+        private AudioSource _audioSourceSnapPiece;
 
         private void Start()
         {
             _audioSourceGrabPiece = gameObject.AddComponent<AudioSource>();
-            SoundManager.Instance.SetAudioSourceComponent(_audioSourceGrabPiece, GRAB_PIECE_SOUND);
-            _audioSourceDropPiece = gameObject.AddComponent<AudioSource>();
-            SoundManager.Instance.SetAudioSourceComponent(_audioSourceDropPiece, DROP_PIECE_SOUND);
+            _audioSourceDropPieceInBox = gameObject.AddComponent<AudioSource>();
+            _audioSourceSnapPiece = gameObject.AddComponent<AudioSource>();
+            (AudioSource, String)[] tuples =
+            {
+                (_audioSourceGrabPiece, GRAB_PIECE_SOUND),
+                (_audioSourceDropPieceInBox, DROP_PIECE_IN_BOX_SOUND),
+                (_audioSourceSnapPiece, SNAP_PIECE_SOUND)
+            };
+            SoundManager.Instance.SetMultipleAudioSourcesComponents(tuples);
             _newsHeadlinePiecesContainer = LayoutManager.Instance.GetNewsHeadlinePiecesContainer();
             _subPiecesPositionsRelativeToRoot = new Vector2[_newsHeadlineSubPieces.Length];
             gameObject.SetActive(false);
@@ -102,14 +111,14 @@ namespace Workspace.Layout
                     EventsManager.OnPressPanicButtonForPieces -= GoToContainer;
                 }
 
-                _audioSourceDropPiece.Play();
+                _audioSourceDropPieceInBox.Play();
                 return;
             }
             SlideToRotation(0f, 0.1f);
             transform.position = EventsManager.OnSuccessfulSnap(_snappedCells);
             _rotate = false;
-
-            _audioSourceDropPiece.Play();
+            
+            _audioSourceSnapPiece.Play();
         }
 
         private void GoToContainer()

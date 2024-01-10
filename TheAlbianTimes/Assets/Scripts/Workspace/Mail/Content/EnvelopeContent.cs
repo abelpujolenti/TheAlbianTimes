@@ -1,7 +1,7 @@
 using UnityEngine.EventSystems;
 using Utility;
 
-namespace Mail.Content
+namespace Workspace.Mail.Content
 {
     public abstract class EnvelopeContent : InteractableRectTransform      
     {

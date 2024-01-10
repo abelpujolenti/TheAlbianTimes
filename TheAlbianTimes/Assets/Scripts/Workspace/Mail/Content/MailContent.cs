@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Mail.Content
+namespace Workspace.Mail.Content
 {
     public enum EnvelopeContentType
     {

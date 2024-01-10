@@ -8,7 +8,7 @@ namespace MainMenu
     public class PlayButton : MonoBehaviour
     {
         private const String INTRO_SOUND = "Intro";
-        private const String CHANGE_BIAS_SOUND = "Change Bias";
+        private const String CLICK_BUTTON_SOUND = "Click Button";
         
         [SerializeField] Animator backgroundAnimator;
         [SerializeField] Animator buttonAnimator;
@@ -20,9 +20,13 @@ namespace MainMenu
         public void OnClick()
         {
             _audioSourceIntro = gameObject.AddComponent<AudioSource>();
-            SoundManager.Instance.SetAudioSourceComponent(_audioSourceIntro, INTRO_SOUND);
             _audioSourceChangeBias = gameObject.AddComponent<AudioSource>();
-            SoundManager.Instance.SetAudioSourceComponent(_audioSourceChangeBias, CHANGE_BIAS_SOUND);
+            (AudioSource, String)[] tuples =
+            {
+                (_audioSourceIntro, INTRO_SOUND),
+                (_audioSourceChangeBias, CLICK_BUTTON_SOUND)
+            };
+            SoundManager.Instance.SetMultipleAudioSourcesComponents(tuples);
             if (startGameCoroutine != null) return;
             startGameCoroutine = StartCoroutine(StartGameCoroutine());
         }

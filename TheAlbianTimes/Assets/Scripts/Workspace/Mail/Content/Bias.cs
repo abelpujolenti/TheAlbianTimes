@@ -1,7 +1,6 @@
 using Managers;
-using UnityEngine;
 
-namespace Mail.Content
+namespace Workspace.Mail.Content
 {
     public class Bias : EnvelopeContent
     {

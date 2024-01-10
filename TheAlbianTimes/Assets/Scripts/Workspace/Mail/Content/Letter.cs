@@ -1,6 +1,6 @@
 using Managers;
 
-namespace Mail.Content
+namespace Workspace.Mail.Content
 {
     public class Letter : EnvelopeContent
     {

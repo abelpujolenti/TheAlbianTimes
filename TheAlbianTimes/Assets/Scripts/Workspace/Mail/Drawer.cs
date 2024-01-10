@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using Utility;
 
-namespace Mail
+namespace Workspace.Mail
 {
     public class Drawer : InteractableRectTransform
     {
@@ -25,8 +25,12 @@ namespace Mail
         {
             _audioSourceOpenDrawer = gameObject.AddComponent<AudioSource>();
             _audioSourceCloseDrawer = gameObject.AddComponent<AudioSource>();
-            SoundManager.Instance.SetAudioSourceComponent(_audioSourceOpenDrawer, OPEN_DRAWER_SOUND);
-            SoundManager.Instance.SetAudioSourceComponent(_audioSourceCloseDrawer, CLOSE_DRAWER_SOUND);
+            (AudioSource, String)[] tuples =
+            {
+                (_audioSourceOpenDrawer, OPEN_DRAWER_SOUND),
+                (_audioSourceCloseDrawer, CLOSE_DRAWER_SOUND)
+            };
+            SoundManager.Instance.SetMultipleAudioSourcesComponents(tuples);
         }
 
         protected override void Drag(BaseEventData data)

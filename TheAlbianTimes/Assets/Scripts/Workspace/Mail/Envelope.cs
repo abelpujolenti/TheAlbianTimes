@@ -1,14 +1,18 @@
+using System;
 using System.Collections;
-using Mail.Content;
 using Managers;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Utility;
+using Workspace.Mail.Content;
 
-namespace Mail
+namespace Workspace.Mail
 {
     public class Envelope : InteractableRectTransform
     {
+        private const String GRAB_ENVELOPE_SOUND = "Grab Envelope";
+        private const String OPEN_ENVELOPE_SOUND = "Open Envelope";
+        
         [SerializeField] private RectTransform _rectTransform;
 
         [SerializeField] private GameObject _envelopeContentGameObject;
@@ -28,6 +32,20 @@ namespace Mail
 
         private Coroutine _openCoverCoroutine;
         private Coroutine _closeCoverCoroutine;
+
+        private AudioSource _audioSourceGrabEnvelope;
+        private AudioSource _audioSourceOpenEnvelope;
+
+        private void Start()
+        {
+            _audioSourceGrabEnvelope = gameObject.AddComponent<AudioSource>();
+            _audioSourceOpenEnvelope = gameObject.AddComponent<AudioSource>();
+            (AudioSource, String)[] tuples =
+            {
+                (_audioSourceGrabEnvelope, GRAB_ENVELOPE_SOUND),
+                (_audioSourceOpenEnvelope, OPEN_ENVELOPE_SOUND)
+            };
+        }
 
         protected override void PointerEnter(BaseEventData data)
         {

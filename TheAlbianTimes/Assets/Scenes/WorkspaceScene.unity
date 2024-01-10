@@ -1649,19 +1649,19 @@ MonoBehaviour:
   _sounds:
   - _audioClip: {fileID: 8300000, guid: b975c0c98fd9591488fac2874c4ebac3, type: 3}
     _audioMixerGroup: {fileID: -3148831458192980715, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
-    _name: Change Bias
+    _name: Click Button
     _volume: 1
     _loop: 0
     _play: 0
     _sound3D: 0
   - _audioClip: {fileID: 8300000, guid: 622d53c4f59533443baf2d6053f476b1, type: 3}
     _audioMixerGroup: {fileID: -3148831458192980715, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
-    _name: Drop Paper
+    _name: Drop Paper In Folder
     _volume: 1
     _loop: 0
     _play: 0
     _sound3D: 0
-  - _audioClip: {fileID: 8300000, guid: ad4ea2ef37322474582eab7ce63386e7, type: 3}
+  - _audioClip: {fileID: 8300000, guid: 83b3915451875744792eda0a28e88596, type: 3}
     _audioMixerGroup: {fileID: -3148831458192980715, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
     _name: Grab Paper
     _volume: 1
@@ -1675,9 +1675,9 @@ MonoBehaviour:
     _loop: 0
     _play: 0
     _sound3D: 0
-  - _audioClip: {fileID: 8300000, guid: cf174f8ff55dfc641b744fd7e7c4cf82, type: 3}
+  - _audioClip: {fileID: 8300000, guid: 5fc52bdc63cdd50468bd6cc417e9ad50, type: 3}
     _audioMixerGroup: {fileID: -3148831458192980715, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
-    _name: Drop Piece
+    _name: Drop Piece In Box
     _volume: 1
     _loop: 0
     _play: 0
@@ -1696,7 +1696,7 @@ MonoBehaviour:
     _loop: 0
     _play: 0
     _sound3D: 0
-  - _audioClip: {fileID: 8300000, guid: 4f13110de2968184580f96f8ac1f98c8, type: 3}
+  - _audioClip: {fileID: 8300000, guid: 0dd31c72bbdfe6e46b000716b2e63d58, type: 3}
     _audioMixerGroup: {fileID: -3148831458192980715, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
     _name: Snap Piece
     _volume: 1
@@ -1710,21 +1710,21 @@ MonoBehaviour:
     _loop: 0
     _play: 0
     _sound3D: 0
-  - _audioClip: {fileID: 8300000, guid: c4024fef39aced846b614d0c4103e326, type: 3}
+  - _audioClip: {fileID: 8300000, guid: 52b8c287a72d741419ae9f4b9233f083, type: 3}
     _audioMixerGroup: {fileID: -3148831458192980715, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
     _name: Open Drawer
     _volume: 1
     _loop: 0
     _play: 0
     _sound3D: 0
-  - _audioClip: {fileID: 8300000, guid: 02a75b5914e494041895b03d8593a309, type: 3}
+  - _audioClip: {fileID: 8300000, guid: d28ad59da6d02c04a910e6995f8d7f3a, type: 3}
     _audioMixerGroup: {fileID: -3148831458192980715, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
     _name: Close Drawer
     _volume: 1
     _loop: 0
     _play: 0
     _sound3D: 0
-  - _audioClip: {fileID: 0}
+  - _audioClip: {fileID: 8300000, guid: 8ae62c974cd36384d90ca9ac441b7045, type: 3}
     _audioMixerGroup: {fileID: -3148831458192980715, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
     _name: Phone
     _volume: 1
@@ -1738,27 +1738,76 @@ MonoBehaviour:
     _loop: 0
     _play: 0
     _sound3D: 0
-  - _audioClip: {fileID: 0}
+  - _audioClip: {fileID: 8300000, guid: eb52906e15268654b944cb79146152f9, type: 3}
     _audioMixerGroup: {fileID: -3148831458192980715, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
     _name: Intro
     _volume: 1
     _loop: 0
     _play: 0
     _sound3D: 0
-  changeBiasSound: {fileID: 8300000, guid: b975c0c98fd9591488fac2874c4ebac3, type: 3}
-  dropPaperSound: {fileID: 8300000, guid: 622d53c4f59533443baf2d6053f476b1, type: 3}
-  grabPaperSound: {fileID: 8300000, guid: ad4ea2ef37322474582eab7ce63386e7, type: 3}
-  submitPaperSound: {fileID: 0}
-  dropPieceSound: {fileID: 8300000, guid: cf174f8ff55dfc641b744fd7e7c4cf82, type: 3}
-  frictionSound: {fileID: 8300000, guid: 705d926f80e2ac74f89516df89c4ae86, type: 3}
-  thudSound: {fileID: 8300000, guid: a7e35e3beab199b499697075647433d0, type: 3}
-  snapPieceSound: {fileID: 8300000, guid: 4f13110de2968184580f96f8ac1f98c8, type: 3}
-  grabPieceSound: {fileID: 8300000, guid: 4763662a333c7cf4fa7551660367dbe5, type: 3}
-  openDrawerSound: {fileID: 8300000, guid: c4024fef39aced846b614d0c4103e326, type: 3}
-  closeDrawerSound: {fileID: 8300000, guid: 02a75b5914e494041895b03d8593a309, type: 3}
-  phoneSound: {fileID: 0}
-  typeSound: {fileID: 0}
-  introSound: {fileID: 0}
+  - _audioClip: {fileID: 8300000, guid: 20e1450740c7bcf408282c91c1e1fb4f, type: 3}
+    _audioMixerGroup: {fileID: -3148831458192980715, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
+    _name: Grab Envelope
+    _volume: 1
+    _loop: 0
+    _play: 0
+    _sound3D: 0
+  - _audioClip: {fileID: 8300000, guid: 1086590b959d3f94f83bc0302ea0f098, type: 3}
+    _audioMixerGroup: {fileID: -3148831458192980715, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
+    _name: Open Envelope
+    _volume: 1
+    _loop: 0
+    _play: 0
+    _sound3D: 0
+  - _audioClip: {fileID: 8300000, guid: 9ce8af68a45f5094398f76943878830b, type: 3}
+    _audioMixerGroup: {fileID: -3148831458192980715, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
+    _name: Close Marker Cap
+    _volume: 1
+    _loop: 0
+    _play: 0
+    _sound3D: 0
+  - _audioClip: {fileID: 8300000, guid: cf96a42338696024781e84379a2f5a19, type: 3}
+    _audioMixerGroup: {fileID: -3148831458192980715, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
+    _name: Open Marker Cap
+    _volume: 1
+    _loop: 0
+    _play: 0
+    _sound3D: 0
+  - _audioClip: {fileID: 8300000, guid: 9934691c00e94d846814b722e30b9c56, type: 3}
+    _audioMixerGroup: {fileID: -3148831458192980715, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
+    _name: Mark With Marker
+    _volume: 1
+    _loop: 0
+    _play: 0
+    _sound3D: 0
+  - _audioClip: {fileID: 8300000, guid: b05a2fce8acfbc74d88e107f91bb5472, type: 3}
+    _audioMixerGroup: {fileID: -3148831458192980715, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
+    _name: Post it
+    _volume: 1
+    _loop: 0
+    _play: 0
+    _sound3D: 0
+  - _audioClip: {fileID: 8300000, guid: 70be6bd2fb13cd64daaccda730d68bd4, type: 3}
+    _audioMixerGroup: {fileID: -3148831458192980715, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
+    _name: Press Panic Button
+    _volume: 1
+    _loop: 0
+    _play: 0
+    _sound3D: 0
+  - _audioClip: {fileID: 8300000, guid: 914e2e75914868a45bf7508621930049, type: 3}
+    _audioMixerGroup: {fileID: -3148831458192980715, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
+    _name: Conveyer Belt
+    _volume: 1
+    _loop: 0
+    _play: 0
+    _sound3D: 0
+  - _audioClip: {fileID: 8300000, guid: 2ba086146daa5434ab50427583c50714, type: 3}
+    _audioMixerGroup: {fileID: -3148831458192980715, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
+    _name: Drop Paper On Table
+    _volume: 1
+    _loop: 0
+    _play: 0
+    _sound3D: 0
 --- !u!4 &432756236
 Transform:
   m_ObjectHideFlags: 0
@@ -4162,141 +4211,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1554580199}
   m_CullTransparentMesh: 1
---- !u!1 &1575203456
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1575203457}
-  - component: {fileID: 1575203459}
-  - component: {fileID: 1575203458}
-  m_Layer: 5
-  m_Name: Text (TMP)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1575203457
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1575203456}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2137168383}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1575203458
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1575203456}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_text: Add Mail
-  m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_fontSharedMaterials: []
-  m_fontMaterial: {fileID: 0}
-  m_fontMaterials: []
-  m_fontColor32:
-    serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  m_enableVertexGradient: 0
-  m_colorMode: 3
-  m_fontColorGradient:
-    topLeft: {r: 1, g: 1, b: 1, a: 1}
-    topRight: {r: 1, g: 1, b: 1, a: 1}
-    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
-    bottomRight: {r: 1, g: 1, b: 1, a: 1}
-  m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 0}
-  m_tintAllSprites: 0
-  m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: -1183493901
-  m_overrideHtmlColors: 0
-  m_faceColor:
-    serializedVersion: 2
-    rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
-  m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
-  m_fontStyle: 0
-  m_HorizontalAlignment: 2
-  m_VerticalAlignment: 512
-  m_textAlignment: 65535
-  m_characterSpacing: 0
-  m_wordSpacing: 0
-  m_lineSpacing: 0
-  m_lineSpacingMax: 0
-  m_paragraphSpacing: 0
-  m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
-  m_wordWrappingRatios: 0.4
-  m_overflowMode: 0
-  m_linkedTextComponent: {fileID: 0}
-  parentLinkedComponent: {fileID: 0}
-  m_enableKerning: 1
-  m_enableExtraPadding: 0
-  checkPaddingRequired: 0
-  m_isRichText: 1
-  m_parseCtrlCharacters: 1
-  m_isOrthographic: 1
-  m_isCullingEnabled: 0
-  m_horizontalMapping: 0
-  m_verticalMapping: 0
-  m_uvLineOffset: 0
-  m_geometrySortingOrder: 0
-  m_IsTextObjectScaleStatic: 0
-  m_VertexBufferAutoSizeReduction: 0
-  m_useMaxVisibleDescender: 1
-  m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
-  m_isUsingLegacyAnimationComponent: 0
-  m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
-  m_baseMaterial: {fileID: 0}
-  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!222 &1575203459
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1575203456}
-  m_CullTransparentMesh: 1
 --- !u!1 &1606848287
 GameObject:
   m_ObjectHideFlags: 0
@@ -4492,7 +4406,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
+  m_VertexColorAlwaysGammaSpace: 1
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 267891189
@@ -5959,7 +5873,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 1050050191
-  m_SortingOrder: 3
+  m_SortingOrder: -1
   m_TargetDisplay: 0
 --- !u!224 &2111870993
 RectTransform:
@@ -6145,99 +6059,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!1 &2137168382
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2137168383}
-  - component: {fileID: 2137168386}
-  - component: {fileID: 2137168385}
-  - component: {fileID: 2137168384}
-  m_Layer: 5
-  m_Name: TESTAddMail
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &2137168383
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2137168382}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1575203457}
-  m_Father: {fileID: 3446043067778190373}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -139.9, y: 84.1}
-  m_SizeDelta: {x: 160, y: 30}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2137168384
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2137168382}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19c583fdbfaa8f24dacc9dac8fcba143, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  draggable: 0
-  hoverable: 0
-  clickable: 1
---- !u!114 &2137168385
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2137168382}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &2137168386
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2137168382}
-  m_CullTransparentMesh: 1
 --- !u!114 &119617876219996594
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6527,7 +6348,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3298305566171450232}
-  - {fileID: 2137168383}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

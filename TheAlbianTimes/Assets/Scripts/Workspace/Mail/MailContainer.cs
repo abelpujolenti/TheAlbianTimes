@@ -1,15 +1,19 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using Mail.Content;
 using Managers;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Utility;
+using Workspace.Mail.Content;
+using Random = UnityEngine.Random;
 
-namespace Mail
+namespace Workspace.Mail
 {
     public class MailContainer : InteractableRectTransform
     {
+        private const String OPEN_DRAWER_SOUND = "Open Drawer";
+        private const String CLOSE_DRAWER_SOUND = "Close Drawer";
         
         [SerializeField] private float maxX = -10f;
         [SerializeField] private float minX = -14.7f;
@@ -28,6 +32,9 @@ namespace Mail
         private Vector2 _containerMinCoordinates;
         private Vector2 _containerMaxCoordinates;
 
+        private AudioSource _audioSourceOpenDrawer;
+        private AudioSource _audioSourceCloseDrawer;
+
         private void OnEnable()
         {
             EventsManager.OnAddEnvelope += ReceiveEnvelope;
@@ -44,6 +51,14 @@ namespace Mail
 
         private void Start()
         {
+            _audioSourceOpenDrawer = gameObject.AddComponent<AudioSource>();
+            _audioSourceCloseDrawer = gameObject.AddComponent<AudioSource>();
+            (AudioSource, String)[] tuples =
+            {
+                (_audioSourceOpenDrawer, OPEN_DRAWER_SOUND),
+                (_audioSourceCloseDrawer, CLOSE_DRAWER_SOUND)
+            };
+            SoundManager.Instance.SetMultipleAudioSourcesComponents(tuples);
             _envelopes = new List<GameObject>();
             _envelopesContent = new List<GameObject>();
             
@@ -121,11 +136,13 @@ namespace Mail
         private void OpenContainer()
         {
             _moveContainerCoroutine = StartCoroutine(MoveContainerEnum(gameObjectToDrag.transform.position.x, maxX, openTime));
+            _audioSourceOpenDrawer.Play();
         }
 
         private void CloseContainer()
         {
             _moveContainerCoroutine = StartCoroutine(MoveContainerEnum(gameObjectToDrag.transform.position.x, minX, closeTime));
+            _audioSourceCloseDrawer.Play();
         }
 
         private IEnumerator MoveContainerEnum(float start, float end, float t)

@@ -98,7 +98,6 @@ namespace Workspace.Editorial
             }
 
             _selected = true;
-            EventsManager.OnChangeSelectedBias += UnselectBias;
         }
 
         private void OnEnable()
@@ -124,6 +123,7 @@ namespace Workspace.Editorial
             EventsManager.OnChangeSelectedBiasIndex(_siblingIndex);
             EventsManager.OnChangeSelectedBias();
             _selected = true;
+            
             EventsManager.OnChangeSelectedBias += UnselectBias;
 
             _audioSourceOpenCap.Play();

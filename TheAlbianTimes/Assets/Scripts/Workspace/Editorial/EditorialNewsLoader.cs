@@ -37,6 +37,11 @@ namespace Workspace.Editorial
             };
             
             LoadLevelNews();
+
+            if (_sendBiasesContainerDictionary[EnvelopeContentType.BIAS].GetContent().Length == 0)
+            {
+                return;
+            }
             
             MailManager.Instance.SendEnvelopes(_sendBiasesContainerDictionary);
         }

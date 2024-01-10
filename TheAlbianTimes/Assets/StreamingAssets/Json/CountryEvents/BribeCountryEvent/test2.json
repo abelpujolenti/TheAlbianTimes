@@ -1,4 +1,6 @@
 {
-    "id": "test2",
-    "entityId": 4
+    "id": "test_bribe",
+    "bribeAmount": 10000,
+    "priority": 1,
+    "triggerCountry": 4
 }

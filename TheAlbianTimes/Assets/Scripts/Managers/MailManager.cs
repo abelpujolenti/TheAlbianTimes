@@ -68,6 +68,11 @@ namespace Managers
             };
         }
 
+        public void SetEnvelopesContainer(RectTransform rectTransform)
+        {
+            _envelopesContainer = rectTransform;
+        }
+
         #region SaveToJson
 
         public void SaveEnvelopesToJson(GameObject[] envelopes, GameObject[] envelopesContent, bool isAsync = false)

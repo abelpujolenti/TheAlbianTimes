@@ -69,9 +69,9 @@ namespace Workspace.Editorial
 
         private int _linkId;
         private int _totalBiasesToActivate;
-        private int _folderOrderIndex;
-        private int _chosenBiasIndex;
-        private int _selectedBiasIndex;
+        [SerializeField]private int _folderOrderIndex;
+        [SerializeField]private int _chosenBiasIndex;
+        [SerializeField]private int _selectedBiasIndex;
         
         private bool _inFront;
         private bool _transferDrag;

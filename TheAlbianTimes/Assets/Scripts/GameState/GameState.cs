@@ -13,5 +13,5 @@ public class GameState
     public Country[] countries;
     public Character[] characters;
     public HashSet<string> viewedArticles;
-    public HashSet<string> publishedArticles;
+    public HashSet<string> viewedDialogue;
 }

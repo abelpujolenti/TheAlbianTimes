@@ -50,7 +50,7 @@ namespace Workspace.Editorial
             if (news.Count == 0) return;
 
             int newsCount = CalculateMaxArticles(GameManager.Instance.gameState.playerData.staff);
-            newsCount = 2;
+
             for (int i = 0; news.Count > 0 && (i < newsCount || news.Last().Key == 1); i++)
             {
                 CreateNewsObject(news.Last().Value);

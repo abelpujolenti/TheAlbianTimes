@@ -1,4 +1,7 @@
 {
+    "firstRound":1,
+    "duration":2,
+    "priority":1,
     "lines": [
         {
             "parts": [

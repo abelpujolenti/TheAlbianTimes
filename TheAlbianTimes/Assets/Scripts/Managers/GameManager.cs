@@ -94,12 +94,12 @@ namespace Managers
             if (saveManager.SaveFileExists())
             {
                 gameState.viewedArticles = saveManager.save.viewedArticles.ToHashSet();
-                gameState.publishedArticles = saveManager.save.publishedArticles.ToHashSet();
+                gameState.viewedDialogue = saveManager.save.publishedArticles.ToHashSet();
             }
             else
             {
                 gameState.viewedArticles = new HashSet<string>();
-                gameState.publishedArticles = new HashSet<string>();
+                gameState.viewedDialogue = new HashSet<string>();
             }
         }
 

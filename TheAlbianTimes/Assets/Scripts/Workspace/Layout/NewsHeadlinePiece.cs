@@ -3,6 +3,7 @@ using System.Collections;
 using Managers;
 using NoMonoBehavior;
 using UnityEngine;
+using Workspace.Editorial;
 
 namespace Workspace.Layout
 {
@@ -20,6 +21,8 @@ namespace Workspace.Layout
         [SerializeField] private NewsType _newsType;
 
         [SerializeField] private NewsHeadlineSubPiece[] _newsHeadlineSubPieces;
+
+        private NewsHeadline _newsHeadline;
 
         private NewsHeadlinePiecesContainer _newsHeadlinePiecesContainer;
 
@@ -52,6 +55,7 @@ namespace Workspace.Layout
                 (_audioSourceSnapPiece, SNAP_PIECE_SOUND)
             };
             SoundManager.Instance.SetMultipleAudioSourcesComponents(tuples);
+            _newsHeadline = _newsHeadlineSubPieces[0].GetNewsHeadline();
             _newsHeadlinePiecesContainer = LayoutManager.Instance.GetNewsHeadlinePiecesContainer();
             _subPiecesPositionsRelativeToRoot = new Vector2[_newsHeadlineSubPieces.Length];
             gameObject.SetActive(false);
@@ -74,6 +78,8 @@ namespace Workspace.Layout
             {
                 return;
             }
+
+            EventsManager.OnGrabSnappedPiece(_newsHeadline);
 
             foreach (Cell cell in _snappedCells)
             {
@@ -115,7 +121,7 @@ namespace Workspace.Layout
                 return;
             }
             SlideToRotation(0f, 0.1f);
-            transform.position = EventsManager.OnSuccessfulSnap(_snappedCells);
+            transform.position = EventsManager.OnSuccessfulSnap(_snappedCells, _newsHeadline);
             _rotate = false;
             
             _audioSourceSnapPiece.Play();

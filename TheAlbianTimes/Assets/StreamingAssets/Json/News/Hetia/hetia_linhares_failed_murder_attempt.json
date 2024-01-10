@@ -1,0 +1,96 @@
+{
+    "name":"hetia_linhares_failed_murder_attempt",
+    "firstRound":5,
+    "duration":1,
+    "priority":1,
+    "leniency":3,
+    "type": 0,
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 0,
+            "key": "moreira_gov",
+            "value": -0.1
+        },
+        {
+            "country": 0,
+            "key": "reputation",
+            "value": -0.1
+        },
+        {
+            "country": 1,
+            "key": "reputation",
+            "value": -0.1
+        },
+        {
+            "country": 1,
+            "key": "dam_blowup_ending",
+            "value": 0.1
+        }
+    ],
+    "biases": [
+        {
+            "name": "RELAXATION",
+            "description": "The attack is a direct consequence of Hetia's relaxation of migratory policies.",
+            "headline": "Failed attempt to murder Mbuso Linhares, former Head of Homeland Security.",
+            "text": "   On Wednesday, at 5:29 P.M., a bomb detonated inside Mbuso Linhares' car. At the same time, the Riparian Terkan Liberation Front published a video in which they expressed their resentment for the Sumania incident.\n    Linhares, the only passenger, was taken to the hospital in critical condition, but survived the assault. However, the chauffeur died instantly. This event has caused a wave of panic in Hetia, as more attacks are feared.\n    The relaxation of immigration policies, which happened shortly before the attack, might have contributed to the creation of the cell that carried out the action.",        
+            "additionalConsequences": []
+        },
+        {
+            "name": "TERRORISM",
+            "description": "Terkan's incitement of hatred towards Hetia is to blame for the incident.",
+            "headline": "Terkan terrorists attempt to murder Mbuso Linhares, former Head of Homeland Security.",
+            "text": "   On Wednesday, at 5:29 P.M., a bomb detonated inside Mbuso Linhares' car. At the same time, the Riparian Terkan Liberation Front published a video in which they expressed their resentment for the Sumania incident.\n    Linhares, the only passenger, was taken to the hospital in critical condition, but survived the assault. However, the chauffeur died instantly. This event has caused a wave of panic in Hetia, as more attacks are feared.\n    Terkan should take responsibility, for its incitement of hatred towards Hetia has resulted in the emergence of these terrorist groups.",        
+            "additionalConsequences": [
+                {
+                    "country": 0,
+                    "key": "moreira_gov",
+                    "value": 0.3
+                },
+                {
+                    "country": 0,
+                    "key": "reputation",
+                    "value": 0.3
+                },
+                {
+                    "country": 1,
+                    "key": "reputation",
+                    "value": -0.2
+                },
+                {
+                    "country": 1,
+                    "key": "dam_blowup_ending",
+                    "value": 0.2
+                }
+            ]
+        },
+        {
+            "name": "BAD HANDLING",
+            "description": "Hetia is the true culprit of the rise of terrorism, with its systematic oppression of Terkani people.",
+            "headline": "Failed attempt to murder Mbuso Linhares, who was responsible for the Sumania massacre.",
+            "text": "   On Wednesday, at 5:29 P.M., a bomb detonated inside Mbuso Linhares' car. Linhares, the only passenger, was taken to the hospital in critical condition, but survived the assault. However, the chauffeur died instantly.\n    At the same time, the Riparian Terkan Liberation Front published a video in which they expressed their resentment for the Sumania incident and stated that they were carrying out an action 'for the 29 most recent victims of the Hetian regime'.\n    The systematic discrimination of immigrants has also contributed to the radicalization of Terkan's rancor, which emerged from the floodings caused by the Dam.",        
+            "additionalConsequences": [
+                {
+                    "country": 0,
+                    "key": "moreira_gov",
+                    "value": -0.2
+                },
+                {
+                    "country": 0,
+                    "key": "reputation",
+                    "value": -0.2
+                },
+                {
+                    "country": 1,
+                    "key": "reputation",
+                    "value": 0.4
+                },
+                {
+                    "country": 1,
+                    "key": "dam_blowup_ending",
+                    "value": -0.2
+                }
+            ]
+        }
+    ]
+}

@@ -77,6 +77,9 @@ public class Country : MonoBehaviour
         float bribeChance = bribeCurve.Evaluate(GetReputation());
         float threatChance = threatCurve.Evaluate(GetReputation());
 
+        //TODO: SOS PUTO
+        bribeChance = 100f;
+
         float totalChance = Math.Max(1f, giftChance + bribeChance + threatChance);
         SortedList<float, CountryEvent> events = new SortedList<float, CountryEvent>(new DuplicateKeyComparer<float>());
 

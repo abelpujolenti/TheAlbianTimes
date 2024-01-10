@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using Managers;
 using TMPro;
 using UnityEngine;
@@ -30,6 +31,13 @@ public class MapDisplay : MonoBehaviour
         mapImage.gameObject.SetActive(false);
         GenerateFolds();
         StartCoroutine(OpenMapAnimation());
+
+        Debug.Log("Events:");
+        foreach (KeyValuePair<float, CountryEvent> ev in CountryEventManager.Instance.currentEvents)
+        {
+            Debug.Log(ev.Value.id);
+            ev.Value.Run();
+        }
     }
 
     private void GenerateFolds()

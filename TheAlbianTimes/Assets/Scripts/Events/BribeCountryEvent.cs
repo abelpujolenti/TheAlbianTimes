@@ -1,5 +1,4 @@
-using Mail;
-using Mail.Content;
+using Workspace.Mail.Content;
 using Managers;
 using System.Collections.Generic;
 using UnityEngine;

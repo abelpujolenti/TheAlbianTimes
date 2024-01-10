@@ -10,69 +10,39 @@
         {
             "country": 6,
             "key": "reputation",
-            "value": 0.1
-        },
-        {
-            "country": 7,
-            "key": "reputation",
-            "value": -0.1
-        },
-        {
-            "country": 6,
-            "key": "violent_annexion_ending",
-            "value": 0.1
+            "value": 0.05
         }
     ],
     "biases": [
         {
-            "name": "SECESSIONISTS",
-            "description": "The protests had a smaller following and expressed futile claims.",
-            "headline": "Lamarian secessionists evidence their decadence.",
-            "text": "   A group of secesionists gathered in Madia's capital to repeat the same claims that have not had any effect in 40 years. The protest, organized by the Lamarian National Committee, had a small following in comparison to past convocations.\n    The group marched through Madia's capital to ask for the annexion of their region to Suoka, blatantly rejecting dialogue with the State as well as dismissing the Constitutional Pact that granted peace between the two countries.",        
+            "name": "BREATHTAKING",
+            "description": "The grant will allow Madian studios to produce astonishing films that will increase the country's wealth.",
+            "headline": "Madia supports national cinema with a new grant program.",
+            "text": "   The Madian government has just approved a new grant program consisting of 150 million edunes from which national cinema will benefit.\n    The program, which is part of the CultureConnect plan, will increase to a large extent the funding of films produced in Madia, thus allowing them to significantly increase its production quality, notably in terms of post-production.\n    The government hopes that this will contribute to the development of new SFX techniques, which at their turn will make Madia gain international recognition in the cinema scene.",        
             "additionalConsequences": []
         },
         {
-            "name": "LAMARIAN PEOPLE",
-            "description": "The protest asks for a referendum on the annexion to Suoka as dialogue with Madia has not been fruitful.",
-            "headline": "Lamarian people claim their rights in a massive protest.",
-            "text": "   Thousands of people marched through Madia's capital to express their desire to leave Madia and be annexed to Suoka. \n    The demands call for an increase in security measures and improved healthcare plan for power plant workers after an unfortunate accident last month.\n    The Lamarian National Commitee called a protest following Madia's denial of the possibility of a referendum by shielding itself in the Constitutional Pact -signed 40 years ago- which does not allow this fundamental right.\n    Dialogue with Madia has not been fruitful, but they will continue to assert their their right of self-determination.",        
+            "name": "HARMFUL",
+            "description": "Madia's CultureConnect plan cancels independent cinema grant to give its doubled amount to commercial films.",
+            "headline": "Madia chooses to harm independent cinema, prefers commercial films.",
+            "text": "   The Madian government has made a clear statement: it sides with commercial films. In order to launch its newest grant program under the CultureConnect plan, the subventions for independent cinema have been cancelled.\n    Furthermore, the 150 million edunes aimed films whose only attractive are spectacular visuals double the amount that was once granted to independent movies.\n    When asked if there are plans to reestablish any subsidy for smaller films, the government declared that 'priorities have changed'.",        
             "additionalConsequences": [
                 {
                     "country": 6,
                     "key": "reputation",
-                    "value": -0.4
-                },
-                {
-                    "country": 7,
-                    "key": "reputation",
-                    "value": 0.4
-                },
-                {
-                    "country": 6,
-                    "key": "violent_annexion_ending",
-                    "value": -0.2
-                },
-                {
-                    "country": 6,
-                    "key": "peaceful_annexion_ending",
-                    "value": 0.2
+                    "value": -0.1
                 }
             ]
         },
         {
-            "name": "NEUTRAL",
-            "description": "Take a neutral stance.",
-            "headline": "Lamarian annexionist protest in Sinhaes",
-            "text": "   A group of lamarian annexionists marched through Madia's capital, in a gathering organized by the Lamarian National Commitee.\n    The movement's main demand is to leave Madia and join Suoka but this is currently not allowed by the Constitutional Pact -which was signed by the two countries following the split-, so they are turning to a unilateral referendum.\n    While the annexionists affirm that their national identity is connected to Suoka, Madia states that their motives are economic.",        
+            "name": "BETRAYAL",
+            "description": "As Dalme holds control over the sports industry, Madia aims to take the lead in cinema by neglecting its public services.",
+            "headline": "Madia turns to a fierce competition against Dalme, betrays socialist ideals.",
+            "text": "   The Madian government has just launched a new program consisting of 150 million edunes aimed at producing blockbuster films, instead of investing in its citizens by strengthening public services.\n    The program is a result of Madia and Dalme's dispute on culture and entertainment, rooted in economic interests. As Dalme holds control over a significant part of the sports industry, Madia aims to take the lead in cinema.",        
             "additionalConsequences": [
                 {
                     "country": 6,
                     "key": "reputation",
-                    "value": -0.2
-                },
-                {
-                    "country": 6,
-                    "key": "violent_annexion_ending",
                     "value": -0.2
                 }
             ]

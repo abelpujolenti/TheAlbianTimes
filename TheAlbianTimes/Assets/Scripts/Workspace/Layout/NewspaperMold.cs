@@ -1,6 +1,8 @@
+using System.Collections.Generic;
 using Managers;
 using UnityEngine;
 using Utility;
+using Workspace.Editorial;
 
 namespace Workspace.Layout
 {
@@ -19,6 +21,8 @@ namespace Workspace.Layout
 
         [SerializeField] private GameObject _cellPrefab;
 
+        [SerializeField]private List<NewsHeadline> _newsHeadlines;
+
         private Cell[][] _cells;
         
         private Vector2[][] _cellsPositions;
@@ -36,12 +40,14 @@ namespace Workspace.Layout
         {
             EventsManager.OnPreparingCells += TakeCells;
             EventsManager.OnSuccessfulSnap += SnapNewsHeadline;
+            EventsManager.OnGrabSnappedPiece += RemoveNewsHeadline;
         }
 
         private void OnDisable()
         {
             EventsManager.OnPreparingCells -= TakeCells;
             EventsManager.OnSuccessfulSnap -= SnapNewsHeadline;
+            EventsManager.OnGrabSnappedPiece -= RemoveNewsHeadline;
         }
 
         private Vector2 ModifySizeDelta()
@@ -240,14 +246,26 @@ namespace Workspace.Layout
             return _cells[finalCellCoordinateX][finalCellCoordinateY];
         }
 
-        private Vector3 SnapNewsHeadline(Cell[] snappedCells)
+        private Vector3 SnapNewsHeadline(Cell[] snappedCells, NewsHeadline newsHeadline)
         {
+            _newsHeadlines.Add(newsHeadline);
+            
             foreach (Cell cell in snappedCells)
             {
                 cell.SetFree(false);
             }
             
             return snappedCells[0].transform.position;
+        }
+
+        private void RemoveNewsHeadline(NewsHeadline newsHeadline)
+        {
+            _newsHeadlines.Remove(newsHeadline);
+        }
+
+        public NewsHeadline[] GetNewsHeadlines()
+        {
+            return _newsHeadlines.ToArray();
         }
     }
 }

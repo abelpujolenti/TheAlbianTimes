@@ -94,7 +94,7 @@ namespace Workspace.Editorial
 
             newsHeadlineGameObject.transform.localPosition = new Vector2(0, SPAWN_Y_COORDINATE);
 
-            newsHeadlinePieceGameObject.SetActive(false);
+            //newsHeadlinePieceGameObject.SetActive(false);
 
             NewsHeadlinePiece newsHeadlinePieceComponent = newsHeadlinePieceGameObject.GetComponent<NewsHeadlinePiece>();
         

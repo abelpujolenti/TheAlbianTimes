@@ -33,6 +33,11 @@ namespace Managers
             }
         }
 
+        private void Start()
+        {
+            InitScenes();
+        }
+
         private void InitData()
         {
             gameState = new GameState();
@@ -45,7 +50,10 @@ namespace Managers
             LoadCharacters();
             LoadPlayerData();
             LoadViewedArticles();
+        }
 
+        private void InitScenes()
+        {
             if (SceneManager.GetSceneByName("WorkspaceScene").isLoaded)
             {
                 sceneLoader.SetScene("WorkspaceScene");
@@ -58,7 +66,6 @@ namespace Managers
             }
             sceneLoader.SetScene("MainMenu");
         }
-
         private void LoadCountries()
         {
             Country[] countryObjects = transform.Find("Countries").GetComponentsInChildren<Country>();

@@ -45,6 +45,7 @@ namespace Workspace.Layout
             SoundManager.Instance.SetAudioSourceComponent(_audioSourceDropPiece, DROP_PIECE_SOUND);
             _newsHeadlinePiecesContainer = LayoutManager.Instance.GetNewsHeadlinePiecesContainer();
             _subPiecesPositionsRelativeToRoot = new Vector2[_newsHeadlineSubPieces.Length];
+            gameObject.SetActive(false);
         }
 
         public void BeginDrag()

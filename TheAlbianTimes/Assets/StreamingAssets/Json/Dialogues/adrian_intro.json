@@ -1,0 +1,50 @@
+{
+    "name": "adrian_intro",
+    "firstRound":3,
+    "duration":1,
+    "priority":1,
+    "lines": [
+        {
+            "parts": [
+                {
+                    "speaker": "Adrian",
+                    "text": "My love, my love… Such a long day was it? Lucky you have me."
+                }
+            ],
+            "options": [
+                {
+                    "id": 0,
+                    "text": "I know handsome. Want to go grab some food?",
+                    "followupLines": 1
+                },
+                {
+                    "id": 1,
+                    "text": " Yeah yeah sure. See you tomorrow.",
+                    "followupLines": 1
+                },
+                {
+                    "id": 2,
+                    "text": "You wish. Bye.",
+                    "followupLines": 1
+                }
+            ]
+        },
+        {
+            "parts": [
+                {
+                    "speaker": "Adrian",
+                    "text": " Of course! It's cold, come closer my love."
+                },
+                {
+                    "speaker": "Adrian",
+                    "text": " I can't wait, my love."
+                },
+                {
+                    "speaker": "Adrian",
+                    "text": "Bye then..."
+                }
+            ],
+            "options": []
+        }
+    ]
+}

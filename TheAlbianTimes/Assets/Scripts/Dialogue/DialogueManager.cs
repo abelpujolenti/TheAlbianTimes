@@ -50,11 +50,15 @@ namespace Managers
 
         private bool LoadDialogue()
         {
-            string path = "Dialogue";
+            Debug.Log(GameManager.Instance.GetRound());
+            string path = "Dialogues";
             dialogue = new SortedList<float, DialogueData>(new DuplicateKeyComparer<float>());
 
             FileManager.LoadAllJsonFiles(path, LoadDialogueFromFile);
-            if (dialogue.Count == 0) return false;
+            if (dialogue.Count == 0)
+            {
+                return false;
+            }
 
             selectedDialogue = dialogue.Last().Value;
             return true;
@@ -62,9 +66,11 @@ namespace Managers
 
         private void LoadDialogueFromFile(string json)
         {
+            Debug.Log(json);
+
             DialogueData dialogueData = JsonUtility.FromJson<DialogueData>(json);
 
-            int round = GameManager.Instance.GetRound();
+            int round = GameManager.Instance.GetRound() - 1;
 
             if (!dialogueData.ConditionsFulfilled(round)) return;
             float priority = dialogueData.priority;

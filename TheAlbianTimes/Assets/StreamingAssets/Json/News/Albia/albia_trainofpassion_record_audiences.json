@@ -1,0 +1,67 @@
+{
+    "name":"albia_trainofpassion_record_audiences",
+    "firstRound": 4,
+    "duration":2,
+    "priority":0.70,
+    "extraBias": true,
+    "leniency":4,
+    "type": 2,
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 5,
+            "key": "reputation",
+            "value": 0.05
+        },
+        {
+            "country": 5,
+            "key": "telecuatro",
+            "value": 0.1
+        }
+    ],
+    "biases": [
+        {
+            "name": "SUCCESSFUL",
+            "description": "Celebrate the program's results.",
+            "headline": "Telecuatro's new reality show 'The Train of Passion' earns record audiences in its first episode.",
+            "text": "   Thanks to the episode, Telecuatro earned a record audience of 3 million and was leader in its time slot.\n    The program stars 5 couples who board 'The Train of Passion', a train that travels through Albia and stops at its main cities. In each city, 3 men and 3 women await for an opportunity to seduce the protagonists and bring turmoil to their relationships. The ones who succeed board the train to replace the betrayed partner, who is expelled from the program.\n    Together with its innovative formula, the presence of Albian model and influencer Markel Rey has set the show for success.",        
+            "additionalConsequences": []
+        },
+        {
+            "name": "TOXIC",
+            "description": "Criticize the program for promoting toxic relationships.",
+            "headline": "Telecuatro promotes toxic relationships in its new reality show 'The Train of Passion'.",
+            "text": "   Telecuatro's new reality show has already earned record audiences in its first program, mostly between the ages of 15-25.\n    The show stars 5 couples who board 'The Train of Passion' with the objective of not succumbing to the temptations that await them at each stop.\n    Not only it inserts all relationships in a binary 'loyalty-betrayal' matrix, it also repeatedly promotes toxic and possessive behaviors in intimate relationships. Furthermore, it forces all relationships to fit into the cishet norm.",
+            "additionalConsequences": [
+                {
+                    "country": 5,
+                    "key": "reputation",
+                    "value": -0.1
+                },
+                {
+                    "country": 5,
+                    "key": "telecuatro",
+                    "value": -0.2
+                }
+            ]
+        },
+        {
+            "name": "ALT-RIGHT",
+            "description": "Criticize program's connections with Albia's alt-right.",
+            "headline": "Telecuatro's new reality show 'The Train of Passion', another proof of connections with the alt-right.",
+            "text":"    Telecuatro's new reality show stars 5 couples who board 'The Train of Passion' with the objective of not succumbing to the temptations that await them at each stop.\n    What might seem like a regular reality show evidences Telecuatro's symbiotic relationship with the Albian alt-right. One of the participants, influencer Markel Rey, is the son of Soraya Álferez, popular Telecuatro talk-show host known for her affinities with the alt-right.\n    Furthermore, other people involved in the program (producers, producer companies) have openly supported the Constitutional Motherland Party.",
+            "additionalConsequences": [
+                {
+                    "country": 5,
+                    "key": "reputation",
+                    "value": -0.1
+                },
+                {
+                    "country": 5,
+                    "key": "telecuatro",
+                    "value": -0.3
+                }
+            ]
+        }
+    ]
+}

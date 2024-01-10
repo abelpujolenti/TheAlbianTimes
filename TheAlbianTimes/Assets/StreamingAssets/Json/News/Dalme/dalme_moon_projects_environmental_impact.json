@@ -1,0 +1,56 @@
+{
+    "name":"dalme_moon_projects_environmental_impact",
+    "firstRound":4,
+    "duration":2,
+    "priority":0.80,
+    "leniency":3,
+    "type": 7,
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 4,
+            "key": "reputation",
+            "value": -0.2
+        }
+    ],
+    "biases": [
+        {
+            "name": "ENVIRONMENTALIST",
+            "description": "Dalme intends to promote space tourism without any environmental concern and plans to build a space dumpster. ",
+            "headline": "Leaked: the environmental impact of Dalme's projects for the Moon.",
+            "text": "   The Monkey Leakers, a hacktivist group dedicated to government document disclosure, has just published a collection of documents regarding Dalme's plans for the Moon. Dalme's aim goes beyond mere status, as its intention is to promote space tourism by building casinos, hotels and sports stadiums in the Moon.\n    If carried out, these projects will have a severe environmental impact: not only the effects of the many launches needed to transport construction materials, but also construction and tourism waste that will need the construction of a 'space dumpster', which is already in development.",        
+            "additionalConsequences": []
+        },
+        {
+            "name": "NEGATIONIST",
+            "description": "Madia could have hired the hackers to publish fake documents on space tourism projects.",
+            "headline": "Dangerous hacker group tries to attack Dalme's reputation.",
+            "text": "   The Monkey Leakers, a hacker group dedicated to causing national and global instability, has just published a collection of documents that, according to them, 'evidence the environmental impact of Dalme's projects for the Moon'.\n    These alleged plans consist of casinos, hotels and sport stadiums, and will apparently produce a considerable amount of space waste. However, there is no proof that these documents are official.\n    Instead, these far-fetched ideas seem to target Dalme's reputation. Madia could have hired The Monkey Leakers as a move in its competition with Dalme.",        
+            "additionalConsequences": [
+                {
+                    "country": 4,
+                    "key": "reputation",
+                    "value": 0.6
+                },
+                {
+                    "country": 6,
+                    "key": "reputation",
+                    "value": -0.4
+                }
+            ]
+        },
+        {
+            "name": "ECONOMICIST",
+            "description": "Acknowledge the evironmental impact, but praise the paradigm shift in economy.",
+            "headline": "Dalme's revolutionary plans for the Moon: space tourism.",
+            "text": "   According to The Monkey Leakers, a hacker group dedicated to government document disclosure, Dalme is planning to promote space tourism by building casinos, hotels and sports stadiums in the Moon.\n    If carried out, these projects could have some environmental impact, specially regarding construction and tourism waste.\n    However, Dalme would be a pioneer as the first country to exploit space with an objective different to scientific research. The establishment of a space tourism industry would imply a paradigm shift in economy that could significantly increase not only Dalme's, but also the international community's wealth.",        
+            "additionalConsequences": [
+                {
+                    "country": 4,
+                    "key": "reputation",
+                    "value": 0.8
+                }
+            ]
+        }
+    ]
+}

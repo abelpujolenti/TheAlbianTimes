@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Managers;
 using TMPro;
@@ -10,6 +11,8 @@ namespace Workspace.Editorial
 {
     public class BiasContainer : MonoBehaviour
     {
+        private const String POST_IT_SOUND = "Post it";
+        
         [SerializeField] private Bias[] _bias;
 
         [SerializeField] private GameObject _biasDescriptionRoot;
@@ -28,6 +31,8 @@ namespace Workspace.Editorial
         [SerializeField] private float postitInitialScale = 3f;
         [SerializeField] private float postitScaleAnimationTime = .2f;
         [SerializeField] private float postitAppearDelay = .5f;
+
+        private AudioSource _audioSourcePostit;
 
         private void OnEnable()
         {
@@ -53,6 +58,12 @@ namespace Workspace.Editorial
 
         private void Start()
         {
+            _audioSourcePostit = gameObject.AddComponent<AudioSource>();
+            (AudioSource, String)[] tuples =
+            {
+                (_audioSourcePostit, POST_IT_SOUND)
+            };
+            SoundManager.Instance.SetMultipleAudioSourcesComponents(tuples);
             foreach (Bias bias in _bias)
             {
                 bias.SetBiasContainer(this);

@@ -33,23 +33,6 @@ namespace Managers
         [SerializeField] private Sound[] _sounds;
 
         private Dictionary<String, Sound> _soundsDictionary;
-    
-        private AudioSource oneShotAudioSource;
-
-        [SerializeField] private AudioClip changeBiasSound;
-        [SerializeField] private AudioClip dropPaperSound;
-        [SerializeField] private AudioClip grabPaperSound;
-        [SerializeField] private AudioClip submitPaperSound;
-        [SerializeField] private AudioClip dropPieceSound;
-        [SerializeField] private AudioClip frictionSound;
-        [SerializeField] private AudioClip thudSound;
-        [SerializeField] private AudioClip snapPieceSound;
-        [SerializeField] private AudioClip grabPieceSound;
-        [SerializeField] private AudioClip openDrawerSound;
-        [SerializeField] private AudioClip closeDrawerSound;
-        [SerializeField] private AudioClip phoneSound;
-        [SerializeField] private AudioClip typeSound;
-        [SerializeField] private AudioClip introSound;
 
         private void Awake()
         {
@@ -71,7 +54,6 @@ namespace Managers
             {
                 Destroy(_instance);
             }
-            oneShotAudioSource = gameObject.AddComponent<AudioSource>();
         }
 
         private void FillSoundsDictionary()
@@ -98,7 +80,15 @@ namespace Managers
             _audioMixer.SetFloat(mixerGroupName, volumeValue);
         }
 
-        public void SetAudioSourceComponent(AudioSource audioSource, string name)
+        public void SetMultipleAudioSourcesComponents((AudioSource, String)[] tuples)
+        {
+            foreach ((AudioSource, String) tuple in tuples)
+            {
+                SetAudioSourceComponent(tuple.Item1, tuple.Item2);
+            }
+        }
+
+        private void SetAudioSourceComponent(AudioSource audioSource, string name)
         {
             Sound sound = _soundsDictionary[name];
             
@@ -148,64 +138,6 @@ namespace Managers
         public void SetVolumeValue(String audioMixerGroupName, float volumeValue)
         {
             _audioMixer.SetFloat(audioMixerGroupName, volumeValue);
-        }
-
-        public void IntroSound()
-        {
-            oneShotAudioSource.PlayOneShot(introSound);
-
-        }
-        public void PhoneSound()
-        {
-            oneShotAudioSource.PlayOneShot(phoneSound);
-        }
-        public void TypeSound()
-        {
-            oneShotAudioSource.PlayOneShot(typeSound, .4f);
-        }
-        public void ChangeBiasSound()
-        {
-            oneShotAudioSource.PlayOneShot(changeBiasSound, .6f);
-        }
-        public void SubmitPaperSound()
-        {
-            oneShotAudioSource.PlayOneShot(grabPaperSound, .3f);
-        }
-        public void ReturnPaperSound()
-        {
-            oneShotAudioSource.PlayOneShot(dropPaperSound, .4f);
-            oneShotAudioSource.PlayOneShot(thudSound, .3f);
-        }
-        public void DropPaperSound()
-        {
-            oneShotAudioSource.PlayOneShot(dropPaperSound, .2f);
-        }
-        public void GrabPaperSound()
-        {
-            oneShotAudioSource.PlayOneShot(dropPaperSound, .1f);
-            oneShotAudioSource.PlayOneShot(grabPaperSound, .6f);
-        }
-        public void DropPieceSound()
-        {
-            oneShotAudioSource.PlayOneShot(thudSound, .6f);
-        }
-        public void GrabPieceSound()
-        {
-            oneShotAudioSource.PlayOneShot(grabPieceSound, .4f);
-            oneShotAudioSource.PlayOneShot(thudSound, .3f);
-        }
-        public void SnapPieceSound()
-        {
-            oneShotAudioSource.PlayOneShot(snapPieceSound, .7f);
-            oneShotAudioSource.PlayOneShot(thudSound, .6f);
-        }
-        public void OpenDrawerSound()
-        {
-            oneShotAudioSource.PlayOneShot(openDrawerSound);
-        }
-        public void CloseDrawerSound()
-        {
-            oneShotAudioSource.PlayOneShot(closeDrawerSound);
         }
     }
 }

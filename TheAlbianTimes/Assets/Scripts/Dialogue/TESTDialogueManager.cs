@@ -28,9 +28,13 @@ namespace Dialogue
         void Start()
         {
             _audioSourcePhone = gameObject.AddComponent<AudioSource>();
-            SoundManager.Instance.SetAudioSourceComponent(_audioSourcePhone, PHONE_SOUND);
             _audioSourceType = gameObject.AddComponent<AudioSource>();
-            SoundManager.Instance.SetAudioSourceComponent(_audioSourceType, TYPE_SOUND);
+            (AudioSource, String)[] tuples =
+            {
+                (_audioSourcePhone, PHONE_SOUND),
+                (_audioSourceType, TYPE_SOUND)
+            };
+            SoundManager.Instance.SetMultipleAudioSourcesComponents(tuples);
             tmpText = transform.Find("text").GetComponent<TextMeshProUGUI>();
             tmpTitle = transform.Find("title").GetComponent<TextMeshProUGUI>();
             bg = GetComponent<Image>();

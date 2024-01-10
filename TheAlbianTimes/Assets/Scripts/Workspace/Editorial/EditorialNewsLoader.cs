@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Mail.Content;
 using Managers;
 using UnityEngine;
 using Workspace.Layout;
 using Workspace.Layout.Pieces;
+using Workspace.Mail.Content;
 using Random = UnityEngine.Random;
 
 namespace Workspace.Editorial

@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using Mail.Content;
 using Managers;
 using UnityEngine.EventSystems;
 using Utility;
+using Workspace.Mail.Content;
 
 public class TESTAddMail : InteractableRectTransform
 {

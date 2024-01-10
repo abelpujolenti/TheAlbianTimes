@@ -15,7 +15,8 @@ namespace Workspace.Editorial
 {
     public class NewsHeadline : ThrowableInteractableRectTransform
     {
-        private const String DROP_PAPER_SOUND = "Drop Paper";
+        private const String DROP_PAPER_ON_TABLE_SOUND = "Drop Paper On Table";
+        private const String DROP_PAPER_SOUND_IN_FOLDER = "Drop Paper In Folder";
         private const String GRAB_PAPER_SOUND = "Grab Paper";
         private const String THUD_SOUND = "Thud";
         private const String SUBMIT_PAPER_SOUND = "Submit Paper";
@@ -78,21 +79,28 @@ namespace Workspace.Editorial
         private bool _modified;
         private bool _onFolder = true;
 
-        private AudioSource _audioSourceDropPaper;
+        private AudioSource _audioSourceDropPaperOnTable;
+        private AudioSource _audioSourceDropPaperInFolder;
         private AudioSource _audioSourceGrabPaper;
         private AudioSource _audioSourceThud;
         private AudioSource _audioSourceSubmitPaper;
 
         void Start()
         {
-            _audioSourceDropPaper = gameObject.AddComponent<AudioSource>();
-            SoundManager.Instance.SetAudioSourceComponent(_audioSourceDropPaper, DROP_PAPER_SOUND);
+            _audioSourceDropPaperOnTable = gameObject.AddComponent<AudioSource>();
+            _audioSourceDropPaperInFolder = gameObject.AddComponent<AudioSource>();
             _audioSourceGrabPaper = gameObject.AddComponent<AudioSource>();
-            SoundManager.Instance.SetAudioSourceComponent(_audioSourceGrabPaper, GRAB_PAPER_SOUND);
             _audioSourceThud = gameObject.AddComponent<AudioSource>();
-            SoundManager.Instance.SetAudioSourceComponent(_audioSourceThud, THUD_SOUND);
             _audioSourceSubmitPaper = gameObject.AddComponent<AudioSource>();
-            SoundManager.Instance.SetAudioSourceComponent(_audioSourceSubmitPaper, SUBMIT_PAPER_SOUND);
+            (AudioSource, String)[] tuples =
+            {
+                (_audioSourceDropPaperOnTable, DROP_PAPER_ON_TABLE_SOUND),
+                (_audioSourceDropPaperInFolder, DROP_PAPER_SOUND_IN_FOLDER),
+                (_audioSourceGrabPaper, GRAB_PAPER_SOUND),
+                (_audioSourceThud, THUD_SOUND),
+                (_audioSourceSubmitPaper, SUBMIT_PAPER_SOUND)
+            };
+            SoundManager.Instance.SetMultipleAudioSourcesComponents(tuples);
             
             _headlineText.text = _headlinesText[0];
             _contentText.text = _biasesContents[0];
@@ -131,7 +139,6 @@ namespace Workspace.Editorial
             
             _newsFolder.SetDragging(true);
 
-            _audioSourceDropPaper.Play();
             _audioSourceGrabPaper.Play();
         }
 
@@ -227,17 +234,18 @@ namespace Workspace.Editorial
                 if (_newsFolder.IsCoordinateInsideBounds(position))
                 {
                     StartCoroutine(Slide(transform.localPosition, _origin));
+                    _audioSourceDropPaperInFolder.Play();
                 }
                 else
                 {
                     DropOutFolder();   
+                    _audioSourceDropPaperOnTable.Play();
                 }
             }
             else if (_newsFolder.IsCoordinateInsideBounds(position))
             {
                 DropOnFolder(false);
             }
-            _audioSourceDropPaper.Play();
         }
 
         private void DropOnFolder(bool allAtOnce)
@@ -246,6 +254,7 @@ namespace Workspace.Editorial
             {
                 return;
             }
+            _audioSourceDropPaperInFolder.Play();
             EventsManager.OnPressPanicButton -= DropOnFolder;
             _newsFolder.AddNewsHeadlineComponent(this, allAtOnce);
         }
@@ -444,7 +453,7 @@ namespace Workspace.Editorial
 
             if (_modified)
             {
-                _audioSourceDropPaper.Play();
+                _audioSourceDropPaperInFolder.Play();
                 _audioSourceThud.Play();    
             }
 

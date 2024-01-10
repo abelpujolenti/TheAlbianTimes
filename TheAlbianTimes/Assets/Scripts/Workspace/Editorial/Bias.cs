@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using Managers;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -12,7 +13,9 @@ namespace Workspace.Editorial
 {
     public class Bias : InteractableRectTransform
     {
-        private const String CHANGE_BIAS_SOUND = "Change Bias";
+        private const String OPEN_MARKER_CAP_SOUND = "Open Marker Cap";
+        private const String CLOSE_MARKER_CAP_SOUND = "Close Marker Cap";
+        private const String MARK_SOUND = "Mark With Marker";
 
         [SerializeField] private TextMeshProUGUI _textMeshPro;
 
@@ -61,7 +64,9 @@ namespace Workspace.Editorial
         private Vector3 _capStartPosition;
         private Vector3 _markerStartPosition;
 
-        private AudioSource _audioSourceChangeBias;
+        private AudioSource _audioSourceOpenCap;
+        private AudioSource _audioSourceCloseCap;
+        private AudioSource _audioSourceMark;
 
         protected override void Setup()
         {
@@ -72,8 +77,16 @@ namespace Workspace.Editorial
 
         void Start()
         {
-            _audioSourceChangeBias = gameObject.AddComponent<AudioSource>();
-            SoundManager.Instance.SetAudioSourceComponent(_audioSourceChangeBias, CHANGE_BIAS_SOUND);
+            _audioSourceOpenCap = gameObject.AddComponent<AudioSource>();
+            _audioSourceCloseCap = gameObject.AddComponent<AudioSource>();
+            _audioSourceMark = gameObject.AddComponent<AudioSource>();
+            (AudioSource, String)[] tuples =
+            {
+                (_audioSourceOpenCap, OPEN_MARKER_CAP_SOUND),
+                (_audioSourceCloseCap, CLOSE_MARKER_CAP_SOUND),
+                (_audioSourceMark, MARK_SOUND)
+            };
+            SoundManager.Instance.SetMultipleAudioSourcesComponents(tuples);
 
             _textMeshPro.text = _text;
 
@@ -113,7 +126,7 @@ namespace Workspace.Editorial
             _selected = true;
             EventsManager.OnChangeSelectedBias += UnselectBias;
 
-            _audioSourceChangeBias.Play();
+            _audioSourceOpenCap.Play();
 
             newsFolder.GetFrontHeadline().ClearBiasMarks();
             if (newsFolder.GetFrontHeadline().GetChosenBiasIndex() != _siblingIndex)

@@ -1,4 +1,4 @@
-namespace Mail.Content
+namespace Workspace.Mail.Content
 {
     public class Ad : EnvelopeContent
     {

@@ -1,8 +1,8 @@
 {
     "name":"terkan_iota_retreat",
-    "firstRound":1,
+    "firstRound":3,
     "duration":2,
-    "priority":0.6,
+    "priority":0.85,
     "leniency":4,
     "type": 5,
     "imagePath": null,

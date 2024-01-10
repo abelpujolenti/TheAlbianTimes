@@ -1,9 +1,9 @@
 {
     "name":"rekka_hetian_diplomat_vanishment",
     "firstRound":1,
-    "duration":3,
-    "priority":1,
-    "leniency":0,
+    "duration":4,
+    "priority":0.85,
+    "leniency":4,
     "type": 3,
     "conditions": [
         {

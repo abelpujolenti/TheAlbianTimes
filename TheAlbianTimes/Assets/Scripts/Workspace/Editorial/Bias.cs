@@ -126,8 +126,6 @@ namespace Workspace.Editorial
             
             EventsManager.OnChangeSelectedBias += UnselectBias;
 
-            _audioSourceOpenCap.Play();
-
             newsFolder.GetFrontHeadline().ClearBiasMarks();
             if (newsFolder.GetFrontHeadline().GetChosenBiasIndex() != _siblingIndex)
             {
@@ -162,7 +160,7 @@ namespace Workspace.Editorial
             if (_openCapPositionCoroutine != null) StopCoroutine(_openCapPositionCoroutine);
             if (_openCapRotationCoroutine != null) StopCoroutine(_openCapRotationCoroutine);
             _openCapPositionCoroutine = StartCoroutine(TransformUtility.SetPositionCoroutine(_cap.transform, _cap.transform.position, _capStartPosition + openCapOffset, openCapTime));
-        
+            _audioSourceOpenCap.Play();
         }
 
         private void CloseCap()
@@ -172,6 +170,7 @@ namespace Workspace.Editorial
             if (_closeCapRotationCoroutine != null) StopCoroutine(_closeCapRotationCoroutine);
             _closeCapPositionCoroutine = StartCoroutine(TransformUtility.SetPositionCoroutine(_cap.transform, _cap.transform.position, _capStartPosition, closeCapTime));
             _closeCapRotationCoroutine = StartCoroutine(TransformUtility.SetRotationCoroutine(_cap.transform, 0f, closeCapTime));
+            StartCoroutine(DelaySoundCoroutine(closeCapTime / 2f, _audioSourceCloseCap));
         }
 
         private void SeparateCap()
@@ -180,6 +179,7 @@ namespace Workspace.Editorial
             if (_openCapRotationCoroutine != null) StopCoroutine(_openCapRotationCoroutine);
             _openCapPositionCoroutine = StartCoroutine(TransformUtility.SetPositionCoroutine(_cap.transform, _cap.transform.position, _capStartPosition + separateCapOffset, closeCapTime));
             _openCapRotationCoroutine = StartCoroutine(TransformUtility.SetRotationCoroutine(_cap.transform, separateCapRotation, separateCapTime));
+            _audioSourceOpenCap.Play();
         }
 
         public void MarkAnimation()
@@ -199,6 +199,12 @@ namespace Workspace.Editorial
             _markAnimationRunning = false;
         }
 
+        private IEnumerator DelaySoundCoroutine(float t, AudioSource audioSource)
+        {
+            yield return new WaitForSeconds(t);
+            audioSource.Play();
+        }
+
         private IEnumerator MarkAnimationCoroutine()
         {
             _markAnimationRunning = true;
@@ -216,6 +222,9 @@ namespace Workspace.Editorial
 
                 Vector3 passMovement = new Vector3(markAnimationWidth, -inc1, 0f);
                 newsFolder.GetFrontHeadline().SpawnBiasMark(_siblingIndex, _image.transform.position);
+
+                _audioSourceMark.Play();
+
                 yield return TransformUtility.SetPositionCoroutine(_image.transform, _image.transform.position, _image.transform.position + passMovement, markAnimationPassTime);
 
                 yield return new WaitForSeconds(markAnimationPassLingerTime);

@@ -44,9 +44,9 @@ namespace Managers
                 
                 if (!PlayerPrefs.HasKey(PLAYERS_PREFS_MASTER_VOLUME_VALUE))
                 {
-                    PlayerPrefs.SetFloat(PLAYERS_PREFS_MASTER_VOLUME_VALUE, -15);
-                    PlayerPrefs.SetFloat(PLAYERS_PREFS_SFX_VOLUME_VALUE, -15);
-                    PlayerPrefs.SetFloat(PLAYERS_PREFS_MUSIC_VOLUME_VALUE, -15);
+                    PlayerPrefs.SetFloat(PLAYERS_PREFS_MASTER_VOLUME_VALUE, 1);
+                    PlayerPrefs.SetFloat(PLAYERS_PREFS_SFX_VOLUME_VALUE, 1);
+                    PlayerPrefs.SetFloat(PLAYERS_PREFS_MUSIC_VOLUME_VALUE, 1);
                 }
                 DontDestroyOnLoad(gameObject);
             }

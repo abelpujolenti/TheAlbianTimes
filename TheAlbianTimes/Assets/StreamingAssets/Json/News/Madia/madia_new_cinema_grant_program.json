@@ -4,7 +4,7 @@
     "duration":3,
     "priority":0.65,
     "leniency":4,
-    "type": 0,
+    "type": 6,
     "imagePath": null,
     "consequences": [
         {

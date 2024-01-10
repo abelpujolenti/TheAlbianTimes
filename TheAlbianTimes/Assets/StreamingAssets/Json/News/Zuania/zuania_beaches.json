@@ -1,0 +1,67 @@
+{
+    "name":"zuania_beaches",
+    "firstRound":3,
+    "duration":3,
+    "priority":0.65,
+    "extraBias": true,
+    "leniency":3,
+    "type": 6,
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 2,
+            "key": "reputation",
+            "value": -0.05
+        },
+        {
+            "country": 3,
+            "key": "reputation",
+            "value": 0.1
+        }
+    ],
+    "biases": [
+        {
+            "name": "UNCONCERNED",
+            "description": "The ongoing territorial dispute is irrelevant to this article.",
+            "headline": "The beaches of the Zuanian region : an unknown paradise.",
+            "text": "   Tired of the same old discount holiday package in some crummy Suokan spa? This season you can discover Zuanian region's best kept secret.\n    Often associated with winter wonderland imagery, its southern coast boasts a wide array of idyllic beaches yet to be defiled by mass tourism.",        
+            "additionalConsequences": []
+        },
+        {
+            "name": "PROVINCE",
+            "description": "Zuania is an autonomous province of the Xayan State.",
+            "headline": "The wonders of Xayan beaches: deep within the province of Zuania.",
+            "text": "   Tired of the same old discount holiday package in some crummy Suokan spa? This season you can discover Xayan tourist's best kept secret.\n    The autonomous province of Zuania, often associated with winter wonderland imagery, also boasts a wide array of idyllic beaches. While they are a popular local destination among Xayan tourists, their culture strongly emphasizes the need to preserve nature. These are not your average filthy Madian beaches!",
+            "additionalConsequences": [
+                {
+                    "country": 2,
+                    "key": "reputation",
+                    "value": 0.1
+                },
+                {
+                    "country": 3,
+                    "key": "reputation",
+                    "value": -0.05
+                }
+            ]
+        },
+        {
+            "name": "COUNTRY",
+            "description": "Zuania is an independent country.",
+            "headline": "The wonders of Zuanian beaches: an unknown paradise.",
+            "text":"    Tired of the same old discount holiday package in some crummy Suokan spa? This season you can discover Zuanian region's best kept secret.\n    Most associated with winter wonderland imagery and attempts at annexation by power-hungry neighbors, its southern coast boasts a wide array of idyllic beaches yet to be defiled by mass tourism.",
+            "additionalConsequences": [
+                {
+                    "country": 2,
+                    "key": "reputation",
+                    "value": -0.05
+                },
+                {
+                    "country": 3,
+                    "key": "reputation",
+                    "value": 0.1
+                }
+            ]
+        }
+    ]
+}

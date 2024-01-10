@@ -1,0 +1,59 @@
+{
+    "name":"rekka_hetian_diplomat_vanishment",
+    "firstRound":1,
+    "duration":4,
+    "priority":0.85,
+    "leniency":2,
+    "type": 3,
+    "conditions": [
+        {
+            "entityId": 6,
+            "field": "reputation",
+            "value": 0.4,
+            "predicate": 1
+        }
+    ],
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 6,
+            "key": "reputation",
+            "value": -0.1
+        }
+    ],
+    "biases": [
+        {
+            "name": "NEUTRAL",
+            "description": "Report the situation from a neutral point of view.",
+            "headline": "Hetian diplomat vanishes in mysterious circumstances.",
+            "text": "   Ilias Bizriken, a diplomat representing the state of Hetia, vanished without a trace minutes after landing in Rekka Intl. Airport.\n    The Hetian government has launched an unprecedented investigation on the matter with the full support of the Rekkian leader.",        
+            "additionalConsequences": []
+        },
+        {
+            "name": "ACCIDENT",
+            "description": "It is unlikely that any illicit actions have taken place.",
+            "headline": "Heads of state agree to a joint investigation on missing Hetian diplomat.",
+            "text": "   Ilias Bizriken, a diplomat representing the state of Hetia, vanished without a trace minutes after landing in Rekka Intl. Airport.\n    Hetia and Rekka's heads of state met this morning and reached an agreement that will combine the power of both countries' intelligence services. In a joint statement, they have dismissed speculation involving faith-motivated criminal activity, and have vowed to prevent a diplomatic crisis.",
+            "additionalConsequences": [
+                {
+                    "country": 6,
+                    "key": "reputation",
+                    "value": 0.1
+                }
+            ]
+        },
+        {
+            "name": "FOUL PLAY",
+            "description": "The situation is too suspicious and likely involves criminal activity.",
+            "headline": "Hetian diplomat vanishes in mysterious circumstances amid foul play rumors.",
+            "text": "   Ilias Bizriken, a diplomat representing the state of Hetia, vanished without a trace minutes after landing in Rekka Intl. Airport.\n    The Hetian government has launched an unprecedented investigation amid growing suspicion of criminal involvement. Last year saw a similar incident happen in the small island nation, as rumors have circulated that both of these cases may be linked and could even involve cult activity.",  
+            "additionalConsequences": [
+                {
+                    "country": 6,
+                    "key": "reputation",
+                    "value": -0.1
+                }
+            ]
+        }
+    ]
+}

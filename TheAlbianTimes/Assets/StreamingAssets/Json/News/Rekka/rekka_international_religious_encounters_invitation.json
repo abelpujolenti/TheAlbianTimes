@@ -1,0 +1,69 @@
+{
+    "name":"rekka_international_religious_encounters_invitation",
+    "firstRound":2,
+    "duration":2,
+    "priority":0.70,
+    "leniency":3,
+    "type": 6,
+    "conditions": [
+        {
+            "entityId": 8,
+            "field": "reputation",
+            "value": 0.4,
+            "predicate": 4
+        }
+    ],
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 8,
+            "key": "reputation",
+            "value": -0.2
+        },
+        {
+            "country": 2,
+            "key": "reputation",
+            "value": -0.1
+        }
+    ],
+    "biases": [
+        {
+            "name": "DANGEROUS CULT",
+            "description": "The mysterious 'hippie' commune might have a dark side that Terkan is deliberately ignoring.",
+            "headline": "The potentially dangerous cult of Rekka is invited by Terkan to the International Religious Encounters.",
+            "text": "   Terkan, who is the host of this lustrum's International Religious Encounters, has chosen to invite Rekka. Little is known about the island's community, other than its origin as a 'hippie' commune founded a century ago by Xayan and Dalmian settlers. \n    Its spiritual practices and their communitarian economic system are difficult to understand for foreigners but seem to be evidences of a utopic existence. \n    However, in recent months, journalists have published out more detailed reports that might reveal the dark side of the cult: total control over politics, forced participation in rituals, unethical practices or even abductions of tourists.",        
+            "additionalConsequences": []
+        },
+        {
+            "name": "DIPLOMACY",
+            "description": "After its promotion of tourism, Rekka's participation in the IRE could be the next step towards dialogue with the international community.",
+            "headline": "Terkan invites Rekka to the International Religious Encounters, hopeful of establishing diplomatic relationships.",
+            "text": "   For the first time since the incorporation of the Aluseng Congregation 15 years ago, the International Religious Encounters will have a new member: Rekka.\n    The commune has closed itself to international relationships ever since its foundation a century ago, but in recent years has started welcoming tourists, always with a spiritual approach.\n    Heitor Alvarez, Secretary in this edition of the IRE, has stated that 'Rekka has a rich devotional tradition' and that they are 'eager to discover their ontology'. This could set the pace for diplomatic relationships between Rekka and the international community, not only Terkan.",
+            "additionalConsequences": [
+                {
+                    "country": 6,
+                    "key": "reputation",
+                    "value": 0.4
+                },
+                {
+                    "country": 2,
+                    "key": "reputation",
+                    "value": 0.2
+                }
+            ]
+        },
+        {
+            "name": "ECONOMICS",
+            "description": "After its promotion of tourism, Rekka's participation in the IRE could be the next step towards trade with the international community.",
+            "headline": "Terkan invites Rekka to the International Religious Encounters, hopeful of establishing economic relationships.",
+            "text": "   For the first time since the incorporation of the Aluseng Congregation 15 years ago, the International Religious Encounters will have a new member: Rekka.\n    The commune has closed itself to international relationships ever since its foundation a century ago, but in recent years has started welcoming tourists, always with a spiritual approach.\n    Benedito Gomes, Terkan's Minister of Economy, has stated that 'Rekka's economy has potential' and that they are 'willing to establish economic relationships with them'. If Rekka accepts the invitation, it could set pace for future trading with other countries aside from Terkan.",  
+            "additionalConsequences": [
+                {
+                    "country": 2,
+                    "key": "reputation",
+                    "value": 0.2
+                }
+            ]
+        }
+    ]
+}

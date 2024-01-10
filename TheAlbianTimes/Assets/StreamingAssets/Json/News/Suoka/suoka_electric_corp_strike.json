@@ -1,0 +1,51 @@
+{
+    "name":"suoka_electric_corp_strike",
+    "firstRound":5,
+    "duration":1,
+    "priority":1,
+    "leniency":3,
+    "type": 8,
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 6,
+            "key": "reputation",
+            "value": -0.1
+        }
+    ],
+    "biases": [
+        {
+            "name": "NEUTRAL",
+            "description": "Take a neutral stance.",
+            "headline": "Suoka Electric Corp. strikes continue as negotiations stall.",
+            "text": "   Suoka's third largest company and main electricity provider refused the workers union's demands for a second time last afternoon. It has stood by its initial offer, which the union representatives characterized as a \"deeply upsetting low-ball\".\n    The demands call for an increase in security measures and improved healthcare plan for power plant workers after an explosion that left 3 dead and 14 injured.\n    In response, the company offered to pay a month's salary to the affected worker's families, but did not address any of the aforementioned demands.\n    The ongoing strike is scheduled to continue until the company accepts the union's minimum demands.",        
+            "additionalConsequences": []
+        },
+        {
+            "name": "COMPANY",
+            "description": "The workers are selfishly disrupting the lives of everyone else by refusing to meet the company halfway.",
+            "headline": "Outages continue and lives are ruined by Suoka Electric Corporation strike.",
+            "text": "   Suoka's third largest company and main electricity provider stood firmly by its position on the workers union's demands. Suoka Electric Corporation has announced it stands by its initial offer, which the union representatives refused to compromise with.\n    The demands call for an increase in security measures and improved healthcare plan for power plant workers after an unfortunate accident last month.\n    While negotiations have been ongoing, over 48% of the company's workers have refused their duties and have not been working, causing outages across Suoka. Millions of families have had their lives disrupted by the union's lack of cooperation. Workers in the automotive industry have made a formal petition to the government to forcefully shut the strike down in order to mitigate the damage.",        
+            "additionalConsequences": [
+                {
+                    "country": 6,
+                    "key": "reputation",
+                    "value": 0.1
+                }
+            ]
+        },
+        {
+            "name": "WORKERS",
+            "description": "The company must accept the worker's demands, or else the strike has to continue for the sake of their work conditions.",
+            "headline": "Suoka Electric Corp. fails to meet striking workers' demands.",
+            "text": "   Suoka's third largest company and main electricity provider refused the workers union's demands for a second time last afternoon. It has stood by its initial offer, which the union representatives characterized as a \"deeply upsetting low-ball\".\n    The demands call for an increase in security measures and improved healthcare plan for power plant workers after an explosion that left 3 dead and 14 injured. Furthermore, the company has a history of accidental deaths, and international observers have long warned about the government's lack of security oversight.\n    In response, the company made the pitiful offer to pay a month's salary to the affected worker's families, but chose to ignore all of the aforementioned demands.\n    The ongoing strike must continue until all demands are accepted.",        
+            "additionalConsequences": [
+                {
+                    "country": 6,
+                    "key": "reputation",
+                    "value": -0.1
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,56 @@
+{
+    "name":"dalme_moon_offensive",
+    "firstRound":1,
+    "duration":2,
+    "priority":1,
+    "leniency":2,
+    "type": 5,
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 4,
+            "key": "reputation",
+            "value": 0.1
+        },
+        {
+            "country": 1,
+            "key": "reputation",
+            "value": -0.1
+        }
+    ],
+    "biases": [
+        {
+            "name": "LIBERATION",
+            "description": "Dalme aims to return the Moon to humanity.",
+            "headline": "Dalme launches an offensive to free the Moon from Terkani occupation.",
+            "text": "   Dalme has launched two military spaceships to the Moon, with a tripulation of 10 people each. The expedition is expected to reach its destination in two days, and start the military operation directly afterwards.\n    According to Lyubka Celko, Dalme's Chief Executive of Government Communications, the mission's aim is 'to return the Moon to humanity'. 30 years ago, Terkan launched a space program and 'conquered' the Moon, ignoring other country’s demands. However, Terkan's funding slowly diminished until the Hetian dam crisis forced the abandonment of the bases.",        
+            "additionalConsequences": []
+        },
+        {
+            "name": "APPROPIATION",
+            "description": "Dalme secretly plans to conquer the Moon just like Terkan did.",
+            "headline": "Dalme launches an offensive to conquer the Moon from Terkan.",
+            "text": "   30 years ago, Terkan launched a space program and unilaterally took over the Moon. However, Terkan's funding slowly diminished until the Hetian dam crisis forced the abandonment of the bases.\n    Dalme has launched two military spaceships to the Moon, with a tripulation of 10 people each. The expedition is expected to reach its destination in two days, and start the military operation directly afterwards.\n    Even if Dalme has stated that they want to 'return the Moon to humanity', it is clear that their true aim is conquering in themselves, taking advantage of Terkan's weak economy.",        
+            "additionalConsequences": [
+                {
+                    "country": 4,
+                    "key": "reputation",
+                    "value": -0.4
+                }
+            ]
+        },
+        {
+            "name": "ENVIRONMENT",
+            "description": "Express concern for the launch's harmful effects on wildlife.",
+            "headline": "Dalme launches two spaceships to the Moon and causes considerable environmental impact.",
+            "text": "   30 years ago, Terkan launched a space program and unilaterally took over the Moon. However, Terkan's funding slowly diminished until the Hetian dam crisis forced the abandonment of the bases.\n    Dalme has launched two military spaceships to the Moon, in order to 're-conquer' it from Terkan. The launch caused massive clouds of dust, and large chuncks of waste fell towards nearby areas. Moreover, a sound intensity reading of 110 decibels three miles from the launch site was recorded.\n    These 'side effects' have a considerable impact in the area's wildlife, including the death of hundreds of birds.",        
+            "additionalConsequences": [
+                {
+                    "country": 4,
+                    "key": "reputation",
+                    "value": -0.3
+                }
+            ]
+        }
+    ]
+}

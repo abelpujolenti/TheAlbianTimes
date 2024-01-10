@@ -1,0 +1,61 @@
+{
+    "name":"suoka_besla_car_announcement",
+    "firstRound":5,
+    "duration":1,
+    "priority":0.7,
+    "leniency":4,
+    "type": 7,
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 7,
+            "key": "reputation",
+            "value": 0.05
+        },
+        {
+            "country": 6,
+            "key": "reputation",
+            "value": -0.03
+        }
+    ],
+    "biases": [
+        {
+            "name": "NEUTRAL",
+            "description": "",
+            "headline": "Felon Dusk announces new vehicle which is unlikely to explode.",
+            "text": "   The Suokan enterpreneur and self-proclaimed angel investor unveiled a new vehicle from his Besla brand. Its batteries boast 700km of autonomy and an explosion rate of 12%.",        
+            "additionalConsequences": []
+        },
+        {
+            "name": "INNOVATIVE!",
+            "description": "",
+            "headline": "Felon Dusk announces groundbreaking new vehicle with a record-low chance of explosion.",
+            "text": "   The Suokan enterpreneur and angel investor unveiled a groundbreaking new vehicle from his Besla brand. Its batteries boast 700km of autonomy and a yet unseen explosion rate of only 12%. What are you waiting for? What are any of us waiting for, really?",        
+            "additionalConsequences": [
+                {
+                    "country": 7,
+                    "key": "reputation",
+                    "value": 0.03
+                }
+            ]
+        },
+        {
+            "name": "TRASH",
+            "description": "",
+            "headline": "If you want an exploding car, Felon Dusk has you covered.",
+            "text": "   The Suokan enterpreneur, former wealthy child and self-proclaimed angel investor unveiled a new groundbreaking vehicle from his Besla brand. Groundbreaking in the sense that at any given time it may form a crater and blast its driver into outer space.",        
+            "additionalConsequences": [
+                {
+                    "country": 7,
+                    "key": "reputation",
+                    "value": -0.08
+                },
+                {
+                    "country": 6,
+                    "key": "reputation",
+                    "value": 0.1
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,50 @@
+{
+    "name": "hazel_intro",
+    "firstRound":1,
+    "duration":1,
+    "priority":1,
+    "lines": [
+        {
+            "parts": [
+                {
+                    "speaker": "Hazel",
+                    "text": "Hi honey, I just made dinner. Ruby is in her room. How was your day?"
+                }
+            ],
+            "options": [
+                {
+                    "id": 0,
+                    "text": "A day like any other. How about yours?",
+                    "followupLines": 1
+                },
+                {
+                    "id": 1,
+                    "text": "Average, I did miss you a lot babe. How about yours?",
+                    "followupLines": 1
+                },
+                {
+                    "id": 2,
+                    "text": "Busy. God, I'm hungry...",
+                    "followupLines": 1
+                }
+            ]
+        },
+        {
+            "parts": [
+                {
+                    "speaker": "Hazel",
+                    "text": "Good then. Get comfortable, I will set up the table"
+                },
+                {
+                    "speaker": "Hazel",
+                    "text": "Oh, you're sweet, I missed you too. Let me set up the table. Love you!"
+                },
+                {
+                    "speaker": "Hazel",
+                    "text": "Oh... okay. Have a seat then."
+                }
+            ],
+            "options": []
+        }
+    ]
+}

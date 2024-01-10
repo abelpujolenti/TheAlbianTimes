@@ -1,0 +1,96 @@
+{
+    "name":"hetia_sumania_massacre",
+    "firstRound":2,
+    "duration":1,
+    "priority":1,
+    "leniency":3,
+    "type": 0,
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 0,
+            "key": "moreira_gov",
+            "value": 0.1
+        },
+        {
+            "country": 0,
+            "key": "reputation",
+            "value": 0.075
+        },
+        {
+            "country": 1,
+            "key": "reputation",
+            "value": -0.2
+        },
+        {
+            "country": 1,
+            "key": "dam_blowup_ending",
+            "value": 0.2
+        }
+    ],
+    "biases": [
+        {
+            "name": "GOVERNMENT",
+            "description": "Violent migrant assault ends in an stampede: 29 casualties among the perpetrators and 12 injured hetian police officers.",
+            "headline": "Incident in Hetia's Sumania Border ends with casualties.",
+            "text": "   On thursday, more than 250 Terkani migrants tried to illegally cross the Sumania border to enter Hetia. The assaulters used violent means and 12 Hetian police officers sustained injuries. As the area quickly became overcrowded with migrants, 29 of them were killed in an stampede.\n    Head of Homeland Security Mbuso Linhares has stated that the incident was a 'well-organized, violent assault' by organized crime groups and thanked Hetian security forces for their actions. He has also criticized the Terkan security forces for not providing any support.",        
+            "additionalConsequences": []
+        },
+        {
+            "name": "MIGRANTS",
+            "description": "Hetia's border police slaughters 29 migrants who were trying to cross the Portança border, including 5 children.",
+            "headline": "Hetian government responsible for another migrant massacre, this time involving children.",
+            "text": "   On thursday, 29 out of the 253 Terkani migrants that were trying to cross the Sumania border were slaughtered by Hetian security forces.\n    Many migrants got stuck in hermetically closed turnstiles, where they were knocked out by police officers. The wave of panic caused an stampede.  Among the casualties were 5 children aged 9-13.\n    Hetian Head of Homeland Security Mbuso Linhares has praised the security forces' action, and has identified migrants with organized crime groups. Migrant massacres have become common in Hetia: last year, 41 Terkani people died in the Portança border.",        
+            "additionalConsequences": [
+                {
+                    "country": 0,
+                    "key": "moreira_gov",
+                    "value": -0.4
+                },
+                {
+                    "country": 0,
+                    "key": "reputation",
+                    "value": -0.3
+                },
+                {
+                    "country": 1,
+                    "key": "reputation",
+                    "value": 0.5
+                },
+                {
+                    "country": 1,
+                    "key": "dam_blowup_ending",
+                    "value": -0.1
+                }
+            ]
+        },
+        {
+            "name": "TERRORISM",
+            "description": "If true, Linhares' failure at handling the Riparian Terkan Liberation Front's attempts to enter Hetia would be eviced.",
+            "headline": "Terkan's terrorists could be involved in new Hetia border tragedy.",
+            "text": "   On Thursday, 29 out of the 253 Terkani migrants that were trying to reach Hetia died in the Sumania massacre. While most NGOs have attributed the responsibility to the Hetian government, Terkan could also be secretly involved in the situation.\n    The supposed 'migrants' could be members of the Riparian Terkan Liberation Front, a terrorist organization. The incident could have been a planned assault to destabilize the equilibrium between Hetia and Terkan.\n    In that case, Linhares' superficial handling of the episode would evince his incompetence as Head of Homeland Security.",        
+            "additionalConsequences": [
+                {
+                    "country": 0,
+                    "key": "moreira_gov",
+                    "value": -0.6
+                },
+                {
+                    "country": 0,
+                    "key": "reputation",
+                    "value": -0.375
+                },
+                {
+                    "country": 1,
+                    "key": "reputation",
+                    "value": -0.15
+                },
+                {
+                    "country": 1,
+                    "key": "dam_blowup_ending",
+                    "value": 0.1
+                }
+            ]
+        }
+    ]
+}

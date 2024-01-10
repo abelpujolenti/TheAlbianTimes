@@ -1,0 +1,86 @@
+{
+    "name":"hetia_linhares_dismissal",
+    "firstRound":3,
+    "duration":1,
+    "priority":1,
+    "leniency":3,
+    "type": 0,
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 0,
+            "key": "moreira_gov",
+            "value": -0.15
+        },
+        {
+            "country": 0,
+            "key": "reputation",
+            "value": -0.1
+        },
+        {
+            "country": 1,
+            "key": "reputation",
+            "value": -0.05
+        }
+    ],
+    "biases": [
+        {
+            "name": "CRISIS",
+            "description": "Moreira hopes to avoid more border tragedies and stop civil protests.",
+            "headline": "Linhares' dismissal causes a crisis in Moreira's government.",
+            "text": "   Following the Sumania migrant tragedy, Hetia President Zandile Moreira has dismissed Mbuso Linhares from his position as Head of Homeland Security.\n    Moreira has stated that 'Hetia will not allow another tragedy in its borders' and that Linhares' suspension is 'the first step towards building a better, more resilient relationship' with Terkan.\n    Since the incident, thousands of Hetians have demonstrated in different cities, in protests organized by NGOs such as International Action for Human Rights. Moreira has organized an emergency cabinet meeting to discuss further actions.",        
+            "additionalConsequences": []
+        },
+        {
+            "name": "DECEIT",
+            "description": "Linhares' dismissal is another hoax, as there are no planned changes to the Border police.",
+            "headline": "Linhares' dismissal will not bring any improvement to Hetia's migratory policies.",
+            "text": "   Following the Sumania massacre, Hetia President Zandile Moreira has dismissed Mbuso Linhares from his position as Head of Homeland Security, in hopes of cleaning her government's public image. For now, Linhares successor remains unknown.\n    Even if she has stated that 'Hetia will not allow another tragedy in its borders', there are no signs of improvement of migratory policies or of change in the management of Border Police.\n    Moreover, diplomacy with Terkan remains troubled as she has not publicly apologized for the incident.",        
+            "additionalConsequences": [
+                {
+                    "country": 0,
+                    "key": "moreira_gov",
+                    "value": -0.1
+                },
+                {
+                    "country": 0,
+                    "key": "reputation",
+                    "value": -0.075
+                },
+                {
+                    "country": 1,
+                    "key": "reputation",
+                    "value": 0.15
+                }
+            ]
+        },
+        {
+            "name": "COWARD",
+            "description": "Linhares was decisive for Hetia's security, but Moreira's connections with International Action for Human Rights have prevailed.",
+            "headline": "Moreira gives in to Terkan's pressure and dismisses Linhares.",
+            "text": "   Hetia President Zandile Moreira has acted against her own country's interests by dismissing Mbuso Linhares from his position as Head of Homeland Security.\n    Linhares, to whom is attributed responsibility for the Sumania incident, had proven commitment to Hetia's safety, as he contributed to decreasing illegal immigration by 11% in only a few months.\n    In opposition to this, Moreira has shown weakness by giving in to Terkan's pressure, which was supported by International Action for Human Rights, an NGO suspected of being linked with Terkani terrorists. Besides, the NGO's newly appointed Secretary is Nobuhle Moreira, the President's sister.",        
+            "additionalConsequences": [
+                {
+                    "country": 0,
+                    "key": "moreira_gov",
+                    "value": -0.1
+                },
+                {
+                    "country": 0,
+                    "key": "reputation",
+                    "value": -0.0375
+                },
+                {
+                    "country": 1,
+                    "key": "reputation",
+                    "value": -0.2
+                },
+                {
+                    "country": 1,
+                    "key": "dam_blowup_ending",
+                    "value": 0.1
+                }
+            ]
+        }
+    ]
+}

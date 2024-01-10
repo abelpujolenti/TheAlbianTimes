@@ -515,6 +515,167 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 459541920}
   m_CullTransparentMesh: 1
+--- !u!1 &575069398
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 575069400}
+  - component: {fileID: 575069399}
+  m_Layer: 0
+  m_Name: SoundManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &575069399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 575069398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a02ff3ab2496214e9cbe817551e8719, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioMixer: {fileID: 24100000, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
+  _masterVolumeMixer: MasterSound
+  _SFXVolumeMixer: SFXSound
+  _musicVolumeMixer: MusicSound
+  _sounds:
+  - _audioClip: {fileID: 8300000, guid: b975c0c98fd9591488fac2874c4ebac3, type: 3}
+    _audioMixerGroup: {fileID: -3148831458192980715, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
+    _name: Change Bias
+    _volume: 1
+    _loop: 0
+    _play: 0
+    _sound3D: 0
+  - _audioClip: {fileID: 8300000, guid: 622d53c4f59533443baf2d6053f476b1, type: 3}
+    _audioMixerGroup: {fileID: -3148831458192980715, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
+    _name: Drop Paper
+    _volume: 1
+    _loop: 0
+    _play: 0
+    _sound3D: 0
+  - _audioClip: {fileID: 8300000, guid: ad4ea2ef37322474582eab7ce63386e7, type: 3}
+    _audioMixerGroup: {fileID: -3148831458192980715, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
+    _name: Grab Paper
+    _volume: 1
+    _loop: 0
+    _play: 0
+    _sound3D: 0
+  - _audioClip: {fileID: 0}
+    _audioMixerGroup: {fileID: -3148831458192980715, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
+    _name: Submit Paper
+    _volume: 1
+    _loop: 0
+    _play: 0
+    _sound3D: 0
+  - _audioClip: {fileID: 8300000, guid: cf174f8ff55dfc641b744fd7e7c4cf82, type: 3}
+    _audioMixerGroup: {fileID: -3148831458192980715, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
+    _name: Drop Piece
+    _volume: 1
+    _loop: 0
+    _play: 0
+    _sound3D: 0
+  - _audioClip: {fileID: 8300000, guid: 705d926f80e2ac74f89516df89c4ae86, type: 3}
+    _audioMixerGroup: {fileID: -3148831458192980715, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
+    _name: Friction
+    _volume: 1
+    _loop: 0
+    _play: 0
+    _sound3D: 0
+  - _audioClip: {fileID: 8300000, guid: a7e35e3beab199b499697075647433d0, type: 3}
+    _audioMixerGroup: {fileID: -3148831458192980715, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
+    _name: Thud
+    _volume: 1
+    _loop: 0
+    _play: 0
+    _sound3D: 0
+  - _audioClip: {fileID: 8300000, guid: 4f13110de2968184580f96f8ac1f98c8, type: 3}
+    _audioMixerGroup: {fileID: -3148831458192980715, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
+    _name: Snap Piece
+    _volume: 1
+    _loop: 0
+    _play: 0
+    _sound3D: 0
+  - _audioClip: {fileID: 8300000, guid: 4763662a333c7cf4fa7551660367dbe5, type: 3}
+    _audioMixerGroup: {fileID: -3148831458192980715, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
+    _name: Grab Piece
+    _volume: 1
+    _loop: 0
+    _play: 0
+    _sound3D: 0
+  - _audioClip: {fileID: 8300000, guid: c4024fef39aced846b614d0c4103e326, type: 3}
+    _audioMixerGroup: {fileID: -3148831458192980715, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
+    _name: Open Drawer
+    _volume: 1
+    _loop: 0
+    _play: 0
+    _sound3D: 0
+  - _audioClip: {fileID: 8300000, guid: 02a75b5914e494041895b03d8593a309, type: 3}
+    _audioMixerGroup: {fileID: -3148831458192980715, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
+    _name: Close Drawer
+    _volume: 1
+    _loop: 0
+    _play: 0
+    _sound3D: 0
+  - _audioClip: {fileID: 0}
+    _audioMixerGroup: {fileID: -3148831458192980715, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
+    _name: Phone
+    _volume: 1
+    _loop: 0
+    _play: 0
+    _sound3D: 0
+  - _audioClip: {fileID: 0}
+    _audioMixerGroup: {fileID: -3148831458192980715, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
+    _name: Type
+    _volume: 1
+    _loop: 0
+    _play: 0
+    _sound3D: 0
+  - _audioClip: {fileID: 0}
+    _audioMixerGroup: {fileID: -3148831458192980715, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
+    _name: Intro
+    _volume: 1
+    _loop: 0
+    _play: 0
+    _sound3D: 0
+  changeBiasSound: {fileID: 8300000, guid: b975c0c98fd9591488fac2874c4ebac3, type: 3}
+  dropPaperSound: {fileID: 8300000, guid: 622d53c4f59533443baf2d6053f476b1, type: 3}
+  grabPaperSound: {fileID: 8300000, guid: ad4ea2ef37322474582eab7ce63386e7, type: 3}
+  submitPaperSound: {fileID: 0}
+  dropPieceSound: {fileID: 8300000, guid: cf174f8ff55dfc641b744fd7e7c4cf82, type: 3}
+  frictionSound: {fileID: 8300000, guid: 705d926f80e2ac74f89516df89c4ae86, type: 3}
+  thudSound: {fileID: 8300000, guid: a7e35e3beab199b499697075647433d0, type: 3}
+  snapPieceSound: {fileID: 8300000, guid: 4f13110de2968184580f96f8ac1f98c8, type: 3}
+  grabPieceSound: {fileID: 8300000, guid: 4763662a333c7cf4fa7551660367dbe5, type: 3}
+  openDrawerSound: {fileID: 8300000, guid: c4024fef39aced846b614d0c4103e326, type: 3}
+  closeDrawerSound: {fileID: 8300000, guid: 02a75b5914e494041895b03d8593a309, type: 3}
+  phoneSound: {fileID: 0}
+  typeSound: {fileID: 0}
+  introSound: {fileID: 0}
+--- !u!4 &575069400
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 575069398}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &604484758
 GameObject:
   m_ObjectHideFlags: 0
@@ -2033,64 +2194,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1793991966}
   m_CullTransparentMesh: 1
---- !u!1 &1869354941
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1869354943}
-  - component: {fileID: 1869354942}
-  m_Layer: 0
-  m_Name: SoundManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1869354942
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1869354941}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a02ff3ab2496214e9cbe817551e8719, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  changeBiasSound: {fileID: 8300000, guid: b975c0c98fd9591488fac2874c4ebac3, type: 3}
-  dropPaperSound: {fileID: 8300000, guid: 622d53c4f59533443baf2d6053f476b1, type: 3}
-  grabPaperSound: {fileID: 8300000, guid: ad4ea2ef37322474582eab7ce63386e7, type: 3}
-  submitPaperSound: {fileID: 0}
-  dropPieceSound: {fileID: 8300000, guid: cf174f8ff55dfc641b744fd7e7c4cf82, type: 3}
-  frictionSound: {fileID: 8300000, guid: 705d926f80e2ac74f89516df89c4ae86, type: 3}
-  thudSound: {fileID: 8300000, guid: a7e35e3beab199b499697075647433d0, type: 3}
-  snapPieceSound: {fileID: 8300000, guid: 4f13110de2968184580f96f8ac1f98c8, type: 3}
-  grabPieceSound: {fileID: 8300000, guid: 4763662a333c7cf4fa7551660367dbe5, type: 3}
-  openDrawerSound: {fileID: 8300000, guid: c4024fef39aced846b614d0c4103e326, type: 3}
-  closeDrawerSound: {fileID: 8300000, guid: 02a75b5914e494041895b03d8593a309, type: 3}
-  phoneSound: {fileID: 8300000, guid: 8ae62c974cd36384d90ca9ac441b7045, type: 3}
-  typeSound: {fileID: 8300000, guid: 34747f644a427d541990f33aed016540, type: 3}
-  introSound: {fileID: 8300000, guid: eb52906e15268654b944cb79146152f9, type: 3}
---- !u!4 &1869354943
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1869354941}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1895909934
 GameObject:
   m_ObjectHideFlags: 0

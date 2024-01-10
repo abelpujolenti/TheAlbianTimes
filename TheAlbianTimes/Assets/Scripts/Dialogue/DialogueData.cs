@@ -1,9 +1,41 @@
+using Managers;
 using System;
+using Unity.VisualScripting;
 
 [Serializable]
 public class DialogueData
 {
+    public string name;
+
+    public int firstRound;
+    public float duration;
+    public float priority;
+    public CountryEventCondition[] countryConditions;
+    public CharacterEventCondition[] characterConditions;
+
     public DialogueLine[] lines;
+
+    public bool ConditionsFulfilled(int round)
+    {
+        if (GameManager.Instance.gameState.viewedDialogue.Contains(name) || round < firstRound || round > firstRound + duration) return false;
+        if (countryConditions == null && characterConditions == null) return true;
+        bool ret = true;
+        foreach (CountryEventCondition condition in countryConditions)
+        {
+            if (!condition.IsFulfilled())
+            {
+                ret = false;
+            }
+        }
+        foreach (CharacterEventCondition condition in characterConditions)
+        {
+            if (!condition.IsFulfilled())
+            {
+                ret = false;
+            }
+        }
+        return ret;
+    }
 }
 
 [Serializable]

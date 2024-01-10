@@ -35,7 +35,7 @@ public class SaveFile
             characterData[i] = gameState.characters[i].data;
         }
         viewedArticles = gameState.viewedArticles.ToArray();
-        publishedArticles = gameState.publishedArticles.ToArray();
+        publishedArticles = gameState.viewedDialogue.ToArray();
     }
 }
 

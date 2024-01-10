@@ -21,7 +21,9 @@ namespace Managers
         TextArchitect architect;
         DialogueOptionButton[] dialogueOptionButtons;
 
-        DialogueData data;
+        DialogueData selectedDialogue;
+
+        SortedList<float, DialogueData> dialogue;
 
         Coroutine displayNextLineCoroutine;
         Coroutine displayTextCoroutine;
@@ -36,20 +38,42 @@ namespace Managers
             architect = new TextArchitect(ds.container.dialogueText);
             dialogueOptionButtons = dialogueOptionButtonsRoot.GetComponentsInChildren<DialogueOptionButton>();
 
-            LoadDialogueFromJson("test.json");
-
-            string path = Application.streamingAssetsPath + "/Json/Dialogues/" + "lmao.json";
-            File.WriteAllText(path, JsonUtility.ToJson(data));
+            LoadDialogue();
 
             DisplayNextLine();
         }
 
+        private void LoadDialogue()
+        {
+            string path = "Dialogue";
+            dialogue = new SortedList<float, DialogueData>(new DuplicateKeyComparer<float>());
+
+            FileManager.LoadAllJsonFiles(path, LoadDialogueFromFile);
+            if (dialogue.Count == 0) return;
+
+            selectedDialogue = dialogue.Last().Value;
+        }
+
+        private void LoadDialogueFromFile(string json)
+        {
+            DialogueData dialogueData = JsonUtility.FromJson<DialogueData>(json);
+
+            int round = GameManager.Instance.GetRound();
+
+            if (!dialogueData.ConditionsFulfilled(round)) return;
+            float priority = dialogueData.priority;
+
+            if (priority > 0)
+            {
+                dialogue.Add(priority, dialogueData);
+            }
+        }
 
         private void DisplayNextLine()
         {
             currentLine++;
 
-            if (currentLine >= data.lines.Length)
+            if (currentLine >= selectedDialogue.lines.Length)
             {
                 GameManager.Instance.sceneLoader.SetScene("WorkspaceScene");
                 return;
@@ -64,18 +88,18 @@ namespace Managers
         private IEnumerator DisplayNextLineCoroutine()
         {
             int currentPartId = chosenOptionLinesRemaining > 0 ? chosenDialogueOptions.Last() : 0;
-            currentPartId = currentPartId >= data.lines[currentLine].parts.Length ? currentPartId = data.lines[currentLine].parts.Length - 1 : currentPartId;
+            currentPartId = currentPartId >= selectedDialogue.lines[currentLine].parts.Length ? currentPartId = selectedDialogue.lines[currentLine].parts.Length - 1 : currentPartId;
             chosenOptionLinesRemaining = Mathf.Max(0, chosenOptionLinesRemaining - 1);
 
-            string text = data.lines[currentLine].parts[currentPartId].text;
-            string speaker = data.lines[currentLine].parts[currentPartId].speaker;
+            string text = selectedDialogue.lines[currentLine].parts[currentPartId].text;
+            string speaker = selectedDialogue.lines[currentLine].parts[currentPartId].speaker;
 
             SetSpeakerText(speaker);
 
             yield return displayTextCoroutine = architect.Build(text);
 
             //after text has finished typing
-            if (data.lines[currentLine].options.Length > 0)
+            if (selectedDialogue.lines[currentLine].options.Length > 0)
             {
                 DisplayOptions();
             }
@@ -92,10 +116,10 @@ namespace Managers
 
         private void DisplayOptions()
         {
-            for (int i = 0; i < data.lines[currentLine].options.Length && i < dialogueOptionButtons.Length; i++)
+            for (int i = 0; i < selectedDialogue.lines[currentLine].options.Length && i < dialogueOptionButtons.Length; i++)
             {
                 dialogueOptionButtons[i].gameObject.SetActive(true);
-                dialogueOptionButtons[i].Setup(data.lines[currentLine].options[i]);
+                dialogueOptionButtons[i].Setup(selectedDialogue.lines[currentLine].options[i]);
             }
         }
 
@@ -111,7 +135,7 @@ namespace Managers
         public void SelectOption(int optionId, int buttonId)
         {
             chosenDialogueOptions.Add(optionId);
-            chosenOptionLinesRemaining = data.lines[currentLine].options[buttonId].followupLines;
+            chosenOptionLinesRemaining = selectedDialogue.lines[currentLine].options[buttonId].followupLines;
             DisplayNextLine();
         }
         
@@ -130,7 +154,7 @@ namespace Managers
 
             string json = File.ReadAllText(path);
 
-            data = JsonUtility.FromJson<DialogueData>(json);
+            selectedDialogue = JsonUtility.FromJson<DialogueData>(json);
         }
     }
 }

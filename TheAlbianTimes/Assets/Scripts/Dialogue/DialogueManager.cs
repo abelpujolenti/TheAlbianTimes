@@ -66,8 +66,6 @@ namespace Managers
 
         private void LoadDialogueFromFile(string json)
         {
-            Debug.Log(json);
-
             DialogueData dialogueData = JsonUtility.FromJson<DialogueData>(json);
 
             int round = GameManager.Instance.GetRound() - 1;

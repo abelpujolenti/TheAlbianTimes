@@ -40,6 +40,7 @@ namespace Managers
                 _instance = this;
                 _jointsIds = new List<int>();
                 LoadDictionaries();
+                CheckFiles();
                 LoadJointsIds();
             }
             else
@@ -47,6 +48,34 @@ namespace Managers
                 Destroy(gameObject);
             }
             DontDestroyOnLoad(gameObject);
+        }
+
+        private void CheckFiles()
+        {
+            if (!File.Exists(Application.streamingAssetsPath + PATH_ENVELOPES_CONTAINER))
+            {
+                SaveBaseContentToJson(new EnvelopesContainer(), false);
+            }
+            
+            if (!File.Exists(Application.streamingAssetsPath + PATH_ADS_CONTAINER))
+            {
+                SaveBaseContentToJson(new AdsContainer(), false);
+            }
+            
+            if (!File.Exists(Application.streamingAssetsPath + PATH_BIASES_CONTAINER))
+            {
+                SaveBaseContentToJson(new BiasesContainer(), false);
+            }
+            
+            if (!File.Exists(Application.streamingAssetsPath + PATH_BRIBES_CONTAINER))
+            {
+                SaveBaseContentToJson(new BribesContainer(), false);
+            }
+            
+            if (!File.Exists(Application.streamingAssetsPath + PATH_LETTERS_CONTAINER))
+            {
+                SaveBaseContentToJson(new LettersContainer(), false);
+            }
         }
 
         private void LoadDictionaries()
@@ -338,10 +367,8 @@ namespace Managers
                 
                 envelopes[i] = envelopeGameObject;
             }
-
-            envelopesContainer.contentEnvelopes = Array.Empty<EnvelopeData>();
             
-            SaveBaseContentToJson(envelopesContainer, isAsync);
+            SaveBaseContentToJson(new EnvelopesContainer(), isAsync);
 
             return envelopes;
         }

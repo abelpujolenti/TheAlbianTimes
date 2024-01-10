@@ -24,7 +24,7 @@ namespace Workspace.Mail.Content
     [Serializable]
     public class EnvelopesContainer : BaseContainer
     {
-        public EnvelopeData[] contentEnvelopes;
+        public EnvelopeData[] contentEnvelopes = Array.Empty<EnvelopeData>();
 
         public override string GetContainerPath()
         {
@@ -52,7 +52,7 @@ namespace Workspace.Mail.Content
     [Serializable]
     public class AdsContainer : BaseContainer
     {
-        public ContentAd[] contentAds;
+        public ContentAd[] contentAds = Array.Empty<ContentAd>();
 
         public override string GetContainerPath()
         {
@@ -80,7 +80,7 @@ namespace Workspace.Mail.Content
     [Serializable]
     public class BribesContainer : BaseContainer
     {
-        public ContentBribe[] contentBribes;
+        public ContentBribe[] contentBribes = Array.Empty<ContentBribe>();
 
         public override string GetContainerPath()
         {
@@ -108,7 +108,7 @@ namespace Workspace.Mail.Content
     [Serializable]
     public class BiasesContainer : BaseContainer
     {
-        public ContentBias[] contentBiases;
+        public ContentBias[] contentBiases = Array.Empty<ContentBias>();
 
         public override string GetContainerPath()
         {
@@ -136,7 +136,7 @@ namespace Workspace.Mail.Content
     [Serializable]
     public class LettersContainer : BaseContainer
     {
-        public ContentLetter[] contentLetters;
+        public ContentLetter[] contentLetters = Array.Empty<ContentLetter>();
 
         public override string GetContainerPath()
         {

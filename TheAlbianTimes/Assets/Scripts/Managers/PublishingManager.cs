@@ -47,6 +47,7 @@ public class PublishingManager : MonoBehaviour
         foreach (KeyValuePair<float, CountryEvent> ev in CountryEventManager.Instance.currentEvents)
         {
             Debug.Log(ev.Value.id);
+            ev.Value.Run();
         }
 
         GameManager.Instance.sceneLoader.SetScene("StatsScene");

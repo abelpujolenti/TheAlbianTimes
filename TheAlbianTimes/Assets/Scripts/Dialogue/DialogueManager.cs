@@ -38,20 +38,26 @@ namespace Managers
             architect = new TextArchitect(ds.container.dialogueText);
             dialogueOptionButtons = dialogueOptionButtonsRoot.GetComponentsInChildren<DialogueOptionButton>();
 
-            LoadDialogue();
+            bool loaded = LoadDialogue();
+            if (!loaded)
+            {
+                GameManager.Instance.sceneLoader.SetScene("WorkspaceScene");
+                return;
+            }
 
             DisplayNextLine();
         }
 
-        private void LoadDialogue()
+        private bool LoadDialogue()
         {
             string path = "Dialogue";
             dialogue = new SortedList<float, DialogueData>(new DuplicateKeyComparer<float>());
 
             FileManager.LoadAllJsonFiles(path, LoadDialogueFromFile);
-            if (dialogue.Count == 0) return;
+            if (dialogue.Count == 0) return false;
 
             selectedDialogue = dialogue.Last().Value;
+            return true;
         }
 
         private void LoadDialogueFromFile(string json)

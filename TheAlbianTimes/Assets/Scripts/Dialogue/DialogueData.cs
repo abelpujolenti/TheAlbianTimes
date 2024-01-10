@@ -17,7 +17,7 @@ public class DialogueData
 
     public bool ConditionsFulfilled(int round)
     {
-        if (GameManager.Instance.gameState.viewedDialogue.Contains(name) || round < firstRound || round > firstRound + duration) return false;
+        if (GameManager.Instance.gameState.viewedDialogue.Contains(name) || round < firstRound || round >= firstRound + duration) return false;
         if (countryConditions == null && characterConditions == null) return true;
         bool ret = true;
         foreach (CountryEventCondition condition in countryConditions)

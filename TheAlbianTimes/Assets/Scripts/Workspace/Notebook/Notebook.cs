@@ -1,8 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -25,55 +22,104 @@ public class Notebook : InteractableRectTransform
     [SerializeField] private float pullUpBookTime = .5f;
     [SerializeField] private float pullDownBookTime = .5f;
 
+    [SerializeField] private float autoCloseThreshold = -8f;
+    private float boundX = 10f;
+
+    private Vector3 initialPosition;
+
     private Coroutine flipCoroutine;
+
+    Vector3 dragVector;
+
+    private bool open = false;
+
+    protected override void Setup()
+    {
+        base.Setup();
+        initialPosition = transform.position;
+    }
+
+    protected override void BeginDrag(BaseEventData data)
+    {
+        base.BeginDrag(data);
+    }
+
+    protected override void Drag(BaseEventData data)
+    {
+        Vector3 prevPosition = transform.position;
+        base.Drag(data);
+
+        float x = Mathf.Max(-boundX, Mathf.Min(boundX, transform.position.x));
+        float y = Mathf.Max(initialPosition.y, Mathf.Min(6.33f, transform.position.y));
+        transform.position = new Vector3(x, y, transform.position.z);
+
+        Vector3 currPosition = transform.position;
+        dragVector = currPosition - prevPosition;
+
+    }
+
+    protected override void EndDrag(BaseEventData data)
+    {
+        base.EndDrag(data);
+        if (open && (transform.position.y <= autoCloseThreshold || transform.position.y <= autoCloseThreshold * 0.5f && dragVector.y < -0.04f))
+        {
+            Close();
+        }
+        else if (!open)
+        {
+            if (transform.position.y > autoCloseThreshold) Open(false);
+            else StartCoroutine(MoveDownCoroutine(pullDownBookTime * (Vector2.Distance(transform.position, initialPosition) / 7f)));
+        }
+    }
 
     protected override void PointerClick(BaseEventData data)
     {
         base.PointerClick(data);
-        Open();
+        if (held) return;
+        Open(true);
     }
 
-    private void OnGUI()
+    public void Open(bool move)
     {
-        Event e = Event.current;
-        if (!e.isKey || !(e.type == EventType.KeyDown)) return;
-        if (!gameObject.activeSelf) return;
-
-        if (e.keyCode == KeyCode.F)
-        {
-            FlipPage();
-        }
-        if (e.keyCode == KeyCode.C)
-        {
-            Close();
-        }
+        if (open) return;
+        StartCoroutine(OpenCoroutine(move));
     }
 
-    public void Open()
-    {
-        StartCoroutine(OpenCoroutine());
-    }
-
-    private IEnumerator OpenCoroutine()
+    private IEnumerator OpenCoroutine(bool move)
     {
         EnableCover();
-        yield return StartCoroutine(TransformUtility.SetPositionCoroutine(transform, transform.position, new Vector3(transform.position.x, 0f, transform.position.z), pullUpBookTime));
+        if (move)
+        {
+            yield return MoveUpCoroutine(pullUpBookTime);
+        }
         yield return StartCoroutine(RotatePageCoroutine((RectTransform)leftPage.transform, pageOpenTime, 179.9f, 0f, 0.5f, DisableCover));
+        open = true;
     }
 
     public void Close()
     {
+        if (!open) return;
         if (flipCoroutine != null) StopCoroutine(flipCoroutine);
         StartCoroutine(CloseCoroutine());
     }
 
     private IEnumerator CloseCoroutine()
     {
+        float speed = Mathf.Max(0.4f, (Vector2.Distance(transform.position, initialPosition) / 8f));
         DisableCover();
-        yield return StartCoroutine(RotatePageCoroutine((RectTransform)leftPage.transform, pageOpenTime, 0.01f, 180f, 2f));
-        EnableCover();
-        yield return StartCoroutine(RotatePageCoroutine((RectTransform)leftPage.transform, pageOpenTime, 0.01f, 180f, 0.5f));
-        yield return StartCoroutine(TransformUtility.SetPositionCoroutine(transform, transform.position, new Vector3(transform.position.x, -8.5f, transform.position.z), pullDownBookTime));
+        StartCoroutine(RotatePageCoroutine((RectTransform)leftPage.transform, pageCloseTime * speed, 0.01f, 180f, 0.5f, EnableCover));
+        yield return MoveDownCoroutine(pullDownBookTime * speed);
+        open = false;
+    }
+
+    private IEnumerator MoveUpCoroutine(float t)
+    {
+        yield return StartCoroutine(TransformUtility.SetPositionCoroutine(transform, transform.position, new Vector3(transform.position.x, -.5f, transform.position.z), pullUpBookTime));
+    }
+
+    private IEnumerator MoveDownCoroutine(float t)
+    {
+        yield return StartCoroutine(TransformUtility.SetPositionCoroutine(transform, transform.position, initialPosition, t));
     }
 
     public void FlipPage()
@@ -131,7 +177,6 @@ public class Notebook : InteractableRectTransform
 
             if (!callbackActivated && midCallback != null && Mathf.Abs(yRotation - start) > absDiff / 2f)
             {
-                Debug.Log(yRotation + ">" + absDiff + "/2");
                 midCallback();
                 callbackActivated = true;
             }

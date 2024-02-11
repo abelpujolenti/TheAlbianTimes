@@ -774,7 +774,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.46226418, g: 0.37242794, b: 0.37242794, a: 1}
+  m_Color: {r: 0.3764706, g: 0.20392157, b: 0.20392157, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2316,7 +2316,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 335.4, y: 50}
+  m_AnchoredPosition: {x: 335.4, y: 50.37}
   m_SizeDelta: {x: 119.71, y: 112.25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &562062641
@@ -3790,7 +3790,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -57.5, y: -207.14}
+  m_AnchoredPosition: {x: -58.7, y: -215.05}
   m_SizeDelta: {x: 300, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1106197901
@@ -3812,10 +3812,11 @@ MonoBehaviour:
   leftPage: {fileID: 936233924}
   flipPage: {fileID: 1993360693}
   pageOpenTime: 0.5
-  pageCloseTime: 0.3
+  pageCloseTime: 0.25
   pageFlipTime: 0.6
   pullUpBookTime: 0.5
   pullDownBookTime: 0.4
+  autoCloseThreshold: -6
 --- !u!1 &1114375428
 GameObject:
   m_ObjectHideFlags: 0
@@ -4516,7 +4517,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.46226418, g: 0.37242794, b: 0.37242794, a: 1}
+  m_Color: {r: 0.3773585, g: 0.20434318, b: 0.20434318, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -4697,7 +4698,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: -499439201
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!224 &1459499040
 RectTransform:
@@ -6936,7 +6937,7 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 1
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 1050050191
+  m_SortingLayerID: -499439201
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!1 &2125733624

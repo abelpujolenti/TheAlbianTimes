@@ -1,15 +1,10 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Utility;
-
-class RotationCallback
-{
-    float value;
-    Action func;
-}
 
 public class Notebook : InteractableRectTransform
 {
@@ -25,11 +20,13 @@ public class Notebook : InteractableRectTransform
     [SerializeField] private float autoCloseThreshold = -8f;
     private float boundX = 10f;
 
+    private List<NotebookPage> pages;
+    private int currentPage = 0;
+
     private Vector3 initialPosition;
+    private Vector3 dragVector;
 
     private Coroutine flipCoroutine;
-
-    Vector3 dragVector;
 
     private bool open = false;
 
@@ -37,11 +34,6 @@ public class Notebook : InteractableRectTransform
     {
         base.Setup();
         initialPosition = transform.position;
-    }
-
-    protected override void BeginDrag(BaseEventData data)
-    {
-        base.BeginDrag(data);
     }
 
     protected override void Drag(BaseEventData data)
@@ -76,10 +68,23 @@ public class Notebook : InteractableRectTransform
     {
         base.PointerClick(data);
         if (held) return;
-        Open(true);
+        Open();
     }
 
-    public void Open(bool move)
+    public void ClickFromBooknote(int page)
+    {
+        currentPage = page;
+        if (!open)
+        {
+            Open();
+        }
+        else
+        {
+            FlipPage();
+        }
+    }
+
+    public void Open(bool move = true)
     {
         if (open) return;
         StartCoroutine(OpenCoroutine(move));
@@ -185,5 +190,10 @@ public class Notebook : InteractableRectTransform
             elapsedT += Time.fixedDeltaTime;
         }
         rt.rotation = Quaternion.Euler(new Vector3(0f, end, 0f));
+    }
+
+    public bool IsOpen()
+    {
+        return open;
     }
 }

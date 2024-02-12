@@ -11,6 +11,8 @@ public class Notebook : InteractableRectTransform
     [SerializeField] private GameObject rightPage;
     [SerializeField] private GameObject leftPage;
     [SerializeField] private GameObject flipPage;
+    [SerializeField] private Transform pageMarkerParent;
+    [SerializeField] private Transform pageMarkerActiveParent;
     [SerializeField] private float pageOpenTime = .4f;
     [SerializeField] private float pageCloseTime = .4f;
     [SerializeField] private float pageFlipTime = .3f;
@@ -114,6 +116,12 @@ public class Notebook : InteractableRectTransform
         DisableCover();
         StartCoroutine(RotatePageCoroutine((RectTransform)leftPage.transform, pageCloseTime * speed, 0.01f, 180f, 0.5f, EnableCover));
         yield return MoveDownCoroutine(pullDownBookTime * speed);
+
+        for (int i = 0; i < pageMarkerActiveParent.childCount; i++)
+        {
+            pageMarkerActiveParent.GetChild(i).SetParent(pageMarkerParent);
+        }
+
         open = false;
     }
 

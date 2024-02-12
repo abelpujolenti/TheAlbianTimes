@@ -3948,6 +3948,8 @@ MonoBehaviour:
   rightPage: {fileID: 1519254904}
   leftPage: {fileID: 936233924}
   flipPage: {fileID: 1993360693}
+  pageMarkerParent: {fileID: 538033677}
+  pageMarkerActiveParent: {fileID: 1935412139}
   pageOpenTime: 0.5
   pageCloseTime: 0.25
   pageFlipTime: 0.6

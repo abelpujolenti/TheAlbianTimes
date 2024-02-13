@@ -56,10 +56,6 @@ namespace Workspace.Layout.Pieces
                 subPieceTexts.Add(headline);
             }
 
-            for (int i = 0; i < subPieceTexts.Count; i++)
-            {
-                Debug.Log(subPieceTexts[i].transform.position);
-            }
             int pivotIndex = PieceData.pivotIndex[(int)newsData.type];
             var pivotText = subPieceTexts.First();
             subPieceTexts.RemoveAt(0);
@@ -68,12 +64,6 @@ namespace Workspace.Layout.Pieces
             {
                 subPieceTexts[i].linkedTextComponent = subPieceTexts[i- 1];
             }
-            Debug.Log("after:");
-            for (int i = 0; i < subPieceTexts.Count; i++)
-            {
-                Debug.Log(subPieceTexts[i].transform.position);
-            }
-            Debug.Log("--------------\nbefore:");
 
             newsHeadlinePiece.SetSubPieces(subPieces.ToArray());
 

@@ -8,6 +8,8 @@ namespace Workspace.Layout.Pieces
         public const int size = 5;
         public static readonly int[] shapes = { 35, 1057, 3138, 99, 1123, 199, 486, 68705, 101473, 7239, 3567, 9711, 7399, 6383 };
         public static readonly int[] pivots = { 0, 5, 6, 5, 5, 1, 6, 5, 10, 6, 6, 6, 6, 6 };
+        public static readonly int[] pivotIndex = { 1, 1, 1, 3, 3, 1, 4, 2, 4, 3, 4, 5, 6, 6 };
+
         public static readonly Color[] newsTypeColors = { new Color32(230, 76, 166, 255), new Color32(76, 137, 230, 255), new Color32(229, 177, 75, 255),
             new Color32(85, 230, 76, 255), new Color32(230, 86, 71, 255), new Color32(85, 71, 230, 255), new Color32(155, 77, 229, 255),
             new Color32(131, 153, 178, 255), new Color32(171, 230, 71, 255), new Color32(71, 202, 230, 255), Color.gray, Color.gray, Color.gray, Color.gray};
@@ -30,7 +32,7 @@ namespace Workspace.Layout.Pieces
             List<Vector2> ret = new List<Vector2>();
             for (int i = 0; i < size; i++)
             {
-                for (int j = 0; j < size; j++)
+                for (int j = size - 1; j >= 0; j--)
                 {
                     int index = i * size + j;
                     int p = (1 << index);

@@ -1,7 +1,7 @@
-using Workspace.Mail.Content;
-using Managers;
 using System.Collections.Generic;
+using Managers;
 using UnityEngine;
+using Workspace.Mail.Content;
 
 public class BribeCountryEvent : CountryEvent
 {

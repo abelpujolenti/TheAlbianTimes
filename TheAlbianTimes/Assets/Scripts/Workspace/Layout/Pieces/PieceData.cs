@@ -27,8 +27,6 @@ namespace Workspace.Layout.Pieces
         }
         public Vector2[] ConvertToRelativeTileCoordinates()
         {
-            Vector2 pivotCell = default;
-        
             List<Vector2> ret = new List<Vector2>();
             for (int i = 0; i < size; i++)
             {
@@ -40,16 +38,10 @@ namespace Workspace.Layout.Pieces
                     if (bit == 1)
                     {
                         Vector2 cell = new Vector2(j, i) - new Vector2(pivot % size, pivot / size);
-                        if (cell == Vector2.zero)
-                        {
-                            pivotCell = cell;
-                            continue;
-                        }
                         ret.Add(cell);
                     }
                 }
             }
-            ret.Insert(0, pivotCell);
             return ret.ToArray();
         }
         public Vector2 GetPieceSize()

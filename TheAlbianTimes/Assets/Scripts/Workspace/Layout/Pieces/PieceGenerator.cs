@@ -22,8 +22,12 @@ namespace Workspace.Layout.Pieces
 
             Color subPieceColor = PieceData.newsTypeColors[(int)newsData.type];
 
-            foreach (Vector2 v in pieceCoords)
+            bool newTMP = false;
+            int textLength = 0;
+
+            for (int i = 0; i < pieceCoords.Length; i++)
             {
+                Vector2 v = pieceCoords[i];
                 GameObject os = FakeInstantiate.Instantiate(op.transform);
                 Image subPieceImage = os.AddComponent<Image>();
                 NewsHeadlineSubPiece subPiece = os.AddComponent<NewsHeadlineSubPiece>();
@@ -34,40 +38,61 @@ namespace Workspace.Layout.Pieces
 
                 subPieceImage.color = new Color(0.4f, 0.4f, 0.4f);
 
-                subPieces.Add(subPiece);
+                if (v == Vector2.zero)
+                {
+                    subPieces.Insert(0, subPiece);
+                }
+                else
+                {
+                    subPieces.Add(subPiece);
+                }
+                
+                if (i < pieceCoords.Length - 1) {
+                    newTMP |= pieceCoords[i + 1].y != v.y;
+                    newTMP |= pieceCoords[i + 1].y == v.y && pieceCoords[i + 1].x - v.x > subPieceImage.rectTransform.rect.width * 1.5f;
+                }
+                else
+                {
+                    newTMP = true;
+                }
 
-                RectMask2D mask = subPiece.gameObject.AddComponent<RectMask2D>();
-                mask.padding = new Vector4(2f, 2f, 2f, 2f);
+                if (newTMP)
+                {
+                    GameObject h = FakeInstantiate.Instantiate(subPiece.transform);
+                    TextMeshProUGUI headline = h.AddComponent<TextMeshProUGUI>();
 
-                GameObject h = FakeInstantiate.Instantiate(subPiece.transform);
-                TextMeshProUGUI headline = h.AddComponent<TextMeshProUGUI>();
+                    headline.text = "<font=cour SDF>" + newsData.biases[0].headline;
+                    headline.color = new Color(0.245f, 0.245f, 0.245f);
+                    headline.fontSize = 9.5f;
+                    headline.rectTransform.anchorMax = Vector2.one;
+                    headline.rectTransform.anchorMin = Vector2.zero;
+                    headline.rectTransform.pivot = new Vector2(.5f, .5f);
+                    headline.rectTransform.anchoredPosition = Vector2.zero;
+                    headline.rectTransform.sizeDelta = Vector2.zero;
+                    headline.rectTransform.offsetMax = new Vector2(-2 + textLength * subPieceImage.rectTransform.rect.width, -2);
+                    headline.rectTransform.offsetMin = new Vector2(2, 2);
+                    headline.overflowMode = TextOverflowModes.Linked;
+                    subPieceTexts.Add(headline);
 
-                headline.text = "<font=cour SDF>" + newsData.biases[0].headline;
-                headline.color = new Color(0.245f, 0.245f, 0.245f);
-                headline.fontSize = 9f;
-                headline.rectTransform.anchorMax = Vector2.one;
-                headline.rectTransform.anchorMin = Vector2.zero;
-                headline.rectTransform.pivot = new Vector2(.5f, .5f);
-                headline.rectTransform.anchoredPosition = Vector2.zero;
-                headline.rectTransform.sizeDelta = Vector2.zero;
-                headline.rectTransform.offsetMax = new Vector2(-2, -2);
-                headline.rectTransform.offsetMin = new Vector2(2, 2);
-                headline.overflowMode = TextOverflowModes.Linked;
-                subPieceTexts.Add(headline);
+                    newTMP = false;
+                    textLength = 0;
+                }
+                else
+                {
+                    textLength++;
+                }
             }
 
-            int pivotIndex = PieceData.pivotIndex[(int)newsData.type];
+            /*int pivotIndex = PieceData.pivotIndex[(int)newsData.type];
             var pivotText = subPieceTexts.First();
             subPieceTexts.RemoveAt(0);
-            subPieceTexts.Insert(pivotIndex, pivotText);
+            subPieceTexts.Insert(pivotIndex, pivotText);*/
             for (int i = 1; i < subPieceTexts.Count; i++)
             {
-                subPieceTexts[i].linkedTextComponent = subPieceTexts[i- 1];
+                subPieceTexts[i].linkedTextComponent = subPieceTexts[i - 1];
             }
 
             newsHeadlinePiece.SetSubPieces(subPieces.ToArray());
-
-
 
             return newsHeadlinePiece;
         }

@@ -9,22 +9,22 @@ public class TESTAddMail : InteractableRectTransform
 {
     protected override void PointerClick(BaseEventData data)
     {
-        BribesContainer bribesContainer = new BribesContainer
+        BribesMailContainer bribesMailContainer = new BribesMailContainer
         {
-            contentBribes = Array.Empty<ContentBribe>()
+            contentBribes = Array.Empty<MailContentBribe>()
         };
 
-        Dictionary<EnvelopeContentType, BaseContainer> dictionary = new Dictionary<EnvelopeContentType, BaseContainer>
+        Dictionary<EnvelopeContentType, BaseMailContainer> dictionary = new Dictionary<EnvelopeContentType, BaseMailContainer>
         {
-            { EnvelopeContentType.BRIBE, bribesContainer}
+            { EnvelopeContentType.BRIBE, bribesMailContainer}
         };
 
-        ContentBribe contentBribe = new ContentBribe
+        MailContentBribe mailContentBribe = new MailContentBribe
         {
             totalMoney = 20
         };
 
-        ContentBribe[] contentBribes = { contentBribe };
+        MailContentBribe[] contentBribes = { mailContentBribe };
         
         dictionary[EnvelopeContentType.BRIBE].SetContent(contentBribes);
         

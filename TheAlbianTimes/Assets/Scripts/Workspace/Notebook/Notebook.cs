@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Managers;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -39,6 +40,11 @@ namespace Workspace.Notebook
         {
             base.Setup();
             initialPosition = transform.position;
+        }
+
+        private void Start()
+        {
+            NotebookManager.Instance.SetNotebook(this);
         }
 
         protected override void Drag(BaseEventData data)

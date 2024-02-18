@@ -11,13 +11,13 @@ public class BribeCountryEvent : CountryEvent
     {
         base.Run();
 
-        Dictionary<EnvelopeContentType, BaseContainer> mailToSend = new Dictionary<EnvelopeContentType, BaseContainer>();
-        ContentBribe content = new ContentBribe();
-        content.totalMoney = bribeAmount;
-        BribesContainer container = new BribesContainer();
-        container.SetContent(new ContentBribe[] { content });
+        Dictionary<EnvelopeContentType, BaseMailContainer> mailToSend = new Dictionary<EnvelopeContentType, BaseMailContainer>();
+        MailContentBribe mailContent = new MailContentBribe();
+        mailContent.totalMoney = bribeAmount;
+        BribesMailContainer mailContainer = new BribesMailContainer();
+        mailContainer.SetContent(new MailContentBribe[] { mailContent });
 
-        mailToSend.Add(EnvelopeContentType.BRIBE, container);
+        mailToSend.Add(EnvelopeContentType.BRIBE, mailContainer);
         MailManager.Instance.SendEnvelopes(mailToSend);
         Debug.Log(bribeAmount);
     }

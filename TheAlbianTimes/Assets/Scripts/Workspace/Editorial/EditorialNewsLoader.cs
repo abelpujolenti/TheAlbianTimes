@@ -20,19 +20,19 @@ namespace Workspace.Editorial
         [SerializeField] private NewsFolder _newsFolder;
         private PieceGenerator pieceGenerator = new PieceGenerator();
 
-        private Dictionary<EnvelopeContentType, BaseContainer> _sendBiasesContainerDictionary; 
+        private Dictionary<EnvelopeContentType, BaseMailContainer> _sendBiasesContainerDictionary; 
 
         SortedList<float, NewsData> news;
 
         private void Start()
         {
-            BiasesContainer biasesContainer = new BiasesContainer
+            BiasesMailContainer biasesMailContainer = new BiasesMailContainer
             {
-                contentBiases = Array.Empty<ContentBias>() 
+                contentBiases = Array.Empty<MailContentBias>() 
             };
-            _sendBiasesContainerDictionary = new Dictionary<EnvelopeContentType, BaseContainer>
+            _sendBiasesContainerDictionary = new Dictionary<EnvelopeContentType, BaseMailContainer>
             {
-                { EnvelopeContentType.BIAS , biasesContainer}
+                { EnvelopeContentType.BIAS , biasesMailContainer}
             };
             
             LoadLevelNews();

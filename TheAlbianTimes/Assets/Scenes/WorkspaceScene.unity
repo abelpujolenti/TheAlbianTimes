@@ -393,6 +393,10 @@ PrefabInstance:
       propertyPath: newsFolder
       value: 
       objectReference: {fileID: 429106997}
+    - target: {fileID: 7761201008241955963, guid: c5218dff6a8b0764784f08ee64c3e567, type: 3}
+      propertyPath: biasContainer
+      value: 
+      objectReference: {fileID: 1808916519}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -721,7 +725,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &172753619
 GameObject:
@@ -997,50 +1001,6 @@ RectTransform:
   m_AnchoredPosition: {x: 17.78, y: 0}
   m_SizeDelta: {x: 450, y: 254}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &258687587
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 258687589}
-  - component: {fileID: 258687588}
-  m_Layer: 0
-  m_Name: PublishingManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &258687588
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 258687587}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a8b637fd31f5b5448d0fb2a65a38edc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &258687589
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 258687587}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 17
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &291764938
 GameObject:
   m_ObjectHideFlags: 0
@@ -1483,6 +1443,10 @@ PrefabInstance:
       propertyPath: newsFolder
       value: 
       objectReference: {fileID: 429106997}
+    - target: {fileID: 7761201008241955963, guid: c5218dff6a8b0764784f08ee64c3e567, type: 3}
+      propertyPath: biasContainer
+      value: 
+      objectReference: {fileID: 1808916519}
     - target: {fileID: 8146245475368786087, guid: c5218dff6a8b0764784f08ee64c3e567, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -0.000015258789
@@ -1993,7 +1957,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 19
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &437483085
 GameObject:
@@ -4401,6 +4365,10 @@ PrefabInstance:
       propertyPath: newsFolder
       value: 
       objectReference: {fileID: 429106997}
+    - target: {fileID: 7761201008241955963, guid: c5218dff6a8b0764784f08ee64c3e567, type: 3}
+      propertyPath: biasContainer
+      value: 
+      objectReference: {fileID: 1808916519}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5027,7 +4995,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: -499439201
-  m_SortingOrder: 1
+  m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!224 &1459499040
 RectTransform:
@@ -5043,7 +5011,7 @@ RectTransform:
   m_Children:
   - {fileID: 1106197900}
   m_Father: {fileID: 0}
-  m_RootOrder: 22
+  m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -5116,7 +5084,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 21
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1519254904
 GameObject:
@@ -5612,6 +5580,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a22ac11c9bfc874b9b9cfe0d82aeb3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  newspaperMold: {fileID: 1114375430}
 --- !u!1 &1728554124
 GameObject:
   m_ObjectHideFlags: 0
@@ -5930,8 +5899,8 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 1
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 1050050191
-  m_SortingOrder: 5
+  m_SortingLayerID: -499439201
+  m_SortingOrder: -1
   m_TargetDisplay: 0
 --- !u!224 &1808916518
 RectTransform:
@@ -6751,7 +6720,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 20
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2074077132
 GameObject:
@@ -7302,8 +7271,8 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 1
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: -499439201
-  m_SortingOrder: 0
+  m_SortingLayerID: 1050050191
+  m_SortingOrder: 4
   m_TargetDisplay: 0
 --- !u!1 &2125733624
 GameObject:
@@ -7692,6 +7661,10 @@ PrefabInstance:
       propertyPath: newsFolder
       value: 
       objectReference: {fileID: 429106997}
+    - target: {fileID: 7761201008241955963, guid: c5218dff6a8b0764784f08ee64c3e567, type: 3}
+      propertyPath: biasContainer
+      value: 
+      objectReference: {fileID: 1808916519}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7796,7 +7769,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 1050050191
-  m_SortingOrder: 5
+  m_SortingOrder: 3
   m_TargetDisplay: 0
 --- !u!1 &4231553890334802680
 GameObject:

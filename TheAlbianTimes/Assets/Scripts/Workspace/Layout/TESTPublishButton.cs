@@ -1,10 +1,12 @@
 using Managers;
+using System.Linq;
 using UnityEngine;
 
 namespace Workspace.Layout
 {
     public class TESTPublishButton : MonoBehaviour
     {
+        [SerializeField] private NewspaperMold newspaperMold;
         private const string CONVEYOR_BELT_SOUND = "Conveyor Belt";
         private AudioSource _audioSourceConveyorBelt;
         private void Start()
@@ -18,7 +20,7 @@ namespace Workspace.Layout
         public void PressPublishButton()
         {
             //_audioSourceConveyorBelt.Play();
-            PublishingManager.Instance.Publish();
+            PublishingManager.Instance.Publish(newspaperMold.GetNewsHeadlines().ToList());
             GameManager.Instance.AddToRound();
         }
     }

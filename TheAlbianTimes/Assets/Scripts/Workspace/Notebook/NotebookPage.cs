@@ -7,7 +7,7 @@ using Utility;
 
 namespace Workspace.Notebook
 {
-    public class NotebookPage : InteractableRectTransform
+    public class NotebookPage : MonoBehaviour
     {
         [SerializeField] private bool _righPage;
 
@@ -18,7 +18,7 @@ namespace Workspace.Notebook
             _notebookManager = NotebookManager.Instance;
         }
 
-        protected override void PointerClick(BaseEventData data)
+        /*protected override void PointerClick(BaseEventData data)
         {
             if (_righPage)
             {
@@ -27,7 +27,7 @@ namespace Workspace.Notebook
                 return;
             }
             _notebookManager.PreviousPage();
-        }
+        }*/
 
         public void ChangeContent(GameObject pagePrefab, BaseNotebookPage baseNotebookContent,
             NotebookPageType notebookPageType)

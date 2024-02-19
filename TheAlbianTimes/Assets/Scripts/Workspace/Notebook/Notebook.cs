@@ -79,7 +79,26 @@ namespace Workspace.Notebook
         {
             base.PointerClick(data);
             if (held) return;
-            Open();
+            if (open)
+            {
+                PointerEventData pointerData = (PointerEventData)data;
+                Vector3 positionInBook = Vector3.zero;
+                RectTransformUtility.ScreenPointToWorldPointInRectangle((RectTransform)transform, pointerData.position, Camera.main, out positionInBook);
+                positionInBook -= transform.position;
+
+                if (positionInBook.x >= 0)
+                {
+                    Debug.Log("Right");
+                }
+                else
+                {
+                    Debug.Log("Left");
+                }
+            }
+            else
+            {
+                Open();
+            }
         }
 
         public void ClickFromBooknote(int page)

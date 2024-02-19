@@ -201,7 +201,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: \u2022 jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -281,6 +281,7 @@ GameObject:
   - component: {fileID: 6180460998344287444}
   - component: {fileID: 4110196034630751480}
   - component: {fileID: 8444562852491736496}
+  - component: {fileID: 8049372099635712461}
   m_Layer: 5
   m_Name: CountryPage1Content
   m_TagString: Untagged
@@ -351,6 +352,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8049372099635712461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5264011211100125848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 694fa4b0ec7fc9840889e1bf5e78a340, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _countryName: {fileID: 2787421240315388920}
+  _importantPeople: {fileID: 9188813736267929419}
+  _organizations: {fileID: 114734894305836445}
 --- !u!1 &7309113395167041308
 GameObject:
   m_ObjectHideFlags: 0
@@ -687,7 +703,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: \u2022 jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

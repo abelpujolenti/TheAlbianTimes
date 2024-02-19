@@ -389,23 +389,25 @@ namespace Managers
 
             List<TContent> contents;
 
+            TContent[] baseContents;
+
             try
             {
-                TContent[] baseContents = (TContent[])container.GetContent();
-                
-                LoadEnvelopesContentData(baseContents, out contents, out envelopesContent, envelopeContentType, fromEnvelope);
-                
-                container.SetContent(contents.ToArray());
-            
-                SaveBaseContentToJson(container, isAsync);
-
-                return envelopesContent.ToArray();
+                baseContents = (TContent[])container.GetContent();
             }
             catch (Exception e)
             {
                 Debug.Log(e);
                 return null;
             }
+                
+            LoadEnvelopesContentData(baseContents, out contents, out envelopesContent, envelopeContentType, fromEnvelope);
+                
+            container.SetContent(contents.ToArray());
+            
+            SaveBaseContentToJson(container, isAsync);
+
+            return envelopesContent.ToArray();
         }
 
         private void LoadEnvelopesContentData <TContent> (TContent[] contentsArray, out List<TContent> contentsList, 
@@ -447,86 +449,93 @@ namespace Managers
 
         private GameObject LoadAdData(BaseMailContent mailContent)
         {
+            MailContentAd mailContentAd;
+            
             try
             {
-                MailContentAd mailContentAd = (MailContentAd)mailContent;
-                GameObject adGameObject = Instantiate(_envelopeContents[0]);
-                Ad adComponent = adGameObject.GetComponent<Ad>();
-                adComponent.SetJointId(mailContentAd.jointId);
-                adComponent.SetEnvelopeContentType(EnvelopeContentType.AD);
-
-                return adGameObject;
-
+                mailContentAd = (MailContentAd)mailContent;
             }
             catch (Exception e)
             {
                 Debug.Log(e);
-
                 return null;
             }
+            
+            GameObject adGameObject = Instantiate(_envelopeContents[0]);
+            Ad adComponent = adGameObject.GetComponent<Ad>();
+            adComponent.SetJointId(mailContentAd.jointId);
+            adComponent.SetEnvelopeContentType(EnvelopeContentType.AD);
+
+            return adGameObject;
         }
 
         private GameObject LoadBiasData(BaseMailContent mailContent)
         {
+            MailContentBias mailContentBias;
+            
             try
             {
-                MailContentBias mailContentBias = (MailContentBias)mailContent;
-                GameObject biasGameObject = Instantiate(_envelopeContents[1]);
-                Bias biasComponent = biasGameObject.GetComponent<Bias>();
-                biasComponent.SetJointId(mailContentBias.jointId);
-                biasComponent.SetLinkId(mailContentBias.linkId);
-                biasComponent.SetEnvelopeContentType(EnvelopeContentType.BIAS);
-
-                return biasGameObject;
+                mailContentBias = (MailContentBias)mailContent;
             }
             catch (Exception e)
             {
                 Debug.Log(e);
-                
                 return null;
             }
+            
+            GameObject biasGameObject = Instantiate(_envelopeContents[1]);
+            Bias biasComponent = biasGameObject.GetComponent<Bias>();
+            biasComponent.SetJointId(mailContentBias.jointId);
+            biasComponent.SetLinkId(mailContentBias.linkId);
+            biasComponent.SetEnvelopeContentType(EnvelopeContentType.BIAS);
+
+            return biasGameObject;
         }
 
         private GameObject LoadBribeData(BaseMailContent mailContent)
         {
+            MailContentBribe mailContentBribe;
+            
             try
             {
-                MailContentBribe mailContentBribe = (MailContentBribe)mailContent;
-                GameObject bribeGameObject = Instantiate(_envelopeContents[2]);
-                Bribe bribeComponent = bribeGameObject.GetComponent<Bribe>();
-                bribeComponent.SetJointId(mailContentBribe.jointId);
-                bribeComponent.SetTotalMoney(mailContentBribe.totalMoney);
-                bribeComponent.SetEnvelopeContentType(EnvelopeContentType.BRIBE);
-                
-                return bribeGameObject;
+                mailContentBribe = (MailContentBribe)mailContent;
             }
             catch (Exception e)
             {
                 Debug.Log(e);
-                
                 return null;
             }
+            
+            GameObject bribeGameObject = Instantiate(_envelopeContents[2]);
+            Bribe bribeComponent = bribeGameObject.GetComponent<Bribe>();
+            bribeComponent.SetJointId(mailContentBribe.jointId);
+            bribeComponent.SetTotalMoney(mailContentBribe.totalMoney);
+            bribeComponent.SetEnvelopeContentType(EnvelopeContentType.BRIBE);
+                
+            return bribeGameObject;
         }
 
         private GameObject LoadLetterData(BaseMailContent mailContent)
         {
+            MailContentLetter mailContentLetter;
+            
             try
             {
-                MailContentLetter mailContentLetter = (MailContentLetter)mailContent;
-                GameObject letterGameObject = Instantiate(_envelopeContents[3]);
-                Letter letterComponent = letterGameObject.GetComponent<Letter>();
-                letterComponent.SetJointId(mailContentLetter.jointId);
-                letterComponent.SetLetterText(mailContentLetter.letterText);
-                letterComponent.SetEnvelopeContentType(EnvelopeContentType.LETTER);
-
-                return letterGameObject;
+                mailContentLetter = (MailContentLetter)mailContent;
             }
             catch (Exception e)
             {
                 Debug.Log(e);
-
                 return null;
             }
+            
+            GameObject letterGameObject = Instantiate(_envelopeContents[3]);
+            Letter letterComponent = letterGameObject.GetComponent<Letter>();
+            letterComponent.SetJointId(mailContentLetter.jointId);
+            letterComponent.SetLetterText(mailContentLetter.letterText);
+            letterComponent.SetEnvelopeContentType(EnvelopeContentType.LETTER);
+
+            return letterGameObject;
         }
 
         private void FindContentByJointId(GameObject[] envelopes, GameObject[] envelopesContent)
@@ -636,56 +645,77 @@ namespace Managers
             where TContainer : BaseMailContainer
             where TContent : BaseMailContent
         {
+            TContainer sentContainer;
+            
             try
             {
-                TContainer sentContainer = (TContainer)baseMailContainer;
-                TContainer currentContainer =
-                    LoadBaseContainer<TContainer>(sentContainer.GetContainerPath());
-
-                EnvelopesMailContainer newEnvelopesMailContainer = new EnvelopesMailContainer();
-                EnvelopesMailContainer currentEnvelopesMailContainer =
-                    LoadBaseContainer<EnvelopesMailContainer>(newEnvelopesMailContainer.GetContainerPath());
-
-                List<TContent> contentsList = new List<TContent>();
-                List<EnvelopeData> envelopeContents = new List<EnvelopeData>();
-
-                foreach (EnvelopeData envelopeData in currentEnvelopesMailContainer.contentEnvelopes)
-                {
-                    envelopeContents.Add(envelopeData);
-                }
-
-                TContent[] contentsArray = (TContent[])sentContainer.GetContent();
-
-                foreach (TContent content in contentsArray)
-                {
-                    int jointId = CreateNewJointId();
-                    envelopeContents.Add(new EnvelopeData
-                    {
-                        jointId = jointId,
-                        envelopeContentType = envelopeContentType
-                    });
-                    content.jointId = jointId;
-                    contentsList.Add(content);
-                }
-
-                contentsArray = (TContent[])currentContainer.GetContent();
-
-                foreach (TContent content in contentsArray)
-                {
-                    contentsList.Add(content);
-                }
-
-                currentEnvelopesMailContainer.contentEnvelopes = envelopeContents.ToArray();
-                currentContainer.SetContent(contentsList.ToArray());
-                
-                SaveBaseContentToJson(currentEnvelopesMailContainer, false);
-                SaveBaseContentToJson(currentContainer, false);
-
+                sentContainer = (TContainer)baseMailContainer;
             }
             catch (Exception e)
             {
                 Debug.Log(e);
+                return;
             }
+            
+            TContainer currentContainer =
+                LoadBaseContainer<TContainer>(sentContainer.GetContainerPath());
+
+            EnvelopesMailContainer newEnvelopesMailContainer = new EnvelopesMailContainer();
+            EnvelopesMailContainer currentEnvelopesMailContainer =
+                LoadBaseContainer<EnvelopesMailContainer>(newEnvelopesMailContainer.GetContainerPath());
+
+            List<TContent> contentsList = new List<TContent>();
+            List<EnvelopeData> envelopeContents = new List<EnvelopeData>();
+
+            foreach (EnvelopeData envelopeData in currentEnvelopesMailContainer.contentEnvelopes)
+            {
+                envelopeContents.Add(envelopeData);
+            }
+
+            TContent[] contentsArray;
+
+            try
+            {
+                contentsArray = (TContent[])sentContainer.GetContent();
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e);
+                return;
+            }
+
+            foreach (TContent content in contentsArray)
+            {
+                int jointId = CreateNewJointId();
+                envelopeContents.Add(new EnvelopeData
+                {
+                    jointId = jointId,
+                    envelopeContentType = envelopeContentType
+                });
+                content.jointId = jointId;
+                contentsList.Add(content);
+            }
+
+            try
+            {
+                contentsArray = (TContent[])currentContainer.GetContent();
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e);
+                return;
+            }
+
+            foreach (TContent content in contentsArray)
+            {
+                contentsList.Add(content);
+            }
+
+            currentEnvelopesMailContainer.contentEnvelopes = envelopeContents.ToArray();
+            currentContainer.SetContent(contentsList.ToArray());
+                
+            SaveBaseContentToJson(currentEnvelopesMailContainer, false);
+            SaveBaseContentToJson(currentContainer, false);
         }
 
         private int CreateNewJointId()

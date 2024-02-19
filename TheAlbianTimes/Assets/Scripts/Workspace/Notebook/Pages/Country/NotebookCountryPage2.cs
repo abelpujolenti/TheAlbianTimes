@@ -1,18 +1,40 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
+using TMPro;
 using UnityEngine;
 
-public class NotebookCountryPage2 : MonoBehaviour
+namespace Workspace.Notebook.Pages.Country
 {
-    // Start is called before the first frame update
-    void Start()
+    public class NotebookCountryPage2 : NotebookContentPage
     {
-        
-    }
+        [SerializeField] private TextMeshProUGUI _countryName;
+        [SerializeField] private TextMeshProUGUI _ongoingConflicts;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public override void FillPage(BaseNotebookPage baseNotebookPage)
+        {
+            Debug.Log("page "+2);
+            CountryContentPage2 page;
+
+            try
+            {
+                page = (CountryContentPage2)baseNotebookPage;
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e);
+                return;
+            }
+
+            _countryName.text = page.countryName;
+            
+            FillOngoingConflicts(page);
+        }
+
+        private void FillOngoingConflicts(CountryContentPage2 page)
+        {
+            foreach (string conflict in page.ongoingConflicts)
+            {
+                _ongoingConflicts.text += "\u2022" + conflict + "\n";
+            }
+        }
     }
 }

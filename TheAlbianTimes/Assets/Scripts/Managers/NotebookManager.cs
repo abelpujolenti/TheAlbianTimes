@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
+using Newtonsoft.Json;
 using UnityEngine;
 using Workspace.Notebook;
+using Workspace.Notebook.Pages;
 
 namespace Managers
 {
@@ -39,20 +40,64 @@ namespace Managers
         
         private PersonContent[] _peopleContent;
 
-        private int _currentPage;
-        private int _totalPages;
+        [SerializeField]private int _currentPage;
+        [SerializeField]private int _totalPages;
 
         private void Awake()
         {
             if (_instance == null)
             {
-                _instance = this;
+                _instance = this; 
+                //TEST();
+                
                 LoadNotebookContents();
+                ChangeShownContentNotebook();
             }
             else
             {
                 Destroy(gameObject);
             }
+        }
+
+        private void TEST()
+        {
+            CountryContent countryContent = new CountryContent
+            {
+                countryName = "A",
+                flagImagePath = "A",
+                description = "A",
+                history = "A",
+                importantPeople = new Dictionary<string, List<string>>
+                {
+                    { "Abel", new List<string>
+                        {
+                            "Putero", "Programador"
+                        } 
+                    }  
+                },
+                organizations = new Dictionary<string, List<string>>
+                {
+                    { "MiCasa" , new List<string>
+                        {
+                            "Tiene ratas con camuflaje", "Jeje son tacticas"
+                        }
+                    }  
+                },
+                ongoingConflicts = new List<string>
+                {
+                    "La rata toca los huevos", "Los niños quieren amotinarse"
+                }
+            };
+            
+            CountriesContainer container = new CountriesContainer
+            {
+                countriesContent = new [] {countryContent}
+            };
+
+            string json = JsonConvert.SerializeObject(container);
+            string path = Application.streamingAssetsPath + PATH_COUNTRIES_CONTENT_CONTAINER;
+            
+            File.WriteAllText(path, json);
         }
 
         public void SetNotebook(Notebook notebook)
@@ -69,9 +114,20 @@ namespace Managers
             _peopleContent =
                 LoadNotebookContentsFromJson<PeopleContainer, PersonContent>(PATH_PEOPLE_CONTENT_CONTAINER);
             
+            ReservePagesForMap();
             SaveCountriesContentsInDictionary(_countriesContent);
             SaveInternationalsContentsInDictionary(_internationalsContent);
             SavePeopleContentsInDictionary(_peopleContent);
+
+            _totalPages = _notebookPages.Count;
+        }
+
+        private void ReservePagesForMap()
+        {
+            _notebookIndices.Add(NotebookContentType.MAP, _notebookPages.Count);
+            
+            _notebookPages.Add(_notebookPages.Count, null);
+            _notebookPages.Add(_notebookPages.Count, null);
         }
 
         private void SaveCountriesContentsInDictionary(CountryContent[] contents)
@@ -82,7 +138,7 @@ namespace Managers
             {
                 CountryContentPage0 page0 = new CountryContentPage0
                 {
-                    name = content.name,
+                    countryName = content.countryName,
                     description = content.description,
                     flagImagePath = content.flagImagePath,
                     history = content.history
@@ -90,17 +146,20 @@ namespace Managers
                 
                 CountryContentPage1 page1 = new CountryContentPage1
                 {
+                    countryName = content.countryName,
                     importantPeople = content.importantPeople,
                     organizations = content.organizations
                 };
 
                 CountryContentPage2 page2 = new CountryContentPage2
                 {
+                    countryName = content.countryName,
                     ongoingConflicts = content.ongoingConflicts
                 };
 
                 CountryContentPage3 page3 = new CountryContentPage3
                 {
+                    countryName = content.countryName,
                     reputationHistory = content.reputationHistory
                 };
                 
@@ -147,8 +206,6 @@ namespace Managers
             }
             
             FillLastPageIfUneven();
-            
-            _notebookIndices.Add(NotebookContentType.MAP, _notebookPages.Count);
         }
 
         private void FillLastPageIfUneven()
@@ -196,7 +253,7 @@ namespace Managers
                 return default;
             }
 
-            return JsonUtility.FromJson<TContainer>(json);
+            return JsonConvert.DeserializeObject<TContainer>(json);
         }
 
         private string LoadFromJson(string path)
@@ -211,32 +268,54 @@ namespace Managers
 
         public void NextPage()
         {
-            _currentPage += 2;
-            _notebook.FlipPage();
-            if (_currentPage >= _notebookIndices[NotebookContentType.MAP])
+            int auxCurrentPage = _currentPage;
+            auxCurrentPage += 2;
+            
+            if (auxCurrentPage >= _totalPages)
             {
-             
                 return;
             }
-            ChangeShownContentNotebook();
+            
+            MoveToPage(auxCurrentPage);
         }
 
         public void PreviousPage()
         {
-            _currentPage -= 2;
-            _notebook.FlipPage();
-            if (_currentPage >= _notebookIndices[NotebookContentType.MAP])
+            int auxCurrentPage = _currentPage;
+            auxCurrentPage -= 2;
+            
+            if (auxCurrentPage < 0)
             {
-             
                 return;
             }
+            
+            MoveToPage(auxCurrentPage);
+        }
+
+        public void MoveToPage(int page)
+        {
+            FlipPage(page);
+            _currentPage = page;
             ChangeShownContentNotebook();
+        }
+
+        private void FlipPage(int nextPage)
+        {
+            if (_currentPage < nextPage)
+            {
+                //Right
+                _notebook.FlipPage();
+            }
+            else if (_currentPage > nextPage)
+            {
+                //Left
+                _notebook.FlipPage();
+            }
         }
 
         private void ChangeShownContentNotebook()
         {
             CheckContentToShow(_currentPage);
-            CheckContentToShow(_currentPage + 1);
         }
 
         private void CheckContentToShow(int pageToFill)
@@ -247,41 +326,43 @@ namespace Managers
             if (pageToFill < internationalsIndex)
             {
                 PassContentToShow(_countryPagesPrefabs, COUNTRY_RANGE_OF_PAGES,
-                    _notebookIndices[NotebookContentType.COUNTRY], pageToFill, NotebookPageType.COUNTRY_PAGE_0);
+                    _notebookIndices[NotebookContentType.COUNTRY], pageToFill, _leftPage);
+                PassContentToShow(_countryPagesPrefabs, COUNTRY_RANGE_OF_PAGES,
+                    _notebookIndices[NotebookContentType.COUNTRY], pageToFill + 1, _rightPage);
                 return;
             }
             
             if (pageToFill < peopleIndex)
             {
                 PassContentToShow(_internationalPagesPrefabs, INTERNATIONAL_RANGE_OF_PAGES,
-                    _notebookIndices[NotebookContentType.INTERNATIONAL], pageToFill, NotebookPageType.INTERNATIONAL_PAGE_0);
+                    internationalsIndex, pageToFill, _leftPage);
+                PassContentToShow(_internationalPagesPrefabs, INTERNATIONAL_RANGE_OF_PAGES,
+                    internationalsIndex, pageToFill + 1, _rightPage);
+                return;
             }
             
             PassContentToShow(_personPagesPrefabs, PERSON_RANGE_OF_PAGES,
-                _notebookIndices[NotebookContentType.PERSON], pageToFill, NotebookPageType.PERSON_PAGE_0);
+                peopleIndex, pageToFill, _leftPage);
+            PassContentToShow(_personPagesPrefabs, PERSON_RANGE_OF_PAGES,
+                peopleIndex, pageToFill + 1, _rightPage);
         }
 
-        private void PassContentToShow(GameObject[] pagePrefabs, int rangeOfPages, int index, int pageToFill,
-            NotebookPageType firstIndex)
+        private void PassContentToShow(GameObject[] pagePrefabs, int rangeOfPages, 
+            int index, int pageToFill, NotebookPage notebookPage)
         {
-            BaseNotebookPage page = _notebookPages[pageToFill];
+            BaseNotebookPage pageContent = _notebookPages[pageToFill];
 
-            if (page == null)
+            if (pageContent == null)
             {
-                return;
-            }
-
-            int pageType = (index - pageToFill) % rangeOfPages;
-            
-            GameObject pagePrefab = pagePrefabs[pageType];
-
-            if (pageToFill == _currentPage)
-            {
-                _leftPage.ChangeContent(pagePrefab, page, firstIndex + pageType);
+                notebookPage.ChangeContent(null);
                 return;
             }
             
-            _rightPage.ChangeContent(pagePrefab, page, firstIndex + pageType);
+            GameObject page = Instantiate(pagePrefabs[(pageToFill - index) % rangeOfPages]);
+            
+            page.GetComponent<NotebookContentPage>().FillPage(pageContent);
+
+            notebookPage.ChangeContent(page);
         }
     }
 }

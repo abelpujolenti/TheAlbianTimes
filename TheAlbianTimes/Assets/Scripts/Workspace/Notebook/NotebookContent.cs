@@ -5,20 +5,10 @@ namespace Workspace.Notebook
 {
     public enum NotebookContentType
     {
+        MAP,
         COUNTRY,
         INTERNATIONAL,
-        PERSON,
-        MAP
-    }
-
-    public enum NotebookPageType
-    {
-        COUNTRY_PAGE_0,
-        COUNTRY_PAGE_1,
-        COUNTRY_PAGE_2,
-        COUNTRY_PAGE_3,
-        INTERNATIONAL_PAGE_0,
-        PERSON_PAGE_0,
+        PERSON
     }
 
     public abstract class BaseNotebookContainer
@@ -27,6 +17,7 @@ namespace Workspace.Notebook
         public abstract BaseNotebookContent[] GetContent();
     }
 
+    [Serializable]
     public class CountriesContainer : BaseNotebookContainer
     {
         public CountryContent[] countriesContent = Array.Empty<CountryContent>();
@@ -64,21 +55,22 @@ namespace Workspace.Notebook
         protected BaseNotebookPage() {}
     }
     
+    [Serializable]
     public class CountryContent : BaseNotebookContent
     {
-        public string name;
+        public string countryName;
         public string flagImagePath;
         public string description;
         public string history;
         public Dictionary <string, List<string>> importantPeople;
         public Dictionary <string, List<string>> organizations;
-        public string ongoingConflicts;
+        public List<string> ongoingConflicts;
         public Dictionary <int, int> reputationHistory;
     }
 
     public class CountryContentPage0 : BaseNotebookPage
     {
-        public string name;
+        public string countryName;
         public string flagImagePath;
         public string description;
         public string history;
@@ -86,17 +78,20 @@ namespace Workspace.Notebook
 
     public class CountryContentPage1 : BaseNotebookPage
     {
+        public string countryName;
         public Dictionary <string, List<string>> importantPeople;
         public Dictionary <string, List<string>> organizations;
     }
 
     public class CountryContentPage2 : BaseNotebookPage
     {
-        public string ongoingConflicts;
+        public string countryName;
+        public List<string> ongoingConflicts;
     }
 
     public class CountryContentPage3 : BaseNotebookPage
     {
+        public string countryName;
         public Dictionary <int, int> reputationHistory;
     }
     

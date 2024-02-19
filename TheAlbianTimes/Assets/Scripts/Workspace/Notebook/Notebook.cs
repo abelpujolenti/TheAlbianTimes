@@ -23,6 +23,9 @@ namespace Workspace.Notebook
         [SerializeField] private GameObject flipPage;
         [SerializeField] private Transform pageMarkerParent;
         [SerializeField] private Transform pageMarkerActiveParent;
+
+        [SerializeField] private Image _leftPageBackground;
+        [SerializeField] private Image _flipPageBackground;
         
         private float boundX = 10f;
 
@@ -88,12 +91,11 @@ namespace Workspace.Notebook
 
                 if (positionInBook.x >= 0)
                 {
-                    Debug.Log("Right");
+                    NotebookManager.Instance.NextPage();
+                    return;
                 }
-                else
-                {
-                    Debug.Log("Left");
-                }
+                
+                NotebookManager.Instance.PreviousPage();
             }
             else
             {
@@ -110,7 +112,7 @@ namespace Workspace.Notebook
             }
             else
             {
-                FlipPage();
+                NotebookManager.Instance.MoveToPage(page);
             }
         }
 
@@ -172,22 +174,24 @@ namespace Workspace.Notebook
         {
             flipPage.SetActive(true);
 
-            Image flipImage = flipPage.transform.Find("Background").GetComponent<Image>();
-            float imageBrightness = ColorUtil.GetBrightness(flipImage.color);
+            //ETS UN PORQUET *OINK OINK*
+            float imageBrightness = ColorUtil.GetBrightness(_flipPageBackground.color);
             yield return StartCoroutine(RotatePageCoroutine((RectTransform)flipPage.transform, PAGE_FLIP_TIME / 2f, 0f, 90f, 0.5f));
-            StartCoroutine(ShadePageCoroutine(flipImage, PAGE_FLIP_TIME / 2f, 0.3f, imageBrightness, 2f));
+            StartCoroutine(ShadePageCoroutine(_flipPageBackground, PAGE_FLIP_TIME / 2f, 0.3f, imageBrightness, 2f));
             yield return StartCoroutine(RotatePageCoroutine((RectTransform)flipPage.transform, PAGE_FLIP_TIME / 2f, 90f, 180f, 2f));
             flipPage.SetActive(false);
         }
 
         private void EnableCover()
         {
-            leftPage.transform.Find("Background").GetComponent<Image>().color = new Color(.5f, .25f, .3f);
+            //ETS UN PORQUET *OINK OINK*
+            _leftPageBackground.color = new Color(.5f, .25f, .3f);
         }
 
         private void DisableCover()
         {
-            leftPage.transform.Find("Background").GetComponent<Image>().color = new Color(.95f, .95f, .93f);
+            //ETS UN PORQUET *OINK OINK*
+            _leftPageBackground.color = new Color(.95f, .95f, .93f);
         }
 
         private IEnumerator ShadePageCoroutine(Image image, float t, float start, float end, float exp = 0.5f)

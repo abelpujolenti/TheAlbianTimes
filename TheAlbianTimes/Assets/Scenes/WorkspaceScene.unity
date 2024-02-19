@@ -2671,9 +2671,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6de88b891e09be741a8be1fbb2145589, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 0
-  hoverable: 0
-  clickable: 1
   _righPage: 1
 --- !u!1 &664963168
 GameObject:
@@ -3833,6 +3830,8 @@ MonoBehaviour:
   flipPage: {fileID: 1993360693}
   pageMarkerParent: {fileID: 538033677}
   pageMarkerActiveParent: {fileID: 1935412139}
+  _leftPageBackground: {fileID: 1319640766}
+  _flipPageBackground: {fileID: 2095736407}
 --- !u!1 &1114375428
 GameObject:
   m_ObjectHideFlags: 0
@@ -4590,9 +4589,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6de88b891e09be741a8be1fbb2145589, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 0
-  hoverable: 0
-  clickable: 1
   _righPage: 0
 --- !u!1 &1370883438
 GameObject:
@@ -6684,6 +6680,8 @@ MonoBehaviour:
   _personPagesPrefabs: []
   _leftPage: {fileID: 1319640768}
   _rightPage: {fileID: 633013509}
+  _currentPage: 0
+  _totalPages: 0
 --- !u!4 &2040586313
 Transform:
   m_ObjectHideFlags: 0

@@ -1,18 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
+using TMPro;
 using UnityEngine;
 
-public class NotebookCountryPage3 : MonoBehaviour
+namespace Workspace.Notebook.Pages.Country
 {
-    // Start is called before the first frame update
-    void Start()
+    public class NotebookCountryPage3 : NotebookContentPage
     {
-        
-    }
+        [SerializeField] private TextMeshProUGUI _countryName;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public override void FillPage(BaseNotebookPage baseNotebookPage)
+        {
+            Debug.Log("page"+3);
+            CountryContentPage3 page;
+
+            try
+            {
+                page = (CountryContentPage3)baseNotebookPage;
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e);
+                return;
+            }
+
+            _countryName.text = page.countryName;
+        }
     }
 }

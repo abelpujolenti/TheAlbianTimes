@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
-using Managers;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using Utility;
 
 namespace Workspace.Notebook
 {
@@ -11,58 +6,22 @@ namespace Workspace.Notebook
     {
         [SerializeField] private bool _righPage;
 
-        private NotebookManager _notebookManager;
+        private GameObject _currentPage;
 
-        private void Start()
+        public void ChangeContent(GameObject pagePrefab)
         {
-            _notebookManager = NotebookManager.Instance;
-        }
+            Destroy(_currentPage);
 
-        /*protected override void PointerClick(BaseEventData data)
-        {
-            if (_righPage)
+            if (pagePrefab == null)
             {
-                _notebookManager.NextPage();
-                
                 return;
             }
-            _notebookManager.PreviousPage();
-        }*/
-
-        public void ChangeContent(GameObject pagePrefab, BaseNotebookPage baseNotebookContent,
-            NotebookPageType notebookPageType)
-        {
-            GameObject pageGameObject = Instantiate(pagePrefab, transform);
-        }
-
-        private void FillCountryPage0(CountryContentPage0 countryContentPage0)
-        {
             
-        }
-        
-        private void FillCountryPage1(CountryContentPage1 countryContentPage1)
-        {
-            
-        }
-        
-        private void FillCountryPage2(CountryContentPage2 countryContentPage1)
-        {
-            
-        }
-        
-        private void FillCountryPage3(CountryContentPage3 countryContentPage1)
-        {
-            
-        }
-        
-        private void FillInternationalPage0(InternationalContentPage0 internationalContentPage0)
-        {
-            
-        }
-        
-        private void FillPersonPage0(PersonContentPage0 personContentPage0)
-        {
-            
+            Transform pageTransform = pagePrefab.transform;
+            pageTransform.SetParent(transform);
+            pageTransform.localPosition = new Vector3(0, 0, 0);
+            pageTransform.localScale = new Vector3(1, 1, 1);
+            _currentPage = pagePrefab;
         }
     }
 }

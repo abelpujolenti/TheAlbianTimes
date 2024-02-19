@@ -1,18 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class NotebookContentPage : MonoBehaviour
+namespace Workspace.Notebook.Pages
 {
-    // Start is called before the first frame update
-    void Start()
+    public abstract class NotebookContentPage : MonoBehaviour
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public abstract void FillPage(BaseNotebookPage baseNotebookPage);
     }
 }

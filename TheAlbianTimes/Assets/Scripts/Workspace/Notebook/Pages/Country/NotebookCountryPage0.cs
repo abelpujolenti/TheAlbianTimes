@@ -14,7 +14,6 @@ namespace Workspace.Notebook.Pages.Country
 
         public override void FillPage(BaseNotebookPage baseNotebookPage)
         {
-            Debug.Log("page "+ 0);
             CountryContentPage0 page;
             
             try

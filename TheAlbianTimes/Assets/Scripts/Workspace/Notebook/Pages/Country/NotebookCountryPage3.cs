@@ -10,7 +10,6 @@ namespace Workspace.Notebook.Pages.Country
 
         public override void FillPage(BaseNotebookPage baseNotebookPage)
         {
-            Debug.Log("page"+3);
             CountryContentPage3 page;
 
             try

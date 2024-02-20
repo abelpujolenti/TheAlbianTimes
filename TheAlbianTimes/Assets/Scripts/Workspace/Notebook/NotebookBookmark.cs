@@ -28,7 +28,7 @@ namespace Workspace.Notebook
         {
             base.PointerClick(data);
             notebook.ClickFromBooknote(_page);
-            SetToActive();
+            NotebookManager.Instance.OnClickBookmark(this, _page);
             MoveDown();
         }
         protected override void PointerEnter(BaseEventData data)
@@ -43,17 +43,6 @@ namespace Workspace.Notebook
         {
             base.PointerExit(data);
             MoveDown();
-        }
-
-        private void SetToActive()
-        {
-            if (transform.parent == pageMarkerActiveParent) return;
-        
-            for (int i = 0; i < pageMarkerActiveParent.childCount; i++)
-            {
-                pageMarkerActiveParent.GetChild(i).SetParent(transform.parent);
-            }
-            transform.SetParent(pageMarkerActiveParent);
         }
 
         private void MoveUp()

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
+using Unity.VisualScripting;
 using UnityEngine;
 using Workspace.Notebook;
 using Workspace.Notebook.Pages;
@@ -26,6 +27,9 @@ namespace Managers
         [SerializeField] private GameObject[] _internationalPagesPrefabs;
         [SerializeField] private GameObject[] _personPagesPrefabs;
 
+        [SerializeField] private Transform _pageMarkers;
+        [SerializeField] private Transform _activePageMarker;
+
         [SerializeField] private NotebookPage _leftPage;
         [SerializeField] private NotebookPage _rightPage;
 
@@ -34,14 +38,18 @@ namespace Managers
         private Dictionary<int, BaseNotebookPage> _notebookPages = new Dictionary<int, BaseNotebookPage>();
         private Dictionary<NotebookContentType, int> _notebookIndices = new Dictionary<NotebookContentType, int>();
 
+        [SerializeField] private NotebookBookmark[] _bookmarks;
+
+        private NotebookBookmark _currentBookmark;
+
         private CountryContent[] _countriesContent;
         
         private InternationalContent[] _internationalsContent;
         
         private PersonContent[] _peopleContent;
 
-        [SerializeField]private int _currentPage;
-        [SerializeField]private int _totalPages;
+        private int _currentPage;
+        private int _totalPages;
 
         private void Awake()
         {
@@ -51,7 +59,9 @@ namespace Managers
                 //TEST();
                 
                 LoadNotebookContents();
-                ChangeShownContentNotebook();
+                CheckContentToShow();
+                _currentBookmark = _bookmarks[0];
+                _currentBookmark.transform.SetParent(_activePageMarker);
             }
             else
             {
@@ -275,7 +285,8 @@ namespace Managers
             {
                 return;
             }
-            
+
+            CheckBookmark(auxCurrentPage);
             MoveToPage(auxCurrentPage);
         }
 
@@ -288,15 +299,48 @@ namespace Managers
             {
                 return;
             }
-            
+
+            CheckBookmark(auxCurrentPage);
             MoveToPage(auxCurrentPage);
         }
 
-        public void MoveToPage(int page)
+        private void CheckBookmark(int page) 
         {
+            RemoveActiveBookmark();
+
+            foreach (KeyValuePair<NotebookContentType, int> bookmarkPage in _notebookIndices)
+            {
+                if (page == bookmarkPage.Value)
+                {
+                    _currentBookmark = _bookmarks[(int)bookmarkPage.Key];
+                    _currentBookmark.transform.SetParent(_activePageMarker);
+                    break;
+                }
+            }
+        }
+
+        public void OnClickBookmark(NotebookBookmark notebookBookmark, int page) 
+        {
+            RemoveActiveBookmark();
+            _currentBookmark = notebookBookmark;
+            _currentBookmark.transform.SetParent(_activePageMarker);
+            MoveToPage(page);
+        }
+
+        private void RemoveActiveBookmark()
+        {
+            if (_currentBookmark != null)
+            {
+                _currentBookmark.transform.SetParent(_pageMarkers);
+                _currentBookmark = null;
+            }
+        }
+
+        public void MoveToPage(int page)
+        {            
             FlipPage(page);
             _currentPage = page;
-            ChangeShownContentNotebook();
+            CheckContentToShow();
         }
 
         private void FlipPage(int nextPage)
@@ -313,38 +357,33 @@ namespace Managers
             }
         }
 
-        private void ChangeShownContentNotebook()
-        {
-            CheckContentToShow(_currentPage);
-        }
-
-        private void CheckContentToShow(int pageToFill)
+        private void CheckContentToShow()
         {
             int internationalsIndex = _notebookIndices[NotebookContentType.INTERNATIONAL];
             int peopleIndex = _notebookIndices[NotebookContentType.PERSON];
             
-            if (pageToFill < internationalsIndex)
+            if (_currentPage < internationalsIndex)
             {
                 PassContentToShow(_countryPagesPrefabs, COUNTRY_RANGE_OF_PAGES,
-                    _notebookIndices[NotebookContentType.COUNTRY], pageToFill, _leftPage);
+                    _notebookIndices[NotebookContentType.COUNTRY], _currentPage, _leftPage);
                 PassContentToShow(_countryPagesPrefabs, COUNTRY_RANGE_OF_PAGES,
-                    _notebookIndices[NotebookContentType.COUNTRY], pageToFill + 1, _rightPage);
+                    _notebookIndices[NotebookContentType.COUNTRY], _currentPage + 1, _rightPage);
                 return;
             }
             
-            if (pageToFill < peopleIndex)
+            if (_currentPage < peopleIndex)
             {
                 PassContentToShow(_internationalPagesPrefabs, INTERNATIONAL_RANGE_OF_PAGES,
-                    internationalsIndex, pageToFill, _leftPage);
+                    internationalsIndex, _currentPage, _leftPage);
                 PassContentToShow(_internationalPagesPrefabs, INTERNATIONAL_RANGE_OF_PAGES,
-                    internationalsIndex, pageToFill + 1, _rightPage);
+                    internationalsIndex, _currentPage + 1, _rightPage);
                 return;
             }
             
             PassContentToShow(_personPagesPrefabs, PERSON_RANGE_OF_PAGES,
-                peopleIndex, pageToFill, _leftPage);
+                peopleIndex, _currentPage, _leftPage);
             PassContentToShow(_personPagesPrefabs, PERSON_RANGE_OF_PAGES,
-                peopleIndex, pageToFill + 1, _rightPage);
+                peopleIndex, _currentPage + 1, _rightPage);
         }
 
         private void PassContentToShow(GameObject[] pagePrefabs, int rangeOfPages, 

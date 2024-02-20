@@ -6187,7 +6187,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1935412139}
   m_Layer: 5
-  m_Name: ActivePageMarkerParent
+  m_Name: ActivePageMarker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6678,10 +6678,15 @@ MonoBehaviour:
   - {fileID: 5264011211100125848, guid: ce0ec128bd5f9cd45abec9b45c1144bb, type: 3}
   _internationalPagesPrefabs: []
   _personPagesPrefabs: []
+  _pageMarkers: {fileID: 538033677}
+  _activePageMarker: {fileID: 1935412139}
   _leftPage: {fileID: 1319640768}
   _rightPage: {fileID: 633013509}
-  _currentPage: 0
-  _totalPages: 0
+  _bookmarks:
+  - {fileID: 2144123785}
+  - {fileID: 1171046662}
+  - {fileID: 318262187}
+  - {fileID: 1438734444}
 --- !u!4 &2040586313
 Transform:
   m_ObjectHideFlags: 0

@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using System.Linq;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -74,6 +76,10 @@ namespace Utility
         }
         private void AddEventTrigger(EventTriggerType triggerType, Action<BaseEventData> func)
         {
+            foreach (var t in eventTrigger.triggers)
+            {
+                if (t.eventID == triggerType) return;
+            }
             EventTrigger.Entry entry = new EventTrigger.Entry();
             entry.eventID = triggerType;
             entry.callback.AddListener((eventData) => { func(eventData); });

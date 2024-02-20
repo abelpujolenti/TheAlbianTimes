@@ -411,7 +411,7 @@ namespace Workspace.Editorial
                 string color = "#701f1f";
                 headline = Regex.Replace(headline, "\\b" + s + "\\b", "<color=" + color + ">" + s + "</color>");
                 headline = Regex.Replace(headline, "\\b" + s.ToLower() + "\\b", "<color=" + color + ">" + s.ToLower() + "</color>");
-                text = Regex.Replace(text, "\\b" + s + "\\b", "<font=courbd SDF><color=" + color + ">" + s + " <font=cour SDF></color>");
+                text = Regex.Replace(text, "\\b" + s + "\\b", "<font=courbd SDF><color=" + color + ">" + s + "<font=cour SDF></color>");
                 text = Regex.Replace(text, "\\b" + s.ToLower() + "\\b", "<font=courbd SDF><color=" + color + ">" + s.ToLower() + " <font=cour SDF></color>");
             }
 

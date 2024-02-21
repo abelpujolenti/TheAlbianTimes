@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Managers;
 using UnityEngine;
+using UnityEngine.UI;
 using Utility;
 using Workspace.Editorial;
 
@@ -153,8 +154,27 @@ namespace Workspace.Layout
             return desiredCells;
         }
 
+        private NewsHeadlineSubPiece FindRealDraggedSubPiece(NewsHeadlineSubPiece[] newsHeadlinePieces)
+        {
+            NewsHeadlineSubPiece draggedSubPiece = newsHeadlinePieces[0];
+            for (int i = 0; i < newsHeadlinePieces.Length; i++)
+            {
+                var p = newsHeadlinePieces[i];
+                Vector3 screenPos = RectTransformUtility.WorldToScreenPoint(Camera.main, p.transform.position);
+                Vector3 closestScreenPos = RectTransformUtility.WorldToScreenPoint(Camera.main, draggedSubPiece.transform.position);
+                if (Vector2.Distance(screenPos, Input.mousePosition) < Vector2.Distance(closestScreenPos, Input.mousePosition))
+                {
+                    draggedSubPiece = p;
+                }
+            }
+            return draggedSubPiece;
+        }
+
         private Cell[] LookForCells(NewsHeadlineSubPiece draggedSubPiece, Vector2 mousePosition, NewsHeadlineSubPiece[] newsHeadlinePieces)
         {
+            //this sucks but the received draggedsubpiece is consistently wrong
+            draggedSubPiece = FindRealDraggedSubPiece(newsHeadlinePieces);
+
             Cell[] desiredCells = new Cell[newsHeadlinePieces.Length];
 
             int index = LookingForPieceInsideArray(draggedSubPiece, newsHeadlinePieces);
@@ -178,10 +198,10 @@ namespace Workspace.Layout
         private int LookingForPieceInsideArray(NewsHeadlineSubPiece draggedSubPiece, NewsHeadlineSubPiece[] allPieces)
         {
             int index = 0;
-            
+
             for (; index < allPieces.Length; index++)
             {
-                if (draggedSubPiece == allPieces[index])
+                if (draggedSubPiece.transform.position == allPieces[index].transform.position)
                 {
                     break;
                 }

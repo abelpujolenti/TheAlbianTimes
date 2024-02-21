@@ -17,6 +17,8 @@ namespace Workspace.Notebook
         private Coroutine moveUpCoroutine;
         private Coroutine moveDownCoroutine;
 
+        private bool _rightSide = true;
+
         private int _page;
 
         private void Start()
@@ -74,6 +76,16 @@ namespace Workspace.Notebook
                 elapsedT += Time.fixedDeltaTime;
             }
             gameObjectToDrag.transform.localPosition = new Vector3(transform.localPosition.x, end, transform.localPosition.z);
+        }
+
+        public void SetIsOnRightSide(bool rightSide)
+        {
+            _rightSide = rightSide;
+        }
+
+        public bool IsOnRightSide()
+        {
+            return _rightSide;
         }
     }
 }

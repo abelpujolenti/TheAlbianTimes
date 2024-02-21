@@ -18,10 +18,11 @@ namespace Managers
         private const string PATH_INTERNATIONALS_CONTENT_CONTAINER = "/Json/Notebook/InternationalsContainer.json";
         private const string PATH_PEOPLE_CONTENT_CONTAINER = "/Json/Notebook/PeopleContainer.json";
 
+        private const float BOOKMARK_WIDTH = 22;
+
         private const int COUNTRY_RANGE_OF_PAGES = 4;
         private const int INTERNATIONAL_RANGE_OF_PAGES = 1;
         private const int PERSON_RANGE_OF_PAGES = 1;
-        private const int MAP_RANGE_OF_PAGES = 2;
 
         [SerializeField] private GameObject[] _countryPagesPrefabs;
         [SerializeField] private GameObject[] _internationalPagesPrefabs;
@@ -50,6 +51,12 @@ namespace Managers
 
         private int _currentPage;
         private int _totalPages;
+
+        private Func<int, int, bool> _shouldBeOnRightSide =>
+            (index, nextPage) => _bookmarks[index].IsOnRightSide() && nextPage > _notebookIndices[(NotebookContentType)index];
+        
+        private Func<int, int, bool> _shouldBeOnLeftSide =>
+            (index, nextPage) => !_bookmarks[index].IsOnRightSide() && nextPage <= _notebookIndices[(NotebookContentType)index];
 
         private void Awake()
         {
@@ -135,6 +142,7 @@ namespace Managers
         private void ReservePagesForMap()
         {
             _notebookIndices.Add(NotebookContentType.MAP, _notebookPages.Count);
+            
             
             _notebookPages.Add(_notebookPages.Count, null);
             _notebookPages.Add(_notebookPages.Count, null);
@@ -302,7 +310,7 @@ namespace Managers
 
             CheckBookmark(auxCurrentPage);
             MoveToPage(auxCurrentPage);
-        }
+        } 
 
         private void CheckBookmark(int page) 
         {
@@ -329,10 +337,32 @@ namespace Managers
 
         private void RemoveActiveBookmark()
         {
-            if (_currentBookmark != null)
+            if (_currentBookmark == null)
             {
-                _currentBookmark.transform.SetParent(_pageMarkers);
-                _currentBookmark = null;
+                return;
+            }
+
+            _currentBookmark.transform.SetParent(_pageMarkers);
+            _currentBookmark = null;
+        }
+
+        private void MoveBookmarks(Func<int, int, bool> sideChecker, int nextPage)
+        {
+            List<NotebookBookmark> notebookBookmarks = new List<NotebookBookmark>();
+
+            for (int i = 0; i < _bookmarks.Length; i++)
+            {
+                if (sideChecker(i, nextPage))
+                {
+                    notebookBookmarks.Add(_bookmarks[i]);
+                }
+            }
+
+            foreach (NotebookBookmark notebookBookmark in notebookBookmarks)
+            {
+                Vector3 position = notebookBookmark.transform.localPosition;
+                notebookBookmark.transform.localPosition = new Vector3(-position.x - BOOKMARK_WIDTH, position.y, position.z);
+                notebookBookmark.SetIsOnRightSide(!notebookBookmark.IsOnRightSide());
             }
         }
 
@@ -348,11 +378,13 @@ namespace Managers
             if (_currentPage < nextPage)
             {
                 //Right
+                MoveBookmarks(_shouldBeOnRightSide, nextPage);
                 _notebook.FlipPage();
             }
             else if (_currentPage > nextPage)
             {
                 //Left
+                MoveBookmarks(_shouldBeOnLeftSide, nextPage);
                 _notebook.FlipPage();
             }
         }

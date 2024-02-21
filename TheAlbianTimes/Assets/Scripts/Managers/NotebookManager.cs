@@ -379,13 +379,13 @@ namespace Managers
             {
                 //Right
                 MoveBookmarks(_shouldBeOnRightSide, nextPage);
-                _notebook.FlipPage();
+                _notebook.FlipPageLeft();
             }
             else if (_currentPage > nextPage)
             {
                 //Left
                 MoveBookmarks(_shouldBeOnLeftSide, nextPage);
-                _notebook.FlipPage();
+                _notebook.FlipPageRight();
             }
         }
 

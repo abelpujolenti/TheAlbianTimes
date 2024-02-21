@@ -11,12 +11,12 @@ namespace Workspace.Notebook
 {
     public class Notebook : InteractableRectTransform
     {
-        private const float PAGE_OPEN_TIME = 0.5f;
-        private const float PAGE_CLOSE_TIME = 0.25f;
-        private const float PAGE_FLIP_TIME = 0.6f;
-        private const float PULL_UP_BOOK_TIME = 0.5f;
-        private const float PULL_DOWN_BOOK_TIME = 0.4f;
-        private const float AUTO_CLOSE_THRESHOLD = -6f;
+        [SerializeField] private float PAGE_OPEN_TIME = 0.5f;
+        [SerializeField] private float PAGE_CLOSE_TIME = 0.25f;
+        [SerializeField] private float PAGE_FLIP_TIME = 0.6f;
+        [SerializeField] private float PULL_UP_BOOK_TIME = 0.5f;
+        [SerializeField] private float PULL_DOWN_BOOK_TIME = 0.4f;
+        [SerializeField] private float AUTO_CLOSE_THRESHOLD = -6f;
         
         [SerializeField] private GameObject rightPage;
         [SerializeField] private GameObject leftPage;
@@ -34,6 +34,7 @@ namespace Workspace.Notebook
 
         private Vector3 initialPosition;
         private Vector3 dragVector;
+        private float imageBrightness;
 
         private Coroutine flipCoroutine;
 
@@ -48,6 +49,7 @@ namespace Workspace.Notebook
         private void Start()
         {
             NotebookManager.Instance.SetNotebook(this);
+            imageBrightness = ColorUtil.GetBrightness(_flipPageBackground.color);
         }
 
         protected override void Drag(BaseEventData data)
@@ -165,32 +167,45 @@ namespace Workspace.Notebook
             yield return StartCoroutine(TransformUtility.SetPositionCoroutine(transform, transform.position, initialPosition, t));
         }
 
-        public void FlipPage()
+        public void FlipPageLeft()
         {
-            flipCoroutine = StartCoroutine(FlipPageCoroutine());
+            if (flipCoroutine != null) StopCoroutine(flipCoroutine);
+            flipCoroutine = StartCoroutine(FlipPageLeftCoroutine());
         }
 
-        private IEnumerator FlipPageCoroutine()
+        public void FlipPageRight()
+        {
+            if (flipCoroutine != null) StopCoroutine(flipCoroutine);
+            flipCoroutine = StartCoroutine(FlipPageRightCoroutine());
+        }
+
+        private IEnumerator FlipPageLeftCoroutine()
         {
             flipPage.SetActive(true);
 
-            //ETS UN PORQUET *OINK OINK*
-            float imageBrightness = ColorUtil.GetBrightness(_flipPageBackground.color);
             yield return StartCoroutine(RotatePageCoroutine((RectTransform)flipPage.transform, PAGE_FLIP_TIME / 2f, 0f, 90f, 0.5f));
             StartCoroutine(ShadePageCoroutine(_flipPageBackground, PAGE_FLIP_TIME / 2f, 0.3f, imageBrightness, 2f));
             yield return StartCoroutine(RotatePageCoroutine((RectTransform)flipPage.transform, PAGE_FLIP_TIME / 2f, 90f, 180f, 2f));
             flipPage.SetActive(false);
         }
 
+        private IEnumerator FlipPageRightCoroutine()
+        {
+            flipPage.SetActive(true);
+
+            StartCoroutine(ShadePageCoroutine(_flipPageBackground, PAGE_FLIP_TIME / 2f, 0.3f, imageBrightness, 2f));
+            yield return StartCoroutine(RotatePageCoroutine((RectTransform)flipPage.transform, PAGE_FLIP_TIME / 2f, 180f, 90f, 0.5f));
+            yield return StartCoroutine(RotatePageCoroutine((RectTransform)flipPage.transform, PAGE_FLIP_TIME / 2f, 90f, 0f, 2f));
+            flipPage.SetActive(false);
+        }
+
         private void EnableCover()
         {
-            //ETS UN PORQUET *OINK OINK*
             _leftPageBackground.color = new Color(.5f, .25f, .3f);
         }
 
         private void DisableCover()
         {
-            //ETS UN PORQUET *OINK OINK*
             _leftPageBackground.color = new Color(.95f, .95f, .93f);
         }
 

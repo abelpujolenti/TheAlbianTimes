@@ -3798,9 +3798,9 @@ RectTransform:
   m_Children:
   - {fileID: 538033677}
   - {fileID: 1519254905}
-  - {fileID: 1935412139}
   - {fileID: 936233925}
   - {fileID: 1993360694}
+  - {fileID: 1935412139}
   m_Father: {fileID: 1459499040}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3824,6 +3824,12 @@ MonoBehaviour:
   draggable: 1
   hoverable: 0
   clickable: 1
+  PAGE_OPEN_TIME: 0.5
+  PAGE_CLOSE_TIME: 0.25
+  PAGE_FLIP_TIME: 0.45
+  PULL_UP_BOOK_TIME: 0.5
+  PULL_DOWN_BOOK_TIME: 0.4
+  AUTO_CLOSE_THRESHOLD: -6
   rightPage: {fileID: 1519254904}
   leftPage: {fileID: 936233924}
   flipPage: {fileID: 1993360693}
@@ -6828,7 +6834,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8867924, g: 0.36618328, b: 0.35471696, a: 1}
+  m_Color: {r: 0.9490196, g: 0.9490196, b: 0.92941177, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

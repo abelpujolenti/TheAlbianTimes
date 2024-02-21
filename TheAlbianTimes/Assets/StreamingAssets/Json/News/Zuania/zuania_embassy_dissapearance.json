@@ -1,0 +1,51 @@
+{
+    "name":"zuania_embassy_dissapearance",
+    "firstRound":4,
+    "duration":1,
+    "priority":1,
+    "leniency":2,
+    "type": 2,
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 6,
+            "key": "reputation",
+            "value": 0.05
+        }
+    ],
+    "biases": [
+        {
+            "name": "",
+            "description": " ",
+            "headline": "The Suokan embassy in Zuania dissapears from one day to the next",
+            "text": "    Seemingly from one day to another, the suokan embassy has been sold and turned into a school. The government of Suoka has not made any public statement about it, however all of the diplomats and ex-pats in Zuania have returned home or been reallocated to other countries.",
+            "additionalConsequences": []
+        },
+        {
+            "name": "",
+            "description": " ",
+            "headline": "The Suokan embassy in Zuania dissapears from one day to the next",
+            "text": "    In a sign of rising tensions, the suokan embassy has been sold and turned into a school. The government of Suoka has not made any public statement about it, however all of the diplomats and ex-pats in Zuania have returned home or been reallocated to other countries.",
+            "additionalConsequences": [
+                {
+                    "country": 6,
+                    "key": "reputation",
+                    "value": -0.1
+                }
+            ]
+        },
+        {
+            "name": "",
+            "description": " ",
+            "headline": "Zuania in peril",
+            "text": "   In a sign of rising tensions, the suokan embassy has repurposed and it empty. The government of Suoka has refused to make any public statement. Unsurprisingly all of the diplomats and ex-pats in Zuania have returned home or been reallocated to other countries.",
+            "additionalConsequences": [
+                {
+                    "country": 6,
+                    "key": "reputation",
+                    "value": -0.2
+                }
+            ]
+        }
+    ]
+}

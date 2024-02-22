@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using Countries;
 using Managers;
 using NoMonoBehavior;
 using TMPro;
@@ -224,8 +225,11 @@ namespace Workspace.Editorial
                 return;
             }
             EventsManager.OnDropNewsHeadline(this, pointerData.position);
-
-            _audioSourceSubmitPaper.Play();
+            
+            if (gameObject.activeSelf)
+            {
+                _audioSourceSubmitPaper.Play();
+            }
             base.EndDrag(data);
         }
 
@@ -236,12 +240,18 @@ namespace Workspace.Editorial
                 if (_newsFolder.IsCoordinateInsideBounds(position))
                 {
                     StartCoroutine(Slide(transform.localPosition, _origin));
-                    _audioSourceDropPaperInFolder.Play();
+                    if (gameObject.activeSelf)
+                    {
+                        _audioSourceDropPaperInFolder.Play();
+                    }
                 }
                 else
                 {
-                    DropOutFolder();   
-                    _audioSourceDropPaperOnTable.Play();
+                    DropOutFolder();
+                    if (gameObject.activeSelf)
+                    {
+                        _audioSourceDropPaperOnTable.Play();    
+                    }
                 }
             }
             else if (_newsFolder.IsCoordinateInsideBounds(position))

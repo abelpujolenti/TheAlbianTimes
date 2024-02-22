@@ -6,8 +6,8 @@ namespace Workspace.Layout.Pieces
     public class PieceData
     {
         public const int size = 5;
-        public static readonly int[] shapes = { 35, 1057, 3138, 99, 1123, 199, 486, 68705, 101473, 7239, 231, 3567, 9711, 7399, 6383 };
-        public static readonly int[] pivots = { 0, 5, 6, 5, 5, 1, 6, 5, 10, 6, 1, 6, 6, 6, 6 };
+        public static readonly int[] shapes = { 35, 1057, 3138, 99, 1123, 199, 486, 68705, 101473, 7239, 31, 3567, 9711, 7399, 6383 };
+        public static readonly int[] pivots = { 0, 5, 6, 5, 5, 1, 6, 5, 10, 6, 2, 6, 6, 6, 6 };
         public static readonly int[] pivotIndex = { 1, 1, 1, 3, 3, 1, 4, 2, 4, 3, 2, 4, 5, 6, 6 };
 
         public static readonly Color[] newsTypeColors = { new Color32(230, 76, 166, 255), new Color32(76, 137, 230, 255), new Color32(229, 177, 75, 255),

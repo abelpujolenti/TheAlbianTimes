@@ -23,7 +23,7 @@
         },
         {
             "name": "GOT IT",
-            "description": "Once you've chosen an editorial spin, drag the article up to the tray. It will be returned once re-written.",
+            "description": "Hint: Once you've chosen an editorial spin, drag the article up to the tray. It will be returned once re-written.",
             "headline": "Good job, you are a natural!",
             "text": "   Once an article is ready to publish, drag it over to the <font=courbd SDF><color=#701f1f>Layout<font=cour SDF></color> section. There, you can arrange each piece in order to fit as many articles as possible in one page.\n    You can move between the <font=courbd SDF><color=#701f1f>Editorial<font=cour SDF></color> and <font=courbd SDF><color=#701f1f>Layout<font=cour SDF></color> sections at any time by using the buttons at the bottom right or by just dragging.",        
             "additionalConsequences": [

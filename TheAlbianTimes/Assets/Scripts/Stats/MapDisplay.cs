@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class MapDisplay : MonoBehaviour
 {
+    [SerializeField] private Sprite[] mapStages;
     [SerializeField] private GameObject statsRoot;
     [SerializeField] private GameObject mapRoot;
     [SerializeField] private Image mapImage;
@@ -28,18 +29,64 @@ public class MapDisplay : MonoBehaviour
         {
             statsDisplayObjects[i] = statsDisplayRoot.transform.GetChild(i).gameObject;
         }
+
+        SetMapStage();
+
         mapImage.gameObject.SetActive(false);
+
         GenerateFolds();
         StartCoroutine(OpenMapAnimation());
 
-        Debug.Log("Events:");
+        /*Debug.Log("Events:");
         foreach (KeyValuePair<float, CountryEvent> ev in CountryEventManager.Instance.currentEvents)
         {
             Debug.Log(ev.Value.id);
             ev.Value.Run();
-        }
+        }*/
     }
 
+    private void SetMapStage()
+    {
+        int index;
+        switch (GameManager.Instance.GetRound())
+        {
+            case 0:
+            case 1:
+            case 2:
+                index = 1;
+                statsDisplayObjects[0].SetActive(false);
+                statsDisplayObjects[1].SetActive(false);
+                statsDisplayObjects[3].SetActive(false);
+                statsDisplayObjects[4].SetActive(false);
+                statsDisplayObjects[7].SetActive(false);
+                statsDisplayObjects[8].SetActive(false);
+                break;
+            case 3:
+            case 4:
+            case 5:
+                index = 2;
+                statsDisplayObjects[0].SetActive(false);
+                statsDisplayObjects[1].SetActive(false);
+                statsDisplayObjects[4].SetActive(false);
+                statsDisplayObjects[7].SetActive(false);
+                statsDisplayObjects[8].SetActive(false);
+                break;
+            case 6:
+                index = 3;
+                statsDisplayObjects[4].SetActive(false);
+                statsDisplayObjects[7].SetActive(false);
+                statsDisplayObjects[8].SetActive(false);
+                break;
+            case 7:
+                index = 4;
+                statsDisplayObjects[4].SetActive(false);
+                break;
+            default:
+                index = 0;
+                break;
+        }
+        mapImage.sprite = mapStages[index];
+    }
     private void GenerateFolds()
     {
         Sprite mapSprite = mapImage.sprite;
@@ -91,6 +138,7 @@ public class MapDisplay : MonoBehaviour
     {
         for (int i = 0; i < statsDisplayObjects.Length; i++)
         {
+            if (!statsDisplayObjects[i].activeSelf) continue;
             TextMeshProUGUI reputationText = statsDisplayObjects[i].transform.Find("reputation").GetComponent<TextMeshProUGUI>();
             Country country = GameManager.Instance.gameState.countries[i];
             reputationText.text = "Rep: <b>" + country.GetReputation().ToString("p0") + "</b> " + StatFormat.FormatValueChange(country.GetValueChange("reputation"));

@@ -1394,6 +1394,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eec8655d609d4b488ada2d7b22d8f34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mapStages:
+  - {fileID: 21300000, guid: 0b69a7057e22b99489d7400d2a73a73f, type: 3}
+  - {fileID: 21300000, guid: e2156f72d04b34d47a248b0a2382a016, type: 3}
+  - {fileID: 21300000, guid: 06e5fc38361e51048b25399953dd7036, type: 3}
+  - {fileID: 21300000, guid: 1470ddb71bd472c47917e01393255661, type: 3}
+  - {fileID: 21300000, guid: a046f3477efdfe943bde3ceb864f982e, type: 3}
   statsRoot: {fileID: 381671916}
   mapRoot: {fileID: 1317026841}
   mapImage: {fileID: 847468883}

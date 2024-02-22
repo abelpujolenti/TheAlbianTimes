@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/WorkspaceScene.unity
     guid: 77f7b3efe41f0704c8cf60597a7ca64c
   - enabled: 1
+    path: Assets/Scenes/PublishScene.unity
+    guid: 4f3bbd33c18814d4ea2f18fd3f5645ae
+  - enabled: 1
     path: Assets/Scenes/StatsScene.unity
     guid: 0ea2593574c0db44aa4a47bbb233ef34
   - enabled: 1

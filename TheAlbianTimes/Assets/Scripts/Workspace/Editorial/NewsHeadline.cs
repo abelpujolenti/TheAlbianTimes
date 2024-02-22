@@ -1,8 +1,12 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
+using Countries;
 using Managers;
 using NoMonoBehavior;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -102,8 +106,7 @@ namespace Workspace.Editorial
             };
             SoundManager.Instance.SetMultipleAudioSourcesComponents(tuples);
             
-            _headlineText.text = _headlinesText[0];
-            _contentText.text = _biasesContents[0];
+            UpdateText(_headlinesText[0], _biasesContents[0]);
             _articleTagText.text = PieceData.newsTypeName[(int)_newsType];
 
             Color color = PieceData.newsTypeColors[(int)_newsType];
@@ -398,8 +401,7 @@ namespace Workspace.Editorial
         {
             _chosenBiasIndex = _selectedBiasIndex;
             _data.currentBias = _selectedBiasIndex;
-            _headlineText.text = _headlinesText[_chosenBiasIndex];
-            _contentText.text = _biasesContents[_chosenBiasIndex];
+            UpdateText(_headlinesText[_chosenBiasIndex], _biasesContents[_chosenBiasIndex]);
             
             _newsFolder.DropNewsHeadlineOutOfFolder(true);
 
@@ -411,7 +413,35 @@ namespace Workspace.Editorial
             
             _origin = destination;
         }
-        
+
+        private void UpdateText(string headline, string text)
+        {
+            foreach (string s in Country.names)
+            {
+                string color = "#701f1f";
+                headline = Regex.Replace(headline, "\\b" + s + "\\b", "<color=" + color + ">" + s + "</color>");
+                headline = Regex.Replace(headline, "\\b" + s.ToLower() + "\\b", "<color=" + color + ">" + s.ToLower() + "</color>");
+                text = Regex.Replace(text, "\\b" + s + "\\b", "<font=courbd SDF><color=" + color + ">" + s + "<font=cour SDF></color>");
+                text = Regex.Replace(text, "\\b" + s.ToLower() + "\\b", "<font=courbd SDF><color=" + color + ">" + s.ToLower() + " <font=cour SDF></color>");
+            }
+
+            Dictionary<string, Color> keyWords = new Dictionary<string, Color>();
+            keyWords.Add("Moon", new Color(0.3f, 0.3f, 0.1f));
+
+            foreach (KeyValuePair<string, Color> v in keyWords)
+            {
+                string s = v.Key;
+                string color = "#" + v.Value.ToHexString();
+                headline = Regex.Replace(headline, "\\b" + s + "\\b", "<color=" + color + ">" + s + "</color>");
+                headline = Regex.Replace(headline, "\\b" + s.ToLower() + "\\b", "<color=" + color + ">" + s.ToLower() + "</color>");
+                text = Regex.Replace(text, "\\b" + s + "\\b", "<font=courbd SDF><color=" + color + ">" + s + " <font=cour SDF></color>");
+                text = Regex.Replace(text, "\\b" + s.ToLower() + "\\b", "<font=courbd SDF><color=" + color + ">" + s.ToLower() + " <font=cour SDF></color>");
+            }
+
+            _headlineText.text = headline;
+            _contentText.text = text;
+        }
+
         private IEnumerator SendToChangeContent(Vector2 destination)
         {
             float timer = 0;

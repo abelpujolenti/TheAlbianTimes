@@ -2,12 +2,15 @@ using System.Collections.Generic;
 using Countries;
 using Managers;
 using UnityEngine;
-using Workspace.Layout;
+using Workspace.Editorial;
 
 public class PublishingManager : MonoBehaviour
 {
     private static PublishingManager _instance;
     public static PublishingManager Instance => _instance;
+
+    public List<NewsData> currentPublishedArticles;
+
     private void Awake()
     {
         if (_instance == null)
@@ -19,14 +22,13 @@ public class PublishingManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    public void Publish()
+    public void Publish(List<NewsHeadline> publishedNewsaper)
     {
-        //this is bad
-        NewsHeadlinePiece[] pieces = FindObjectsByType<NewsHeadlinePiece>(FindObjectsSortMode.None);
-        List<NewsData> articles = new List<NewsData>();
-        foreach (NewsHeadlinePiece piece in pieces)
+        currentPublishedArticles = new List<NewsData>();
+        foreach (NewsHeadline headline in publishedNewsaper)
         {
-            articles.Add(piece.GetNewsHeadlinesSubPieces()[0].GetNewsHeadline().GetNewsData());
+            Debug.Log(headline.GetNewsData().biases[0].name);
+            currentPublishedArticles.Add(headline.GetNewsData());
         }
 
         foreach (Country country in GameManager.Instance.gameState.countries)
@@ -34,7 +36,7 @@ public class PublishingManager : MonoBehaviour
             country.SaveRoundData();
         }
 
-        NewsConsequenceManager.Instance.ApplyNewsConsequences(articles.ToArray());
+        NewsConsequenceManager.Instance.ApplyNewsConsequences(currentPublishedArticles.ToArray());
 
         float income = PlayerDataManager.Instance.CalculateRevenue() - PlayerDataManager.Instance.CalculateCosts();
         PlayerDataManager.Instance.UpdateMoney(income);
@@ -45,7 +47,7 @@ public class PublishingManager : MonoBehaviour
 
         GenerateCountryEvents();
 
-        GameManager.Instance.sceneLoader.SetScene("StatsScene");
+        GameManager.Instance.sceneLoader.SetScene("PublishScene");
     }
 
     private void GenerateCountryEvents()

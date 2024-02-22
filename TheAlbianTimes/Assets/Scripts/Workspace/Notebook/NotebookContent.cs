@@ -6,7 +6,6 @@ namespace Workspace.Notebook
     public enum NotebookContentType
     {
         MAP,
-        COUNTRY,
         INTERNATIONAL,
         PERSON
     }

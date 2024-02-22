@@ -20,6 +20,7 @@ namespace Managers
 
         private const float BOOKMARK_WIDTH = 22;
 
+        private const int MAP_RANGE_OF_PAGES = 2;
         private const int COUNTRY_RANGE_OF_PAGES = 4;
         private const int INTERNATIONAL_RANGE_OF_PAGES = 1;
         private const int PERSON_RANGE_OF_PAGES = 1;
@@ -30,27 +31,29 @@ namespace Managers
 
         [SerializeField] private Transform _pageMarkers;
         [SerializeField] private Transform _activePageMarker;
+        
+        [SerializeField] private NotebookBookmark[] _bookmarks;
 
         [SerializeField] private NotebookPage _leftPage;
         [SerializeField] private NotebookPage _rightPage;
-
-        private Notebook _notebook;
-
-        private Dictionary<int, BaseNotebookPage> _notebookPages = new Dictionary<int, BaseNotebookPage>();
-        private Dictionary<NotebookContentType, int> _notebookIndices = new Dictionary<NotebookContentType, int>();
-
-        [SerializeField] private NotebookBookmark[] _bookmarks;
-
-        private NotebookBookmark _currentBookmark;
-
+        
         private CountryContent[] _countriesContent;
         
         private InternationalContent[] _internationalsContent;
         
         private PersonContent[] _peopleContent;
 
+        private Notebook _notebook;
+
+        private NotebookBookmark _currentBookmark;
+
+        private Dictionary<int, BaseNotebookPage> _notebookPages = new Dictionary<int, BaseNotebookPage>();
+        private Dictionary<NotebookContentType, int> _notebookIndices = new Dictionary<NotebookContentType, int>();
+
         private int _currentPage;
         private int _totalPages;
+
+        private bool _noteBookOpen;
 
         private Func<int, int, bool> _shouldBeOnRightSide =>
             (index, nextPage) => _bookmarks[index].IsOnRightSide() && nextPage > _notebookIndices[(NotebookContentType)index];
@@ -63,10 +66,9 @@ namespace Managers
             if (_instance == null)
             {
                 _instance = this; 
-                //TEST();
-                
                 LoadNotebookContents();
                 CheckContentToShow();
+                
                 _currentBookmark = _bookmarks[0];
                 _currentBookmark.transform.SetParent(_activePageMarker);
             }
@@ -75,48 +77,7 @@ namespace Managers
                 Destroy(gameObject);
             }
         }
-
-        private void TEST()
-        {
-            CountryContent countryContent = new CountryContent
-            {
-                countryName = "A",
-                flagImagePath = "A",
-                description = "A",
-                history = "A",
-                importantPeople = new Dictionary<string, List<string>>
-                {
-                    { "Abel", new List<string>
-                        {
-                            "Putero", "Programador"
-                        } 
-                    }  
-                },
-                organizations = new Dictionary<string, List<string>>
-                {
-                    { "MiCasa" , new List<string>
-                        {
-                            "Tiene ratas con camuflaje", "Jeje son tacticas"
-                        }
-                    }  
-                },
-                ongoingConflicts = new List<string>
-                {
-                    "La rata toca los huevos", "Los niños quieren amotinarse"
-                }
-            };
-            
-            CountriesContainer container = new CountriesContainer
-            {
-                countriesContent = new [] {countryContent}
-            };
-
-            string json = JsonConvert.SerializeObject(container);
-            string path = Application.streamingAssetsPath + PATH_COUNTRIES_CONTENT_CONTAINER;
-            
-            File.WriteAllText(path, json);
-        }
-
+        
         public void SetNotebook(Notebook notebook)
         {
             _notebook = notebook;
@@ -143,15 +104,12 @@ namespace Managers
         {
             _notebookIndices.Add(NotebookContentType.MAP, _notebookPages.Count);
             
-            
             _notebookPages.Add(_notebookPages.Count, null);
             _notebookPages.Add(_notebookPages.Count, null);
         }
 
         private void SaveCountriesContentsInDictionary(CountryContent[] contents)
         {
-            _notebookIndices.Add(NotebookContentType.COUNTRY, _notebookPages.Count);
-            
             foreach (CountryContent content in contents)
             {
                 CountryContentPage0 page0 = new CountryContentPage0
@@ -346,6 +304,27 @@ namespace Managers
             _currentBookmark = null;
         }
 
+        public void MoveToPage(int page)
+        {            
+            FlipPage(page);
+            _currentPage = page;
+            CheckContentToShow();
+        }
+
+        private void FlipPage(int nextPage)
+        {
+            if (_currentPage < nextPage)
+            {
+                MoveBookmarks(_shouldBeOnRightSide, nextPage);
+                _notebook.FlipPageLeft();
+            }
+            else if (_currentPage > nextPage)
+            {
+                MoveBookmarks(_shouldBeOnLeftSide, nextPage);
+                _notebook.FlipPageRight();
+            }
+        }
+
         private void MoveBookmarks(Func<int, int, bool> sideChecker, int nextPage)
         {
             List<NotebookBookmark> notebookBookmarks = new List<NotebookBookmark>();
@@ -360,32 +339,12 @@ namespace Managers
 
             foreach (NotebookBookmark notebookBookmark in notebookBookmarks)
             {
-                Vector3 position = notebookBookmark.transform.localPosition;
-                notebookBookmark.transform.localPosition = new Vector3(-position.x - BOOKMARK_WIDTH, position.y, position.z);
+                ///// HERE
+                Transform bookmarkTransform = notebookBookmark.transform;
+                Vector3 position = bookmarkTransform.localPosition;
+                bookmarkTransform.localPosition = new Vector3(-position.x - BOOKMARK_WIDTH, position.y, position.z);
+                /////
                 notebookBookmark.SetIsOnRightSide(!notebookBookmark.IsOnRightSide());
-            }
-        }
-
-        public void MoveToPage(int page)
-        {            
-            FlipPage(page);
-            _currentPage = page;
-            CheckContentToShow();
-        }
-
-        private void FlipPage(int nextPage)
-        {
-            if (_currentPage < nextPage)
-            {
-                //Right
-                MoveBookmarks(_shouldBeOnRightSide, nextPage);
-                _notebook.FlipPageLeft();
-            }
-            else if (_currentPage > nextPage)
-            {
-                //Left
-                MoveBookmarks(_shouldBeOnLeftSide, nextPage);
-                _notebook.FlipPageRight();
             }
         }
 
@@ -397,29 +356,31 @@ namespace Managers
             if (_currentPage < internationalsIndex)
             {
                 PassContentToShow(_countryPagesPrefabs, COUNTRY_RANGE_OF_PAGES,
-                    _notebookIndices[NotebookContentType.COUNTRY], _currentPage, _leftPage);
+                    _notebookIndices[NotebookContentType.MAP] + MAP_RANGE_OF_PAGES, 
+                    _currentPage, _leftPage, true);
                 PassContentToShow(_countryPagesPrefabs, COUNTRY_RANGE_OF_PAGES,
-                    _notebookIndices[NotebookContentType.COUNTRY], _currentPage + 1, _rightPage);
+                    _notebookIndices[NotebookContentType.MAP] + MAP_RANGE_OF_PAGES,
+                    _currentPage + 1, _rightPage, false);
                 return;
             }
             
             if (_currentPage < peopleIndex)
             {
                 PassContentToShow(_internationalPagesPrefabs, INTERNATIONAL_RANGE_OF_PAGES,
-                    internationalsIndex, _currentPage, _leftPage);
+                    internationalsIndex, _currentPage, _leftPage, true);
                 PassContentToShow(_internationalPagesPrefabs, INTERNATIONAL_RANGE_OF_PAGES,
-                    internationalsIndex, _currentPage + 1, _rightPage);
+                    internationalsIndex, _currentPage + 1, _rightPage, false);
                 return;
             }
             
             PassContentToShow(_personPagesPrefabs, PERSON_RANGE_OF_PAGES,
-                peopleIndex, _currentPage, _leftPage);
+                peopleIndex, _currentPage, _leftPage, true);
             PassContentToShow(_personPagesPrefabs, PERSON_RANGE_OF_PAGES,
-                peopleIndex, _currentPage + 1, _rightPage);
+                peopleIndex, _currentPage + 1, _rightPage, false);
         }
 
         private void PassContentToShow(GameObject[] pagePrefabs, int rangeOfPages, 
-            int index, int pageToFill, NotebookPage notebookPage)
+            int index, int pageToFill, NotebookPage notebookPage, bool isLeftPage)
         {
             BaseNotebookPage pageContent = _notebookPages[pageToFill];
 
@@ -430,10 +391,40 @@ namespace Managers
             }
             
             GameObject page = Instantiate(pagePrefabs[(pageToFill - index) % rangeOfPages]);
+
+            if (!_noteBookOpen && isLeftPage)
+            {
+                page.transform.localRotation = new Quaternion(0, 180, 0, 1);
+            }
             
             page.GetComponent<NotebookContentPage>().FillPage(pageContent);
 
             notebookPage.ChangeContent(page);
+        }
+
+        public void SetIsNotebookOpen(bool notebookOpen)
+        {
+            _noteBookOpen = notebookOpen;
+            
+            OnCloseOrCloseNotebook();
+            
+        }
+
+        private void OnCloseOrCloseNotebook()
+        {
+            foreach (NotebookBookmark bookmark in _bookmarks)
+            {
+                if (bookmark.IsOnRightSide())
+                {
+                    break;
+                }
+
+                ///// HERE
+                Transform bookmarkTransform = bookmark.transform;
+                Vector3 position = bookmarkTransform.localPosition;
+                bookmarkTransform.localPosition = new Vector3(-position.x - BOOKMARK_WIDTH, position.y, position.z);
+                /////
+            }
         }
     }
 }

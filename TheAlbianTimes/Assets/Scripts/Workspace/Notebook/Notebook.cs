@@ -38,7 +38,7 @@ namespace Workspace.Notebook
 
         private Coroutine flipCoroutine;
 
-        private bool open = false;
+        private bool open;
 
         protected override void Setup()
         {
@@ -132,7 +132,9 @@ namespace Workspace.Notebook
                 yield return MoveUpCoroutine(PULL_UP_BOOK_TIME);
             }
             yield return StartCoroutine(RotatePageCoroutine((RectTransform)leftPage.transform, PAGE_OPEN_TIME, 179.9f, 0f, 0.5f, DisableCover));
+            
             open = true;
+            NotebookManager.Instance.SetIsNotebookOpen(open);
         }
 
         public void Close()
@@ -155,6 +157,7 @@ namespace Workspace.Notebook
             }
 
             open = false;
+            NotebookManager.Instance.SetIsNotebookOpen(open);
         }
 
         private IEnumerator MoveUpCoroutine(float t)

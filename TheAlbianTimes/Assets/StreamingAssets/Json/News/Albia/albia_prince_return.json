@@ -1,0 +1,63 @@
+{
+    "name":"albia_prince_return",
+    "firstRound":2,
+    "duration":1,
+    "priority":1,
+    "extraBias": false,
+    "leniency":0,
+    "type": 0,
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 5,
+            "key": "reputation",
+            "value": 0
+        }
+    ],
+    "biases": [
+        {
+            "name": "EXILE",
+            "description": "The prince's return could lead to the restitution of the Albian monarchy.",
+            "headline": "Francisco José de Ariza, rightful Prince of Albia, returns after 42 years in exile.",
+            "text": "   The prince landed yesterday in Mastena's airport, together with his wife and their two children. The entire Royal Family had to leave Albia for exile 42 years ago, following the deposal of Francisco José's father Enrique: just after his coronation ceremony, an anonymous informant claimed to have proof that Enrique was an illegitimate child. Even if there was no evidence of the documents' authenticity, the shock lead Albian society to forget that the monarchs have always embodied the values of Honor, Justice and Loyalty, and ultimately resulted in the abolishment of the institution.\n    Francisco José's return could be a turning point for Albia's monarchy, as its restitution could finally be a tangible possibility.",        
+            "additionalConsequences": [
+                {
+                    "country": 5,
+                    "key": "albia_monarchy",
+                    "value": 0.1
+                }
+            ]
+        },
+        {
+            "name": "SCANDAL",
+            "description": "The former prince, who is an illegitimate prince, prefers to not make any public statement.",
+            "headline": "Francisco José de Ariza, former Prince of Albia, returns to his country after 42 years in Dalme.",
+            "text": "   The former prince landed yesterday in Mastena's airport, together with his wife Marija Reznicek and their two children. The entire Royal Family relocated to Dalme 42 years ago, following the scandal that led Francisco José's father Enrique to be deposed: just after his coronation ceremony, medical documents proving that Enrique was an illegitimate child were brought to light. The reveal induced great shock in Albian society, and ultimately resulted in the abolishment of the institution.\n    Francisco José has not made any public statement regading his return. While some speculate that he is involved with the alt-right Constitutional Motherland Party, others maintain that his trading activities in Dalme have encountered serious issues.",
+            "additionalConsequences": [
+                {
+                    "country": 5,
+                    "key": "albia_monarchy",
+                    "value": -0.2
+                }
+            ]
+        },
+        {
+            "name": "BUSINESS",
+            "description": "Ariza clings to Albia as business in Dalme does not go as expected.",
+            "headline": "Francisco José de Ariza, former Prince of Albia, returns to his country after ending business in Dalme.",
+            "text":"    The former prince landed yesterday in Mastena's airport, together with his Dalmese wife Marija Reznicek and their two children. The entire Royal Family left Albia 42 years ago, after the deposal of Francisco José's father Enrique: just after his coronation ceremony, medical documents proving that Enrique was an illegitimate child were brought to light. The reveal induced great shock in Albian society, and ultimately resulted in the abolishment of the institution.\n    Even if Francisco José has not made any official statement, recent market movements show that Dalme's economy might be on the brink of a recession. This lack of regard for the country that backed their several sports and entertainment businesses evidences the Royal Family's unscrupulousness yet again.",
+            "additionalConsequences": [
+                {
+                    "country": 5,
+                    "key": "albia_monarchy",
+                    "value": -0.4
+                },
+                {
+                    "country": 4,
+                    "key": "reputation",
+                    "value": -0.05
+                }
+            ]
+        }
+    ]
+}

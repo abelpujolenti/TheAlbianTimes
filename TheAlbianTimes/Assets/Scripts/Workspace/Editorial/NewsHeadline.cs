@@ -132,6 +132,7 @@ namespace Workspace.Editorial
             
             EventsManager.OnCrossMidPointWhileScrolling += GetGameObjectToTransferDrag;
             EventsManager.OnCheckDistanceToMouse += DistanceToPosition;
+            EventsManager.OnStartEndDrag(true);
 
             if (!_newsHeadlinePieceToTransferDrag.GetTransferDrag())
             {
@@ -215,7 +216,7 @@ namespace Workspace.Editorial
             
             EventsManager.OnCrossMidPointWhileScrolling -= GetGameObjectToTransferDrag;
             EventsManager.OnCheckDistanceToMouse -= DistanceToPosition;
-            EventsManager.OnStartEndDrag(false);    
+            EventsManager.OnStartEndDrag(false);
             
             PointerEventData pointerData = (PointerEventData) data;
             if (EventsManager.OnDropNewsHeadline == null)

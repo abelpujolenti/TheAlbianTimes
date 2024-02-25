@@ -43,7 +43,6 @@ namespace Workspace.Layout
             base.BeginDrag(data);
 
             EventsManager.OnStartEndDrag(true);
-            
             EventsManager.OnCrossMidPointWhileScrolling += GetGameObjectToTransferDrag;
             
             _newsHeadlinePiece.BeginDrag();

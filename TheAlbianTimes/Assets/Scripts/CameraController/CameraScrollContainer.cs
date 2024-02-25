@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using Managers;
 using UnityEngine;
 
@@ -5,8 +7,25 @@ namespace CameraController
 {
     public class CameraScrollContainer : MonoBehaviour
     {
-        [SerializeField] private CameraSideScroll[] _cameraSideScrolls;
-        
+        [SerializeField] private GameObject _rightCameraSideScroll;
+        [SerializeField] private GameObject _leftCameraSideScroll;
+
+        private Dictionary<CameraLocation, Action<bool>> _modifyActiveCameraSideScrolls;
+
+        private void Start()
+        {
+            _modifyActiveCameraSideScrolls = new Dictionary<CameraLocation, Action<bool>>
+            {
+                { CameraLocation.EDITORIAL , active => _rightCameraSideScroll.SetActive(active)},
+                { CameraLocation.LAYOUT , active => _leftCameraSideScroll.SetActive(active)},
+                { CameraLocation.CENTER, active =>
+                {
+                    _rightCameraSideScroll.SetActive(active);
+                    _leftCameraSideScroll.SetActive(active);
+                } }
+            };
+        }
+
         private void OnEnable()
         {
             EventsManager.OnStartEndDrag += ModifyActiveCameraSideScrolls;
@@ -19,31 +38,18 @@ namespace CameraController
 
         private void ModifyActiveCameraSideScrolls(bool active)
         {
-            foreach (CameraSideScroll cameraSideScroll in _cameraSideScrolls)
+            if (CameraManager.Instance.IsScrolling())
             {
-                if (cameraSideScroll.IsExceed())
-                {
-                    continue;
-                }
-                cameraSideScroll.gameObject.SetActive(active);
+                return;
             }
+
+            _modifyActiveCameraSideScrolls[CameraManager.Instance.GetCameraLocation()](active);
         }
 
-        private void EnableExceedCameraSideScrolls()
+        public void FlipSideScroll(RectTransform cameraSideScrollRectTransform)
         {
-            foreach (CameraSideScroll cameraSideScroll in _cameraSideScrolls)
-            {
-                cameraSideScroll.SetExceed(false);
-            }
-            
-            ModifyActiveCameraSideScrolls(true);
-
-            EventsManager.OnExceedCameraLimitsWhileDragging -= EnableExceedCameraSideScrolls;
-        }
-
-        public void SubscribeOnExceedEvent() 
-        {
-            EventsManager.OnExceedCameraLimitsWhileDragging += EnableExceedCameraSideScrolls;
+            Vector2 size = cameraSideScrollRectTransform.sizeDelta;
+            cameraSideScrollRectTransform.sizeDelta = new Vector2(-size.x, size.y);
         }
     }
 }

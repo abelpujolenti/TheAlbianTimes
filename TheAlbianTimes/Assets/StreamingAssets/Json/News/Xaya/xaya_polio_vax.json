@@ -1,0 +1,45 @@
+{
+    "name":"xaya_polio_vax",
+    "firstRound":4,
+    "duration":1,
+    "priority":1,
+    "extraBias": false,
+    "leniency":0,
+    "type": 0,
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 2,           
+            "key": "reputation",
+            "value": 0.0
+        }
+    ],
+    "biases": [
+        {
+            "name": "PROGRESS",
+            "description": "The outstanding discovery will save lives in Xaya and across the world.",
+            "headline": "Xaya reveals that a vaccine for polio is almost ready for mass production.",
+            "text": "   In a conference organized by the Department of Public Health, a research team based in the National University of Xaya announced the successful results of a vaccine for polio. The vaccine needs further testing, but is set to be mass produced by the end of the semester.\n    The discovery marks an important turning point in medicine, as it is the first effective method capable of countering polio. The prevention of this disease has been a critical concern for Xaya since the great epidemic that killed over ten thousand citizens six decades ago.\n    The Xayan government has guaranteed that a vaccination campaign will be launched in the coming months, to assert that every citizen is protected from the illness. In press declarations, they also confirmed their exportation plans for the vaccine. Thanks to scientific progress, polio could be nothing more than a distant memory in only a few years.",
+            "additionalConsequences": [
+                {
+                    "country": 2,
+                    "key": "reputation",
+                    "value": 0.2
+                }
+            ]
+        },
+        {
+            "name": "WASH IMAGE",
+            "description": "Innovative program boosts security thanks to civilian collaboration.",
+            "headline": "Xaya is trying to use new polio vaccine to wash its image after human rights scandals.",
+            "text":"    In a conference organized by the Department of Public Health, a research team based in the National University of Xaya announced the successful results of a vaccine for polio. The vaccine needs further testing, but is set to be mass produced by the end of the semester.\n    The Xayan government's rhetoric of wellness and protection clashes with the recent cases of forced labour in Xayan prisons and the known beatings and abuses in internment camps. Several activists from International Action for Human Rights have gone missing in the past months as well.\n    The vaccine can be understood as a political maneuvre to project a tolerant and humane image, aimed to strengthen economic relationships with the international community. Xaya confirming their exportation plans for the vaccine further evidences its economic interest, as  rich countries would spend millions to hoard vaccines.",
+            "additionalConsequences": [
+                {
+                    "country": 2,
+                    "key": "reputation",
+                    "value": -0.4
+                }
+            ]
+        }
+    ]
+}

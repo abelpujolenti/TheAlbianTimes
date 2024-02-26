@@ -1,0 +1,45 @@
+{
+    "name":"albia_low_university_results",
+    "firstRound":4,
+    "duration":1,
+    "priority":1,
+    "extraBias": false,
+    "leniency":0,
+    "type": 1,
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 5,
+            "key": "reputation",
+            "value": -0.1
+        }
+    ],
+    "biases": [
+        {
+            "name": "STALENESS",
+            "description": "Albian universities need to adapt to the present times' requirements.",
+            "headline": "The low positions of Albian universities in international rankings evidence the urgency of modernization.",
+            "text": "   Even if Albian universities had kept high positions in the Spaces Higher Education rankings for decades, in recent years there has been a downward trend that neither the Albian Central University nor the Lorán Institute of Technology have been able to elude. Together with the University in Balarrabo, they have dropped to the last 20 positions. Only the ENSDGAEA Business School has managed to stay in the top 35.\n    What makes the ENSDGAEA different? It is not its private ownership, but its concern with adapting to the requirements of an ever-changing future. Traditional education methods cannot provide students of real-world experience: the next generation must go beyond simple knowledge and learn to be fast and fluid in order to develop the fundamental skills and competencies of innovation, leadership, communication…, or else Albia will be left behind.",        
+            "additionalConsequences": [
+                {
+                    "country": 5,
+                    "key": "albia_education_unrest",
+                    "value": -0.05
+                }
+            ]
+        },
+        {
+            "name": "NEOLIBERALISM",
+            "description": "Albian universities have replaced the pursuit of knowledge with productivity.",
+            "headline": "Low positions of Albian universities in international rankings: yet another neoliberal failure.",
+            "text": "   Even if Albian universities had kept high positions in all higher education rankings for decades, in recent years there has been a downward trend that neither the Albian Central University nor the Lorán Institute of Technology have been able to elude. Together with the University in Balarrabo, they have dropped to the last 20 positions.\n    The growing technocracy is to blame. In contemporary times, the spirit of truth has been replaced by the spirit of efficacy: education has abandoned its pursue of knowledge to give in to the indefinite improvement of its instrumental character. Productivity has become a the only accepted line of thought, and even theorical activity is now judged by a quantitative model. Only by breaking out of this neoliberal configuration will Albia regain its connection with knowledge.",
+            "additionalConsequences": [
+                {
+                    "country": 5,
+                    "key": "albia_education_unrest",
+                    "value": 0.1
+                }
+            ]
+        }
+    ]
+}

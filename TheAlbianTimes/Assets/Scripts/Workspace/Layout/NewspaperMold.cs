@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using Managers;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using Utility;
 using Workspace.Editorial;
 
 namespace Workspace.Layout
 {
-    public class NewspaperMold : MonoBehaviour
+    public class NewspaperMold : InteractableRectTransform
     {
         private const int PADDING = 5;
         private const int MIN_ANCHOR_X = 0;
@@ -35,6 +36,8 @@ namespace Workspace.Layout
         private Vector2 _layoutMaxCoordinates;
 
         private float _cellSize;
+
+        [SerializeField]private bool _locked;
 
         private void OnEnable()
         {
@@ -92,6 +95,15 @@ namespace Workspace.Layout
             }
         }
 
+        protected override void Drag(BaseEventData data)
+        {
+            if (_locked) 
+            {
+                return;
+            }
+            base.Drag(data);
+        }
+
         private void SetLayoutLimiters()
         {
             _layoutMinCoordinates.x = _layoutCorners[0].x;
@@ -111,7 +123,7 @@ namespace Workspace.Layout
 
         private void CreateCell(int i, int j, float cellSize, Vector2 sizeDelta)
         {
-            GameObject cellGameObject = Instantiate(_cellPrefab, gameObject.transform, true);
+            GameObject cellGameObject = Instantiate(_cellPrefab, gameObject.transform, false);
             Cell cellPrefab = cellGameObject.GetComponent<Cell>();
             float cellPositionX = MathUtil.Map(cellSize * i, 0, sizeDelta.x, _minAnchorForCell.x, _maxAnchorForCell.x);
             float cellPositionY = MathUtil.Map(cellSize * j, 0, sizeDelta.y, _minAnchorForCell.y, _maxAnchorForCell.y);
@@ -129,7 +141,7 @@ namespace Workspace.Layout
 
         private Cell[] TakeCells(NewsHeadlineSubPiece draggedSubPiece, Vector2 mousePosition, NewsHeadlineSubPiece[] newsHeadlinePieces)
         {
-            if (!IsCoordinateInsideLayout(mousePosition))
+            if (!IsCoordinateInsideLayout(mousePosition) || _locked)
             {
                 return null;
             }
@@ -182,9 +194,10 @@ namespace Workspace.Layout
 
             foreach (NewsHeadlineSubPiece piece in newsHeadlinePieces)
             {
-                if (IsCoordinateInsideLayout((Vector2)piece.transform.position -
-                                             (Vector2)draggedSubPiece.transform.position +
-                                             (Vector2)(desiredCells[index].transform.position)))
+                if (IsCoordinateInsideLayout(
+                    (Vector2)piece.transform.position -
+                    (Vector2)draggedSubPiece.transform.position +
+                    (Vector2)(desiredCells[index].transform.position)))
                 {
                     continue;
                 }
@@ -285,6 +298,16 @@ namespace Workspace.Layout
         public NewsHeadline[] GetNewsHeadlines()
         {
             return _newsHeadlines.ToArray();
+        }
+
+        public void SetLocked(bool locked) 
+        {
+            _locked = locked;
+        }
+
+        public bool IsLocked() 
+        {
+            return _locked;
         }
     }
 }

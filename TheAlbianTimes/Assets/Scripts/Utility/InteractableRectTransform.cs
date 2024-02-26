@@ -23,7 +23,7 @@ namespace Utility
         protected RectTransform canvasRect;
         protected EventTrigger eventTrigger;
         protected GameObject gameObjectToDrag;
-        protected Vector2 _vectorOffset;
+        protected Vector3 _vectorOffset;
         #endregion
 
         protected void Awake()
@@ -99,9 +99,9 @@ namespace Utility
         {
             if (!held && !draggable) return;
         
-            Vector2 mousePosition = GetMousePositionOnCanvas(data);
+            Vector3 mousePosition = GetMousePositionOnCanvas(data);
 
-            gameObjectToDrag.transform.position = (Vector2)canvas.transform.TransformPoint(mousePosition) + _vectorOffset;
+            gameObjectToDrag.transform.position = canvas.transform.TransformPoint(mousePosition) + _vectorOffset;
         }
         
         protected virtual void EndDrag(BaseEventData data)
@@ -124,7 +124,7 @@ namespace Utility
         {
         }
 
-        protected Vector2 GetMousePositionOnCanvas(BaseEventData data)
+        protected Vector3 GetMousePositionOnCanvas(BaseEventData data)
         {
             Vector2 mousePosition;
         
@@ -141,7 +141,7 @@ namespace Utility
             mousePosition.x = Math.Max(Math.Min(mousePosition.x, canvasTopRight.x), canvasBottomLeft.x);
             mousePosition.y = Math.Max(Math.Min(mousePosition.y, canvasTopRight.y), canvasBottomLeft.y);
 
-            return mousePosition;
+            return new Vector3(mousePosition.x, mousePosition.y, 0);
         }
 
         public void SetCanvas(Canvas canvas)

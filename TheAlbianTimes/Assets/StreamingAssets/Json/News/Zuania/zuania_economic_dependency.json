@@ -1,14 +1,19 @@
 {
-    "name":"zuania_economic_dependency",
-    "firstRound":3,
-    "duration":1,
-    "priority":1,
-    "leniency":2,
-    "type": 2,
+    "name": "zuania_economic_dependency",
+    "firstRound": 3,
+    "duration": 1,
+    "priority": 1,
+    "leniency": 2,
+    "type": 4,
     "imagePath": null,
     "consequences": [
         {
-            "country": 6,
+            "country": 3,
+            "key": "reputation",
+            "value": -0.05
+        },
+        {                    
+            "country": 5,
             "key": "reputation",
             "value": 0.05
         }
@@ -18,32 +23,37 @@
             "name": "NEUTRAL",
             "description": " Zuania is failing and needs help from it's neighbours",
             "headline": "Years of economic downturn turn into dependency",
-            "text": "    After so many years of the country being in an economic rut, Zuania has become dependent of Xayan gifts and help from neighboring countries. The most helpful one being Albia.",
+            "text": "    After so many years of the country being in an economic rut, Zuania has become dependent of Xayan gifts and help from neighboring countries. The most helpful one being Albia as it has consistently accepted immigrants from the region and funded construction efforts.",
             "additionalConsequences": []
         },
         {
             "name": "FAILURE",
             "description": " The government failed its people by not doing enough",
             "headline": "What happens when a Government fails",
-            "text": "    After so many years of the country failin its people, Zuania has become dependent on the kindness of neighboring countries. The most helpful one being Albia.",
+            "text": "    After so many years of the country failin its people, Zuania has become dependent on the kindness of neighboring countries. The most helpful one being Albia as our beautiful homeland has given essentially free handouts.\n We now know that the money and support given is not being used approriately, as evidenced by their lack of growth",
             "additionalConsequences": [
                 {
-                    "country": 6,
+                    "country": 3,
                     "key": "reputation",
                     "value": -0.1
                 }
             ]
         },
         {
-            "name": "COLONIAL PRESSURE",
+            "name": "COLONIALISM",
             "description": " The pressure of a colonial state has lead to the downturn of this country",
             "headline": "Years of Xayan pressure leads to dependency",
             "text": "   After so many years of Xaya putting their metaphorical boots on Zuanias neck, Zuania has become dependent of them. This slow process is becoming increasingly obvious as the emmigration rate rises year by year among the lower classes who can still somewhat afford it.",
             "additionalConsequences": [
                 {
-                    "country": 6,
+                    "country": 3,
                     "key": "reputation",
-                    "value": -0.2
+                    "value": 0.1
+                },
+                {                    
+                    "country": 2,
+                    "key": "reputation",
+                    "value": -0.15
                 }
             ]
         }

@@ -18,14 +18,14 @@
             "name": "NEW STADIUM",
             "description": " The award show is to be held in a new Opera after years of complaints",
             "headline": " The Ables are to be held in larger stadium",
-            "text": "    After many years of complaints by actors, film makers and directors, the Ables have made a deal with the Madian government to hold the event in a significantly larger stadium.\n    Much is to be heard about its significance but this year has been incredible for films with the advent of fast vhs distribution.",
+            "text": "    After many years of complaints by actors, film makers and directors, the Ables have made a deal with the Madian government to hold the event in a significantly larger stadium.\n    Much is to be heard about its significance but this year has been incredible for films with the advent of fast vhs distribution. The prize show has also been seeing a resurgence in importance and coverage, making this move very popular among the acting world",
             "additionalConsequences": []
         },
         {
-            "name": "WASTE OF MONEY",
+            "name": "WASTEFUL",
             "description": " As the headline suggests, critics feel like the Opera should not be used so frivolously",
             "headline": " Madia Wastes good money on Ables",
-            "text": "    Once again Madia is throwing money into unnecessary places. The brand new Opera Stadium, meant for important, high class events has been deteriorated by their decision to remodel it for the Ables.\n    Another waste of time, money and culture capitol.",
+            "text": "    Once again Madia is throwing money into unnecessary places. The brand new Opera Stadium, meant for important, high class events has been deteriorated by their decision to remodel it for the Ables.\n    Today it feels like the country cares more about catering to the elite actors instead of the small town man. Truly another waste of time, money and culturAL capitol.",
             "additionalConsequences": [
                 {
                     "country": 6,
@@ -35,7 +35,7 @@
             ]
         },
         {
-            "name": "BEATIFUL ARCHITECTURE",
+            "name": "BEATIFUL",
             "description": " Wonderful new place that will fit more people during the once a year award show",
             "headline": " The new Ables Stadium looks Fantastic!",
             "text": "   The Opera Stadium is complete and the Ables organizers are keen on it. The Fantastic Golden accents, the beatiful details made possible by the handywork of the people. All of it was made possible by years of hard work of the people and the planners it is complete.\n    The Ables have had issues for many years with the current size of the stadium and therefore has been looking for another place to hold this once a year event. It has been decided to hold it in this brand new Stadium",
@@ -43,7 +43,7 @@
                 {
                     "country": 6,
                     "key": "reputation",
-                    "value": -0.2
+                    "value": 0.1
                 }
             ]
         }

@@ -22,7 +22,9 @@ namespace Workspace.Layout
 
         [SerializeField] private GameObject _cellPrefab;
 
-        [SerializeField]private List<NewsHeadline> _newsHeadlines;
+        private List<NewsHeadline> _newsHeadlines;
+
+        [SerializeField] private MoldPlace _moldPlace;
 
         private Cell[][] _cells;
         
@@ -34,10 +36,11 @@ namespace Workspace.Layout
         private Vector2 _maxAnchorForCell;
         private Vector2 _layoutMinCoordinates;
         private Vector2 _layoutMaxCoordinates;
+        private Vector2 _initialPosition;
 
         private float _cellSize;
 
-        [SerializeField]private bool _locked;
+        private bool _locked;
 
         private void OnEnable()
         {
@@ -93,6 +96,8 @@ namespace Workspace.Layout
                     CreateCell(i, j, _cellSize, sizeDelta);
                 }
             }
+
+            _initialPosition = _rectTransform.localPosition;
         }
 
         protected override void Drag(BaseEventData data)
@@ -102,6 +107,12 @@ namespace Workspace.Layout
                 return;
             }
             base.Drag(data);
+        }
+
+        protected override void EndDrag(BaseEventData data)
+        {
+
+            base.EndDrag(data);
         }
 
         private void SetLayoutLimiters()

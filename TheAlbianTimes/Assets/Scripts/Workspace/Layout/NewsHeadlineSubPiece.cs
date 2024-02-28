@@ -40,6 +40,10 @@ namespace Workspace.Layout
 
         protected override void BeginDrag(BaseEventData data)
         {
+            if (LayoutManager.Instance.IsMoldDraggable())
+            {
+                return;
+            }
             base.BeginDrag(data);
 
             EventsManager.OnStartEndDrag(true);
@@ -50,6 +54,10 @@ namespace Workspace.Layout
 
         protected override void Drag(BaseEventData data)
         {
+            if (LayoutManager.Instance.IsMoldDraggable())
+            {
+                return;
+            }
             base.Drag(data);
 
             PointerEventData pointerData = (PointerEventData)data;
@@ -86,6 +94,10 @@ namespace Workspace.Layout
 
         protected override void EndDrag(BaseEventData data)
         {
+            if (LayoutManager.Instance.IsMoldDraggable())
+            {
+                return;
+            }
             if (_newsHeadlineToTransferDrag.GetTransferDrag())
             {
                 _newsHeadlineToTransferDrag.SimulateEndDrag(data);

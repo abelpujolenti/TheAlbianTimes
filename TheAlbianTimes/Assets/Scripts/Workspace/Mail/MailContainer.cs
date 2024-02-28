@@ -112,7 +112,7 @@ namespace Workspace.Mail
 
             Vector2 mousePosition = GetMousePositionOnCanvas(data);
 
-            Vector2 newPos = (Vector2)canvas.transform.TransformPoint(mousePosition) + _vectorOffset;
+            Vector3 newPos = canvas.transform.TransformPoint(mousePosition) + _vectorOffset;
             newPos.y = gameObjectToDrag.transform.position.y;
             newPos.x = Mathf.Min(maxX, Mathf.Max(minX, newPos.x));
             gameObjectToDrag.transform.position = newPos;

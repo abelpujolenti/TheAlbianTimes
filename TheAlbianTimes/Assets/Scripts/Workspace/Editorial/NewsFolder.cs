@@ -28,6 +28,8 @@ namespace Workspace.Editorial
         private bool _folderEmpty;
         private bool _dragging;
 
+        private Camera _camera;
+
         private void OnEnable()
         {
             EventsManager.OnAddNewsHeadlineToFolder += AddNewsHeadlineGameObject;
@@ -41,6 +43,7 @@ namespace Workspace.Editorial
         private void Start()
         {
             _rectTransform.GetWorldCorners(_corners);
+            _camera = Camera.main;
             SetContainerLimiters();
         }
 
@@ -357,7 +360,7 @@ namespace Workspace.Editorial
 
         public bool IsCoordinateInsideBounds(Vector3 position)
         {
-            position = Camera.main.ScreenToWorldPoint(position);
+            position = _camera.ScreenToWorldPoint(position);
             return position.x > _containerMinCoordinates.x && position.x < _containerMaxCoordinates.x &&
                    position.y > _containerMinCoordinates.y && position.y < _containerMaxCoordinates.y;
         }

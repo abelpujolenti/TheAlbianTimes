@@ -23,13 +23,15 @@ namespace Utility
         protected RectTransform canvasRect;
         protected EventTrigger eventTrigger;
         protected GameObject gameObjectToDrag;
-        protected Vector2 _vectorOffset;
+        protected Vector3 _vectorOffset;
+        protected Camera _camera;
         #endregion
 
         protected void Awake()
         {
             gameObjectToDrag = gameObject;
             canvas = GetComponentInParent<Canvas>();
+            _camera = Camera.main;
             Setup();
         }
         protected virtual void Setup()
@@ -88,7 +90,7 @@ namespace Utility
         {
             PointerEventData pointerData = (PointerEventData) data;
 
-            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(pointerData.position);
+            Vector2 mousePosition = _camera.ScreenToWorldPoint(pointerData.position);
 
             _vectorOffset = (Vector2)gameObjectToDrag.transform.position - mousePosition;
         
@@ -99,9 +101,9 @@ namespace Utility
         {
             if (!held && !draggable) return;
         
-            Vector2 mousePosition = GetMousePositionOnCanvas(data);
+            Vector3 mousePosition = GetMousePositionOnCanvas(data);
 
-            gameObjectToDrag.transform.position = (Vector2)canvas.transform.TransformPoint(mousePosition) + _vectorOffset;
+            gameObjectToDrag.transform.position = canvas.transform.TransformPoint(mousePosition) + _vectorOffset;
         }
         
         protected virtual void EndDrag(BaseEventData data)
@@ -124,7 +126,7 @@ namespace Utility
         {
         }
 
-        protected Vector2 GetMousePositionOnCanvas(BaseEventData data)
+        protected Vector3 GetMousePositionOnCanvas(BaseEventData data)
         {
             Vector2 mousePosition;
         
@@ -135,13 +137,13 @@ namespace Utility
             RectTransformUtility.ScreenPointToLocalPointInRectangle(
                 canvasRect,
                 pointerData.position,
-                Camera.main,
+                _camera,
                 out mousePosition
             );
             mousePosition.x = Math.Max(Math.Min(mousePosition.x, canvasTopRight.x), canvasBottomLeft.x);
             mousePosition.y = Math.Max(Math.Min(mousePosition.y, canvasTopRight.y), canvasBottomLeft.y);
 
-            return mousePosition;
+            return new Vector3(mousePosition.x, mousePosition.y, 0);
         }
 
         public void SetCanvas(Canvas canvas)

@@ -1,13 +1,18 @@
+using System.Collections;
 using System.Collections.Generic;
 using Managers;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using Utility;
 using Workspace.Editorial;
 
 namespace Workspace.Layout
 {
-    public class NewspaperMold : MonoBehaviour
+    public class NewspaperMold : InteractableRectTransform
     {
+        private const float TIME_TO_SLIDE = 2f;
+        private const float SPEED_MOVEMENT = 15f;
+        
         private const int PADDING = 5;
         private const int MIN_ANCHOR_X = 0;
         private const int MAX_ANCHOR_X = 1;
@@ -21,6 +26,10 @@ namespace Workspace.Layout
 
         [SerializeField] private GameObject _cellPrefab;
 
+        [SerializeField] private MoldPlace _moldPlace;
+
+        [SerializeField] private Publisher _publisher;
+
         [SerializeField]private List<NewsHeadline> _newsHeadlines;
 
         private Cell[][] _cells;
@@ -33,6 +42,9 @@ namespace Workspace.Layout
         private Vector2 _maxAnchorForCell;
         private Vector2 _layoutMinCoordinates;
         private Vector2 _layoutMaxCoordinates;
+        private Vector2 _initialPosition;
+
+        private Coroutine _moveCoroutine;
 
         private float _cellSize;
 
@@ -90,6 +102,64 @@ namespace Workspace.Layout
                     CreateCell(i, j, _cellSize, sizeDelta);
                 }
             }
+
+            _initialPosition = _rectTransform.localPosition;
+            draggable = false;
+        }
+
+        protected override void BeginDrag(BaseEventData data)
+        {
+            if (!draggable)
+            {
+                return;
+            }
+            if (_moveCoroutine != null)
+            {
+                StopCoroutine(_moveCoroutine);
+            }
+            base.BeginDrag(data);
+        }
+
+        protected override void EndDrag(BaseEventData data)
+        {
+            if (!draggable)
+            {
+                return;
+            }
+            PointerEventData pointerData = (PointerEventData)data;
+
+            if (_moldPlace.IsCoordinateInsideBounds(pointerData.position))
+            {
+                LayoutManager.Instance.SetIsMoldInPlace(true);
+                _moveCoroutine = StartCoroutine(Slide(transform.localPosition));
+            }
+            else
+            {
+                LayoutManager.Instance.SetIsMoldInPlace(false);    
+            }
+            
+            _publisher.IsCoordinateInsideBounds(pointerData.position);
+            
+            base.EndDrag(data);
+        }
+
+        private IEnumerator Slide(Vector2 origin)
+        {
+            float timer = 0;
+            
+            while (timer < TIME_TO_SLIDE)
+            {
+                timer = MoveToDestination(origin, _initialPosition, timer);
+                yield return null;
+            }
+        }
+
+        private float MoveToDestination(Vector2 origin, Vector2 destination, float timer)
+        {
+            timer += Time.deltaTime * SPEED_MOVEMENT;
+            transform.localPosition = Vector3.Lerp(origin, destination, timer / TIME_TO_SLIDE);
+            
+            return timer;
         }
 
         private void SetLayoutLimiters()
@@ -111,7 +181,7 @@ namespace Workspace.Layout
 
         private void CreateCell(int i, int j, float cellSize, Vector2 sizeDelta)
         {
-            GameObject cellGameObject = Instantiate(_cellPrefab, gameObject.transform, true);
+            GameObject cellGameObject = Instantiate(_cellPrefab, gameObject.transform, false);
             Cell cellPrefab = cellGameObject.GetComponent<Cell>();
             float cellPositionX = MathUtil.Map(cellSize * i, 0, sizeDelta.x, _minAnchorForCell.x, _maxAnchorForCell.x);
             float cellPositionY = MathUtil.Map(cellSize * j, 0, sizeDelta.y, _minAnchorForCell.y, _maxAnchorForCell.y);
@@ -129,7 +199,7 @@ namespace Workspace.Layout
 
         private Cell[] TakeCells(NewsHeadlineSubPiece draggedSubPiece, Vector2 mousePosition, NewsHeadlineSubPiece[] newsHeadlinePieces)
         {
-            if (!IsCoordinateInsideLayout(mousePosition))
+            if (!IsCoordinateInsideLayout(mousePosition) || draggable)
             {
                 return null;
             }
@@ -182,9 +252,10 @@ namespace Workspace.Layout
 
             foreach (NewsHeadlineSubPiece piece in newsHeadlinePieces)
             {
-                if (IsCoordinateInsideLayout((Vector2)piece.transform.position -
-                                             (Vector2)draggedSubPiece.transform.position +
-                                             (Vector2)(desiredCells[index].transform.position)))
+                if (IsCoordinateInsideLayout(
+                    (Vector2)piece.transform.position -
+                    (Vector2)draggedSubPiece.transform.position +
+                    (Vector2)(desiredCells[index].transform.position)))
                 {
                     continue;
                 }
@@ -265,8 +336,10 @@ namespace Workspace.Layout
             return _cells[finalCellCoordinateX][finalCellCoordinateY];
         }
 
-        private Vector3 SnapNewsHeadline(Cell[] snappedCells, NewsHeadline newsHeadline)
+        private Vector3 SnapNewsHeadline(Cell[] snappedCells, NewsHeadline newsHeadline, GameObject piece)
         {
+            piece.transform.SetParent(gameObject.transform);
+            
             _newsHeadlines.Add(newsHeadline);
             
             foreach (Cell cell in snappedCells)
@@ -285,6 +358,17 @@ namespace Workspace.Layout
         public NewsHeadline[] GetNewsHeadlines()
         {
             return _newsHeadlines.ToArray();
+        }
+
+        public void SetDraggable(bool draggable) 
+        {
+            base.draggable = draggable;
+            LayoutManager.Instance.SetIsMoldDraggable(draggable);
+        }
+
+        public bool IsDraggable() 
+        {
+            return draggable;
         }
     }
 }

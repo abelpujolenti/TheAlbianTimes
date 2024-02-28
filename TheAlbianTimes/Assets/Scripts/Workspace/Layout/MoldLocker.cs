@@ -1,14 +1,21 @@
+using Managers;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Utility;
-using Workspace.Layout;
 
-public class MoldLocker : InteractableRectTransform
+namespace Workspace.Layout
 {
-    [SerializeField] private NewspaperMold _newsPaperMold;
-
-    protected override void PointerClick(BaseEventData data)
+    public class MoldLocker : InteractableRectTransform
     {
-        _newsPaperMold.SetLocked(!_newsPaperMold.IsLocked());
+        [SerializeField] private NewspaperMold _newsPaperMold;
+
+        protected override void PointerClick(BaseEventData data)
+        {
+            if (!LayoutManager.Instance.IsMoldInPlace())
+            {
+                return;
+            }
+            _newsPaperMold.SetDraggable(!_newsPaperMold.IsDraggable());
+        }
     }
 }

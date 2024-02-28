@@ -22,7 +22,7 @@ namespace Managers
         #region LayoutEvents
         
         public static Func <NewsHeadlineSubPiece, Vector2, NewsHeadlineSubPiece[], Cell[]> OnPreparingCells;
-        public static Func <Cell[], NewsHeadline, Vector3> OnSuccessfulSnap;
+        public static Func <Cell[], NewsHeadline, GameObject, Vector3> OnSuccessfulSnap;
         public static Action <NewsHeadline> OnGrabSnappedPiece;
         
         #endregion

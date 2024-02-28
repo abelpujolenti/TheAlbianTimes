@@ -78,6 +78,8 @@ namespace Workspace.Layout
             {
                 return;
             }
+            
+            gameObject.transform.SetParent(_newsHeadlinePiecesContainer.transform);
 
             EventsManager.OnGrabSnappedPiece(_newsHeadline);
 
@@ -89,6 +91,11 @@ namespace Workspace.Layout
 
         public void EndDrag(NewsHeadlineSubPiece draggedSubPiece, Vector2 mousePosition)
         {
+            if (LayoutManager.Instance.IsMoldDraggable())
+            {
+                return;
+            }
+            
             EventsManager.OnCheckDistanceToMouse -= DistanceToPosition;
             
             foreach (NewsHeadlineSubPiece newsHeadlineSubPiece in _newsHeadlineSubPieces)
@@ -121,7 +128,7 @@ namespace Workspace.Layout
                 return;
             }
             SlideToRotation(0f, 0.1f);
-            transform.position = EventsManager.OnSuccessfulSnap(_snappedCells, _newsHeadline);
+            transform.position = EventsManager.OnSuccessfulSnap(_snappedCells, _newsHeadline, gameObject);
             _rotate = false;
             
             _audioSourceSnapPiece.Play();

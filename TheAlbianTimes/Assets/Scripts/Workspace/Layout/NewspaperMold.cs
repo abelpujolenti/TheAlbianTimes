@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using Managers;
 using UnityEngine;
@@ -9,6 +10,9 @@ namespace Workspace.Layout
 {
     public class NewspaperMold : InteractableRectTransform
     {
+        private const float TIME_TO_SLIDE = 2f;
+        private const float SPEED_MOVEMENT = 15f;
+        
         private const int PADDING = 5;
         private const int MIN_ANCHOR_X = 0;
         private const int MAX_ANCHOR_X = 1;
@@ -22,9 +26,11 @@ namespace Workspace.Layout
 
         [SerializeField] private GameObject _cellPrefab;
 
-        private List<NewsHeadline> _newsHeadlines;
-
         [SerializeField] private MoldPlace _moldPlace;
+
+        [SerializeField] private Publisher _publisher;
+
+        [SerializeField]private List<NewsHeadline> _newsHeadlines;
 
         private Cell[][] _cells;
         
@@ -38,9 +44,9 @@ namespace Workspace.Layout
         private Vector2 _layoutMaxCoordinates;
         private Vector2 _initialPosition;
 
-        private float _cellSize;
+        private Coroutine _moveCoroutine;
 
-        private bool _locked;
+        private float _cellSize;
 
         private void OnEnable()
         {
@@ -98,21 +104,62 @@ namespace Workspace.Layout
             }
 
             _initialPosition = _rectTransform.localPosition;
+            draggable = false;
         }
 
-        protected override void Drag(BaseEventData data)
+        protected override void BeginDrag(BaseEventData data)
         {
-            if (_locked) 
+            if (!draggable)
             {
                 return;
             }
-            base.Drag(data);
+            if (_moveCoroutine != null)
+            {
+                StopCoroutine(_moveCoroutine);
+            }
+            base.BeginDrag(data);
         }
 
         protected override void EndDrag(BaseEventData data)
         {
+            if (!draggable)
+            {
+                return;
+            }
+            PointerEventData pointerData = (PointerEventData)data;
 
+            if (_moldPlace.IsCoordinateInsideBounds(pointerData.position))
+            {
+                LayoutManager.Instance.SetIsMoldInPlace(true);
+                _moveCoroutine = StartCoroutine(Slide(transform.localPosition));
+            }
+            else
+            {
+                LayoutManager.Instance.SetIsMoldInPlace(false);    
+            }
+            
+            _publisher.IsCoordinateInsideBounds(pointerData.position);
+            
             base.EndDrag(data);
+        }
+
+        private IEnumerator Slide(Vector2 origin)
+        {
+            float timer = 0;
+            
+            while (timer < TIME_TO_SLIDE)
+            {
+                timer = MoveToDestination(origin, _initialPosition, timer);
+                yield return null;
+            }
+        }
+
+        private float MoveToDestination(Vector2 origin, Vector2 destination, float timer)
+        {
+            timer += Time.deltaTime * SPEED_MOVEMENT;
+            transform.localPosition = Vector3.Lerp(origin, destination, timer / TIME_TO_SLIDE);
+            
+            return timer;
         }
 
         private void SetLayoutLimiters()
@@ -152,7 +199,7 @@ namespace Workspace.Layout
 
         private Cell[] TakeCells(NewsHeadlineSubPiece draggedSubPiece, Vector2 mousePosition, NewsHeadlineSubPiece[] newsHeadlinePieces)
         {
-            if (!IsCoordinateInsideLayout(mousePosition) || _locked)
+            if (!IsCoordinateInsideLayout(mousePosition) || draggable)
             {
                 return null;
             }
@@ -289,8 +336,10 @@ namespace Workspace.Layout
             return _cells[finalCellCoordinateX][finalCellCoordinateY];
         }
 
-        private Vector3 SnapNewsHeadline(Cell[] snappedCells, NewsHeadline newsHeadline)
+        private Vector3 SnapNewsHeadline(Cell[] snappedCells, NewsHeadline newsHeadline, GameObject piece)
         {
+            piece.transform.SetParent(gameObject.transform);
+            
             _newsHeadlines.Add(newsHeadline);
             
             foreach (Cell cell in snappedCells)
@@ -311,14 +360,15 @@ namespace Workspace.Layout
             return _newsHeadlines.ToArray();
         }
 
-        public void SetLocked(bool locked) 
+        public void SetDraggable(bool draggable) 
         {
-            _locked = locked;
+            base.draggable = draggable;
+            LayoutManager.Instance.SetIsMoldDraggable(draggable);
         }
 
-        public bool IsLocked() 
+        public bool IsDraggable() 
         {
-            return _locked;
+            return draggable;
         }
     }
 }

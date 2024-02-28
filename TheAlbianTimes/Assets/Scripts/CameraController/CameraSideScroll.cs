@@ -13,8 +13,6 @@ namespace CameraController
         
         private readonly float _midPoint = MIN_X_POSITION_CAMERA + (MAX_X_POSITION_CAMERA - MIN_X_POSITION_CAMERA) / 2;
 
-        [SerializeField] private Camera _camera;
-
         [SerializeField] private CameraScrollContainer _container;
         
         [SerializeField] private bool _toLayout;

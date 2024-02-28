@@ -1,0 +1,38 @@
+{
+    "name":"madia_telegraph_speed_research",
+    "firstRound":2,
+    "duration":1,
+    "priority":1,
+    "leniency":0,
+    "type": 7,
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 6,
+            "key": "reputation",
+            "value": 0.1
+        }
+    ],
+    "biases": [
+        {
+            "name": "MADIAN",
+            "description": "Follow a centralist approach.",
+            "headline": "Madian research group increases telegraph speed to 150 words per minute.",
+            "text": "   In a conference held in the University of Lamar, a Madian research group exhibited a functional telegraph prototype capable of sending up to 150 words per minute. Until then, telegraphs had only been able to reach 95 w/m at most, with 85 w/m being the average speed\n    To build the machine, the team developed a new character coding system, the LIEP. The LIEP works with 9 bits of information, as opposed to the 5 bits of its predecessor, the Sagari.\n    The Madian government has stated that the machine is a 'major advancement towards instantaneous communication' and that they are 'considering funding options to apply it in public services'.",        
+            "additionalConsequences": []
+        },
+        {
+            "name": "LAMARISH",
+            "description": "Highlight the Lamar region.",
+            "headline": "Lamarish research group increases telegraph speed to 150 words per minute.",
+            "text": "   A reseach group from the University of Lamar held a conference to exhibit a functional telegraph prototype capable of sending up to 150 words per minute. Until then, telegraphs had only been able to reach 95 w/m at most, with 85 w/m being the average speed.\n    To build the machine, the team developed a new character coding system, the LIEP (Lamarish Information Exchange Protocol). The LIEP works with 9 bits of information, as opposed to the 5 bits of its predecessor, the Sagari.\n    The Madian central government has not confirmed further funding for the project, as its university policies tend to not include regional institutions.",        
+            "additionalConsequences": [
+                {
+                    "country": 6,
+                    "key": "reputation",
+                    "value": -0.05
+                }
+            ]
+        }
+    ]
+}

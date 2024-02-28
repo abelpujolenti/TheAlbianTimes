@@ -1,0 +1,50 @@
+{
+    "name":"albia_cmp_valmeran_rally",
+    "firstRound":3,
+    "duration":1,
+    "priority":1,
+    "extraBias": true,
+    "leniency":0,
+    "type": 0,
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 5,
+            "key": "albia_international_concern",
+            "value": 0.1
+        }
+    ],
+    "biases": [
+        {
+            "name": "ALARMING",
+            "description": "The party's extremist stance endangers social progress.",
+            "headline": "Alarming: Albia's new alt-right party CMP holds a massive political rally in Lorán.",
+            "text": "   CMP filled Lorán's Palacio de Valmerán as 10,000 supporters attended the Constitutional Motherland Party's first official rally.\n    The session was conducted by the party's president Emilio Sorapio and vicepresident Julio de Oro-Pulido. They asked for the dissolution of the parliament and the celebration of snap elections, in order to 'stop Albia from being an hostage of the left' . The CMP blamed the Social Coalition Party government for allowing illegal migrants to 'deprive Albians of their jobs', and also for 'safeguarding perversion', referring to recent policies on women's and LGBTQ+ rights. The extremist leaders also called the Democratic Alliance out for turning into 'the coward right'.\n    Sorapio asserted that the CMP will work tirelessly to illegalize left-wing party A la Cerneda por el Pueblo and any organizations that involve 'a threat to Albia's political, economic and moral integrity'.",        
+            "additionalConsequences": [
+                {
+                    "country": 5,
+                    "key": "albia_civil_war_ending",
+                    "value": 0.1
+                },
+                {
+                    "country": 5,
+                    "key": "albia_international_concern",
+                    "value": 0.2
+                }
+            ]
+        },
+        {
+            "name": "POWERLESS",
+            "description": "The party's reactionary plans will dissolve as civilian support is nominal.",
+            "headline": "Albia's CMP political rally in the heart of Lorán does not match attendance expectations.",
+            "text": "   The Constitutional Motherland Party alleged strength vanished in a puff of smoke as the Palacio de Valmerán's capacity was not surpassed. Even if 10,000 supporters joined Emilio Sorapio and Julio de Oro-Pulido in the party's first official meeting, the attendace was far from the leaders' claims that 'Lorán will be filled with true patriots' as Valmerán 'won't fit all of the CMP's supporters'.\n    Sorapio and Oro-Pulido asked for the derogation of policies on women's and LGBTQ+ rights, as well as for strict measures against immigration. However, the CMP does not have enough supporters to accomplish its objectives, as Albia is currently governed by the center-left-wing Social Coalition Party, who holds absolute majority.\n    The CMP's emergence should be understood as a spontaneous burst of anger product of the clash between Albia's traditional values and the country's social progress.",
+            "additionalConsequences": [
+                {
+                    "country": 5,
+                    "key": "albia_international_concern",
+                    "value": -0.05
+                }
+            ]
+        }
+    ]
+}

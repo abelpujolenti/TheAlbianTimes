@@ -1,6 +1,6 @@
 {
     "name":"albia_cleaning_workers_strike",
-    "firstRound":2,
+    "firstRound":12,
     "duration":2,
     "priority":0.80,
     "extraBias": true,

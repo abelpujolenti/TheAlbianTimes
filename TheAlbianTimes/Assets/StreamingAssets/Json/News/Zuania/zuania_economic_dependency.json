@@ -1,0 +1,51 @@
+{
+    "name":"zuania_economic_dependency",
+    "firstRound":3,
+    "duration":1,
+    "priority":1,
+    "leniency":2,
+    "type": 2,
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 6,
+            "key": "reputation",
+            "value": 0.05
+        }
+    ],
+    "biases": [
+        {
+            "name": "NEUTRAL",
+            "description": " Zuania is failing and needs help from it's neighbours",
+            "headline": "Years of economic downturn turn into dependency",
+            "text": "    After so many years of the country being in an economic rut, Zuania has become dependent of Xayan gifts and help from neighboring countries. The most helpful one being Albia.",
+            "additionalConsequences": []
+        },
+        {
+            "name": "FAILURE",
+            "description": " The government failed its people by not doing enough",
+            "headline": "What happens when a Government fails",
+            "text": "    After so many years of the country failin its people, Zuania has become dependent on the kindness of neighboring countries. The most helpful one being Albia.",
+            "additionalConsequences": [
+                {
+                    "country": 6,
+                    "key": "reputation",
+                    "value": -0.1
+                }
+            ]
+        },
+        {
+            "name": "COLONIAL PRESSURE",
+            "description": " The pressure of a colonial state has lead to the downturn of this country",
+            "headline": "Years of Xayan pressure leads to dependency",
+            "text": "   After so many years of Xaya putting their metaphorical boots on Zuanias neck, Zuania has become dependent of them. This slow process is becoming increasingly obvious as the emmigration rate rises year by year among the lower classes who can still somewhat afford it.",
+            "additionalConsequences": [
+                {
+                    "country": 6,
+                    "key": "reputation",
+                    "value": -0.2
+                }
+            ]
+        }
+    ]
+}

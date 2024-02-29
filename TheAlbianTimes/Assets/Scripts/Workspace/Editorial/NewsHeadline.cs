@@ -42,6 +42,7 @@ namespace Workspace.Editorial
         
         [SerializeField] private GameObject _biasMarker;
         [SerializeField] private GameObject _extraLabel;
+        [SerializeField] private Image _selectedBiasIndicator;
         
         [SerializeField] private Transform _markerInkPrefab;
 
@@ -111,8 +112,10 @@ namespace Workspace.Editorial
             Color color = PieceData.newsTypeColors[(int)_newsType];
             _articleTagText.GetComponentInParent<Image>().color = ColorUtil.SetSaturationMultiplicative(color, 0.5f);
             _background = gameObject.GetComponent<Image>();
-            _background.color = ColorUtil.SetSaturationMultiplicative(color, 0.15f);
+            _background.color = ColorUtil.SetSaturationMultiplicative(color, 0.03f);
             UpdateShading(transform.parent.childCount - 1 - transform.GetSiblingIndex());
+
+            UpdateSelectedBiasIndicator();
         }
 
         public void SimulateBeginDrag(BaseEventData data)
@@ -361,6 +364,12 @@ namespace Workspace.Editorial
             _background.color = ColorUtil.SetBrightness(_background.color, Mathf.Max(.2f, PAPER_BRIGHTNESS - index * PAPER_BRIGHTNESS_BASE_DECREASE));
         }
 
+        public void UpdateSelectedBiasIndicator()
+        {
+            if (_selectedBiasIndicator == null) return;
+            _selectedBiasIndicator.color = PieceData.biasColors[_selectedBiasIndex];
+        }
+
         public void SetOrigin(Vector2 newOrigin)
         {
             _origin = newOrigin;
@@ -392,7 +401,9 @@ namespace Workspace.Editorial
             _chosenBiasIndex = _selectedBiasIndex;
             _data.currentBias = _selectedBiasIndex;
             UpdateText(_headlinesText[_chosenBiasIndex], _biasesContents[_chosenBiasIndex]);
-            
+
+            UpdateSelectedBiasIndicator();
+
             _newsFolder.DropNewsHeadlineOutOfFolder(true);
 
             ClearBiasMarks();

@@ -186,7 +186,7 @@ namespace Workspace.Editorial
         {
             SeparateCap();
 
-            markAnimationHeight = 0.16f * (newsFolder.GetFrontHeadline().transform.Find("Text").GetComponent<TextMeshProUGUI>().textInfo.lineCount - 1);
+            markAnimationHeight = 0.15f * (newsFolder.GetFrontHeadline().transform.Find("Text").GetComponent<TextMeshProUGUI>().textInfo.lineCount - 1);
 
             StopMarkAnimation();
             _markAnimationCoroutine = StartCoroutine(MarkAnimationCoroutine());

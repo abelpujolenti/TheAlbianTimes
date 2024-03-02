@@ -60,11 +60,11 @@ namespace CameraController
         {
             if (camTransform.position.x > MAX_X_POSITION_CAMERA - snapThreshold)
             {
-                CameraManager.Instance.PanToLayout(snapTime, false);
+                CameraManager.Instance.PanToLayout(snapTime);
             }
             else if (camTransform.position.x < MIN_X_POSITION_CAMERA + snapThreshold)
             {
-                CameraManager.Instance.PanToEditorial(snapTime, false);
+                CameraManager.Instance.PanToEditorial(snapTime);
                 return;
             }
 

@@ -25,7 +25,6 @@ namespace CameraController
 
         private bool _rightSide;
         private bool _transfer;
-        private bool _exceed;
         
         private Action <float> _panCamera;
 
@@ -35,11 +34,11 @@ namespace CameraController
             _rectTransform = GetComponent<RectTransform>();
             if (_toLayout)
             {
-                _panCamera = time => _cameraManagerInstance.PanToLayout(time, true);
+                _panCamera = time => _cameraManagerInstance.PanToLayout(time);
                 return;
             }
 
-            _panCamera = time => _cameraManagerInstance.PanToEditorial(time, true);
+            _panCamera = time => _cameraManagerInstance.PanToEditorial(time);
         }
 
         protected override void PointerEnter(BaseEventData data)
@@ -83,7 +82,9 @@ namespace CameraController
                     {
                         _transfer = !_transfer;
                         _rightSide = false;
-                        gameObjectToDrag = EventsManager.OnCrossMidPointWhileScrolling(pointerData); 
+                        gameObjectToDrag = EventsManager.OnCrossMidPointWhileScrolling != null
+                            ? EventsManager.OnCrossMidPointWhileScrolling(pointerData)
+                            : null; 
                     }
                 }
                 else
@@ -92,7 +93,9 @@ namespace CameraController
                     {
                         _transfer = !_transfer;
                         _rightSide = true;
-                        gameObjectToDrag = EventsManager.OnCrossMidPointWhileScrolling(pointerData); 
+                        gameObjectToDrag = EventsManager.OnCrossMidPointWhileScrolling != null
+                            ? EventsManager.OnCrossMidPointWhileScrolling(pointerData)
+                            : null; 
                     }
                 }
 
@@ -101,11 +104,18 @@ namespace CameraController
                     mousePosition += offset;
                 }
 
-                gameObjectToDrag.transform.position = mousePosition;
+                if (gameObjectToDrag != null)
+                {
+                    gameObjectToDrag.transform.position = mousePosition;    
+                }
 
                 yield return null;
             }
-            
+
+            if (gameObjectToDrag != null)
+            {
+                EventsManager.OnStartEndDrag(true);
+            }
             _container.FlipSideScroll(_rectTransform);
             gameObject.SetActive(false);
         }

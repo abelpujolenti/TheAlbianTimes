@@ -55,10 +55,19 @@ namespace Workspace.Editorial
 
             int newsCount = CalculateMaxArticles(GameManager.Instance.gameState.playerData.staff);
 
+            List<NewsData> newsToCreate = new List<NewsData>();
+
             for (int i = 0; news.Count > 0 && (i < newsCount || news.Last().Key == 1); i++)
             {
-                CreateNewsObject(news.Last().Value);
+                newsToCreate.Add(news.Last().Value);
                 news.RemoveAt(news.Count - 1);
+            }
+            
+            EditorialManager.Instance.SetTotalNewsToLoad(newsToCreate.Count);
+
+            foreach (NewsData newsDataToCreate in newsToCreate)
+            {
+                CreateNewsObject(newsDataToCreate);
             }
         }
 

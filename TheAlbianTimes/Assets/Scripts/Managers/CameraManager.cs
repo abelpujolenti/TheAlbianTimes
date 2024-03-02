@@ -42,7 +42,7 @@ namespace Managers
             }
         }
 
-        public void PanToLayout(float scrollTime, bool draggingObject)
+        public void PanToLayout(float scrollTime)
         {
             if (_scrolling)
             {
@@ -51,11 +51,11 @@ namespace Managers
 
             _scrolling = true;
             moveCameraCoroutine = StartCoroutine(
-                MoveCameraEnum(camTransform.position.x, MAX_X_POSITION_CAMERA, scrollTime, draggingObject));
+                MoveCameraEnum(camTransform.position.x, MAX_X_POSITION_CAMERA, scrollTime));
             _cameraLocation = CameraLocation.LAYOUT;
         }
         
-        public void PanToEditorial(float scrollTime, bool draggingObject)
+        public void PanToEditorial(float scrollTime)
         {
             if (_scrolling)
             {
@@ -64,11 +64,11 @@ namespace Managers
 
             _scrolling = true;
             moveCameraCoroutine = StartCoroutine(
-                MoveCameraEnum(camTransform.position.x, MIN_X_POSITION_CAMERA, scrollTime, draggingObject));
+                MoveCameraEnum(camTransform.position.x, MIN_X_POSITION_CAMERA, scrollTime));
             _cameraLocation = CameraLocation.EDITORIAL;
         }
 
-        private IEnumerator MoveCameraEnum(float start, float end, float scrollTime, bool draggingObject)
+        private IEnumerator MoveCameraEnum(float start, float end, float scrollTime)
         {
             if (moveCameraCoroutine != null)
             {
@@ -89,11 +89,6 @@ namespace Managers
             endPos.x = end;
             camTransform.position = endPos;
             _scrolling = false;
-            if (!draggingObject)
-            {
-                yield break; 
-            }
-            EventsManager.OnStartEndDrag(true);
         }
 
         public CameraLocation GetCameraLocation()

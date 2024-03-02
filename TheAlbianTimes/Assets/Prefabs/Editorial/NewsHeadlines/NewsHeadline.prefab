@@ -114,6 +114,7 @@ MonoBehaviour:
   _selectedBiasIndicator: {fileID: 1131071541832810903}
   _markerInkPrefab: {fileID: 1082120090136348157, guid: fe88e1b46a7535e489bebd43865e25a7, type: 3}
   _newsType: 0
+  _background: {fileID: 678078459014071072}
   _folderOrderIndex: 0
   _chosenBiasIndex: 0
   _selectedBiasIndex: 0

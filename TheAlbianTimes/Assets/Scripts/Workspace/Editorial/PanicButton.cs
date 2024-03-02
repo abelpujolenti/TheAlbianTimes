@@ -27,7 +27,8 @@ namespace Workspace.Editorial
             _audioSourcePressPanicButton.Play();
             if (EventsManager.OnPressPanicButton != null)
             {
-                EventsManager.OnPressPanicButton(true);
+                EditorialManager.Instance.SetTotalNewsToLoad(EventsManager.OnPressPanicButton.GetInvocationList().Length);
+                EventsManager.OnPressPanicButton();
             }
             
             if (EventsManager.OnPressPanicButtonForPieces == null)

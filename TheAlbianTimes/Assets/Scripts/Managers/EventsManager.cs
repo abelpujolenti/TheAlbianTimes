@@ -13,7 +13,7 @@ namespace Managers
         public static Action <bool> OnStartEndDrag;
         public static Func <PointerEventData, GameObject> OnCrossMidPointWhileScrolling;
         public static Func <Vector2, Vector2> OnCheckDistanceToMouse;
-        public static Action <bool> OnPressPanicButton;
+        public static Action OnPressPanicButton;
         public static Action OnPressPanicButtonForPieces;
         public static Action <String> OnClickLetter;
 

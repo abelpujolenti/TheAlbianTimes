@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Workspace.Editorial;
 
 namespace Managers
 {
@@ -9,6 +10,8 @@ namespace Managers
         private static EditorialManager _instance;
 
         public static EditorialManager Instance => _instance;
+
+        private NewsFolder _newsFolder;
         
         private GameObject _biasContainerCanvas;
 
@@ -24,6 +27,11 @@ namespace Managers
             {
                 Destroy(gameObject);
             }
+        }
+
+        public void SetNewsFolder(NewsFolder newsFolder)
+        {
+            _newsFolder = newsFolder;
         }
 
         public void SetBiasContainerCanvas(GameObject biasContainerCanvasGameObject)
@@ -58,6 +66,11 @@ namespace Managers
         public int[] GetLinksIds()
         {
             return _linkIds.ToArray();
+        }
+
+        public void SetTotalNewsToLoad(int totalNewsToLoad)
+        {
+            _newsFolder.SetTotalNewsToPosition(totalNewsToLoad);
         }
     }
 }

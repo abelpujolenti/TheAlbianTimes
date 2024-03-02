@@ -30,6 +30,9 @@ namespace Workspace.Editorial
 
         private Camera _camera;
 
+        private int _totalNewsToPosition;
+        private int _totalNewsRemainsToPosition;
+
         private void OnEnable()
         {
             EventsManager.OnAddNewsHeadlineToFolder += AddNewsHeadlineGameObject;
@@ -45,6 +48,13 @@ namespace Workspace.Editorial
             _rectTransform.GetWorldCorners(_corners);
             _camera = Camera.main;
             SetContainerLimiters();
+            EditorialManager.Instance.SetNewsFolder(this);
+        }
+
+        public void SetTotalNewsToPosition(int totalNewsToLoad)
+        {
+            _totalNewsToPosition = totalNewsToLoad;
+            _totalNewsRemainsToPosition = _totalNewsToPosition;
         }
 
         private void AddNewsHeadlineGameObject(GameObject newsHeadlineGameObject)
@@ -53,10 +63,10 @@ namespace Workspace.Editorial
             
             newsHeadlineComponent.SetNewsFolder(this);
             
-            AddNewsHeadlineComponent(newsHeadlineComponent, true);
+            AddNewsHeadlineComponent(newsHeadlineComponent);
         }
 
-        public void AddNewsHeadlineComponent(NewsHeadline newsHeadline, bool allAtOnce)
+        public void AddNewsHeadlineComponent(NewsHeadline newsHeadline)
         {
             AddNewsHeadlineComponentToList(newsHeadline);
             _newsHeadlinesHasToReturnToFolder++;
@@ -68,13 +78,16 @@ namespace Workspace.Editorial
             {
                 _newsHeadlines[i].transform.SetSiblingIndex((_newsHeadlines.Count - 1) - i);
             }
-
-            if (allAtOnce)
-            {
-                return;
-            }
             
-            PositionNewsHeadlinesByGivenIndex((_newsHeadlines.Count - _newsHeadlinesHasToReturnToFolder) + 1);
+            PositionNewsHeadlinesByGivenIndex((_newsHeadlines.Count + (_totalNewsToPosition - _totalNewsRemainsToPosition) - _newsHeadlinesHasToReturnToFolder) + 1);
+
+            _totalNewsRemainsToPosition--;
+
+            if (_totalNewsRemainsToPosition <= 0)
+            {
+                _totalNewsToPosition = 0;
+                _totalNewsRemainsToPosition = 0;
+            }
         }
 
         private void AddNewsHeadlineComponentToList(NewsHeadline newsHeadline)

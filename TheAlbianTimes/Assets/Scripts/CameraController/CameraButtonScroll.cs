@@ -1,29 +1,30 @@
-using Managers;
 using System;
-using System.Collections;
-using System.Collections.Generic;
+using Managers;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Utility;
 
-public class CameraButtonScroll : InteractableRectTransform
+namespace CameraController
 {
-    [SerializeField] private bool _toLayout;
-
-    private Action _panCamera;
-
-    private void Start()
+    public class CameraButtonScroll : InteractableRectTransform
     {
-        if (_toLayout) 
-        {
-            _panCamera = () => CameraManager.Instance.PanToLayout(0.5f, false);
-            return;
-        }
-        _panCamera = () => CameraManager.Instance.PanToEditorial(0.5f, false);
-    }
+        [SerializeField] private bool _toLayout;
 
-    protected override void PointerClick(BaseEventData data)
-    {        
-        _panCamera();
+        private Action _panCamera;
+
+        private void Start()
+        {
+            if (_toLayout) 
+            {
+                _panCamera = () => CameraManager.Instance.PanToLayout(0.5f);
+                return;
+            }
+            _panCamera = () => CameraManager.Instance.PanToEditorial(0.5f);
+        }
+
+        protected override void PointerClick(BaseEventData data)
+        {        
+            _panCamera();
+        }
     }
 }

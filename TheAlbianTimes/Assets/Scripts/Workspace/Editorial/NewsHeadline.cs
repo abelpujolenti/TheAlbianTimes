@@ -55,8 +55,8 @@ namespace Workspace.Editorial
         private GameObject _gameObjectToTransferDrag;
 
         private NewsFolder _newsFolder;
-        
-        private Image _background;
+
+        [SerializeField] private Image _background;
 
         private NewsData _data;
 
@@ -112,7 +112,6 @@ namespace Workspace.Editorial
 
             Color color = PieceData.newsTypeColors[(int)_newsType];
             _articleTagText.GetComponentInParent<Image>().color = ColorUtil.SetSaturationMultiplicative(color, 0.5f);
-            _background = gameObject.GetComponent<Image>();
             _background.color = ColorUtil.SetSaturationMultiplicative(color, 0.03f);
             UpdateShading(transform.parent.childCount - 1 - transform.GetSiblingIndex());
 
@@ -260,11 +259,11 @@ namespace Workspace.Editorial
             }
             else if (_newsFolder.IsCoordinateInsideBounds(position))
             {
-                DropOnFolder(false);
+                DropOnFolder();
             }
         }
 
-        private void DropOnFolder(bool allAtOnce)
+        private void DropOnFolder()
         {
             if (!gameObject.activeSelf)
             {
@@ -272,7 +271,7 @@ namespace Workspace.Editorial
             }
             _audioSourceDropPaperInFolder.Play();
             EventsManager.OnPressPanicButton -= DropOnFolder;
-            _newsFolder.AddNewsHeadlineComponent(this, allAtOnce);
+            _newsFolder.AddNewsHeadlineComponent(this);
         }
 
         private void DropOutFolder()

@@ -2,6 +2,8 @@ using System.Collections;
 using Managers;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering;
+using Workspace.Editorial;
 
 public class RoundStartOverlay : MonoBehaviour
 {
@@ -15,7 +17,7 @@ public class RoundStartOverlay : MonoBehaviour
         fadeOverlayAnimator = fadeOverlay.GetComponent<Animator>();
         fadeOverlayTextAnimator = fadeOverlayText.GetComponent<Animator>();
 
-        roundStartCoroutine = StartCoroutine(RoundStartCoroutine());
+        roundStartCoroutine = StartCoroutine(RoundStartCoroutine(1f));
     }
 
     private void OnGUI()
@@ -32,15 +34,15 @@ public class RoundStartOverlay : MonoBehaviour
         }
     }
 
-    private IEnumerator RoundStartCoroutine()
+    private IEnumerator RoundStartCoroutine(float fadeDuration)
     {
         fadeOverlay.gameObject.SetActive(true);
         fadeOverlayText.gameObject.SetActive(true);
         UpdateText();
         FadeTextIn();
-        yield return new WaitForSeconds(4);
+        yield return new WaitForSeconds(EditorialNewsLoader.loadDelay - 1f - fadeDuration);
         FadeTextOut();
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(fadeDuration);
         FadeIn();
         yield return new WaitForFixedUpdate();
         AnimatorClipInfo[] currentClipInfo = fadeOverlayAnimator.GetCurrentAnimatorClipInfo(0);

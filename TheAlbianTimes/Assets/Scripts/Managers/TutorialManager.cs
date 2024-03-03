@@ -1,6 +1,7 @@
 using Managers;
 using System.Collections;
 using UnityEngine;
+using Workspace.Editorial;
 
 public class TutorialManager : MonoBehaviour
 {
@@ -34,7 +35,7 @@ public class TutorialManager : MonoBehaviour
 
     private IEnumerator RevealMail()
     {
-        yield return new WaitForSeconds(6.6f);
+        yield return new WaitForSeconds(EditorialNewsLoader.loadDelay + 1.6f);
         mail.SetActive(true);
         Transform mt = mail.transform;
         yield return TransformUtility.SetPositionCoroutine(mt, mt.position + new Vector3(-1f, 0f, 0f), mt.position, 1f);
@@ -42,7 +43,7 @@ public class TutorialManager : MonoBehaviour
 
     private IEnumerator RaiseNotebook()
     {
-        yield return new WaitForSeconds(6f);
+        yield return new WaitForSeconds(EditorialNewsLoader.loadDelay + 1f);
         notebook.SetActive(true);
         Transform nt = notebook.transform;
         yield return TransformUtility.SetPositionCoroutine(nt, nt.position + new Vector3(0f, -1f, 0f), nt.position + new Vector3(0f, 1f, 0f), .5f);
@@ -51,7 +52,7 @@ public class TutorialManager : MonoBehaviour
 
     private IEnumerator LowerStatOverlay()
     {
-        yield return new WaitForSeconds(6f);
+        yield return new WaitForSeconds(EditorialNewsLoader.loadDelay + 1f);
         statOverlay.SetActive(true);
         Transform st = statOverlay.transform;
         yield return TransformUtility.SetPositionCoroutine(st, st.position + new Vector3(0f, 4f, 0f), st.position, .75f);

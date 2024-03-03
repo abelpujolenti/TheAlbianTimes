@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Managers;
@@ -13,6 +14,8 @@ namespace Workspace.Editorial
     {
         private const String NEWS_PATH = "News";
         private const float SPAWN_Y_COORDINATE = 1000;
+
+        public const float loadDelay = 5f;
     
         [SerializeField] private GameObject _newsHeadline;
         [SerializeField] private GameObject _newsHeadlinePiece;
@@ -34,8 +37,8 @@ namespace Workspace.Editorial
             {
                 { EnvelopeContentType.BIAS , biasesMailContainer}
             };
-            
-            LoadLevelNews();
+
+            StartCoroutine(LoadLevelNewsCoroutine());
 
             if (_sendBiasesContainerDictionary[EnvelopeContentType.BIAS].GetContent().Length == 0)
             {
@@ -43,6 +46,12 @@ namespace Workspace.Editorial
             }
             
             MailManager.Instance.SendEnvelopes(_sendBiasesContainerDictionary);
+        }
+
+        private IEnumerator LoadLevelNewsCoroutine()
+        {
+            yield return new WaitForSeconds(loadDelay);
+            LoadLevelNews();
         }
 
         private void LoadLevelNews()

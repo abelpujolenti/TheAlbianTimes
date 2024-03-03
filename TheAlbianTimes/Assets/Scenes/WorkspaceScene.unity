@@ -7662,6 +7662,7 @@ GameObject:
   - component: {fileID: 614990586666321554}
   - component: {fileID: 2951842449416766262}
   - component: {fileID: 119617876219996594}
+  - component: {fileID: 4542787473537961341}
   m_Layer: 5
   m_Name: Folder
   m_TagString: Untagged
@@ -7669,6 +7670,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &4542787473537961341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4542787473537961340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95f82abc592269e4da6008e2cdc2ade2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  messagePostitPrefab: {fileID: 1679675313347019840, guid: c2335de6370efd14184d771ff2610e54, type: 3}
 --- !u!114 &6325355704779021479
 MonoBehaviour:
   m_ObjectHideFlags: 0

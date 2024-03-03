@@ -21,7 +21,7 @@ public class EditorialFolder : MonoBehaviour
         
     }
 
-    private void SpawnPostit(string text)
+    public void SpawnPostit(string text)
     {
         MessagePostit postit = Instantiate(messagePostitPrefab, transform).GetComponent<MessagePostit>();
         postit.SetText(text);

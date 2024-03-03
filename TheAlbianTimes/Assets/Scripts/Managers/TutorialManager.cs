@@ -8,6 +8,8 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] GameObject notebook;
     [SerializeField] GameObject mail;
     [SerializeField] GameObject statOverlay;
+    [SerializeField] GameObject folder;
+    [SerializeField] GameObject biasContainer;
     void Start()
     {
         switch (GameManager.Instance.GetRound())
@@ -16,6 +18,7 @@ public class TutorialManager : MonoBehaviour
                 notebook.SetActive(false);
                 mail.SetActive(false);
                 statOverlay.SetActive(false);
+                RoundZero();
                 break;
             case 1:
                 statOverlay.SetActive(false);
@@ -31,6 +34,16 @@ public class TutorialManager : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    private void RoundZero()
+    {
+        EventsManager.OnChangeNewsHeadlineContent += LockBiases;
+    }
+
+    private void LockBiases()
+    {
+        biasContainer.GetComponent<Canvas>().enabled = false;
     }
 
     private IEnumerator RevealMail()

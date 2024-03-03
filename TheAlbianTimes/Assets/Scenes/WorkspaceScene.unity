@@ -4733,6 +4733,8 @@ MonoBehaviour:
   notebook: {fileID: 1913108740}
   mail: {fileID: 4231553890334802680}
   statOverlay: {fileID: 477263766}
+  folder: {fileID: 4542787473537961340}
+  biasContainer: {fileID: 1808916514}
 --- !u!4 &1493753360
 Transform:
   m_ObjectHideFlags: 0

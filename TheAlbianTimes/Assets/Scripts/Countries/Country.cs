@@ -37,7 +37,7 @@ namespace Countries
             REKKA,
             AMOUNT
         }
-        public static readonly string[] names = {"Hetia", "Terkán", "Xaya", "Zuania", "Dalme", "Albia", "Madia", "Suoka", "Rekka"};
+        public static readonly string[] names = {"Hetia", "Terkan", "Xaya", "Zuania", "Dalme", "Albia", "Madia", "Suoka", "Rekka"};
         #endregion
 
         #region Stats

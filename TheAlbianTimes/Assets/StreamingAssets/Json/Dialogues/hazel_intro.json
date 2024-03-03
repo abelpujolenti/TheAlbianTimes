@@ -15,7 +15,33 @@
                 {
                     "id": 0,
                     "text": "A day like any other. How about yours?",
-                    "followupLines": 1
+                    "followupLines": 1,
+                    "countryConditions": [
+                        {
+                            "entityId": 0,
+                            "field": "reputation",
+                            "value": 0,
+                            "predicate": 2
+                        },
+                        {
+                            "entityId": 1,
+                            "field": "reputation",
+                            "value": 0,
+                            "predicate": 2
+                        },
+                        {
+                            "entityId": 1,
+                            "field": "reputation",
+                            "value": 0,
+                            "predicate": 1
+                        },
+                        {
+                            "entityId": 2,
+                            "field": "reputation",
+                            "value": 0,
+                            "predicate": 1
+                        }
+                    ]
                 },
                 {
                     "id": 1,

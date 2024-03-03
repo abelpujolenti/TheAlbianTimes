@@ -4732,6 +4732,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   notebook: {fileID: 1913108740}
   mail: {fileID: 4231553890334802680}
+  statOverlay: {fileID: 477263766}
 --- !u!4 &1493753360
 Transform:
   m_ObjectHideFlags: 0

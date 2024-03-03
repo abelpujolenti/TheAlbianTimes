@@ -358,6 +358,11 @@ namespace Workspace.Editorial
             return _newsHeadlines.Count;
         }
 
+        public int GetNewsInLayoutAmount()
+        {
+            return _newsHeadlinesOutOfFolder;
+        }
+
         public void SetDragging(bool dragging)
         {
             _dragging = dragging;

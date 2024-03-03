@@ -1129,6 +1129,8 @@ MonoBehaviour:
   hoverable: 0
   clickable: 1
   _newsPaperMold: {fileID: 1114375430}
+  _text: {fileID: 41283682}
+  blink: 0
 --- !u!114 &271088796
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3903,6 +3905,8 @@ MonoBehaviour:
   _cellPrefab: {fileID: 5001575583076229145, guid: 7afb0b2eef9fd8f439956c2815be0b9a, type: 3}
   _moldPlace: {fileID: 1494884075}
   _publisher: {fileID: 72469295}
+  _newsFolder: {fileID: 429106997}
+  _moldLocker: {fileID: 271088795}
   _newsHeadlines: []
 --- !u!114 &1114375431
 MonoBehaviour:

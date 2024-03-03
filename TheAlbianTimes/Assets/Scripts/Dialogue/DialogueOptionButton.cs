@@ -60,7 +60,7 @@ public class DialogueOptionButton : MonoBehaviour
                 string name = Country.names[id];
                 if (condition.field != "reputation") continue;
                 if (conditionIconNames.ContainsKey(name) && condition.IsFulfilled()) return;
-                conditionIconNames.Add(name, condition);
+                conditionIconNames[name] = condition;
             }
         }
 

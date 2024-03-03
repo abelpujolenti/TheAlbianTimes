@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using Managers;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 using Utility;
 using Workspace.Editorial;
 
@@ -29,6 +31,10 @@ namespace Workspace.Layout
         [SerializeField] private MoldPlace _moldPlace;
 
         [SerializeField] private Publisher _publisher;
+
+        [SerializeField] private NewsFolder _newsFolder;
+
+        [SerializeField] private MoldLocker _moldLocker;
 
         [SerializeField]private List<NewsHeadline> _newsHeadlines;
 
@@ -346,13 +352,20 @@ namespace Workspace.Layout
             {
                 cell.SetFree(false);
             }
-            
+
+            if (_newsHeadlines.Count == _newsFolder.GetNewsInLayoutAmount() && _newsFolder.GetNewsHeadlinesLength() == 0)
+            {
+                _moldLocker.blink = true;
+            }
+
             return snappedCells[0].transform.position;
         }
 
         private void RemoveNewsHeadline(NewsHeadline newsHeadline)
         {
             _newsHeadlines.Remove(newsHeadline);
+
+            _moldLocker.blink = false;
         }
 
         public NewsHeadline[] GetNewsHeadlines()

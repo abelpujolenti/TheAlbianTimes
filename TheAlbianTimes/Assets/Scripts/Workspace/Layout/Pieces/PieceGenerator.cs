@@ -8,6 +8,7 @@ namespace Workspace.Layout.Pieces
 {
     public class PieceGenerator
     {
+        private Sprite metalPiece;
         public NewsHeadlinePiece Generate(NewsData newsData, Transform newsHeadlinesPiecesContainer)
         {
             NewsType type = newsData.type;
@@ -20,6 +21,11 @@ namespace Workspace.Layout.Pieces
             NewsHeadlinePiece newsHeadlinePiece = op.AddComponent<NewsHeadlinePiece>();
 
             Color subPieceColor = PieceData.newsTypeColors[(int)newsData.type];
+
+            if (metalPiece == null)
+            {
+                metalPiece = Resources.Load<Sprite>("Images/Layout/metal_piece");
+            }
 
             bool newTMP = false;
             int textLength = 0;
@@ -35,7 +41,7 @@ namespace Workspace.Layout.Pieces
                 subPiece.SetPositionFromCoordinates();
                 subPiece.SetNewsHeadlinePiece(newsHeadlinePiece);
 
-                subPieceImage.color = new Color(0.4f, 0.4f, 0.4f);
+                subPieceImage.sprite = metalPiece;
 
                 if (v == Vector2.zero)
                 {
@@ -61,7 +67,7 @@ namespace Workspace.Layout.Pieces
                     TextMeshProUGUI headline = h.AddComponent<TextMeshProUGUI>();
 
                     headline.text = "<font=cour SDF>" + newsData.biases[0].headline;
-                    headline.color = new Color(0.245f, 0.245f, 0.245f);
+                    headline.color = new Color(0.8f, .8f, .8f);
                     headline.fontSize = 9.5f;
                     headline.rectTransform.anchorMax = Vector2.one;
                     headline.rectTransform.anchorMin = Vector2.zero;

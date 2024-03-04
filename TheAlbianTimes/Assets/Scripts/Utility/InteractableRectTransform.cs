@@ -103,7 +103,9 @@ namespace Utility
         
             Vector3 mousePosition = GetMousePositionOnCanvas(data);
 
-            gameObjectToDrag.transform.position = canvas.transform.TransformPoint(mousePosition) + _vectorOffset;
+            Vector3 mousePositionInWorld = canvas.transform.TransformPoint(mousePosition) + _vectorOffset;
+
+            gameObjectToDrag.transform.position = new Vector3(mousePositionInWorld.x, mousePositionInWorld.y, transform.position.z);
         }
         
         protected virtual void EndDrag(BaseEventData data)

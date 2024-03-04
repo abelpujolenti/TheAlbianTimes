@@ -699,6 +699,10 @@ namespace Workspace.Editorial
             return !_transferDrag ? gameObject : _newsHeadlinePieceToTransferDrag.gameObject;
         }
 
+        public Vector3 GetPiecePosition() {
+            return _newsHeadlinePieceToTransferDrag.transform.localPosition;
+        }
+
         public void SetTransferDrag(bool transferDrag)
         {
             _transferDrag = transferDrag;

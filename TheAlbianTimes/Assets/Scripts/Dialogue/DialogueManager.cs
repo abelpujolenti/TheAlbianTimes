@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using NoMonoBehavior;
 using TMPro;
 using UnityEngine;
@@ -36,6 +37,7 @@ namespace Managers
         {
             ds = DialogueSystem.instance;
             architect = new TextArchitect(ds.container.dialogueText);
+            architect.speed = 0.5f;
             dialogueOptionButtons = dialogueOptionButtonsRoot.GetComponentsInChildren<DialogueOptionButton>();
 
             bool loaded = LoadDialogue();
@@ -48,9 +50,17 @@ namespace Managers
             DisplayNextLine();
         }
 
+        private void OnGUI()
+        {
+            Event e = Event.current;
+            if (!e.isMouse && !e.isKey || !(e.type == EventType.KeyDown) && !(e.type == EventType.MouseDown)) return;
+            if (!architect.isBuilding) return;
+
+            architect.hurryUp = true;
+        }
+
         private bool LoadDialogue()
         {
-            Debug.Log(GameManager.Instance.GetRound());
             string path = "Dialogues";
             dialogue = new SortedList<float, DialogueData>(new DuplicateKeyComparer<float>());
 
@@ -83,6 +93,8 @@ namespace Managers
         {
             currentLine++;
 
+            architect.hurryUp = false;
+
             if (currentLine >= selectedDialogue.lines.Length)
             {
                 GameManager.Instance.sceneLoader.SetScene("WorkspaceScene");
@@ -101,7 +113,7 @@ namespace Managers
             currentPartId = currentPartId >= selectedDialogue.lines[currentLine].parts.Length ? currentPartId = selectedDialogue.lines[currentLine].parts.Length - 1 : currentPartId;
             chosenOptionLinesRemaining = Mathf.Max(0, chosenOptionLinesRemaining - 1);
 
-            string text = selectedDialogue.lines[currentLine].parts[currentPartId].text;
+            string text = ProcessDialogue(selectedDialogue.lines[currentLine].parts[currentPartId].text);
             string speaker = selectedDialogue.lines[currentLine].parts[currentPartId].speaker;
 
             SetSpeakerText(speaker);
@@ -117,6 +129,18 @@ namespace Managers
             {
                 continueButton.SetActive(true);
             }
+        }
+
+        private string ProcessDialogue(string text)
+        {
+            string ret = text;
+            ret = Regex.Replace(ret, "¬", "\u200b\u200b\u200b\u200b\u200b\u200b\u200b");
+            ret = Regex.Replace(ret, "\\. ", ". \u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b");
+            ret = Regex.Replace(ret, "! ", "! \u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b");
+            ret = Regex.Replace(ret, "\\? ", "? \u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b");
+            ret = Regex.Replace(ret, ", ", ", \u200b\u200b\u200b\u200b\u200b\u200b\u200b");
+            ret = Regex.Replace(ret, "\\.{3}", "\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b.\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b.\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b.");
+            return ret;
         }
 
         private void SetSpeakerText(string text)

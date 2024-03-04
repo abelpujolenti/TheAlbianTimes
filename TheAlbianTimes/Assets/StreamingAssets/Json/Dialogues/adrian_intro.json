@@ -1,6 +1,6 @@
 {
     "name": "adrian_intro",
-    "firstRound":3,
+    "firstRound":0,
     "duration":1,
     "priority":1,
     "lines": [
@@ -8,23 +8,47 @@
             "parts": [
                 {
                     "speaker": "Adrian",
-                    "text": "My love, my love… Such a long day was it? Lucky you have me."
+                    "text": "Oh...¬¬¬¬ Hi there! You must be the new editor. So¬¬¬ my boss. Hi boss!"
                 }
             ],
             "options": [
                 {
                     "id": 0,
-                    "text": "I know handsome. Want to go grab some food?",
+                    "text": "Your guess is correct. Nice to meet you, are you the one who left some notes on my desk?",
+                    "followupLines": 0
+                },
+                {
+                    "id": 1,
+                    "text": "Uh, hey nice to meet you. Are you a reporter? You don't quite look the par...",
+                    "followupLines": 0
+                }
+            ]
+        },
+        {
+            "parts": [
+                {
+                    "speaker": "Adrian",
+                    "text": "That's right! Clearly you are a veteran journalist. My name is Adrian, I'm a reporter here at the¬¬ prestigious¬¬ Albian Times."
+                }
+            ],
+            "options": []
+        },
+        {
+            "parts": [
+                {
+                    "speaker": "Adrian",
+                    "text": "I didn't really get along with your predecessor... but this time I wanted start with the right foot, so I figured I'd prepare that little something for you!¬¬¬ Was everything clear?"
+                }
+            ],
+            "options": [
+                {
+                    "id": 0,
+                    "text": "If I'm being honest, not really...",
                     "followupLines": 1
                 },
                 {
                     "id": 1,
-                    "text": " Yeah yeah sure. See you tomorrow.",
-                    "followupLines": 1
-                },
-                {
-                    "id": 2,
-                    "text": "You wish. Bye.",
+                    "text": "Of course, nothing I haven't seen before.",
                     "followupLines": 1
                 }
             ]
@@ -33,15 +57,44 @@
             "parts": [
                 {
                     "speaker": "Adrian",
-                    "text": " Of course! It's cold, come closer my love."
+                    "text": "No problem. To recap, every day we give you a bunch of <b>articles</b>. Your job is to choose an <b>editorial spin</b> for each <b>article</b>.¬¬¬ How do you choose a <b>spin</b>, you ask?¬¬¬ By using the markers! After you've decided to change an article, you send it back to us by placing it on the tray, and we'll re-write it and send it back.¬¬¬ Lastly, arrange every article in the mold and send it off to publish. Easy!"
                 },
                 {
                     "speaker": "Adrian",
-                    "text": " I can't wait, my love."
+                    "text": "Right, right, you're a world class professional after all. It's just some articles we send you, mark 'em up, we re-write stuff, you put 'em all in the mold, and bam. Easy!"
+                }
+            ],
+            "options": []
+        },
+        {
+            "parts": [
+                {
+                    "speaker": "Adrian",
+                    "text": "You shouldn't <i>always</i> go with the default article we send you though. It's often rather neutral and bland.¬¬¬ Stir up the public, make them think about the state of things! You hold power in your hands!!!¬¬¬¬ But also be responsible. Go through every possible spin thoroughly, and then make a choice. What choice? I'll leave that to you."
+                }
+            ],
+            "options": [
+                {
+                    "id": 0,
+                    "text": "I shall stir them. Like a big pot.",
+                    "followupLines": 1
+                },
+                {
+                    "id": 1,
+                    "text": "That is quite a lot of reading...",
+                    "followupLines": 1
+                }
+            ]
+        },
+        {
+            "parts": [
+                {
+                    "speaker": "Adrian",
+                    "text": "Wield your influence¬ like a big spoon. ¬¬But be careful, handling a big spoon requires great care. The things you publish will be read by a lot of people, including important people. Always think about the consequences of what you're publishing. We trust you, but the higherups... If the newspaper starts getting censored, they will not be happy. Anyways. I really gotta go. See you tomorrow!"
                 },
                 {
                     "speaker": "Adrian",
-                    "text": "Bye then..."
+                    "text": "Of course you have to read! It's your job!¬¬¬ Here's a tip though, in the drafts we send, certain¬ key¬ words¬ are <b>highlighted</b>,¬¬ which can help you skim through articles.¬¬¬ However, keep in mind that what you publish will be read by a lot of people, including important people. Always think about the consequences of what you're publishing. We trust you, but the higherups... If the newspaper starts getting censored, they will not be happy. Anyways. I really gotta go. See you tomorrow!"
                 }
             ],
             "options": []

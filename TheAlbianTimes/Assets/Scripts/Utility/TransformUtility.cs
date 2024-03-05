@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TransformUtility
@@ -33,5 +34,23 @@ public class TransformUtility
         }
         gameObjectToDrag.transform.rotation = Quaternion.Euler(new Vector3(gameObjectToDrag.transform.rotation.x, gameObjectToDrag.transform.rotation.y, zRotation));
 
+    }
+
+    public static IEnumerator SetScaleCoroutine(Transform gameObjectToDrag, Vector3 end, float t)
+    {
+        Vector3 start = gameObjectToDrag.transform.localScale;
+        float elapsedT = 0f;
+        while (elapsedT <= t)
+        {
+            Vector3 newScale = gameObjectToDrag.transform.localScale;
+            float sst = Mathf.Pow(Mathf.Min(1f, elapsedT / t), 2);
+            newScale.x = Mathf.SmoothStep(start.x, end.x, sst);
+            newScale.y = Mathf.SmoothStep(start.y, end.y, sst);
+            newScale.z = Mathf.SmoothStep(start.z, end.z, sst);
+            gameObjectToDrag.transform.localScale = newScale;
+            yield return new WaitForFixedUpdate();
+            elapsedT += Time.fixedDeltaTime;
+        }
+        gameObjectToDrag.transform.localScale = end;
     }
 }

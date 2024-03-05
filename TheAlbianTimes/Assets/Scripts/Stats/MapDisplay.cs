@@ -2,6 +2,7 @@ using System.Collections;
 using Countries;
 using Managers;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,7 @@ public class MapDisplay : MonoBehaviour
     [SerializeField] private GameObject statsRoot;
     [SerializeField] private GameObject mapRoot;
     [SerializeField] private Image mapImage;
+    [SerializeField] private Image fadeImage;
     private Image[] mapFolds;
     private GameObject[] statsDisplayObjects;
     const int folds = 4;
@@ -197,6 +199,11 @@ public class MapDisplay : MonoBehaviour
         {
             mapFolds[i].color = ColorUtil.SetBrightness(mapFolds[i].color, Mathf.Lerp(foldMinBrightness, 1f, Mathf.Pow(elapsedT / t, 2f)));
         }
+    }
+
+    public void Finish()
+    {
+        GameManager.Instance.sceneLoader.SetScene("DialogueScene");
     }
 }
  

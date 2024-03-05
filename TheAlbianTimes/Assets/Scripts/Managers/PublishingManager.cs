@@ -47,8 +47,6 @@ public class PublishingManager : MonoBehaviour
         PlayerDataManager.Instance.UpdateReputation(currentGlobalReputation);
 
         GenerateCountryEvents();
-
-        GameManager.Instance.sceneLoader.SetScene("PublishScene");
     }
 
     private void GenerateCountryEvents()

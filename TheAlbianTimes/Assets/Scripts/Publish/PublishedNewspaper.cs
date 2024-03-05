@@ -17,14 +17,21 @@ public class PublishedNewspaper : InteractableRectTransform
     private Vector3 startPosition;
     private int newspaperLayoutIndex = 0;
     private float leanThreshold = 0f;
-    private float sendThreshold = 2f;
+    private float sendThreshold = 1.8f;
 
     private void Start()
     {
         startPosition = transform.position;
         GetSortedArticles();
+        StartCoroutine(Reveal());
+    }
+
+    IEnumerator Reveal()
+    {
+        transform.position = transform.position + new Vector3(0f, -20f, 0f);
         ChooseLayout();
         SetArticles();
+        yield return TransformUtility.SetPositionCoroutine(transform, transform.position, transform.position + new Vector3(0f, 20f, 0f), 1f);
     }
 
     protected override void BeginDrag(BaseEventData data)
@@ -54,7 +61,7 @@ public class PublishedNewspaper : InteractableRectTransform
         if (transform.position.y > sendThreshold)
         {
             draggable = false;
-            StartCoroutine(FlyOffCoroutine(2f, .3f));
+            StartCoroutine(FlyOffCoroutine(3f, .3f));
         }
         else
         {
@@ -129,7 +136,7 @@ public class PublishedNewspaper : InteractableRectTransform
     private IEnumerator FlyOffCoroutine(float moveTime, float rotateTime)
     {
         StartCoroutine(SetRotationCoroutine(80f, rotateTime));
-        yield return TransformUtility.SetPositionCoroutine(transform, transform.position, transform.position + new Vector3(0f, 100f, 1500f), moveTime);
+        yield return TransformUtility.SetPositionCoroutine(transform, transform.position, transform.position + new Vector3(0f, 100f, 3000f), moveTime);
         Finish();
     }
 

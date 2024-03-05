@@ -12,6 +12,7 @@ namespace Managers
 {
     public class DialogueManager : MonoBehaviour
     {
+        [SerializeField] private GameObject root;
         [SerializeField] private Image character;
         [SerializeField] private RawImage background;
         [SerializeField] private TextMeshProUGUI speakerText;
@@ -47,7 +48,12 @@ namespace Managers
                 return;
             }
 
-            DisplayNextLine();
+            continueButton.SetActive(false);
+            HideOptions();
+
+            SetSpeakerText(selectedDialogue.lines[0].parts[0].speaker);
+
+            StartCoroutine(StartDialogueCoroutine());
         }
 
         private void OnGUI()
@@ -57,6 +63,12 @@ namespace Managers
             if (!architect.isBuilding) return;
 
             architect.hurryUp = true;
+        }
+
+        private IEnumerator StartDialogueCoroutine()
+        {
+            yield return new WaitForSeconds(2.7f);
+            DisplayNextLine();
         }
 
         private bool LoadDialogue()
@@ -100,7 +112,6 @@ namespace Managers
                 GameManager.Instance.sceneLoader.SetScene("WorkspaceScene");
                 return;
             }
-
             continueButton.SetActive(false);
             HideOptions();
 

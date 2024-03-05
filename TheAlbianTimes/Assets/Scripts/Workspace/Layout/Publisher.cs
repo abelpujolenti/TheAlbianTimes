@@ -1,5 +1,7 @@
+using System.Collections;
 using System.Linq;
 using Managers;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -40,6 +42,22 @@ namespace Workspace.Layout
             //_audioSourceConveyorBelt.Play();
             PublishingManager.Instance.Publish(_newspaperMold.GetNewsHeadlines().ToList());
             GameManager.Instance.AddToRound();
+
+            StartCoroutine(EndRoundCoroutine(3.5f));
+        }
+
+        private IEnumerator EndRoundCoroutine(float t)
+        {
+            ((RectTransform)_newspaperMold.transform).pivot = new Vector2(.5f, .5f);
+            StartCoroutine(TransformUtility.SetRotationCoroutine(_newspaperMold.transform, 90f, 0.3f));
+            StartCoroutine(TransformUtility.SetPositionCoroutine(_newspaperMold.transform, _newspaperMold.transform.position, transform.position + new Vector3(-3f, 0f, 0f), 0.3f));
+            yield return TransformUtility.SetScaleCoroutine(_newspaperMold.transform, new Vector3(.35f, .35f, .35f), 0.25f);
+            yield return new WaitForSeconds(.1f);
+
+            StartCoroutine(TransformUtility.SetPositionCoroutine(_newspaperMold.transform, _newspaperMold.transform.position, transform.position + new Vector3(30f, 0f, 0f), 3f));
+            yield return TransformUtility.SetPositionCoroutine(Camera.main.transform, Camera.main.transform.position, Camera.main.transform.position + new Vector3(40f, 0f, 0f), t);
+
+            GameManager.Instance.sceneLoader.SetScene("PublishScene");
         }
 
         private void SetContainerLimiters()

@@ -118,15 +118,22 @@ namespace Workspace.Layout
                 if (_rotate)
                 {
                     EventsManager.OnPressPanicButtonForPieces += GoToContainer;
+                    if (EventsManager.OnThowSomething != null)
+                    {
+                        EventsManager.OnThowSomething();
+                    }
                 }
                 else
                 {
                     EventsManager.OnPressPanicButtonForPieces -= GoToContainer;
+                    EventsManager.OnArrangeSomething();
                 }
 
                 _audioSourceDropPieceInBox.Play();
                 return;
             }
+            EventsManager.OnPressPanicButtonForPieces -= GoToContainer;
+            EventsManager.OnArrangeSomething();
             SlideToRotation(0f, 0.1f);
             transform.position = EventsManager.OnSuccessfulSnap(_snappedCells, _newsHeadline, gameObject);
             _rotate = false;
@@ -141,6 +148,7 @@ namespace Workspace.Layout
                 return;
             }
             EventsManager.OnPressPanicButtonForPieces -= GoToContainer;
+            EventsManager.OnArrangeSomething();
             _newsHeadlinePiecesContainer.PositionPieceOnRandomPosition(this);
         }
 

@@ -1,74 +1,76 @@
-using Managers;
 using System.Collections;
 using UnityEngine;
 using Workspace.Editorial;
 
-public class TutorialManager : MonoBehaviour
+namespace Managers
 {
-    [SerializeField] GameObject notebook;
-    [SerializeField] GameObject mail;
-    [SerializeField] GameObject statOverlay;
-    [SerializeField] GameObject folder;
-    [SerializeField] GameObject biasContainer;
-    void Start()
+    public class TutorialManager : MonoBehaviour
     {
-        switch (GameManager.Instance.GetRound())
+        [SerializeField] GameObject notebook;
+        [SerializeField] GameObject mail;
+        [SerializeField] GameObject statOverlay;
+        [SerializeField] GameObject folder;
+        [SerializeField] GameObject biasContainer;
+        void Start()
         {
-            case 0:
-                notebook.SetActive(false);
-                mail.SetActive(false);
-                statOverlay.SetActive(false);
-                RoundZero();
-                break;
-            case 1:
-                statOverlay.SetActive(false);
-                StartCoroutine(LowerStatOverlay());
-                notebook.SetActive(false);
-                mail.SetActive(false);
-                StartCoroutine(RevealMail());
-                break;
-            case 2:
-                notebook.SetActive(false);
-                StartCoroutine(RaiseNotebook());
-                break;
-            default:
-                break;
+            switch (GameManager.Instance.GetRound())
+            {
+                case 0:
+                    notebook.SetActive(false);
+                    mail.SetActive(false);
+                    statOverlay.SetActive(false);
+                    RoundZero();
+                    break;
+                case 1:
+                    statOverlay.SetActive(false);
+                    StartCoroutine(LowerStatOverlay());
+                    notebook.SetActive(false);
+                    mail.SetActive(false);
+                    StartCoroutine(RevealMail());
+                    break;
+                case 2:
+                    notebook.SetActive(false);
+                    StartCoroutine(RaiseNotebook());
+                    break;
+                default:
+                    break;
+            }
         }
-    }
 
-    private void RoundZero()
-    {
-        EventsManager.OnChangeNewsHeadlineContent += LockBiases;
-    }
+        private void RoundZero()
+        {
+            EventsManager.OnChangeNewsHeadlineContent += LockBiases;
+        }
 
-    private void LockBiases()
-    {
-        biasContainer.GetComponent<Canvas>().enabled = false;
-    }
+        private void LockBiases()
+        {
+            biasContainer.GetComponent<Canvas>().enabled = false;
+        }
 
-    private IEnumerator RevealMail()
-    {
-        yield return new WaitForSeconds(EditorialNewsLoader.loadDelay + 1.6f);
-        mail.SetActive(true);
-        Transform mt = mail.transform;
-        yield return TransformUtility.SetPositionCoroutine(mt, mt.position + new Vector3(-1f, 0f, 0f), mt.position, 1f);
-    }
+        private IEnumerator RevealMail()
+        {
+            yield return new WaitForSeconds(EditorialNewsLoader.loadDelay + 1.6f);
+            mail.SetActive(true);
+            Transform mt = mail.transform;
+            yield return TransformUtility.SetPositionCoroutine(mt, mt.position + new Vector3(-1f, 0f, 0f), mt.position, 1f);
+        }
 
-    private IEnumerator RaiseNotebook()
-    {
-        yield return new WaitForSeconds(EditorialNewsLoader.loadDelay + 1f);
-        notebook.SetActive(true);
-        Transform nt = notebook.transform;
-        yield return TransformUtility.SetPositionCoroutine(nt, nt.position + new Vector3(0f, -1f, 0f), nt.position + new Vector3(0f, 1f, 0f), .5f);
-        yield return TransformUtility.SetPositionCoroutine(nt, nt.position, nt.position + new Vector3(0f, -1f, 0f), .6f);
-    }
+        private IEnumerator RaiseNotebook()
+        {
+            yield return new WaitForSeconds(EditorialNewsLoader.loadDelay + 1f);
+            notebook.SetActive(true);
+            Transform nt = notebook.transform;
+            yield return TransformUtility.SetPositionCoroutine(nt, nt.position + new Vector3(0f, -1f, 0f), nt.position + new Vector3(0f, 1f, 0f), .5f);
+            yield return TransformUtility.SetPositionCoroutine(nt, nt.position, nt.position + new Vector3(0f, -1f, 0f), .6f);
+        }
 
-    private IEnumerator LowerStatOverlay()
-    {
-        yield return new WaitForSeconds(EditorialNewsLoader.loadDelay + 1f);
-        statOverlay.SetActive(true);
-        Transform st = statOverlay.transform;
-        yield return TransformUtility.SetPositionCoroutine(st, st.position + new Vector3(0f, 4f, 0f), st.position, .75f);
-    }
+        private IEnumerator LowerStatOverlay()
+        {
+            yield return new WaitForSeconds(EditorialNewsLoader.loadDelay + 1f);
+            statOverlay.SetActive(true);
+            Transform st = statOverlay.transform;
+            yield return TransformUtility.SetPositionCoroutine(st, st.position + new Vector3(0f, 4f, 0f), st.position, .75f);
+        }
     
+    }
 }

@@ -12,6 +12,21 @@ namespace Workspace.Editorial
 
         private AudioSource _audioSourcePressPanicButton;
 
+        private void OnEnable()
+        {
+            EventsManager.OnArrangeSomething = HideIfNecessary;
+            EventsManager.OnThowSomething = null;
+        }
+
+        private void OnDisable()
+        {
+            EventsManager.OnArrangeSomething = null;
+            EventsManager.OnThowSomething = () => {
+                gameObject.SetActive(true);
+                EventsManager.OnThowSomething = null;
+            };
+        }
+
         private void Start()
         {
             _audioSourcePressPanicButton = gameObject.AddComponent<AudioSource>();
@@ -20,10 +35,15 @@ namespace Workspace.Editorial
                 (_audioSourcePressPanicButton, PRESS_PANIC_BUTTON_SOUND)
             };
             SoundManager.Instance.SetMultipleAudioSourcesComponents(tuples);
+            gameObject.SetActive(false);
         }
 
         protected override void PointerClick(BaseEventData data)
         {
+            EventsManager.OnThowSomething = () => {
+                gameObject.SetActive(true);
+                EventsManager.OnThowSomething = null;
+            };
             _audioSourcePressPanicButton.Play();
             if (EventsManager.OnPressPanicButton != null)
             {
@@ -31,12 +51,27 @@ namespace Workspace.Editorial
                 EventsManager.OnPressPanicButton();
             }
             
-            if (EventsManager.OnPressPanicButtonForPieces == null)
+            if (EventsManager.OnPressPanicButtonForPieces != null)
+            {
+                EventsManager.OnPressPanicButtonForPieces();
+            }            
+
+            gameObject.SetActive(false);
+        }
+
+        private void HideIfNecessary()
+        {
+            if (EventsManager.OnPressPanicButton != null)
             {
                 return;
             }
 
-            EventsManager.OnPressPanicButtonForPieces();
+            if (EventsManager.OnPressPanicButtonForPieces != null)
+            {
+                return;
+            }
+
+            gameObject.SetActive(false);
         }
     }
 }

@@ -271,12 +271,22 @@ namespace Workspace.Editorial
             }
             _audioSourceDropPaperInFolder.Play();
             EventsManager.OnPressPanicButton -= DropOnFolder;
+            EventsManager.OnArrangeSomething();
             _newsFolder.AddNewsHeadlineComponent(this);
         }
 
         private void DropOutFolder()
         {
-            EventsManager.OnPressPanicButton += DropOnFolder;
+            if (gameObject.activeSelf)
+            {
+                EventsManager.OnPressPanicButton += DropOnFolder;    
+                
+                if (EventsManager.OnThowSomething != null) 
+                {
+                    EventsManager.OnThowSomething();
+                }
+            }
+            
             _onFolder = false;
             StateOnDropOutOfFolder();
             _newsFolder.DropNewsHeadlineOutOfFolder(false);

@@ -145,7 +145,7 @@ namespace Managers
         private string ProcessDialogue(string text)
         {
             string ret = text;
-            ret = Regex.Replace(ret, "¬", "\u200b\u200b\u200b\u200b\u200b\u200b\u200b");
+            ret = Regex.Replace(ret, "Â¬", "\u200b\u200b\u200b\u200b\u200b\u200b\u200b");
             ret = Regex.Replace(ret, "\\. ", ". \u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b");
             ret = Regex.Replace(ret, "! ", "! \u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b");
             ret = Regex.Replace(ret, "\\? ", "? \u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b");

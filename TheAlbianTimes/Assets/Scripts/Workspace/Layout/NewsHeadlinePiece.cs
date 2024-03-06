@@ -38,10 +38,13 @@ namespace Workspace.Layout
 
         private bool _rotate;
         private bool _transferDrag;
+        private bool _subscribed;
 
         private AudioSource _audioSourceGrabPiece;
         private AudioSource _audioSourceDropPieceInBox;
         private AudioSource _audioSourceSnapPiece;
+
+        private Camera _camera;
 
         private void Start()
         {
@@ -58,6 +61,7 @@ namespace Workspace.Layout
             _newsHeadline = _newsHeadlineSubPieces[0].GetNewsHeadline();
             _newsHeadlinePiecesContainer = LayoutManager.Instance.GetNewsHeadlinePiecesContainer();
             _subPiecesPositionsRelativeToRoot = new Vector2[_newsHeadlineSubPieces.Length];
+            _camera = Camera.main;
             gameObject.SetActive(false);
         }
 
@@ -87,15 +91,15 @@ namespace Workspace.Layout
             {
                 cell.SetFree(true);
             }
+            
+            foreach (NewsHeadlineSubPiece subPiece in _newsHeadlineSubPieces)
+            {
+                subPiece.SetIsSnapped(false);
+            }
         }
 
         public void EndDrag(NewsHeadlineSubPiece draggedSubPiece, Vector2 mousePosition)
         {
-            if (LayoutManager.Instance.IsMoldDraggable())
-            {
-                return;
-            }
-            
             EventsManager.OnCheckDistanceToMouse -= DistanceToPosition;
             
             foreach (NewsHeadlineSubPiece newsHeadlineSubPiece in _newsHeadlineSubPieces)
@@ -108,30 +112,67 @@ namespace Workspace.Layout
                 return;
             }
 
-            mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+            mousePosition = _camera.ScreenToWorldPoint(mousePosition);
             _snappedCells = EventsManager.OnPreparingCells(draggedSubPiece, mousePosition, _newsHeadlineSubPieces);
 
             if (_snappedCells == null)
             {
-                _rotate = !_newsHeadlinePiecesContainer.IsValidPiecePosition(this);
-
-                if (_rotate)
-                {
-                    EventsManager.OnPressPanicButtonForPieces += GoToContainer;
-                }
-                else
-                {
-                    EventsManager.OnPressPanicButtonForPieces -= GoToContainer;
-                }
-
+                FailSnapOnMold();
                 _audioSourceDropPieceInBox.Play();
                 return;
             }
+            
+            PlaceOnPermittedPlace();
+            
             SlideToRotation(0f, 0.1f);
             transform.position = EventsManager.OnSuccessfulSnap(_snappedCells, _newsHeadline, gameObject);
             _rotate = false;
+
+            foreach (NewsHeadlineSubPiece subPiece in _newsHeadlineSubPieces)
+            {
+                subPiece.SetIsSnapped(true);
+            }
             
             _audioSourceSnapPiece.Play();
+        }
+
+        private void FailSnapOnMold()
+        {
+            _rotate = !_newsHeadlinePiecesContainer.IsValidPiecePosition(this);
+
+            if (_rotate)
+            {
+                if (_subscribed)
+                {
+                    return;
+                }
+
+                _subscribed = true;
+                        
+                EventsManager.OnPressPanicButtonForPieces += GoToContainer;
+                if (EventsManager.OnThowSomething != null)
+                {
+                    EventsManager.OnThowSomething();
+                }
+                return;
+            }
+            PlaceOnPermittedPlace();
+        }
+
+        private void PlaceOnPermittedPlace()
+        {
+            if (!_subscribed)
+            {
+                return;
+            }
+
+            _subscribed = false;
+                        
+            EventsManager.OnPressPanicButtonForPieces -= GoToContainer;
+            if (EventsManager.OnArrangeSomething != null)
+            {
+                EventsManager.OnArrangeSomething();    
+            }
         }
 
         private void GoToContainer()
@@ -141,6 +182,7 @@ namespace Workspace.Layout
                 return;
             }
             EventsManager.OnPressPanicButtonForPieces -= GoToContainer;
+            EventsManager.OnArrangeSomething();
             _newsHeadlinePiecesContainer.PositionPieceOnRandomPosition(this);
         }
 

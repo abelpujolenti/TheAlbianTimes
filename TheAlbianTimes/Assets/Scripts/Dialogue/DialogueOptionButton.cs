@@ -1,9 +1,7 @@
+using System.Collections.Generic;
 using Countries;
 using Managers;
-using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
-using UnityEditor.Build.Content;
 using UnityEngine;
 using UnityEngine.UI;
 

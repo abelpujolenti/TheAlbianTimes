@@ -99,7 +99,7 @@ namespace NoMonoBehavior
         {
             while (tmpro.maxVisibleCharacters < tmpro.textInfo.characterCount)
             {
-                tmpro.maxVisibleCharacters += hurryUp ? charactersPerCycle * 5 : charactersPerCycle;
+                tmpro.maxVisibleCharacters += hurryUp ? charactersPerCycle * 15 : charactersPerCycle;
 
                 yield return new WaitForSeconds(0.015f / speed);
             }

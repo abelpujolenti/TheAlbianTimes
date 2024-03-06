@@ -132,7 +132,7 @@ namespace Managers
             yield return displayTextCoroutine = architect.Build(text);
 
             //after text has finished typing
-            if (selectedDialogue.lines[currentLine].options.Length > 0)
+            if (selectedDialogue.lines[currentLine].options != null && selectedDialogue.lines[currentLine].options.Length > 0)
             {
                 DisplayOptions();
             }

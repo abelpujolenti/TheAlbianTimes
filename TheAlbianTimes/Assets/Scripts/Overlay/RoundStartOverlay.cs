@@ -2,7 +2,6 @@ using System.Collections;
 using Managers;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Rendering;
 using Workspace.Editorial;
 
 public class RoundStartOverlay : MonoBehaviour

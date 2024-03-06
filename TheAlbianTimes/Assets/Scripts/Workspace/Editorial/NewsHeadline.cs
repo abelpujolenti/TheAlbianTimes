@@ -277,11 +277,16 @@ namespace Workspace.Editorial
 
         private void DropOutFolder()
         {
-            EventsManager.OnPressPanicButton += DropOnFolder;
-            if (EventsManager.OnThowSomething != null) 
+            if (gameObject.activeSelf)
             {
-                EventsManager.OnThowSomething();
+                EventsManager.OnPressPanicButton += DropOnFolder;    
+                
+                if (EventsManager.OnThowSomething != null) 
+                {
+                    EventsManager.OnThowSomething();
+                }
             }
+            
             _onFolder = false;
             StateOnDropOutOfFolder();
             _newsFolder.DropNewsHeadlineOutOfFolder(false);

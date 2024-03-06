@@ -1,10 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using Managers;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 using Utility;
 using Workspace.Editorial;
 

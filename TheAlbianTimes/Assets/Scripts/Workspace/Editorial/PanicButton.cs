@@ -40,7 +40,6 @@ namespace Workspace.Editorial
 
         protected override void PointerClick(BaseEventData data)
         {
-
             EventsManager.OnThowSomething = () => {
                 gameObject.SetActive(true);
                 EventsManager.OnThowSomething = null;

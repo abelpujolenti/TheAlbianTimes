@@ -2,6 +2,7 @@ using System.Collections;
 using Countries;
 using Managers;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -121,10 +122,18 @@ public class MapDisplay : MonoBehaviour
     {
         for (int i = 0; i < mapFolds.Length; i++)
         {
+            UnfoldAnimationUpdate(mapFolds[i].rectTransform, i, unfoldTime, 0, unfoldStartAngle);
+        }
+
+        yield return new WaitForSeconds(unfoldDelay);
+
+        //Sound
+
+        for (int i = 0; i < mapFolds.Length; i++)
+        {
             StartCoroutine(UnfoldAnimationCoroutine(i, unfoldTime, unfoldStartAngle));
         }
-        
-        yield return new WaitForSeconds(unfoldDelay + unfoldTime);
+        yield return new WaitForSeconds(unfoldTime);
 
         mapImage.gameObject.SetActive(true);
         UpdateStatDisplays();
@@ -164,10 +173,6 @@ public class MapDisplay : MonoBehaviour
     private IEnumerator UnfoldAnimationCoroutine(int i, float t, float start)
     {
         RectTransform rt = mapFolds[i].rectTransform;
-
-        UnfoldAnimationUpdate(rt, i, t, 0f, start);
-
-        yield return new WaitForSeconds(unfoldDelay);
 
         float elapsedT = 0f;
         while (elapsedT <= t)

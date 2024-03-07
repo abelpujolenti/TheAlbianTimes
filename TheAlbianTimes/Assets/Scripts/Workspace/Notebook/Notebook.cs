@@ -11,6 +11,8 @@ namespace Workspace.Notebook
 {
     public class Notebook : InteractableRectTransform
     {
+        private const string TAKE_OUT_NOTEBOOK = "Take Out Notebook";
+        
         [SerializeField] private float PAGE_OPEN_TIME = 0.5f;
         [SerializeField] private float PAGE_CLOSE_TIME = 0.25f;
         [SerializeField] private float PAGE_FLIP_TIME = 0.6f;
@@ -40,6 +42,8 @@ namespace Workspace.Notebook
 
         private bool open;
 
+        private AudioSource _audioSourceTakeOutNotebook;
+
         protected override void Setup()
         {
             base.Setup();
@@ -50,6 +54,13 @@ namespace Workspace.Notebook
         {
             NotebookManager.Instance.SetNotebook(this);
             imageBrightness = ColorUtil.GetBrightness(_flipPageBackground.color);
+            
+            _audioSourceTakeOutNotebook = gameObject.AddComponent<AudioSource>();
+            (AudioSource, string)[] tuples = {
+                (_audioSourceTakeOutNotebook, TAKE_OUT_NOTEBOOK)
+            };
+            
+            SoundManager.Instance.SetMultipleAudioSourcesComponents(tuples);
         }
 
         protected override void Drag(BaseEventData data)

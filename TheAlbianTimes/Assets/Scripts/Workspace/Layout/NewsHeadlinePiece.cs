@@ -181,8 +181,14 @@ namespace Workspace.Layout
             {
                 return;
             }
+
+            _subscribed = false;
+            
             EventsManager.OnPressPanicButtonForPieces -= GoToContainer;
-            EventsManager.OnArrangeSomething();
+            if (EventsManager.OnArrangeSomething != null)
+            {
+                EventsManager.OnArrangeSomething();    
+            }
             _newsHeadlinePiecesContainer.PositionPieceOnRandomPosition(this);
         }
 
@@ -272,6 +278,17 @@ namespace Workspace.Layout
         public void SetSubPieces(NewsHeadlineSubPiece[] subPieces)
         {
             _newsHeadlineSubPieces = subPieces;
+        }
+
+        public void OnCrossMidPoint()
+        {
+            _subscribed = false;
+            
+            EventsManager.OnPressPanicButtonForPieces -= GoToContainer;
+            if (EventsManager.OnArrangeSomething != null)
+            {
+                EventsManager.OnArrangeSomething();    
+            }
         }
     }
 }

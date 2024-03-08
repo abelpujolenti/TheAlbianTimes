@@ -22,6 +22,8 @@ namespace Workspace.Editorial
         private Vector3 _extendedPosition;
 
         private bool _extended;
+
+        private Camera _camera;
         
         private void OnEnable()
         {
@@ -40,11 +42,12 @@ namespace Workspace.Editorial
             
             _hidedPosition = transform.position;
             _extendedPosition = new Vector2(_hidedPosition.x, _hidedPosition.y + DISTANCE_TO_SLIDE_ON_COORDINATE_Y);
+            _camera = Camera.main;
         }
 
         private void Interaction(NewsHeadline newsHeadline, Vector3 mousePosition)
         {
-            Vector3 screenWorldMousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+            Vector3 screenWorldMousePosition = _camera.ScreenToWorldPoint(mousePosition);
             
             if (!IsCoordinateInsideBounds(screenWorldMousePosition))
             {

@@ -19,7 +19,7 @@ namespace Utility
         Coroutine slideCoroutine;
         Coroutine setRotationCoroutine;
 
-        protected bool _rotate = true;
+        [SerializeField]protected bool _rotate = true;
         
         protected override void Drag(BaseEventData data)
         {

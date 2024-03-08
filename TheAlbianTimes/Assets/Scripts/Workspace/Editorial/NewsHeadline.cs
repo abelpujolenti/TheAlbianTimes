@@ -83,6 +83,7 @@ namespace Workspace.Editorial
         private bool _sendToChange;
         private bool _modified;
         private bool _onFolder = true;
+        private bool _subscribed;
 
         private AudioSource _audioSourceDropPaperOnTable;
         private AudioSource _audioSourceDropPaperInFolder;
@@ -177,6 +178,7 @@ namespace Workspace.Editorial
             
             _transferDrag = true;
             _rotate = false;
+            _subscribed = false;
             _newsHeadlinePieceToTransferDrag.SetTransferDrag(false);
             
             gameObject.SetActive(false);
@@ -185,6 +187,11 @@ namespace Workspace.Editorial
             
             EventsManager.OnCrossMidPointWhileScrolling -= GetGameObjectToTransferDrag;
             EventsManager.OnCheckDistanceToMouse -= DistanceToPosition;
+            EventsManager.OnPressPanicButton -= DropOnFolder;
+            if (EventsManager.OnArrangeSomething != null)
+            {
+                EventsManager.OnArrangeSomething();    
+            }
 
             Transform parentTransform = _gameObjectToTransferDrag.transform.parent;
             parentTransform.position = mousePosition;
@@ -221,12 +228,7 @@ namespace Workspace.Editorial
             EventsManager.OnStartEndDrag(false);
             
             PointerEventData pointerData = (PointerEventData) data;
-            if (EventsManager.OnDropNewsHeadline == null)
-            {
-                DropNewsHeadline(pointerData.position);
-                base.EndDrag(data);
-                return;
-            }
+            
             EventsManager.OnDropNewsHeadline(this, pointerData.position);
             
             if (gameObject.activeSelf)
@@ -247,20 +249,16 @@ namespace Workspace.Editorial
                     {
                         _audioSourceDropPaperInFolder.Play();
                     }
+                    return;
                 }
-                else
-                {
-                    DropOutFolder();
-                    if (gameObject.activeSelf)
-                    {
-                        _audioSourceDropPaperOnTable.Play();    
-                    }
-                }
+                DropOutFolder();
             }
             else if (_newsFolder.IsCoordinateInsideBounds(position))
             {
                 DropOnFolder();
+                return;
             }
+            OnDropOutOfFolder();
         }
 
         private void DropOnFolder()
@@ -270,22 +268,41 @@ namespace Workspace.Editorial
                 return;
             }
             _audioSourceDropPaperInFolder.Play();
+            _subscribed = false;
             EventsManager.OnPressPanicButton -= DropOnFolder;
-            EventsManager.OnArrangeSomething();
+            if (EventsManager.OnArrangeSomething != null)
+            {
+                EventsManager.OnArrangeSomething();    
+            }
             _newsFolder.AddNewsHeadlineComponent(this);
+        }
+
+        private void OnDropOutOfFolder()
+        {
+            if (!gameObject.activeSelf)
+            {
+                return;
+            }
+            _audioSourceDropPaperOnTable.Play();
+
+            if (_subscribed)
+            {
+                return;
+            }
+
+            _subscribed = true;
+                
+            EventsManager.OnPressPanicButton += DropOnFolder;    
+                
+            if (EventsManager.OnThowSomething != null) 
+            {
+                EventsManager.OnThowSomething();
+            }
         }
 
         private void DropOutFolder()
         {
-            if (gameObject.activeSelf)
-            {
-                EventsManager.OnPressPanicButton += DropOnFolder;    
-                
-                if (EventsManager.OnThowSomething != null) 
-                {
-                    EventsManager.OnThowSomething();
-                }
-            }
+            OnDropOutOfFolder();
             
             _onFolder = false;
             StateOnDropOutOfFolder();
@@ -334,6 +351,7 @@ namespace Workspace.Editorial
             if (_moveCoroutine != null)
             {
                 StopCoroutine(_moveCoroutine);
+                _rotate = true;
             }
 
             transform.localPosition = _origin;
@@ -413,6 +431,7 @@ namespace Workspace.Editorial
                 timer = MoveToDestination(origin, destination, timer);
                 yield return null;
             }
+            
             _rotate = true;
         }
 
@@ -528,7 +547,6 @@ namespace Workspace.Editorial
             _origin = _destination;
 
             _newsFolder.ReturnNewsHeadline(this, _folderOrderIndex, _onFolder);
-            
             _rotate = true;
             _onFolder = true;
         }

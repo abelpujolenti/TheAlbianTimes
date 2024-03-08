@@ -108,9 +108,6 @@ namespace CameraController
                     {
                         _transfer = !_transfer;
                         _rightSide = false;
-                        gameObjectToDrag = EventsManager.OnCrossMidPointWhileScrolling != null
-                            ? EventsManager.OnCrossMidPointWhileScrolling(pointerData)
-                            : null; 
                     }
                 }
                 else
@@ -119,11 +116,12 @@ namespace CameraController
                     {
                         _transfer = !_transfer;
                         _rightSide = true;
-                        gameObjectToDrag = EventsManager.OnCrossMidPointWhileScrolling != null
-                            ? EventsManager.OnCrossMidPointWhileScrolling(pointerData)
-                            : null; 
                     }
                 }
+                
+                gameObjectToDrag = EventsManager.OnCrossMidPointWhileScrolling != null
+                    ? EventsManager.OnCrossMidPointWhileScrolling(pointerData)
+                    : null; 
 
                 if (!_transfer)
                 {

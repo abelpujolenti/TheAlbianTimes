@@ -3,8 +3,10 @@ using Utility;
 
 public class MessagePostit : ThrowableInteractableRectTransform
 {
-    public void SetText(string text)
+    public void Setup(MessagePostitData data)
     {
-        GetComponentInChildren<TextMeshProUGUI>().text = text;
+        var tmp = GetComponentInChildren<TextMeshProUGUI>();
+        tmp.text = data.text;
+        tmp.color = data.color;
     }
 }

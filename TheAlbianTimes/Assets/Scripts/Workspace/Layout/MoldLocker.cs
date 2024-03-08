@@ -11,6 +11,7 @@ namespace Workspace.Layout
     {
         [SerializeField] private NewspaperMold _newsPaperMold;
         [SerializeField] private TextMeshProUGUI _text;
+        [SerializeField] private Publisher _publisher;
 
         public bool blink = false;
 
@@ -21,7 +22,11 @@ namespace Workspace.Layout
                 return;
             }
             _newsPaperMold.SetDraggable(!_newsPaperMold.IsDraggable());
+            _publisher.scrolling = !_publisher.scrolling;
             blink = false;
+
+            float pressedHeightMultiplier = .75f;
+            rectTransform.sizeDelta = _newsPaperMold.IsDraggable() ? new Vector2(rectTransform.sizeDelta.x, rectTransform.sizeDelta.y * pressedHeightMultiplier) : new Vector2(rectTransform.sizeDelta.x, rectTransform.sizeDelta.y / pressedHeightMultiplier);
         }
 
         private void Update()

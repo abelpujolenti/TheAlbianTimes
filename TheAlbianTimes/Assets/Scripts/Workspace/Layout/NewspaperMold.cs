@@ -37,7 +37,7 @@ namespace Workspace.Layout
         [SerializeField]private List<NewsHeadline> _newsHeadlines;
 
         private Cell[][] _cells;
-        
+
         private Vector2[][] _cellsPositions;
 
         private readonly Vector3[] _layoutCorners = new Vector3[4];
@@ -375,6 +375,11 @@ namespace Workspace.Layout
         {
             base.draggable = draggable;
             LayoutManager.Instance.SetIsMoldDraggable(draggable);
+
+            foreach (NewsHeadline article in _newsHeadlines)
+            {
+                article.SetPieceRaycastTarget(!draggable);
+            }
         }
 
         public bool IsDraggable() 

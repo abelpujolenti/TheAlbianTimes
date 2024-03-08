@@ -178,7 +178,7 @@ namespace Countries
         }
         public void SetValue(string key, float value)
         {
-            data.values[key] = value;
+            data.values[key] = Mathf.Clamp01(value);
         }
         public float GetReputation()
         {
@@ -186,7 +186,7 @@ namespace Countries
         }
         public void SetReputation(float v)
         {
-            data.values["reputation"] = v;
+            data.values["reputation"] = Mathf.Clamp01(v);
         }
         public float GetPurchasingPower()
         {

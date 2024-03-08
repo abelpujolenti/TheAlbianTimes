@@ -713,6 +713,27 @@ namespace Workspace.Editorial
             return _newsHeadlinePieceToTransferDrag.transform.localPosition;
         }
 
+        public void SetPieceRaycastTarget(bool isEnabled)
+        {
+            var subPieces = _newsHeadlinePieceToTransferDrag.GetComponentsInChildren<RectTransform>();
+            foreach (RectTransform subPiece in subPieces)
+            {
+                var img = subPiece.GetComponent<Image>();
+                if (img != null)
+                {
+                    img.color = isEnabled ? Color.white : new Color(0.8f, 0.78f, 0.78f);
+                    img.raycastTarget = isEnabled;
+                    continue;
+                }
+                var tmp = subPiece.GetComponent<TextMeshProUGUI>();
+                if (tmp != null)
+                {
+                    tmp.raycastTarget = isEnabled;
+                    continue;
+                }
+            }
+        }
+
         public void SetTransferDrag(bool transferDrag)
         {
             _transferDrag = transferDrag;

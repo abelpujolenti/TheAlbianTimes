@@ -1407,7 +1407,6 @@ GameObject:
   - component: {fileID: 1474933617}
   - component: {fileID: 1474933616}
   - component: {fileID: 1474933620}
-  - component: {fileID: 1474933621}
   m_Layer: 5
   m_Name: MapDisplay
   m_TagString: Untagged
@@ -1528,18 +1527,6 @@ MonoBehaviour:
   unfoldDelay: 1.5
   foldMinBrightness: 0.4
   showStatsTime: 0.25
---- !u!114 &1474933621
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1474933615}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63c3305a5c20f024a8ed2d0547475e12, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1490839899
 GameObject:
   m_ObjectHideFlags: 0

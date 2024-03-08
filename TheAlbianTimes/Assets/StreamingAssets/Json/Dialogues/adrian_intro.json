@@ -44,12 +44,12 @@
                 {
                     "id": 0,
                     "text": "If I'm being honest, not really...",
-                    "followupLines": 1
+                    "followupLines": 2
                 },
                 {
                     "id": 1,
                     "text": "Of course, nothing I haven't seen before.",
-                    "followupLines": 1
+                    "followupLines": 2
                 }
             ]
         },
@@ -57,11 +57,11 @@
             "parts": [
                 {
                     "speaker": "Adrian",
-                    "text": "No problem. To recap, every day we give you a bunch of <b>articles</b>. Your job is to choose an <b>editorial spin</b> for each <b>article</b>.¬¬¬ How do you choose a <b>spin</b>, you ask?¬¬¬ By using the markers! After you've decided to change an article, you send it back to us by placing it on the tray, and we'll re-write it and send it back.¬¬¬ Lastly, arrange every article in the mold and send it off to publish. Easy!"
+                    "text": "No problem. To recap, every day we give you a bunch of <b>articles</b>. Your job is to choose an <b>editorial spin</b> for each <b>article</b>.¬¬¬ How do you choose a <b>spin</b>, you ask?¬¬¬ By using the markers!"
                 },
                 {
                     "speaker": "Adrian",
-                    "text": "Right, right, you're a world class professional after all. It's just some articles we send you, mark 'em up, we re-write stuff, you put 'em all in the mold, and bam. Easy!"
+                    "text": "Right, right, you're a world class professional after all."
                 }
             ],
             "options": []
@@ -70,7 +70,29 @@
             "parts": [
                 {
                     "speaker": "Adrian",
-                    "text": "You shouldn't <i>always</i> go with the default article we send you though. It's often rather neutral and bland.¬¬¬ Stir up the public, make them think about the state of things! You hold power in your hands!!!¬¬¬¬ But also be responsible. Go through every possible spin thoroughly, and then make a choice. What choice? I'll leave that to you."
+                    "text": "After you've decided to change an article, you send it back to us by placing it on the tray, and we'll re-write it and send it back.¬¬¬ Lastly, arrange every article in the mold and send it off to publish. Easy!"
+                },
+                {
+                    "speaker": "Adrian",
+                    "text": "You receive a few articles, mark 'em up, we re-write stuff, put 'em all in the mold, and bam. Easy!"
+                }
+            ],
+            "options": []
+        },
+        {
+            "parts": [
+                {
+                    "speaker": "Adrian",
+                    "text": "You shouldn't <i>always</i> go with the default article we send you though. It's often rather neutral and bland.¬¬¬ Stir up the public, make them think about the state of things! You hold power in your hands!!!"
+                }
+            ],
+            "options": []
+        },
+        {
+            "parts": [
+                {
+                    "speaker": "Adrian",
+                    "text": "But also be responsible. Go through every possible spin thoroughly, and then make a choice. What choice? I'll leave that to you."
                 }
             ],
             "options": [
@@ -90,14 +112,22 @@
             "parts": [
                 {
                     "speaker": "Adrian",
-                    "text": "Wield your influence¬ like a big spoon. ¬¬But be careful, handling a big spoon requires great care. The things you publish will be read by a lot of people, including important people. Always think about the consequences of what you're publishing. We trust you, but the higherups... If the newspaper starts getting censored, they will not be happy. Anyways. I really gotta go. See you tomorrow!"
+                    "text": "Wield your influence¬ like a big spoon. ¬¬But be careful, handling a big spoon requires great care. Keep in mind that what you publish will be read by a lot of people, including important people."
                 },
                 {
                     "speaker": "Adrian",
-                    "text": "Of course you have to read! It's your job!¬¬¬ Here's a tip though, in the drafts we send, certain¬ key¬ words¬ are <b>highlighted</b>,¬¬ which can help you skim through articles.¬¬¬ However, keep in mind that what you publish will be read by a lot of people, including important people. Always think about the consequences of what you're publishing. We trust you, but the higherups... If the newspaper starts getting censored, they will not be happy. Anyways. I really gotta go. See you tomorrow!"
+                    "text": "Of course you have to read! It's your job!¬¬¬ Here's a tip though, in the drafts we send, certain¬ key¬ words¬ are <b>highlighted</b>,¬¬ which can help you skim through articles. Keep in mind that what you publish will be read by a lot of people, including important people."
                 }
             ],
             "options": []
+        },
+        {
+            "parts": [
+                {
+                    "speaker": "Adrian",
+                    "text": "Always think about the consequences of what you're publishing. We trust you, but the higherups... If the newspaper starts getting censored, they will not be happy. Anyways. I really gotta go. See you tomorrow!"
+                }
+            ]
         }
     ]
 }

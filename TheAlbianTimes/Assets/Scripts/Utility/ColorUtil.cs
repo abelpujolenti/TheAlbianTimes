@@ -42,4 +42,8 @@ public class ColorUtil : MonoBehaviour
         Color.RGBToHSV(c, out h, out s, out v);
         return s;
     }
+    public static Color Alpha(Color c, float a)
+    {
+        return new Color(c.r, c.g, c.b, a);
+    }
 }

@@ -23,7 +23,7 @@ public class Fade : MonoBehaviour
         float elapsedT = 0f;
         while (elapsedT <= t)
         {
-            fadeImage.color = Color.black.WithAlpha(1f - Mathf.Pow(elapsedT / t, 2f));
+            fadeImage.color = ColorUtil.Alpha(Color.black, 1f - Mathf.Pow(elapsedT / t, 2f));
 
             yield return new WaitForFixedUpdate();
             elapsedT += Time.fixedDeltaTime;

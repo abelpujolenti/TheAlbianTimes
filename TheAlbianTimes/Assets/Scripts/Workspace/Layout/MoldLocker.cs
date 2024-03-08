@@ -34,12 +34,12 @@ namespace Workspace.Layout
             if (blink)
             {
                 float a = Mathf.Abs(Mathf.Sin(Time.time * 2f));
-                Color blinkColor = _text.color.WithAlpha(a);
+                Color blinkColor = ColorUtil.Alpha(_text.color, a);
                 _text.color = blinkColor;
             }
             else
             {
-                _text.color = _text.color.WithAlpha(1f);
+                _text.color = ColorUtil.Alpha(_text.color, 1f);
             }
         }
     }

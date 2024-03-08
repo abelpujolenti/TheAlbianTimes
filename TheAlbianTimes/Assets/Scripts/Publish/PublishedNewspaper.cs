@@ -138,7 +138,7 @@ public class PublishedNewspaper : InteractableRectTransform
         Finish();
     }
 
-    private IEnumerator SetRotationCoroutine(float xRotation, float t)
+    private new IEnumerator SetRotationCoroutine(float xRotation, float t)
     {
         float elapsedT = 0f;
         Vector3 startRotation = transform.rotation.eulerAngles;

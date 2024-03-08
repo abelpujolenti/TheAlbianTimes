@@ -1,4 +1,6 @@
+using Managers;
 using System.Collections;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -31,6 +33,14 @@ namespace NoMonoBehavior
 
         public bool hurryUp = false;
         #endregion
+
+        private const string KEY = "Key Typing ";
+        private const float MIN_VOLUME = 0.8f;
+        private const float MAX_VOLUME = 1;
+        private const float MIN_PITCH = 0.8f;
+        private const float MAX_PITCH = 1.2f;
+
+        private AudioSource[] _audioSourceKeyTypings;
 
         public TextArchitect(TextMeshProUGUI ui)
         {
@@ -97,12 +107,18 @@ namespace NoMonoBehavior
 
         private IEnumerator Build_Typewriter()
         {
+            int counter = 0;
             while (tmpro.maxVisibleCharacters < tmpro.textInfo.characterCount)
             {
                 tmpro.maxVisibleCharacters += hurryUp ? charactersPerCycle * 15 : charactersPerCycle;
-
+                if (counter % 3 == 0 && tmpro.text[tmpro.maxVisibleCharacters] != '\u200b') 
+                {
+                    PlayRandomAudioSource();
+                }
+                counter++;
+                
                 yield return new WaitForSeconds(0.015f / speed);
-            }
+            }            
         }
 
         private IEnumerator Build_Fade()
@@ -160,6 +176,30 @@ namespace NoMonoBehavior
         void OnComplete()
         {
             buildProcess = null;
+        }
+
+        public void SetKeyTypingAudioSources(AudioSource[] audioSources) 
+        {
+            _audioSourceKeyTypings = audioSources;
+
+            (AudioSource, string)[] tuples = new (AudioSource, string)[_audioSourceKeyTypings.Length];
+
+            for (int i = 0; i < audioSources.Length; i++)
+            {
+                tuples[i] = (_audioSourceKeyTypings[i], KEY + i);
+            }
+
+            SoundManager.Instance.SetMultipleAudioSourcesComponents(tuples);
+        }
+
+        void PlayRandomAudioSource() 
+        {
+            AudioSource audioSource = _audioSourceKeyTypings[Random.Range(0, _audioSourceKeyTypings.Length)];
+
+            audioSource.pitch = Random.Range(MIN_PITCH, MAX_PITCH);
+            audioSource.volume = Random.Range(MIN_VOLUME, MAX_VOLUME);
+
+            audioSource.Play();
         }
     }
 }

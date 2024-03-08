@@ -11,7 +11,9 @@ namespace Workspace.Notebook
 {
     public class Notebook : InteractableRectTransform
     {
-        private const string TAKE_OUT_NOTEBOOK = "Take Out Notebook";
+        private const string OPEN_NOTEBOOK = "Open Notebook";
+        private const string CLOSE_NOTEBOOK = "Close Notebook";
+        private const string GRAB_NOTEBOOK = "Grab Notebook";
         
         [SerializeField] private float PAGE_OPEN_TIME = 0.5f;
         [SerializeField] private float PAGE_CLOSE_TIME = 0.25f;
@@ -42,7 +44,9 @@ namespace Workspace.Notebook
 
         private bool open;
 
-        private AudioSource _audioSourceTakeOutNotebook;
+        private AudioSource _audioSourceOpenNotebook;
+        private AudioSource _audioSourceCloseNotebook;
+        private AudioSource _audioSourceGrabNotebook;
 
         protected override void Setup()
         {
@@ -55,9 +59,13 @@ namespace Workspace.Notebook
             NotebookManager.Instance.SetNotebook(this);
             imageBrightness = ColorUtil.GetBrightness(_flipPageBackground.color);
             
-            _audioSourceTakeOutNotebook = gameObject.AddComponent<AudioSource>();
+            _audioSourceOpenNotebook = gameObject.AddComponent<AudioSource>();
+            _audioSourceCloseNotebook = gameObject.AddComponent<AudioSource>();
+            _audioSourceGrabNotebook = gameObject.AddComponent<AudioSource>();
             (AudioSource, string)[] tuples = {
-                (_audioSourceTakeOutNotebook, TAKE_OUT_NOTEBOOK)
+                (_audioSourceOpenNotebook, OPEN_NOTEBOOK),
+                (_audioSourceCloseNotebook, CLOSE_NOTEBOOK),
+                (_audioSourceGrabNotebook, GRAB_NOTEBOOK)
             };
             
             SoundManager.Instance.SetMultipleAudioSourcesComponents(tuples);
@@ -140,8 +148,10 @@ namespace Workspace.Notebook
             EnableCover();
             if (move)
             {
+                _audioSourceGrabNotebook.Play();
                 yield return MoveUpCoroutine(PULL_UP_BOOK_TIME);
             }
+            _audioSourceOpenNotebook.Play();
             yield return StartCoroutine(RotatePageCoroutine((RectTransform)leftPage.transform, PAGE_OPEN_TIME, 179.9f, 0f, 0.5f, DisableCover));
             
             open = true;
@@ -166,7 +176,7 @@ namespace Workspace.Notebook
             {
                 pageMarkerActiveParent.GetChild(i).SetParent(pageMarkerParent);
             }
-
+            _audioSourceCloseNotebook.Play();
             open = false;
             NotebookManager.Instance.SetIsNotebookOpen(open);
         }

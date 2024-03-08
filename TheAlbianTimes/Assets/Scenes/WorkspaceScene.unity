@@ -2003,6 +2003,83 @@ MonoBehaviour:
     _loop: 0
     _play: 0
     _sound3D: 0
+  - _audioClip: {fileID: 8300000, guid: a9fb2ca02ed809e48a71410ff7a9f41c, type: 3}
+    _audioMixerGroup: {fileID: -3148831458192980715, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
+    _name: Open Notebook
+    _volume: 1
+    _loop: 0
+    _play: 0
+    _sound3D: 0
+  - _audioClip: {fileID: 8300000, guid: 16e4febe8933b3446bf91c876eb107e8, type: 3}
+    _audioMixerGroup: {fileID: -3148831458192980715, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
+    _name: Grab Notebook
+    _volume: 1
+    _loop: 0
+    _play: 0
+    _sound3D: 0
+  - _audioClip: {fileID: 8300000, guid: 45aa110dce155b243b29aed8165ada10, type: 3}
+    _audioMixerGroup: {fileID: -3148831458192980715, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
+    _name: Close Notebook
+    _volume: 1
+    _loop: 0
+    _play: 0
+    _sound3D: 0
+  - _audioClip: {fileID: 8300000, guid: 468dfba2ece29a042b39d998ac48ac4d, type: 3}
+    _audioMixerGroup: {fileID: -3148831458192980715, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
+    _name: Map Unfold
+    _volume: 1
+    _loop: 0
+    _play: 0
+    _sound3D: 0
+  - _audioClip: {fileID: 8300000, guid: 001d7ff910d432b45b5e8cb403eb6235, type: 3}
+    _audioMixerGroup: {fileID: -3148831458192980715, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
+    _name: Key Typing 0
+    _volume: 1
+    _loop: 0
+    _play: 0
+    _sound3D: 0
+  - _audioClip: {fileID: 8300000, guid: 9c24987f0d1ffb2449b081038499e6bb, type: 3}
+    _audioMixerGroup: {fileID: -3148831458192980715, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
+    _name: Key Typing 1
+    _volume: 1
+    _loop: 0
+    _play: 0
+    _sound3D: 0
+  - _audioClip: {fileID: 8300000, guid: b8864af2450e80443b7b9b13453453de, type: 3}
+    _audioMixerGroup: {fileID: -3148831458192980715, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
+    _name: Key Typing 2
+    _volume: 1
+    _loop: 0
+    _play: 0
+    _sound3D: 0
+  - _audioClip: {fileID: 8300000, guid: 1a484fbfc0e7dee4bbf1d74776c1dfc2, type: 3}
+    _audioMixerGroup: {fileID: -3148831458192980715, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
+    _name: Key Typing 3
+    _volume: 1
+    _loop: 0
+    _play: 0
+    _sound3D: 0
+  - _audioClip: {fileID: 8300000, guid: 61882b6efd4a7314a8c786c9603ed76c, type: 3}
+    _audioMixerGroup: {fileID: -3148831458192980715, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
+    _name: Key Typing 4
+    _volume: 1
+    _loop: 0
+    _play: 0
+    _sound3D: 0
+  - _audioClip: {fileID: 8300000, guid: b9fa9402177cc3b4e901d9bdcf90e814, type: 3}
+    _audioMixerGroup: {fileID: -3148831458192980715, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
+    _name: Key Typing 5
+    _volume: 1
+    _loop: 0
+    _play: 0
+    _sound3D: 0
+  - _audioClip: {fileID: 8300000, guid: d827d55e3b58e9b41a5e29ef1da35dfa, type: 3}
+    _audioMixerGroup: {fileID: -3148831458192980715, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
+    _name: Key Typing 6
+    _volume: 1
+    _loop: 0
+    _play: 0
+    _sound3D: 0
 --- !u!4 &432756236
 Transform:
   m_ObjectHideFlags: 0

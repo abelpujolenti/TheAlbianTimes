@@ -8,6 +8,8 @@ using UnityEngine.UI;
 
 public class MapDisplay : MonoBehaviour
 {
+    private const string MAP_UNFOLD = "Map Unfold";
+
     [SerializeField] private Sprite[] mapStages;
     [SerializeField] private GameObject statsRoot;
     [SerializeField] private GameObject mapRoot;
@@ -22,6 +24,8 @@ public class MapDisplay : MonoBehaviour
     [SerializeField] private float unfoldDelay = 2f;
     [SerializeField] private float foldMinBrightness = .2f;
     [SerializeField] private float showStatsTime = .3f;
+
+    private AudioSource _audioSourceMapUnfold;
 
     private void Start()
     {
@@ -45,6 +49,14 @@ public class MapDisplay : MonoBehaviour
             Debug.Log(ev.Value.id);
             ev.Value.Run();
         }*/
+
+        _audioSourceMapUnfold = gameObject.AddComponent<AudioSource>();
+        (AudioSource, string)[] tuples = {
+                (_audioSourceMapUnfold, MAP_UNFOLD)
+            };
+
+        SoundManager.Instance.SetMultipleAudioSourcesComponents(tuples);
+
     }
 
     private void SetMapStage()

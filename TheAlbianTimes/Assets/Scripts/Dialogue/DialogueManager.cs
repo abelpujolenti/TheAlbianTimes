@@ -12,6 +12,8 @@ namespace Managers
 {
     public class DialogueManager : MonoBehaviour
     {
+        private const int TOTAL_KEY_TYPES_AUDIOS = 7;
+
         [SerializeField] private GameObject root;
         [SerializeField] private Image character;
         [SerializeField] private RawImage background;
@@ -38,6 +40,16 @@ namespace Managers
         {
             ds = DialogueSystem.instance;
             architect = new TextArchitect(ds.container.dialogueText);
+
+            AudioSource[] keyTypingAudioSources = new AudioSource[TOTAL_KEY_TYPES_AUDIOS];
+
+            for (int i = 0; i < TOTAL_KEY_TYPES_AUDIOS; i++)
+            {
+                keyTypingAudioSources[i] = gameObject.AddComponent<AudioSource>();
+            }
+
+            architect.SetKeyTypingAudioSources(keyTypingAudioSources);
+
             architect.speed = 0.5f;
             dialogueOptionButtons = dialogueOptionButtonsRoot.GetComponentsInChildren<DialogueOptionButton>();
 

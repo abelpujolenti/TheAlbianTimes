@@ -5,7 +5,7 @@ using UnityEngine;
 public class MessagePostitData
 {
     public string text;
-    public Color color = new Color(0f, 0f, 0.1f);
+    public Color color = new Color(0f, 0f, 0.05f);
     public int round;
     public CountryEventCondition[] conditions;
 

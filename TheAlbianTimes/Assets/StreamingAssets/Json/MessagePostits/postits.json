@@ -1,10 +1,14 @@
 [
     {
         "round": 1,
-        "text": ""
+        "text": "See those numbers up there? They show our <b>budget</b>, <b>staff</b>, and <b>reputation</b>.\nPay attention to them!"
     },
     {
         "round": 2,
-        "text": ""
+        "text": "Advice from the board: the Xayan information comission has been getting harsh on the Zuania <i>self-governance</i> issue lately. Do NOT rile them up!"
+    },
+    {
+        "round": 2,
+        "text": "Xaya is our biggest market. They're thirsty for news, those Xayans. We do NOT want to lose them."
     }
 ]

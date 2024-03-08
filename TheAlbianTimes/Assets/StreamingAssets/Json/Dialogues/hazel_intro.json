@@ -35,12 +35,12 @@
                 {
                     "id": 0,
                     "text": "It's a really complicated situation. I'd be putting a lot at risk, not just for myself but also for my co-workers.",
-                    "followupLines": 1
+                    "followupLines": 2
                 },
                 {
                     "id": 1,
                     "text": "Something needs to be done. It's my responsibility now.",
-                    "followupLines": 1
+                    "followupLines": 2
                 }
             ]
         },
@@ -48,11 +48,24 @@
             "parts": [
                 {
                     "speaker": "Hazel",
-                    "text": "I know I'm asking for a lot. You worked so much for this job, and I'm asking you to jeopardize it by speaking out.¬¬¬¬ But my family is your family too, and they need help. All of Zuania needs help. The Xayan government is trying to erase our identity, assimilate my people into the misshapen, predatory being they have created, and you can change the outcome."
+                    "text": "I know I'm asking for a lot. You worked so much for this job, and I'm asking you to jeopardize it by speaking out.¬¬¬¬ But my family is your family too, and they need help. All of Zuania needs help."
                 },
                 {
                     "speaker": "Hazel",
-                    "text": "I know I can always trust you to do the right thing.¬¬¬ It's¬¬ terrifying¬¬ seeing every news outlet in the country carry water for Xaya, while they seek to erase our identity.¬¬¬ As their monstrous amalgamation tries to swallow my culture, their tentacles wrap around the media and tighten every day with unvoiced threats of censorship and boycott."
+                    "text": "I know I can always trust you to do the right thing.¬¬¬ It's¬¬ terrifying¬¬ seeing every news outlet in the country carry water for Xaya, while they seek to erase our identity."
+                }
+            ],
+            "options": []
+        },
+        {
+            "parts": [
+                {
+                    "speaker": "Hazel",
+                    "text": "The Xayan government is trying to erase our identity, assimilate my people into the misshapen, predatory being they have created, and you can change the outcome."
+                },
+                {
+                    "speaker": "Hazel",
+                    "text": "As their monstrous amalgamation tries to swallow my culture, their tentacles wrap around the media and tighten every day with unvoiced threats of censorship and boycott."
                 }
             ],
             "options": [

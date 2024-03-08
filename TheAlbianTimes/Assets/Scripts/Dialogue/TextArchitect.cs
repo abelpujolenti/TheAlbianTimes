@@ -111,7 +111,8 @@ namespace NoMonoBehavior
             while (tmpro.maxVisibleCharacters < tmpro.textInfo.characterCount)
             {
                 tmpro.maxVisibleCharacters += hurryUp ? charactersPerCycle * 15 : charactersPerCycle;
-                if (counter % 3 == 0 && tmpro.text[tmpro.maxVisibleCharacters] != '\u200b') 
+                char currChar = tmpro.text[Mathf.Min(tmpro.text.Length - 1, tmpro.maxVisibleCharacters - 1)];
+                if ((counter % 3 == 0 && currChar != '\u200b') || currChar == '.')
                 {
                     PlayRandomAudioSource();
                 }

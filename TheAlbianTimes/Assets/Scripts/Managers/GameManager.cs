@@ -18,7 +18,7 @@ namespace Managers
 
         private StatsDisplay _statsDisplay;
 
-        private int _round = 0;
+        private int _round = 1;
 
         private void Awake()
         {
@@ -116,11 +116,10 @@ namespace Managers
             if (saveManager.SaveFileExists())
             {
                 gameState.playerData = saveManager.save.playerData;
+                return;
             }
-            else
-            {
-                gameState.playerData = new GameStatePlayerData();
-            }
+            
+            gameState.playerData = new GameStatePlayerData();
         }
 
         public void SetStatsDisplay(StatsDisplay statsDisplay)

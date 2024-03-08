@@ -1,6 +1,6 @@
+using System.Collections;
 using Managers;
 using Newtonsoft.Json;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using Workspace.Editorial;

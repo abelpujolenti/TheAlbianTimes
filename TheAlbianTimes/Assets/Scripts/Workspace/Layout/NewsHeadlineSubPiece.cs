@@ -78,9 +78,10 @@ namespace Workspace.Layout
         {
             _rotate = false;
             _newsHeadlinePiece.SetTransferDrag(true);
+            _newsHeadlinePiece.OnCrossMidPoint();
             _newsHeadlineToTransferDrag.SetTransferDrag(false);
                 
-            _newsHeadlinePiece.gameObject.SetActive(false);  
+            _newsHeadlinePiece.gameObject.SetActive(false);
             
             _gameObjectToTransferDrag.transform.position = mousePosition;
             _gameObjectToTransferDrag.gameObject.SetActive(true);

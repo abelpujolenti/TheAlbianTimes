@@ -1,0 +1,62 @@
+{
+    "name":"albia_farmers_terkani_importation",
+    "firstRound":5,
+    "duration":10,
+    "priority":0.30,
+    "extraBias": true,
+    "leniency":3,
+    "type": 4,
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 5,
+            "key": "reputation",
+            "value": 0.1
+        }
+    ],
+    "biases": [
+        {
+            "name": "TRIVIAL",
+            "description": "Dismiss the protests as irrelevant.",
+            "headline": "Albian farmer protests have less attendance than expected by organizers.",
+            "text": "   The Peaceful Agrarian Group, a party which mostly comprises southern male farmers aged 50-65, has organized a series of protests against Terkani fruits and vegetables importations. While the association claimed that Lorán, Cabel and Istona would be 'paralyzed by farmers', all protests had an attendance below 200 people, which represents only 0.08% of Albia's farmers.\n    The Peaceful Agrarian Group is frequently dubbed 'the anti-Mencabrona party', as most of its requests revolve around the supermarket chain. This overly specific focus can be considered the cause for its low impact on Albian politics.",        
+            "additionalConsequences": []
+        },
+        {
+            "name": "UNGRATEFUL",
+            "description": "Farmers do not acknowledge that Albia relies on Terkan because national agriculture is not enough.",
+            "headline": "Albian farmers publicly express their ungratefulness for Terkan's support.",
+            "text": "   The Peaceful Agrarian Group, a party which mostly comprises southern male farmers aged 50-65, has organized a series of protests in Albian cities including Lorán, Cabel and Istona. The farmers ask for an end of Terkani fruits and vegetables importation, claiming that they are undermining their production.\n    The Albian government has asserted that reliance on Terkan is needed to compensate the low productivity level of the Albian industry. 'Without Terkani products, Albia would enter a period of food shortage', stated Alejandro Castejón, Minister of Agriculture.",
+            "additionalConsequences": [
+                {
+                    "country": 5,
+                    "key": "reputation",
+                    "value": 0.05
+                },
+                {
+                    "country": 1,
+                    "key": "reputation",
+                    "value": 0.05
+                }
+            ]
+        },
+        {
+            "name": "RIGHTEOUS",
+            "description": "Defend the farmers and criticize Albia's reliance on Terkan.",
+            "headline": "Farmers denounce Albia's preference for Terkani goods over national production.",
+            "text":"    The Peaceful Agrarian Group, together with Albia's main farmer unions, have organized a series of protests in Albian cities including Lorán, Cabel and Istona. The farmers denounce Albia's reliance on Terkani fruit and vegetables importation, as that undermines their production.\n    The protesters have condemned Mencabrona, Albia's main supermarked chain, for importing 78% of its products, 81% in the case of fruits and vegetables. The Peaceful Agrarian Group argues that the government is not applying import restrictions because of its economic connections with the company.",
+            "additionalConsequences": [
+                {
+                    "country": 5,
+                    "key": "reputation",
+                    "value": -0.2
+                },
+                {
+                    "country": 5,
+                    "key": "albia_scp_gov_instability",
+                    "value": 0.05
+                }
+            ]
+        }
+    ]
+}

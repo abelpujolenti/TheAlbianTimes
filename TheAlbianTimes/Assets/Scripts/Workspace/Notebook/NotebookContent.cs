@@ -72,26 +72,30 @@ namespace Workspace.Notebook
         public string countryName;
         public string flagImagePath;
         public string description;
-        public string history;
     }
 
     public class CountryContentPage1 : BaseNotebookPage
     {
         public string countryName;
-        public Dictionary <string, List<string>> importantPeople;
-        public Dictionary <string, List<string>> organizations;
+        public string history;
     }
 
     public class CountryContentPage2 : BaseNotebookPage
     {
         public string countryName;
-        public List<string> ongoingConflicts;
+        public Dictionary <string, List<string>> importantPeople;
     }
 
     public class CountryContentPage3 : BaseNotebookPage
     {
         public string countryName;
-        public Dictionary <int, int> reputationHistory;
+        public Dictionary <string, List<string>> organizations;
+    }
+
+    public class CountryContentPage4 : BaseNotebookPage
+    {
+        public string countryName;
+        public List<string> ongoingConflicts;
     }
     
     public class InternationalContent : BaseNotebookContent

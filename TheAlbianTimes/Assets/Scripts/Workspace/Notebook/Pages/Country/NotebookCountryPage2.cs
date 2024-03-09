@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -7,7 +8,7 @@ namespace Workspace.Notebook.Pages.Country
     public class NotebookCountryPage2 : NotebookContentPage
     {
         [SerializeField] private TextMeshProUGUI _countryName;
-        [SerializeField] private TextMeshProUGUI _ongoingConflicts;
+        [SerializeField] private TextMeshProUGUI _importantPeople;
 
         public override void FillPage(BaseNotebookPage baseNotebookPage)
         {
@@ -25,15 +26,21 @@ namespace Workspace.Notebook.Pages.Country
 
             _countryName.text = page.countryName;
             
-            FillOngoingConflicts(page);
+            FillImportantPeople(page);
         }
 
-        private void FillOngoingConflicts(CountryContentPage2 page)
+        private void FillImportantPeople(CountryContentPage2 page)
         {
-            foreach (string conflict in page.ongoingConflicts)
+            foreach (KeyValuePair<string, List<string>> importantPerson in page.importantPeople)
             {
-                _ongoingConflicts.text += "\u2022" + conflict + "\n";
+                _importantPeople.text += "\u2022 " + importantPerson.Key + "\n";
+
+                foreach (string activity in importantPerson.Value)
+                {
+                    _importantPeople.text += "\t- " + activity + "\n";
+                }
             }
         }
+
     }
 }

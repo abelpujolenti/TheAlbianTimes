@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 6180460998344287444}
   - component: {fileID: 4110196034630751480}
   - component: {fileID: 8444562852491736496}
-  - component: {fileID: 3397032183359496808}
+  - component: {fileID: 7564131528774079535}
   m_Layer: 5
   m_Name: CountryPage2Content
   m_TagString: Untagged
@@ -215,7 +215,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &3397032183359496808
+--- !u!114 &7564131528774079535
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -228,7 +228,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _countryName: {fileID: 2787421240315388920}
-  _ongoingConflicts: {fileID: 9188813736267929419}
+  _importantPeople: {fileID: 9188813736267929419}
 --- !u!1 &9056901432691962727
 GameObject:
   m_ObjectHideFlags: 0
@@ -241,7 +241,7 @@ GameObject:
   - component: {fileID: 356551398915964393}
   - component: {fileID: 26503898822159317}
   m_Layer: 5
-  m_Name: OngoingConflictsTitle
+  m_Name: ImportantPeopleTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -295,7 +295,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Ongoing Conflicts
+  m_text: Important People
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -376,7 +376,7 @@ GameObject:
   - component: {fileID: 9209299611756582217}
   - component: {fileID: 9188813736267929419}
   m_Layer: 5
-  m_Name: OngoingConflicts
+  m_Name: ImportantPeople
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

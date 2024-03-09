@@ -18,7 +18,7 @@ namespace Managers
 
         private StatsDisplay _statsDisplay;
 
-        private int _round = 1;
+        private int _round = 2;
 
         private void Awake()
         {

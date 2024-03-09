@@ -1,0 +1,67 @@
+{
+    "name":"suoka_tech_growth",
+    "firstRound":7,
+    "duration":1,
+    "priority":1,
+    "leniency":0,
+    "type": 4,
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 7,
+            "key": "reputation",
+            "value": 0.08
+        }
+    ],
+    "biases": [
+        {
+            "name": "RESEARCH",
+            "description": "Highlight technological advances.",
+            "headline": "Suoka maintains tech research excellence.",
+            "text": "   Since its foundation 40 years ago, Suoka has promoted tech research as a pillar of its economy. The country's strong and competitive tech sector has lead to major advances such as the telegraph, which generated a historical leap in national and international communications. WireLive, a Suokan company, developed the Sagari character coding system for telegraphs.\n    PunchaCode, who has the patents for many punched card machines, was ranked Suoka's fastest growing company, with a yearly growth of 53%. Punched card machines are frequenly dubbed as 'the tech revolution of the century', as they have changed business, bureaucracy, education and daily life.\n    During the last quarter, PunchaCode anounced that they are working in a pattern generator for their Encrypter Card Machine. Little is known about the project, other than the company's intention to 'focus on education'.",        
+            "additionalConsequences": [
+                {
+                    "country": 6,
+                    "key": "reputation",
+                    "value": -0.01
+                }
+            ]
+        },
+        {
+            "name": "PROSPERITY",
+            "description": "Focus on describing the companies' economic growth.",
+            "headline": "Suoka stays ahead in global tech leadership.",
+            "text": "   Suokan companies have been shaping the future since the country's foundation 40 years ago, by developing successful products like advanced telegraphs or the revolutionary punched card machines.\n    Suoka has the world's most valuable tech sector, which generates 26.3% of its GDP thanks to high-profile companies like WireLive and PunchaCode. These companies have yearly growths of 21% and 53%, respectively. The country also holds some of the top direct investors, who have backed several tech research projects in Xaya, such as the development of balloon catherers.\n    However, other sectors have been growing recently, especially private security and education.",        
+            "additionalConsequences": [
+                {
+                    "country": 2,
+                    "key": "reputation",
+                    "value": 0.05
+                },
+                {
+                    "country": 7,
+                    "key": "reputation",
+                    "value": 0.03
+                }
+            ]
+        },
+        {
+            "name": "INEQUALITY",
+            "description": "Mention class diferences and labor conflicts.",
+            "headline": "Poverty and inequality: the hidden side of Suoka's economic growth.",
+            "text": "   Since the Madia-Suoka split that took place 40 years ago, Suoka has been considered one of the world's economic leaders, especially in the tech sector, which generates 26.3% of the country's GDP.\n    Suoka's state capitalism might have turned Suoka into an economically powerful agent, but it has brought intense wealth and income inequality, as class differences continue to broaden. According to a study by International Action for Human Rights, 15.2% of Suokans live in poverty.\n    Besides, WireLive and PunchaCode, two of the country's high-profile companies, are systematically involved in labour conflicts. Factory workers have repeatedly asked for wage increases in addition to denouncing their work conditions: Suoka's tech industry is entirely reliant on exploitation.",        
+            "additionalConsequences": [
+                {
+                    "country": 6,
+                    "key": "reputation",
+                    "value": 0.05
+                },
+                {
+                    "country": 7,
+                    "key": "reputation",
+                    "value": -0.25
+                }
+            ]
+        }
+    ]
+}

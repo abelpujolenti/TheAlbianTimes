@@ -1,0 +1,61 @@
+{
+    "name":"madia_diplomat_rekka_vanishmnent",
+    "firstRound":5,
+    "duration":1,
+    "priority":1,
+    "leniency":0,
+    "type": 3,
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 8,
+            "key": "reputation",
+            "value": -0.15
+        }
+    ],
+    "biases": [
+        {
+            "name": "ABDUCTION",
+            "description": "Rekka has probably kidnapped the Minister to carry out a ritual.",
+            "headline": "Madia's Minister of Foreign Affairs vanished in Rekka.",
+            "text": "   Claudia binti Naadir, Minister of Foreign Affairs, has gone missing after embarking to Rekka. Following Madia's repeated petitions, Rekka agreed to hold a diplomatic meeting between the two countries, which would be the first on behalf of the island. The appointment with Yan Oceanus -Rekka's political and spiritual leader- was planned for yesterday evening, but Naadir did not appear. In press declarations, the Madian government has asserted that Naadir did not notify her absence.\n    Little is known about the locals other than their commitment to their peculiar religious beliefs, and Rekka's silence is fueling speculation about their involvement on the case. The hypothesis of Naadir being abducted by Rekkans should not be discarded.",        
+            "additionalConsequences": []
+        },
+        {
+            "name": "AFFAIR",
+            "description": "Rekka collaborates with Madia to help the Minister disappear from public life.",
+            "headline": "Madia's Minister of Foreign Affairs vanishes after affair with subordinate.",
+            "text": "   Claudia binti Naadir, Minister of Foreign Affairs, has gone missing after embarking to Rekka to meet Yan Oceanus, the island's political and spiritual leader. In press declarations, the Madian government has not given any satisfactory explanations.\n    The disappearance of Naadir could be an escape orchestrated by the Madian government. Lately, there have been whispers about Naadir's affair with Marianne binti Dhareef, her Technical General Secretary. Is their party, the United Solidarity League, trying to avoid a scandal? In recent years, Madia's historically ruling party has started to decline, and yet another extramarital scandal could deliver the final blow.\n    If that is the case, Rekka would be an accomplice, as Naadir was photographed boarding the ship.",        
+            "additionalConsequences": [
+                {
+                    "country": 8,
+                    "key": "reputation",
+                    "value": 0.2
+                },
+                {
+                    "country": 6,
+                    "key": "reputation",
+                    "value": -0.08
+                }
+            ]
+        },
+        {
+            "name": "ELIMINATION",
+            "description": "Accuse the Madian government of getting rid of the Minister.",
+            "headline": "Madia's Minister of Foreign Affairs vanishes after Lamar speech.",
+            "text": "   Claudia binti Naadir, Minister of Foreign Affairs, has gone missing after embarking to Rekka to meet Yan Oceanus, the island's political and spiritual leader. In press declarations, the Madian government has not given any satisfactory explanations.\n    Last week, Naadir distanced herself from her party's official line of thought, in a speech in which she supported 'Lamar's right to self-determination'. The United Solidarity League has never endorsed Lamar's possible annexion to Suoka but, recently, the ruling party's beliefs have become more extreme.\n    As Minister of Foreign Affairs, Naadir was a threat to Madian unitarism, so her disappearance should be understood as an 'elimination' executed by the Madian government. If that is the case, Rekka would be an accomplice, as Naadir was photographed boarding the ship.",        
+            "additionalConsequences": [
+                {
+                    "country": 0.8,
+                    "key": "reputation",
+                    "value": 0.1
+                },
+                {
+                    "country": 6,
+                    "key": "reputation",
+                    "value": -0.12
+                }
+            ]
+        }
+    ]
+}

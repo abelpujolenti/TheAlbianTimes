@@ -1,9 +1,9 @@
 {
-    "name":"madia_capital_independentist_protests",
-    "firstRound":11,
-    "duration":3,
-    "priority":0.65,
-    "leniency":4,
+    "name":"madia_capital_annexionist_protests",
+    "firstRound":7,
+    "duration":1,
+    "priority":1,
+    "leniency":1,
     "type": 0,
     "imagePath": null,
     "consequences": [
@@ -32,7 +32,7 @@
             "additionalConsequences": []
         },
         {
-            "name": "LAMARIAN PEOPLE",
+            "name": "LAMARIAN",
             "description": "The protest asks for a referendum on the annexion to Suoka as dialogue with Madia has not been fruitful.",
             "headline": "Lamarian people claim their rights in a massive protest.",
             "text": "   Thousands of people marched through Madia's capital to express their desire to leave Madia and be annexed to Suoka. \n    The demands call for an increase in security measures and improved healthcare plan for power plant workers after an unfortunate accident last month.\n    The Lamarian National Commitee called a protest following Madia's denial of the possibility of a referendum by shielding itself in the Constitutional Pact -signed 40 years ago- which does not allow this fundamental right.\n    Dialogue with Madia has not been fruitful, but they will continue to assert their their right of self-determination.",        

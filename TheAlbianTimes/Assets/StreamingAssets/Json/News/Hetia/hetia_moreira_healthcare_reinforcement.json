@@ -1,9 +1,9 @@
 {
     "name":"hetia_moreira_healthcare_reinforcement",
-    "firstRound":11,
+    "firstRound":5,
     "duration":1,
     "priority":1,
-    "leniency":3,
+    "leniency":0,
     "type": 0,
     "imagePath": null,
     "consequences": [

@@ -1,0 +1,56 @@
+{
+    "name":"dalme_reznicek_wonder_studios_investment",
+    "firstRound":7,
+    "duration":6,
+    "priority":0.4,
+    "leniency":3,
+    "type": 4,
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 4,
+            "key": "reputation",
+            "value": -0.06
+        }
+    ],
+    "biases": [
+        {
+            "name": "IDEOLOGY",
+            "description": "The billionaire's involvement will result in a harmful ideological shift.",
+            "headline": "Wonder Studios got a new investor: the reactionary Vladimir Reznicek.",
+            "text": "   Wonder Studios, the company behind superhero international blockbuster series like The Nuclear Vulture and The Famous Smasher, has just announced its newest investor: Vladimir Reznicek. Recnizek, former CEO of Alphon and possessor of a net worth of 93.5 billion Uscha, is known for his endorsement of ultraconservative politicians and his close relationship with the Zinovak family.\n    His direct involvement in the company will surely bring an ideological shift to the movies. As more than 45% of Wonder Studios' viewers are aged 16-24, this could contribute to the rise of the alt-right not only in Dalmese youth, but also worldwide.",        
+            "additionalConsequences": [ ]
+        },
+        {
+            "name": "ECONOMY",
+            "description": "The successful businessman will contribute to funding the Wonder's next blockbusters.",
+            "headline": "Billionaire Vladimir Reznicek: Wonder Studios' next investor.",
+            "text": "   Wonder Studios, one of Dalme's companies with a highest market cap, has just announced Vladimir Reznicek as its newest investor. Reznicek officially retired 7 years ago, when he left his position as CEO of Alphon, a company specializing in sports performance analysis. Over his 53 year-long career, he accumulated a fortune of 93.5 billion Uscha.\n    Reznicek has now made his return to business by investing 125 milion Uscha in Wonder Studios' next project, a series of 3 films in which 31-year-old star Karda Ansenyev will reprise his role as superhero Nuclear Vulture. The films are expected to gross over 3 billion Uscha.",        
+            "additionalConsequences": [
+                {
+                    "country": 4,
+                    "key": "reputation",
+                    "value": 0.2
+                }
+            ]
+        },
+        {
+            "name": "RIVALRY",
+            "description": "Dalme is determined to outperform Madia with its superhero movies.",
+            "headline": "Vladimir Reznicek: Dalme's next move in entertaiment war against Madia.",
+            "text": "   Wonder Studios has had an important role in Dalme's entertainment war against Madia, by grossing more than 27.5 billion Uscha over its 15 years of existence. Its cinematic universe has had a prominent influence in worldwide pop culture, with superhero series like The Nuclear Vulture and The Famous Smasher.\n    Even if Madia failed to outperform Dalme in superhero films, its period drama Uptown Abbey grossed more than 100 million Uscha with only one season. In order not to lose ground against Madia, Dalme has decided to boost its budget through billionaire Vladimir Reznicek, who was announced as the company's newest investor.",        
+            "additionalConsequences": [
+                {
+                    "country": 4,
+                    "key": "reputation",
+                    "value": 0.2
+                },
+                {
+                    "country": 6,
+                    "key": "reputation",
+                    "value": -0.07
+                }
+            ]
+        }
+    ]
+}

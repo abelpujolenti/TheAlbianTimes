@@ -1,1 +1,69 @@
-{"countriesContent":[{"countryName":"A","flagImagePath":"A","description":"A","history":"A","importantPeople":{"Abel":["Putero","Programador"]},"organizations":{"MiCasa":["Tiene ratas con camuflaje","Jeje son tacticas"]},"ongoingConflicts":["La rata toca los huevos","Los niños quieren amotinarse"],"reputationHistory":null}]}
+{"countriesContent":[
+    {
+        "countryName":"Albia",
+        "flagImagePath":"A",
+        "description":"Population: 40,000,000.\nA liberal democracy with an average social welfare system. Ruled by simple majority by the Social Coalition Party, a center-left party that has been in the government for a decade. Generally a quiet country, as there are no ongoing severe conflicts. Nonetheless, Albia has strong labour and student movements that have proven in the past their capacity to paralyze the country. The economy is stable, but not particularly prominent.\nEven if there have been significant social advancements (specially regarding women's and LGBTQ+ rights), in Albia modernity still lives together with traditional values, so tensions constantly arise.",
+        "history":"Established 300 years ago as the Kingdom of Albia, as a result of the unification of the kingdoms of Alcara, Albaya and Partilla. 200 years after its foundation, it became a parliamentary monarchy. It was ruled by the Ariza family for more than 250 years, until the monarchy was abolished 40 years ago after the king's heir was revealed to be an illegitimate child. The Albian monarchy was brought into disrepute (as the nation's symbol fell), and the country easily transitioned to a republic.\nOver the years, Albia has strengthened its social welfare system, especially during the last decade, in which the SCP has been in the government. At the same time, it has made a place for itself in international capitalist economy.",
+        "importantPeople":{
+            "Manuel Valverde":["President (SCP)."],
+            "María José Vargas":["Minister of Interior (SCP)."],
+            "Miguel Ángel Peralta":["Minister of Education (SCP)."],
+            "Francisco Jiménez":["Minister of Economy (SCP)."],
+            "Alejandro Castejón":["Minister of Agriculture (SCP)."],
+            "Juan Mantilla":["Minister of Industry (SCP)."],
+            "Ignacio Sopena":["Founder and president of the CMP."],
+            "Emilio Sorapio":["Founder and vicepresident of the CMP."],
+            "Julio de Oro-Pulido":["Secretary of the CMP."],
+            "Desiree Díaz":["Leader of aCxP."],
+            "Pablo Templos":["One of aCxP's lead members."],
+            "José Enrique Aznar":["Leader of aCxP's youth wing."],
+            "Francisco José de Ariza":["Former prince of Albia."],
+            "Gorka Bielsa":["Member of Albia's economic elite."],
+            "Soraya Álferez":["Journalist and talk-show host from Telecuatro."],
+            "Sonia Krett":["Journalist and talk-show host from Antena Dos."]
+            },
+        "organizations":{
+            "Social Coalition Party (SCP)":["Center-left party.","Ruling political party."],
+            "Democratic Alliance (DA)":["Right party.","Main opposition."],
+            "Liberal Worker's Party (LWP)":["Eclectic blend of former members of different right and left-wing parties."],
+            "Constitutional Motherland Party (CMP)":["Far-right party.","Gaining more support."],
+            "A la Cerneda por el Pueblo (aCxP)":["Left to far-left party.","Emerged from student organizations."],
+            "Peaceful Agrarian Group (PAG)":["Left party.","Minoritarian."],
+            "Progressist Students Federation (PSF)":["Main student union.","Incubator of aCxP."],
+            "Mencabrona":["Supermarket chain that has stores all over Albia."]
+            },
+        "ongoingConflicts":[
+            "Rise of the far right.",
+            "Return of the former prince.",
+            "Low results in education.",
+            "Farmer protests over importation."],
+        "reputationHistory":null
+    },
+    {
+        "countryName":"Dalme",
+        "flagImagePath":"A",
+        "description":"Population: 4,600,000.\nA liberal democracy with an aggressive capitalist economy, the richest country of the nine. Has a strong social welfare system, but only available to citizens, that is, children of two citizens. Non-citizens do not have the right to vote nor a guaranteed minimum income, and are not exempted from paying taxes.\nRecent population decline, together with a progressive awareness of racism, has led political parties and a portion of the population to push to abolish bloodline requirements for citizenship. Dalme's strict bloodline requirements and obsession with preserving racial purity has led to the emergence of a negative stereotype about inbreeding.\nDalme are the world's military and espionage leaders, so they are the target of conspiracy theories about their domain of the world through their intelligence industry. Both the government and the private sector are trying to improve the country's abysmal image abroad, throught the promotion of tourism and the acquisition of cultural and sports capital.",
+        "history":"...",
+        "importantPeople":{
+            "Techomir Janiszewski":["President."],
+            "Lyubka Celko":["Chief Executive of Government Communications."],
+            "Vladimir Reznicek":["Retired businessman and billionaire."],
+            "Marija Reznicek":["Daughter of Vladimir Reznicek and wife of Albia's former prince."],
+            "Zinovak Family":["Influent family of politicians and businessmen."],
+            "Borik Shevchenko":["CEO of Wonder Studios."],
+            "Karda Anseyev":["Actor associated with Wonder Studios. Plays the role of The Nuclear Vulture."],
+            "Dušan Jelinek":["Actor associated with Wonder Studios. Player the role of The Famous Smasher."]
+            },
+        "organizations":{
+            "United for Equality (U4E)":["Center to center-left party.","One of the main (and strongest) oppositors to bloodline requirements."],
+            "Wonder Studios":["Dalme's main entertainment production company.","Focuses on its superhero cinematic universe."],
+            "Alphon":["Company specializing in sports performance analysis."]
+            },
+        "ongoingConflicts":[
+            "Opposition to bloodline citizenship requirements.",
+            "Attempts to improve the country's abismal image abroad.",
+            "Conflict with Terkan over the Moon."],
+        "reputationHistory":null
+    }
+
+]}

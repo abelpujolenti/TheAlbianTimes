@@ -13,6 +13,7 @@ namespace Managers
         [SerializeField] GameObject biasContainer;
         void Start()
         {
+            EventsManager.OnChangeNewsHeadlineContent -= LockBiases;
             switch (GameManager.Instance.GetRound())
             {
                 case 0:
@@ -44,7 +45,9 @@ namespace Managers
 
         private void LockBiases()
         {
+            if (GameManager.Instance.GetRound() != 0) return;
             biasContainer.GetComponent<Canvas>().enabled = false;
+            EventsManager.OnChangeNewsHeadlineContent -= LockBiases;
         }
 
         private IEnumerator RevealMail()

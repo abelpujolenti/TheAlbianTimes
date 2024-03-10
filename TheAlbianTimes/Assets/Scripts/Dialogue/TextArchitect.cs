@@ -189,7 +189,7 @@ namespace NoMonoBehavior
                 tuples[i] = (_audioSourceKeyTypings[i], KEY + i);
             }
 
-            SoundManager.Instance.SetMultipleAudioSourcesComponents(tuples);
+            //SoundManager.Instance.SetMultipleAudioSourcesComponents(tuples);
         }
 
         void PlayRandomAudioSource() 

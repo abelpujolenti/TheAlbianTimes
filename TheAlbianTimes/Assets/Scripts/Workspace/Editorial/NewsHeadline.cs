@@ -771,5 +771,10 @@ namespace Workspace.Editorial
         {
             return (Vector2)transform.position - position;
         }
+
+        private void OnDestroy()
+        {
+            UnsubscribeEvents();
+        }
     }
 }

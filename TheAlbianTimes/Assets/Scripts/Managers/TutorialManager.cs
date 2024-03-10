@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Workspace.Editorial;
 
 namespace Managers
@@ -10,10 +12,9 @@ namespace Managers
         [SerializeField] GameObject mail;
         [SerializeField] GameObject statOverlay;
         [SerializeField] GameObject folder;
-        [SerializeField] GameObject biasContainer;
+        [SerializeField] Canvas biasContainerCanvas;
         void Start()
         {
-            EventsManager.OnChangeNewsHeadlineContent -= LockBiases;
             switch (GameManager.Instance.GetRound())
             {
                 case 0:
@@ -46,7 +47,7 @@ namespace Managers
         private void LockBiases()
         {
             if (GameManager.Instance.GetRound() != 0) return;
-            biasContainer.GetComponent<Canvas>().enabled = false;
+            biasContainerCanvas.enabled = false;
             EventsManager.OnChangeNewsHeadlineContent -= LockBiases;
         }
 
@@ -74,6 +75,10 @@ namespace Managers
             Transform st = statOverlay.transform;
             yield return TransformUtility.SetPositionCoroutine(st, st.position + new Vector3(0f, 4f, 0f), st.position, .75f);
         }
-    
+
+        private void OnDestroy()
+        {
+            EventsManager.OnChangeNewsHeadlineContent -= LockBiases;
+        }
     }
 }

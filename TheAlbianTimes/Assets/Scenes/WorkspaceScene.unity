@@ -5320,7 +5320,7 @@ MonoBehaviour:
   mail: {fileID: 4231553890334802680}
   statOverlay: {fileID: 477263766}
   folder: {fileID: 429106995}
-  biasContainer: {fileID: 1808916514}
+  biasContainerCanvas: {fileID: 1808916517}
 --- !u!4 &1493753360
 Transform:
   m_ObjectHideFlags: 0

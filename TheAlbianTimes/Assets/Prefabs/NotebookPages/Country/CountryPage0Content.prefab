@@ -231,7 +231,6 @@ MonoBehaviour:
   _countryName: {fileID: 2787421240315388920}
   _flagImage: {fileID: 7829694349049613569}
   _description: {fileID: 9188813736267929419}
-  _history: {fileID: 0}
 --- !u!1 &8009106521237036039
 GameObject:
   m_ObjectHideFlags: 0
@@ -478,7 +477,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 10.866095}
+  m_AnchoredPosition: {x: 0, y: 8.4}
   m_SizeDelta: {x: 0, y: 33.4677}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9209299611756582217
@@ -536,8 +535,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 7
-  m_fontSizeBase: 7
+  m_fontSize: 5
+  m_fontSizeBase: 5
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

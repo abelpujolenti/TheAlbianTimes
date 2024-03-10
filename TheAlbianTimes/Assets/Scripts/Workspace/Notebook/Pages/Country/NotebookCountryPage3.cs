@@ -33,7 +33,7 @@ namespace Workspace.Notebook.Pages.Country
         {
             foreach (KeyValuePair<string, List<string>> organization in page.organizations)
             {
-                _organizations.text += "\u2022 " + organization.Key + "\n";
+                _organizations.text += "\u2022 <b>" + organization.Key + "</b>\n";
 
                 foreach (string activity in organization.Value)
                 {

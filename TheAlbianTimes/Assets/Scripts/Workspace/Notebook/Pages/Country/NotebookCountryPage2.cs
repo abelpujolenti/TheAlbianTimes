@@ -33,12 +33,14 @@ namespace Workspace.Notebook.Pages.Country
         {
             foreach (KeyValuePair<string, List<string>> importantPerson in page.importantPeople)
             {
-                _importantPeople.text += "\u2022 " + importantPerson.Key + "\n";
+                _importantPeople.text += "\u2022 <b>" + importantPerson.Key + "</b> :";
 
                 foreach (string activity in importantPerson.Value)
                 {
-                    _importantPeople.text += "\t- " + activity + "\n";
+                    _importantPeople.text += " " + activity;
                 }
+
+                _importantPeople.text += '\n';
             }
         }
 

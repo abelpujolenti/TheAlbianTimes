@@ -33,7 +33,7 @@ namespace Workspace.Notebook.Pages.Country
         {
             foreach (string conflict in page.ongoingConflicts)
             {
-                _ongoingConflicts.text += "\u2022" + conflict + "\n";
+                _ongoingConflicts.text += "\u2022 " + conflict + "\n";
             }
         }
     }

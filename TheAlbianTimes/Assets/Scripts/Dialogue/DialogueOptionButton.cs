@@ -85,8 +85,7 @@ public class DialogueOptionButton : MonoBehaviour
         GameObject iconObject = FakeInstantiate.Instantiate(transform, position);
         Image iconImage = iconObject.AddComponent<Image>();
         iconImage.sprite = s;
-        float iconSize = 12f;
-        float scale = iconSize / s.pixelsPerUnit;
+        float scale = 10f;
         iconImage.rectTransform.sizeDelta = new Vector2(s.textureRect.width * scale, s.textureRect.height * scale);
         iconImage.color = iconColor;
 

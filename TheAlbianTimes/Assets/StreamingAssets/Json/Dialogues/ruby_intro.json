@@ -8,59 +8,10 @@
             "parts": [
                 {
                     "speaker": "Ruby",
-                    "text": "Hey dad. I was thinking about traveling with some friends to Hetia. Do you think you could lend me some money? Please..."
+                    "text": "Hey dad. "
                 }
             ],
-            "options": [
-                {
-                    "id": 0,
-                    "text": "Definitely not. You are not going anywhere.",
-                    "followupLines": 1
-                },
-                {
-                    "id": 1,
-                    "text": "Sure. How much do you need?",
-                    "followupLines": 1
-                },
-                {
-                    "id": 2,
-                    "text": "I'll discuss it with your mother.",
-                    "followupLines": 1
-                }
-            ]
-        },
-        {
-            "parts": [
-                {
-                    "speaker": "Ruby",
-                    "text": "God, you don't need to be so harsh! Whatever, I'll find my own way."
-                },
-                {
-                    "speaker": "Ruby",
-                    "text": "Really?! Thank you so much, let me check and I'll let you know."
-                },
-                {
-                    "speaker": "Ruby",
-                    "text": "I really want to go, I swear I'm responsible enough... Please!"
-                }
-            ],
-            "options": [
-                {
-                    "id": 0,
-                    "text": "You can't speak to me like that! You are grounded for today.",
-                    "followupLines": 1
-                },
-                {
-                    "id": 1,
-                    "text": "I hope it's reasonable.",
-                    "followupLines": 1
-                },
-                {
-                    "id": 2,
-                    "text": "We only care about your safety.",
-                    "followupLines": 1
-                }
-            ]
+            "options": []
         }
     ]
 }

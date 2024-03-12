@@ -135,7 +135,10 @@ namespace Workspace.Editorial
             
             EventsManager.OnCrossMidPointWhileScrolling += GetGameObjectToTransferDrag;
             EventsManager.OnCheckDistanceToMouse += DistanceToPosition;
-            EventsManager.OnStartEndDrag(true);
+            if (_chosenBiasIndex == _selectedBiasIndex)
+            {
+                EventsManager.OnStartEndDrag(true);   
+            }
 
             if (!_newsHeadlinePieceToTransferDrag.GetTransferDrag())
             {
@@ -143,7 +146,7 @@ namespace Workspace.Editorial
             }
             
             SlideToRotation(0f, 0.1f);
-            
+
             _newsFolder.SetDragging(true);
 
             _audioSourceGrabPaper.Play();
@@ -157,7 +160,7 @@ namespace Workspace.Editorial
             }
             
             PointerEventData pointerData = (PointerEventData)data;
-            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(pointerData.position);
+            Vector2 mousePosition = _camera.ScreenToWorldPoint(pointerData.position);
 
             if (mousePosition.x > _midPoint)
             {

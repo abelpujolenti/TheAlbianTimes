@@ -9,6 +9,7 @@ public class DialogueOptionButton : MonoBehaviour
 {
     [SerializeField] DialogueManager dialogueManager;
     private TextMeshProUGUI buttonText;
+    private TextMeshProUGUI moodText;
     private Image buttonBackground;
     private DialogueOption data;
     private bool conditionsFulfilled = true;
@@ -17,7 +18,8 @@ public class DialogueOptionButton : MonoBehaviour
 
     private void OnEnable()
     {
-        buttonText = GetComponentInChildren<TextMeshProUGUI>();
+        buttonText = transform.Find("text").GetComponent<TextMeshProUGUI>();
+        moodText = transform.Find("mood").GetComponent<TextMeshProUGUI>();
         buttonBackground = GetComponent<Image>();
         if (backgroundColor == new Color(0f, 0f, 0f, 0f))
         {
@@ -37,6 +39,7 @@ public class DialogueOptionButton : MonoBehaviour
     {
         this.data = data;
         SetButtonText(data.text);
+        SetMoodText(data.mood);
         SetEnabledOption();
         CheckConditions();
         if (!conditionsFulfilled)
@@ -107,6 +110,12 @@ public class DialogueOptionButton : MonoBehaviour
     public void SetButtonText(string text)
     {
         buttonText.text = text;
+    }
+
+    public void SetMoodText(string text)
+    {
+        if (text == null) text = "";
+        moodText.text = text;
     }
 
     private void CheckConditions()

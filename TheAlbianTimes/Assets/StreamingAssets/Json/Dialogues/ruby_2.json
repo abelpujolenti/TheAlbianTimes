@@ -15,11 +15,13 @@
                 {
                     "id": 0,
                     "text": "Everyone has their own story, with whichever villain suits them.",
+                    "mood": "[Grounded]",
                     "followupLines": 1
                 },
                 {
                     "id": 1,
                     "text": "I'm glad you're forming your own opinions!",
+                    "mood": "[Validating]",
                     "followupLines": 1
                 }
             ]
@@ -35,16 +37,19 @@
                 {
                     "id": 0,
                     "text": "You are right. The terkani people were stuck in a sinking ship, and the officers were the first to jump.",
+                    "mood": "[Serious]",
                     "followupLines": 1
                 },
                 {
                     "id": 1, 
                     "text": "Borders and societal splits are complicated. You can't pick a side.",
+                    "mood": "[Unsure]",
                     "followupLines": 1
                 },
                 {
                     "id": 2,
                     "text": "They made a better society, with the best standard of living in the world. That means something, too.",
+                    "mood": "[Serious]",
                     "followupLines": 1
                 }
             ]
@@ -77,11 +82,13 @@
                 {
                     "id": 0,
                     "text": "Getting involved in that culture at such a young age is dangerous. Your mother would be worried.",
+                    "mood": "[Scared]",
                     "followupLines": 1
                 },
                 {
                     "id": 1, 
                     "text": "It's good to partake in student action, but make sure to be safe.",
+                    "mood": "[Encouraging]",
                     "followupLines": 1
                 }
             ]

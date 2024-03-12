@@ -15,11 +15,13 @@
                 {
                     "id": 0,
                     "text": "Of course! You know I'm proud that you chose to follow in my footsteps as a journalist.",
+                    "mood": "[Proud]",
                     "followupLines": 1
                 },
                 {
                     "id": 1,
                     "text": "Part of becoming an accomplished journalist is figuring out how to do things yourself!",
+                    "mood": "[Encouraging]",
                     "followupLines": 1
                 }
             ]
@@ -32,18 +34,20 @@
                 },
                 {
                     "speaker": "Ruby",
-                    "text": "Come on¬n¬n¬n¬n¬n dad, I'm still in my first year. Just like you just started your new job! I'm sure you needed some help at the beginning too."
+                    "text": "Come on¬n¬n¬n¬n¬ dad, I'm still in my first year. Just like you just started your new job! I'm sure you needed some help at the beginning too."
                 }
             ],
             "options": [
                 {
                     "id": 0,
                     "text": "Alright, what do you need?",
+                    "mood": "[Helpful]",
                     "followupLines": 0
                 },
                 {
                     "id": 1,
                     "text": "This won't be free, you'll be helping around the house tomorrow.",
+                    "mood": "[Acquiescing]",
                     "followupLines": 0
                 }
             ]
@@ -69,16 +73,19 @@
                 {
                     "id": 0,
                     "text": "The only thing that matters is how it affects people's everyday lives.",
+                    "mood": "[Analytical]",
                     "followupLines": 0
                 },
                 {
                     "id": 1,
                     "text": "Their pride is bruised.",
+                    "mood": "[Mysterious]",
                     "followupLines": 0
                 },
                 {
                     "id": 2,
                     "text": "You're starting to sound like your mother.",
+                    "mood": "[Joking]",
                     "followupLines": 0
                 }
             ] 
@@ -94,11 +101,13 @@
                 {
                     "id": 0,
                     "text": "Focus on the substance. What are the key events they utilise in their discourse?",
+                    "mood": "[Helpful]",
                     "followupLines": 1
                 },
                 {
                     "id": 1,
                     "text": "Pay special attention to the rethoric. How do they bend the facts to suit the narrative?",
+                    "mood": "[Helpful]",
                     "followupLines": 1
                 }
             ] 

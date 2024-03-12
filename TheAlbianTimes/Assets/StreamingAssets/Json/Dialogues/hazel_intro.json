@@ -15,11 +15,13 @@
                 {
                     "id": 0,
                     "text": "Oh dear, that's terrifying!",
+                    "mood": "[Sympathetic]",
                     "followupLines": 0
                 },
                 {
                     "id": 1,
                     "text": "I might not be equipped to process that after the day I've had...",
+                    "mood": "[Overwhelmed]",
                     "followupLines": 0
                 }
             ]
@@ -35,11 +37,13 @@
                 {
                     "id": 0,
                     "text": "It's a really complicated situation. I'd be putting a lot at risk, not just for myself but also for my co-workers.",
+                    "mood": "[Scared]",
                     "followupLines": 2
                 },
                 {
                     "id": 1,
                     "text": "Something needs to be done. It's my responsibility now.",
+                    "mood": "[Resolute]",
                     "followupLines": 2
                 }
             ]
@@ -71,12 +75,14 @@
             "options": [
                 {
                     "id": 0,
-                    "text": "[Say nothing]",
+                    "text": "(Say nothing)",
+                    "mood": "[Confused]",
                     "followupLines": 0
                 },
                 {
                     "id": 1,
                     "text": "I understand, honey.",
+                    "mood": "[Reaffirming]",
                     "followupLines": 0
                 }
             ]

@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using Countries;
 using Managers;
@@ -35,18 +36,39 @@ public class DialogueOptionButton : MonoBehaviour
         }
     }
 
-    public void Setup(DialogueOption data)
+    public void Setup(DialogueOption data, float duration, float delay)
     {
         this.data = data;
-        SetButtonText(data.text);
-        SetMoodText(data.mood);
         SetEnabledOption();
         CheckConditions();
         if (!conditionsFulfilled)
         {
             SetDisabledOption();
         }
+        StartCoroutine(SetupCoroutine(duration, delay));
+    }
 
+    private IEnumerator SetupCoroutine(float t, float delay)
+    {
+        SetButtonText("");
+        SetMoodText("");
+        float finalHeight = buttonBackground.rectTransform.sizeDelta.y;
+        buttonBackground.rectTransform.sizeDelta = new Vector2(buttonBackground.rectTransform.sizeDelta.x, 0f);
+
+        yield return new WaitForSeconds(delay);
+
+        float elapsedT = 0f;
+        while (elapsedT <= t)
+        {
+            float h = Mathf.Lerp(0f, finalHeight, Mathf.Pow((elapsedT / t), .5f));
+            buttonBackground.rectTransform.sizeDelta = new Vector2(buttonBackground.rectTransform.sizeDelta.x, h);
+            yield return new WaitForFixedUpdate();
+            elapsedT += Time.fixedDeltaTime;
+        }
+        buttonBackground.rectTransform.sizeDelta = new Vector2(buttonBackground.rectTransform.sizeDelta.x, finalHeight);
+
+        SetButtonText(data.text);
+        SetMoodText(data.mood);
         DisplayConditions();
     }
 

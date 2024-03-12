@@ -46,11 +46,13 @@
                 {
                     "id": 0,
                     "text": "If I'm being honest, not really...",
+                    "mood": "[Confused]",
                     "followupLines": 2
                 },
                 {
                     "id": 1,
                     "text": "Of course, nothing I haven't seen before.",
+                    "mood": "[Confident]",
                     "followupLines": 2
                 }
             ]

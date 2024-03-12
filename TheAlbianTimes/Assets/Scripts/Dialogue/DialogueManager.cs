@@ -181,7 +181,9 @@ namespace Managers
             for (int i = 0; i < selectedDialogue.lines[currentLine].options.Length && i < dialogueOptionButtons.Length; i++)
             {
                 dialogueOptionButtons[i].gameObject.SetActive(true);
-                dialogueOptionButtons[i].Setup(selectedDialogue.lines[currentLine].options[i]);
+                float duration = architect.hurryUp ? .08f : .3f;
+                float delay = duration * 0.8f * i;
+                dialogueOptionButtons[i].Setup(selectedDialogue.lines[currentLine].options[i], duration, delay);
             }
         }
 

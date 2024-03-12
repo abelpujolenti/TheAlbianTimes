@@ -1,0 +1,103 @@
+{
+    "name": "ruby_2",
+    "firstRound":4,
+    "duration":1,
+    "priority":1,
+    "lines": [
+        {
+            "parts": [
+                {
+                    "speaker": "Ruby",
+                    "text": "Dad... Even now that I'm done working on that essay, I just can't stop reading about Hetia. The more I look into it, the more I feel like they're the bad ones in the story."
+                }
+            ],
+            "options": [
+                {
+                    "id": 0,
+                    "text": "Everyone has their own story, with whichever villain suits them.",
+                    "followupLines": 1
+                },
+                {
+                    "id": 1,
+                    "text": "I'm glad you're forming your own opinions!",
+                    "followupLines": 1
+                }
+            ]
+        },
+        {
+            "parts": [
+                {
+                    "speaker": "Ruby",
+                    "text": "But isn't it terrible? A bunch of powerful people just accumulated a ton of wealth, and then instead of trying to help, they took the nicest pieces of land and made their own country. Did you know Terkan lost over 40% of their drinkable water supply?"
+                }
+            ],
+            "options": [
+                {
+                    "id": 0,
+                    "text": "You are right. The terkani people were stuck in a sinking ship, and the officers were the first to jump.",
+                    "followupLines": 1
+                },
+                {
+                    "id": 1, 
+                    "text": "Borders and societal splits are complicated. You can't pick a side.",
+                    "followupLines": 1
+                },
+                {
+                    "id": 2,
+                    "text": "They made a better society, with the best standard of living in the world. That means something, too.",
+                    "followupLines": 1
+                }
+            ]
+        },
+        {
+            "parts": [
+                {
+                    "speaker": "Ruby",
+                    "text": "I knew you would understand. I've tried discussing it with some of my classmates but many of them are too s¬c¬a¬r¬e¬d¬ to take any action. That's why they'll never be as good as you."
+                },
+                {
+                    "speaker": "Ruby",
+                    "text": "R¬e¬a¬l¬l¬y¬? You can't stay neutral in a situation like this! Waving it away because it's complicated won't improve anything for anyone. I feel like you're only saying that to stay out of trouble."
+                },
+                {
+                    "speaker": "Ruby",
+                    "text": "Does that justify h¬o¬w¬ they did it? What good are some shiny buildings if everything around them is grimy and bleak. They could have made it work and made life better for so many people!"
+                }
+            ],
+            "options": []
+        },
+        {
+            "parts": [
+                {
+                    "speaker": "Ruby",
+                    "text": "At the end of the day, nothing will get better unless a lot of people get together and start doing something about it. I heard last month's student protests had record-breaking attendance. I want to grab a bunch of people from my class and organise something."
+                }
+            ],
+            "options": [
+                {
+                    "id": 0,
+                    "text": "Getting involved in that culture at such a young age is dangerous. Your mother would be worried.",
+                    "followupLines": 1
+                },
+                {
+                    "id": 1, 
+                    "text": "It's good to partake in student action, but make sure to be safe.",
+                    "followupLines": 1
+                }
+            ]
+        },
+        {
+            "parts": [
+                {
+                    "speaker": "Ruby",
+                    "text": "I'm at the perfect age to try changing things in the world. I'm sure mom, of all people, would understand.¬¬¬ Thanks for listening anyway."
+                },
+                {
+                    "speaker": "Ruby",
+                    "text": "I will, dad. Thanks for listening anyway. I'll leave you to your super important boss stuff."
+                }
+            ],
+            "options": []
+        }
+    ]
+}

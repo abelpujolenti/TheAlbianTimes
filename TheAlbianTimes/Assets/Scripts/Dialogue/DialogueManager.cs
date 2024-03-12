@@ -19,7 +19,7 @@ namespace Managers
         [SerializeField] private RawImage background;
         [SerializeField] private TextMeshProUGUI speakerText;
         [SerializeField] private GameObject dialogueOptionButtonsRoot;
-        [SerializeField] private GameObject continueButton;
+        [SerializeField] private GameObject continueText;
 
         DialogueSystem ds;
         TextArchitect architect;
@@ -60,7 +60,7 @@ namespace Managers
                 return;
             }
 
-            continueButton.SetActive(false);
+            continueText.SetActive(false);
             HideOptions();
 
             SetSpeakerText(selectedDialogue.lines[0].parts[0].speaker);
@@ -72,9 +72,14 @@ namespace Managers
         {
             Event e = Event.current;
             if (!e.isMouse && !e.isKey || !(e.type == EventType.KeyDown) && !(e.type == EventType.MouseDown)) return;
-            if (!architect.isBuilding) return;
-
-            architect.hurryUp = true;
+            if (architect.isBuilding)
+            {
+                architect.hurryUp = true;
+            }
+            else if (continueText.activeSelf)
+            {
+                DisplayNextLine();
+            }
         }
 
         private IEnumerator StartDialogueCoroutine()
@@ -124,7 +129,7 @@ namespace Managers
                 GameManager.Instance.sceneLoader.SetScene("WorkspaceScene");
                 return;
             }
-            continueButton.SetActive(false);
+            continueText.SetActive(false);
             HideOptions();
 
             displayNextLineCoroutine = StartCoroutine(DisplayNextLineCoroutine());
@@ -150,7 +155,7 @@ namespace Managers
             }
             else
             {
-                continueButton.SetActive(true);
+                continueText.SetActive(true);
             }
         }
 

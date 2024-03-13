@@ -614,7 +614,6 @@ MonoBehaviour:
   - {fileID: 1335854524}
   beamSpeed: 40
   beamSpacing: 4.09
-  scrolling: 0
 --- !u!1 &73068550
 GameObject:
   m_ObjectHideFlags: 0
@@ -1841,6 +1840,8 @@ MonoBehaviour:
   _masterVolumeMixer: MasterSound
   _SFXVolumeMixer: SFXSound
   _musicVolumeMixer: MusicSound
+  _SFXAudioMixerGroup: {fileID: -3148831458192980715, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
+  _MusicAudioMixerGroup: {fileID: -5493082629166276277, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
   _sounds:
   - _audioClip: {fileID: 8300000, guid: b975c0c98fd9591488fac2874c4ebac3, type: 3}
     _audioMixerGroup: {fileID: -3148831458192980715, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
@@ -2076,6 +2077,27 @@ MonoBehaviour:
   - _audioClip: {fileID: 8300000, guid: d827d55e3b58e9b41a5e29ef1da35dfa, type: 3}
     _audioMixerGroup: {fileID: -3148831458192980715, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
     _name: Key Typing 6
+    _volume: 1
+    _loop: 0
+    _play: 0
+    _sound3D: 0
+  - _audioClip: {fileID: 8300000, guid: f4b909e07b81bfc4987a7463808624d5, type: 3}
+    _audioMixerGroup: {fileID: -3148831458192980715, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
+    _name: Drop Mold
+    _volume: 1
+    _loop: 0
+    _play: 0
+    _sound3D: 0
+  - _audioClip: {fileID: 8300000, guid: db9378be1ce0e1444b516b5082266c47, type: 3}
+    _audioMixerGroup: {fileID: -3148831458192980715, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
+    _name: Print Newspaper
+    _volume: 1
+    _loop: 0
+    _play: 0
+    _sound3D: 0
+  - _audioClip: {fileID: 8300000, guid: 98fd6c5a92513db47a65f335b2fc426f, type: 3}
+    _audioMixerGroup: {fileID: -3148831458192980715, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
+    _name: Enter Office
     _volume: 1
     _loop: 0
     _play: 0
@@ -6203,8 +6225,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 0
-  hoverable: 0
+  hoverable: 1
   clickable: 1
+  _image: {fileID: 1795147232}
 --- !u!1 &1808916514
 GameObject:
   m_ObjectHideFlags: 0

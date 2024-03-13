@@ -50,7 +50,7 @@ namespace Workspace.Layout
                 (_audioSourceDropMold, DROP_MOLD)
             };
             
-//            SoundManager.Instance.SetMultipleAudioSourcesComponents(tuples);
+            SoundManager.Instance.SetMultipleAudioSourcesComponents(tuples);
 
             for (int i = 0; i < beams.Length; i++)
             {

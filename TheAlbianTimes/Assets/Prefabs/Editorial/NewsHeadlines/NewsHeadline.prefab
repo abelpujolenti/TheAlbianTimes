@@ -105,6 +105,7 @@ MonoBehaviour:
   maxAngularUnscaledVelocity: 1.5
   spinFactor: 30
   grabRotationSnapBackTime: 0.2
+  _rotate: 1
   _newsHeadlinePieceToTransferDrag: {fileID: 0}
   _headlineText: {fileID: 1873051352297877941}
   _contentText: {fileID: 1029335324776157074}
@@ -387,7 +388,7 @@ MonoBehaviour:
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
-  m_paragraphSpacing: 0
+  m_paragraphSpacing: 30
   m_charWidthMaxAdj: 0
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4

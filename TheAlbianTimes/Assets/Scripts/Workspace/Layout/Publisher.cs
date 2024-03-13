@@ -64,7 +64,7 @@ namespace Workspace.Layout
             PublishingManager.Instance.Publish(_newspaperMold.GetNewsHeadlines().ToList());
             GameManager.Instance.AddToRound();
 
-            StartCoroutine(EndRoundCoroutine(3.5f));
+            StartCoroutine(EndRoundCoroutine(3.2f));
         }
 
         private IEnumerator EndRoundCoroutine(float t)

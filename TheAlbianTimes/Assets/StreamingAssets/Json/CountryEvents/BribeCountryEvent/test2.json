@@ -1,6 +1,14 @@
 {
     "id": "test_bribe",
-    "bribeAmount": 10000,
+    "bribeAmount": 5000,
     "priority": 1,
-    "triggerCountry": 4
+    "triggerCountry": 2,
+    "conditions": [
+        {
+            "entityId": 2,
+            "field": "reputation",
+            "predicate": 2,
+            "value": 0.3
+        }
+    ]
 }

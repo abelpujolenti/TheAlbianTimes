@@ -39,6 +39,29 @@ namespace Managers
             InitScenes();
         }
 
+        private void OnGUI()
+        {
+            Event e = Event.current;
+            if (!e.isKey || !(e.type == EventType.KeyDown)) return;
+
+            if (e.keyCode == KeyCode.F1)
+            {
+                _round = 1;
+                sceneLoader.SetScene("WorkspaceScene");
+            }
+            else if (e.keyCode == KeyCode.F2)
+            {
+                _round = 2;
+                sceneLoader.SetScene("WorkspaceScene");
+            }
+            else if (e.keyCode == KeyCode.F3)
+            {
+                _round = 3;
+                sceneLoader.SetScene("WorkspaceScene");
+            }
+        }
+
+
         private void InitData()
         {
             gameState = new GameState();

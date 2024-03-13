@@ -15,11 +15,13 @@
                 {
                     "id": 0,
                     "text": "Your guess is correct. Nice to meet you, are you the one who left some notes on my desk?",
+                    "mood": "[Friendly]",
                     "followupLines": 0
                 },
                 {
                     "id": 1,
                     "text": "Uh, hey nice to meet you. Are you a reporter? You don't quite look the part...",
+                    "mood": "[Surprised]",
                     "followupLines": 0
                 }
             ]
@@ -44,11 +46,13 @@
                 {
                     "id": 0,
                     "text": "If I'm being honest, not really...",
+                    "mood": "[Confused]",
                     "followupLines": 2
                 },
                 {
                     "id": 1,
                     "text": "Of course, nothing I haven't seen before.",
+                    "mood": "[Confident]",
                     "followupLines": 2
                 }
             ]
@@ -99,11 +103,13 @@
                 {
                     "id": 0,
                     "text": "I shall stir them. Like a big pot.",
+                    "mood": "[Joking]",
                     "followupLines": 1
                 },
                 {
                     "id": 1,
                     "text": "That is quite a lot of reading...",
+                    "mood": "[Tired]",
                     "followupLines": 1
                 }
             ]

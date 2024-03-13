@@ -56,6 +56,7 @@ public class DialogueOption
 {
     public int id;
     public string text;
+    public string mood;
     public int followupLines;
     public CountryEventCondition[] countryConditions;
     public CharacterEventCondition[] characterConditions;

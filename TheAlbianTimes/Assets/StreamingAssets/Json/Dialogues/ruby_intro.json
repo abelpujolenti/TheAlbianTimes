@@ -8,10 +8,123 @@
             "parts": [
                 {
                     "speaker": "Ruby",
-                    "text": "Hey dad. "
+                    "text": "Hey dad. Um¬m¬m¬m¬ could you give me a hand with my uni project? It's due in a couple days. You know, I don't mean to abuse my privileged position bu¬u¬u¬t I need some guidance!"
+                }
+            ],
+            "options": [
+                {
+                    "id": 0,
+                    "text": "Of course! You know I'm proud that you chose to follow in my footsteps as a journalist.",
+                    "mood": "[Proud]",
+                    "followupLines": 1
+                },
+                {
+                    "id": 1,
+                    "text": "Part of becoming an accomplished journalist is figuring out how to do things yourself!",
+                    "mood": "[Encouraging]",
+                    "followupLines": 1
+                }
+            ]
+        },
+        {
+            "parts": [
+                {
+                    "speaker": "Ruby",
+                    "text": "I knew you wouldn't be able to say no ha¬ha¬ha¬ha¬ha. I'm joking. I'll make it quick since I'm sure you're busy with your new job."
+                },
+                {
+                    "speaker": "Ruby",
+                    "text": "Come on¬n¬n¬n¬n¬ dad, I'm still in my first year. Just like you just started your new job! I'm sure you needed some help at the beginning too."
+                }
+            ],
+            "options": [
+                {
+                    "id": 0,
+                    "text": "Alright, what do you need?",
+                    "mood": "[Helpful]",
+                    "followupLines": 0
+                },
+                {
+                    "id": 1,
+                    "text": "This won't be free, you'll be helping around the house tomorrow.",
+                    "mood": "[Acquiescing]",
+                    "followupLines": 0
+                }
+            ]
+        },
+        {
+            "parts": [
+                {
+                    "speaker": "Ruby",
+                    "text": "So¬o¬o¬o I was assigned the Hetia-Terkan conflict for my contemporary politics class. Specifically, I need to investigate the Terkani media's messaging around their economic falloff. You know, the¬ story¬ they tell.¬¬¬ About how their country went to crap."
                 }
             ],
             "options": []
+
+        },
+        {
+            "parts": [
+                {
+                    "speaker": "Ruby", 
+                    "text": "It's strange, but also fascinating. They want people to think they're an all-devouring leviathan, but they're just a crumbling living fossil."
+                }
+            ],
+            "options": [
+                {
+                    "id": 0,
+                    "text": "The only thing that matters is how it affects people's everyday lives.",
+                    "mood": "[Analytical]",
+                    "followupLines": 0
+                },
+                {
+                    "id": 1,
+                    "text": "Their pride is bruised.",
+                    "mood": "[Mysterious]",
+                    "followupLines": 0
+                },
+                {
+                    "id": 2,
+                    "text": "You're starting to sound like your mother.",
+                    "mood": "[Joking]",
+                    "followupLines": 0
+                }
+            ] 
+        },
+        {
+            "parts": [
+                {
+                    "speaker": "Ruby", 
+                    "text": "Alright... Any actual words of wisdom on what I should write?"
+                }
+            ],
+            "options": [
+                {
+                    "id": 0,
+                    "text": "Focus on the substance. What are the key events they utilise in their discourse?",
+                    "mood": "[Helpful]",
+                    "followupLines": 1
+                },
+                {
+                    "id": 1,
+                    "text": "Pay special attention to the rethoric. How do they bend the facts to suit the narrative?",
+                    "mood": "[Helpful]",
+                    "followupLines": 1
+                }
+            ] 
+        },        
+        {
+            "parts": [
+                {
+                    "speaker": "Ruby",
+                    "text": "The key events... Got it. Thanks for all the help, dad!"
+                },
+                {
+                    "speaker": "Ruby",
+                    "text": "The way they bend what happened... Got it. Thanks for all the help, dad!"
+                }
+            ],
+            "options": []
+
         }
     ]
 }

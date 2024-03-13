@@ -53,6 +53,7 @@ public class CountryEventManager : MonoBehaviour
 
     public CountryEvent PopFirstEvent()
     {
+        if (currentEvents.Count == 0) return null;
         CountryEvent e;
         e = currentEvents.Last().Value;
         currentEvents.RemoveAt(currentEvents.Count - 1);

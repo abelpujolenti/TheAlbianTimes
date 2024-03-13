@@ -47,6 +47,11 @@ public class PublishingManager : MonoBehaviour
         PlayerDataManager.Instance.UpdateReputation(currentGlobalReputation);
 
         GenerateCountryEvents();
+        CountryEvent currEvent = CountryEventManager.Instance.PopFirstEvent();
+        if (currEvent != null)
+        {
+            currEvent.Run();
+        }
     }
 
     private void GenerateCountryEvents()

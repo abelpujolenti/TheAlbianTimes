@@ -100,6 +100,16 @@ namespace Managers
                 {_SFXAudioMixerGroup, (sound) => PlayAudioOnOlderOrPausedAudioSource(_SFXAudioSources, sound)},
                 {_MusicAudioMixerGroup, (sound) => PlayAudioOnOlderOrPausedAudioSource(_MusicAudioSources, sound)}
             };
+
+            _audioSourcesPlayTimestamps = new Dictionary<AudioSource, DateTime>();
+            foreach (AudioSource audioSource in _SFXAudioSources)
+            {
+                _audioSourcesPlayTimestamps.Add(audioSource, DateTime.Now);
+            }
+            foreach (AudioSource audioSource in _MusicAudioSources)
+            {
+                _audioSourcesPlayTimestamps.Add(audioSource, DateTime.Now);
+            }
         }
 
         private void Start()

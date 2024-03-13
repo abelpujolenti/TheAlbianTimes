@@ -6,6 +6,12 @@ using UnityEngine.Audio;
 
 namespace Managers
 {
+    public enum AudioMixers
+    {
+        SFX,
+        MUSIC
+    } 
+
     public class SoundManager : MonoBehaviour
     {
         private static SoundManager _instance;
@@ -40,6 +46,7 @@ namespace Managers
         private Dictionary<string, Sound> _soundsDictionary;
         private Dictionary<AudioMixerGroup, Action<Sound>> _playSoundFunctions;
         private Dictionary<AudioSource, DateTime> _audioSourcesPlayTimestamps;
+        private Dictionary<AudioMixers, AudioMixerGroup> _audioMixersGroups;
 
         private AudioSource[] _SFXAudioSources;
         private AudioSource[] _MusicAudioSources;
@@ -110,6 +117,12 @@ namespace Managers
             {
                 _audioSourcesPlayTimestamps.Add(audioSource, DateTime.Now);
             }
+
+            _audioMixersGroups = new Dictionary<AudioMixers, AudioMixerGroup>
+            {
+                { AudioMixers.SFX, _SFXAudioMixerGroup},
+                { AudioMixers.MUSIC, _MusicAudioMixerGroup}
+            };
         }
 
         private void Start()
@@ -140,7 +153,7 @@ namespace Managers
             Sound sound = _soundsDictionary[name];
             
             sound.SetAudioSource(audioSource);
-            sound.GetAudioSource().outputAudioMixerGroup = sound.GetAudioMixerGroup();
+            sound.GetAudioSource().outputAudioMixerGroup = _audioMixersGroups[sound.GetAudioMixerGroup()];
             sound.GetAudioSource().clip = sound.GetClip();
             sound.GetAudioSource().volume = sound.GetVolume();
             sound.GetAudioSource().loop = sound.GetLoop();
@@ -163,7 +176,8 @@ namespace Managers
         public void PlaySound(string soundName)
         {
             Sound sound = _soundsDictionary[soundName];
-            _playSoundFunctions[sound.GetAudioMixerGroup()](sound);
+            AudioMixerGroup audioMixerGroup = _audioMixersGroups[sound.GetAudioMixerGroup()];
+            _playSoundFunctions[audioMixerGroup](sound);
         }
 
         private void PlayAudioOnOlderOrPausedAudioSource(AudioSource[] audioSources, Sound sound)

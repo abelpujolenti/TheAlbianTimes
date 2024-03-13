@@ -19,6 +19,5 @@ public class BribeCountryEvent : CountryEvent
 
         mailToSend.Add(EnvelopeContentType.BRIBE, mailContainer);
         MailManager.Instance.SendEnvelopes(mailToSend);
-        Debug.Log(bribeAmount);
     }
 }

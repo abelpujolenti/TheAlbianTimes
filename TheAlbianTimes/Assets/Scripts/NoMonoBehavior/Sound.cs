@@ -1,6 +1,6 @@
 using System;
+using Managers;
 using UnityEngine;
-using UnityEngine.Audio;
 
 namespace NoMonoBehavior
 {
@@ -10,7 +10,7 @@ namespace NoMonoBehavior
         private AudioSource _audioSource;
         [SerializeField] private AudioClip _audioClip;
 
-        [SerializeField] private AudioMixerGroup _audioMixerGroup;
+        [SerializeField] private AudioMixers _audioMixerGroup;
         
         [SerializeField] private string _name;
     
@@ -42,12 +42,12 @@ namespace NoMonoBehavior
             _audioClip = audioClip;
         }
 
-        public void SetAudioMixerGroup(AudioMixerGroup audioMixerGroup)
+        public void SetAudioMixerGroup(AudioMixers audioMixerGroup)
         {
             _audioMixerGroup = audioMixerGroup;
         }
 
-        public AudioMixerGroup GetAudioMixerGroup()
+        public AudioMixers GetAudioMixerGroup()
         {
             return _audioMixerGroup;
         }

@@ -83,7 +83,7 @@ namespace Managers
                 sceneLoader.SetScene("WorkspaceScene");
                 return;
             }
-            else if (SceneManager.GetSceneByName("StatsScene").isLoaded)
+            if (SceneManager.GetSceneByName("StatsScene").isLoaded)
             {
                 sceneLoader.SetScene("StatsScene");
                 return;

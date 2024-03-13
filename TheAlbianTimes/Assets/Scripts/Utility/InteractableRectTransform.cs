@@ -71,6 +71,7 @@ namespace Utility
             if (clickable)
             {
                 AddEventTrigger(EventTriggerType.PointerClick, PointerClick);   
+                AddEventTrigger(EventTriggerType.PointerDown, PointerDown);   
                 AddEventTrigger(EventTriggerType.PointerUp, PointerUp);   
             }
         }
@@ -125,6 +126,10 @@ namespace Utility
         }
 
         protected virtual void PointerUp(BaseEventData data)
+        {
+        }
+
+        protected virtual void PointerDown(BaseEventData data)
         {
         }
 

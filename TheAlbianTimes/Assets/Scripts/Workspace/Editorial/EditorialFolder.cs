@@ -3,6 +3,7 @@ using Managers;
 using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.UI;
+using Utility;
 using Workspace.Editorial;
 
 public class EditorialFolder : MonoBehaviour

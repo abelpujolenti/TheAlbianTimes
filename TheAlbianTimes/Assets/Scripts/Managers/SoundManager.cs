@@ -6,6 +6,12 @@ using UnityEngine.Audio;
 
 namespace Managers
 {
+    public enum AudioMixers
+    {
+        SFX,
+        MUSIC
+    } 
+
     public class SoundManager : MonoBehaviour
     {
         private static SoundManager _instance;
@@ -22,23 +28,36 @@ namespace Managers
         private const String AMBIENT = "Ambiente";
         private const String BOTON_MENU = "BotonMenu";
 
+        private const int NUM_SFX_AUDIO_SOURCES = 6;
+        private const int NUM_MUSIC_AUDIO_SOURCES = 3;
         private const int MUTE_VOLUME_VALUE = -80;
 
         [SerializeField] private AudioMixer _audioMixer;
         
-        [SerializeField] private String _masterVolumeMixer;
-        [SerializeField] private String _SFXVolumeMixer;
-        [SerializeField] private String _musicVolumeMixer;
+        [SerializeField] private string _masterVolumeMixer;
+        [SerializeField] private string _SFXVolumeMixer;
+        [SerializeField] private string _musicVolumeMixer;
+        
+        [SerializeField] private AudioMixerGroup _SFXAudioMixerGroup;
+        [SerializeField] private AudioMixerGroup _MusicAudioMixerGroup;
         
         [SerializeField] private Sound[] _sounds;
 
-        private Dictionary<String, Sound> _soundsDictionary;
+        private Dictionary<string, Sound> _soundsDictionary;
+        private Dictionary<AudioMixerGroup, Action<Sound>> _playSoundFunctions;
+        private Dictionary<AudioSource, DateTime> _audioSourcesPlayTimestamps;
+        private Dictionary<AudioMixers, AudioMixerGroup> _audioMixersGroups;
+
+        private AudioSource[] _SFXAudioSources;
+        private AudioSource[] _MusicAudioSources;
 
         private void Awake()
         {
             if (_instance == null)
             {
                 _instance = this;
+                
+                InitializeAudioSourcesArrays();
                 
                 FillSoundsDictionary();
                 
@@ -48,11 +67,30 @@ namespace Managers
                     PlayerPrefs.SetFloat(PLAYERS_PREFS_SFX_VOLUME_VALUE, 1);
                     PlayerPrefs.SetFloat(PLAYERS_PREFS_MUSIC_VOLUME_VALUE, 1);
                 }
+
                 DontDestroyOnLoad(gameObject);
             }
             else
             {
                 Destroy(_instance);
+            }
+        }
+
+        private void InitializeAudioSourcesArrays()
+        {
+            _SFXAudioSources = new AudioSource[NUM_SFX_AUDIO_SOURCES];
+            _MusicAudioSources = new AudioSource[NUM_MUSIC_AUDIO_SOURCES];
+
+            for (int i = 0; i < NUM_SFX_AUDIO_SOURCES; i++)
+            {
+                _SFXAudioSources[i] = gameObject.AddComponent<AudioSource>();
+                _SFXAudioSources[i].outputAudioMixerGroup = _SFXAudioMixerGroup;
+            }
+
+            for (int i = 0; i < NUM_MUSIC_AUDIO_SOURCES; i++)
+            {
+                _MusicAudioSources[i] = gameObject.AddComponent<AudioSource>();
+                _MusicAudioSources[i].outputAudioMixerGroup = _MusicAudioMixerGroup;
             }
         }
 
@@ -63,6 +101,28 @@ namespace Managers
             {
                 _soundsDictionary.Add(sound.GetName(), sound);
             }
+
+            _playSoundFunctions = new Dictionary<AudioMixerGroup, Action<Sound>>
+            {
+                {_SFXAudioMixerGroup, (sound) => PlayAudioOnOlderOrPausedAudioSource(_SFXAudioSources, sound)},
+                {_MusicAudioMixerGroup, (sound) => PlayAudioOnOlderOrPausedAudioSource(_MusicAudioSources, sound)}
+            };
+
+            _audioSourcesPlayTimestamps = new Dictionary<AudioSource, DateTime>();
+            foreach (AudioSource audioSource in _SFXAudioSources)
+            {
+                _audioSourcesPlayTimestamps.Add(audioSource, DateTime.Now);
+            }
+            foreach (AudioSource audioSource in _MusicAudioSources)
+            {
+                _audioSourcesPlayTimestamps.Add(audioSource, DateTime.Now);
+            }
+
+            _audioMixersGroups = new Dictionary<AudioMixers, AudioMixerGroup>
+            {
+                { AudioMixers.SFX, _SFXAudioMixerGroup},
+                { AudioMixers.MUSIC, _MusicAudioMixerGroup}
+            };
         }
 
         private void Start()
@@ -93,7 +153,7 @@ namespace Managers
             Sound sound = _soundsDictionary[name];
             
             sound.SetAudioSource(audioSource);
-            sound.GetAudioSource().outputAudioMixerGroup = sound.GetAudioMixerGroup();
+            sound.GetAudioSource().outputAudioMixerGroup = _audioMixersGroups[sound.GetAudioMixerGroup()];
             sound.GetAudioSource().clip = sound.GetClip();
             sound.GetAudioSource().volume = sound.GetVolume();
             sound.GetAudioSource().loop = sound.GetLoop();
@@ -111,6 +171,48 @@ namespace Managers
             {
                 sound.GetAudioSource().Play();
             }
+        }
+
+        public void PlaySound(string soundName)
+        {
+            Sound sound = _soundsDictionary[soundName];
+            AudioMixerGroup audioMixerGroup = _audioMixersGroups[sound.GetAudioMixerGroup()];
+            _playSoundFunctions[audioMixerGroup](sound);
+        }
+
+        private void PlayAudioOnOlderOrPausedAudioSource(AudioSource[] audioSources, Sound sound)
+        {
+            AudioSource audioSourceToPlaySound = audioSources[0];
+
+            if (audioSourceToPlaySound.isPlaying)
+            {
+                AudioSource currentAudioSource;
+                
+                DateTime oldestAudioSourcePlayTime = _audioSourcesPlayTimestamps[audioSourceToPlaySound];
+                DateTime currentAudioSourcePlayTime;
+
+                for (int i = 1; i < audioSources.Length; i++)
+                {
+                    currentAudioSource = audioSources[i];
+                    if (!currentAudioSource.isPlaying)
+                    {
+                        audioSourceToPlaySound = currentAudioSource;
+                        break;
+                    }
+                    
+                    currentAudioSourcePlayTime = _audioSourcesPlayTimestamps[currentAudioSource];
+                    if (currentAudioSourcePlayTime < oldestAudioSourcePlayTime)
+                    {
+                        oldestAudioSourcePlayTime = currentAudioSourcePlayTime;
+                    }
+                }
+            }
+
+            audioSourceToPlaySound.clip = sound.GetClip();
+            audioSourceToPlaySound.volume = sound.GetVolume();
+            audioSourceToPlaySound.loop = sound.GetLoop();
+            audioSourceToPlaySound.Play();
+            _audioSourcesPlayTimestamps[audioSourceToPlaySound] = DateTime.Now;
         }
 
         public void SetVolumePrefs(String playerPrefsVolumeName, float volumeValue)

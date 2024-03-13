@@ -10,14 +10,14 @@
     "biases": [
         {
             "name": "NOT SURE",
-            "description": "",
+            "description": "Hint: The <u>selected spin</u> is underlined and the article has a streak <color=#40FF30>matching its color</color>.\nBonus Hint: A summary of each editorial spin will appear here.",
             "headline": "Welcome to your new position at The Albian Times!",
             "text": "   This is a mock article to show you the ropes!\n    Every day, we (the writing team) will send you as many <font=courbd SDF><color=#701f1f>articles<font=cour SDF></color> as we can. It's your job as the editor to choose which <font=courbd SDF><color=#701f1f>spin<font=cour SDF></color> to give the facts presented in each article.\n    Choose a <font=courbd SDF><color=#701f1f>spin<font=cour SDF></color> by using the <font=courbd SDF><color=#701f1f>markers<font=cour SDF></color> next to the folder. Try using the <font=courbd SDF><color=#1f1f90>blue marker<font=cour SDF></color>.\n\n    P.S.: The more writers you hire, the more article choice you will get!",        
             "additionalConsequences": []
         },
         {
             "name": "GOT IT",
-            "description": "Hint: Once you've chosen an editorial spin, drag the article up to the tray. It will be returned once re-written.",
+            "description": "Hint: Once you've chosen an editorial spin, drag the article up to the <u>tray</u>. It will be re-written and returned.",
             "headline": "Good job, you are a natural!",
             "text": "   Once an article is ready to publish, drag it over to the <font=courbd SDF><color=#701f1f>Layout<font=cour SDF></color> section. There, you can arrange each piece in order to fit as many articles as possible in one page.\n    You can move between the <font=courbd SDF><color=#701f1f>Editorial<font=cour SDF></color> and <font=courbd SDF><color=#701f1f>Layout<font=cour SDF></color> sections at any time by using the buttons at the bottom right or by just dragging.",        
             "additionalConsequences": []

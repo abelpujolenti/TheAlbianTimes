@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -13,6 +14,9 @@ namespace Managers
     public class DialogueManager : MonoBehaviour
     {
         private const int TOTAL_KEY_TYPES_AUDIOS = 7;
+        private const String CLICK_BUTTON_SOUND = "Click Button";
+
+        private AudioSource _audioSourceChangeBias;
 
         [SerializeField] private GameObject root;
         [SerializeField] private Image character;
@@ -49,6 +53,13 @@ namespace Managers
             }
 
             architect.SetKeyTypingAudioSources(keyTypingAudioSources);
+
+            _audioSourceChangeBias = gameObject.AddComponent<AudioSource>();
+            (AudioSource, String)[] tuples =
+            {
+                (_audioSourceChangeBias, CLICK_BUTTON_SOUND)
+            };
+            SoundManager.Instance.SetMultipleAudioSourcesComponents(tuples);
 
             architect.speed = 0.5f;
             dialogueOptionButtons = dialogueOptionButtonsRoot.GetComponentsInChildren<DialogueOptionButton>();
@@ -120,6 +131,8 @@ namespace Managers
 
         private void DisplayNextLine()
         {
+            _audioSourceChangeBias.Play();
+
             currentLine++;
 
             architect.hurryUp = false;
@@ -155,8 +168,14 @@ namespace Managers
             }
             else
             {
-                continueText.SetActive(true);
+                StartCoroutine(ShowContinueTextCoroutine(0.3f));
             }
+        }
+
+        private IEnumerator ShowContinueTextCoroutine(float t)
+        {
+            yield return new WaitForSeconds(t);
+            continueText.SetActive(true);
         }
 
         private string ProcessDialogue(string text)

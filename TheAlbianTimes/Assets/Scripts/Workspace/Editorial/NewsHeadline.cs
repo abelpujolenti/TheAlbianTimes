@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using Countries;
 using Managers;
@@ -456,7 +457,11 @@ namespace Workspace.Editorial
 
         private void UpdateText(string headline, string text)
         {
-            foreach (string s in Country.names)
+            List<string> countries = new List<string>();
+            countries.AddRange(Country.names);
+            countries.AddRange(new string[] { "Hetian", "Terkani", "Xayan", "Zuanian", "Dalmese", "Dalmian", "Albian", "Madian", "Suokan", "Rekkan" });
+            
+            foreach (string s in countries)
             {
                 string color = "#701f1f";
                 headline = Regex.Replace(headline, "\\b" + s + "\\b", "<color=" + color + ">" + s + "</color>");
@@ -467,6 +472,8 @@ namespace Workspace.Editorial
 
             Dictionary<string, Color> keyWords = new Dictionary<string, Color>();
             keyWords.Add("Moon", new Color(0.3f, 0.3f, 0.1f));
+            keyWords.Add("Lamar", new Color(0.5f, 0.25f, 0.1f));
+            keyWords.Add("Lamarish", new Color(0.5f, 0.25f, 0.1f));
 
             foreach (KeyValuePair<string, Color> v in keyWords)
             {

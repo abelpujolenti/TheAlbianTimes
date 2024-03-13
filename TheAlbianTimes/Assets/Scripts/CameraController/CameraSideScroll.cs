@@ -10,7 +10,6 @@ namespace CameraController
     public class CameraSideScroll : InteractableRectTransform
     {
         private const float SCROLL_TIME = 1f;
-        private const float SCROLL_DELAY_TIME = 0.35f;
         
         private readonly float _midPoint = MIN_X_POSITION_CAMERA + (MAX_X_POSITION_CAMERA - MIN_X_POSITION_CAMERA) / 2;
 
@@ -26,7 +25,6 @@ namespace CameraController
 
         private bool _rightSide;
         private bool _transfer;
-        private bool _hover;
         
         private Action <float> _panCamera;
 
@@ -45,31 +43,12 @@ namespace CameraController
 
         protected override void PointerEnter(BaseEventData data)
         {
-            _hover = true;
-            StartCoroutine(DragDelay(data));
+            Scroll(data);
         }
         
         protected override void PointerExit(BaseEventData data)
         {
-            _hover = false;
             _transfer = false;
-        }
-
-        private IEnumerator DragDelay(BaseEventData data)
-        {
-            float time = 0;
-            
-            while (time <= SCROLL_DELAY_TIME)
-            {
-                if (!_hover)
-                {
-                    yield break;
-                }
-                time += Time.deltaTime;
-                yield return null;
-            }
-            
-            Scroll(data);
         }
 
         private void Scroll(BaseEventData data)

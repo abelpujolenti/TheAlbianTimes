@@ -2,6 +2,7 @@ using System;
 using Managers;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 using Utility;
 
 namespace Workspace.Editorial
@@ -9,6 +10,13 @@ namespace Workspace.Editorial
     public class PanicButton : InteractableRectTransform
     {
         private const String PRESS_PANIC_BUTTON_SOUND = "Press Panic Button";
+
+        [SerializeField] private Image _image;
+
+        private Color _unpressedColor = Color.white;
+        private Color _pressedColor = Color.gray;
+
+        private bool _pressed;
 
         private AudioSource _audioSourcePressPanicButton;
 
@@ -38,6 +46,13 @@ namespace Workspace.Editorial
             gameObject.SetActive(false);
         }
 
+        protected override void PointerDown(BaseEventData data)
+        {
+            _pressed = true;
+            _image.color = _pressedColor;
+            base.PointerDown(data);
+        }
+
         protected override void PointerClick(BaseEventData data)
         {
             EventsManager.OnThowSomething = () => {
@@ -57,6 +72,34 @@ namespace Workspace.Editorial
             }            
 
             gameObject.SetActive(false);
+        }
+
+        protected override void PointerEnter(BaseEventData data)
+        {
+            if (_pressed)
+            {
+                _image.color = _pressedColor;
+            }
+            base.PointerEnter(data);
+        }
+
+        protected override void PointerExit(BaseEventData data)
+        {
+            if (_pressed)
+            {
+                _image.color = _unpressedColor;
+            }
+            base.PointerExit(data);
+        }
+
+        protected override void PointerUp(BaseEventData data)
+        {
+            if (_pressed)
+            {
+                _pressed = false;
+                _image.color = _unpressedColor;
+            }
+            base.PointerUp(data);
         }
 
         private void HideIfNecessary()

@@ -10,6 +10,7 @@ namespace Workspace.Layout
     public class Publisher : MonoBehaviour
     {
         private const string CONVEYOR_BELT_SOUND = "Conveyor Belt";
+        private const string DROP_MOLD = "Drop Mold";
         
         [SerializeField] private NewspaperMold _newspaperMold;
         
@@ -23,6 +24,7 @@ namespace Workspace.Layout
         private Camera _camera;
         
         private AudioSource _audioSourceConveyorBelt;
+        private AudioSource _audioSourceDropMold;
 
         [SerializeField] Image[] beams;
 
@@ -39,8 +41,10 @@ namespace Workspace.Layout
             SetContainerLimiters();
             
             _audioSourceConveyorBelt = gameObject.AddComponent<AudioSource>();
+            _audioSourceDropMold = gameObject.AddComponent<AudioSource>();
             (AudioSource, string)[] tuples = {
-                (_audioSourceConveyorBelt, CONVEYOR_BELT_SOUND)
+                (_audioSourceConveyorBelt, CONVEYOR_BELT_SOUND),
+                (_audioSourceDropMold, DROP_MOLD)
             };
             
             SoundManager.Instance.SetMultipleAudioSourcesComponents(tuples);
@@ -66,6 +70,7 @@ namespace Workspace.Layout
             StartCoroutine(TransformUtility.SetRotationCoroutine(_newspaperMold.transform, 90f, 0.3f));
             StartCoroutine(TransformUtility.SetPositionCoroutine(_newspaperMold.transform, _newspaperMold.transform.position, transform.position + new Vector3(-3f, 0f, 0f), 0.3f));
             yield return TransformUtility.SetScaleCoroutine(_newspaperMold.transform, new Vector3(.35f, .35f, .35f), 0.25f);
+            _audioSourceDropMold.Play();
             yield return new WaitForSeconds(.1f);
 
             StartCoroutine(TransformUtility.SetPositionCoroutine(_newspaperMold.transform, _newspaperMold.transform.position, transform.position + new Vector3(30f, 0f, 0f), 4f));

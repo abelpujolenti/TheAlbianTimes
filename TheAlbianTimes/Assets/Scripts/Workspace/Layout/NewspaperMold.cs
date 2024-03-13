@@ -10,6 +10,8 @@ namespace Workspace.Layout
 {
     public class NewspaperMold : InteractableRectTransform
     {
+        private const string DROP_MOLD = "Drop Mold";
+        
         private const float TIME_TO_SLIDE = 2f;
         private const float SPEED_MOVEMENT = 15f;
         
@@ -51,6 +53,8 @@ namespace Workspace.Layout
         private Coroutine _moveCoroutine;
 
         private float _cellSize;
+
+        private AudioSource _audioSourceDropMold;
 
         private void OnEnable()
         {
@@ -109,6 +113,14 @@ namespace Workspace.Layout
 
             _initialPosition = _rectTransform.localPosition;
             draggable = false;
+
+            _audioSourceDropMold = gameObject.AddComponent<AudioSource>();
+            (AudioSource, string)[] tuples = new[]
+            {
+                (_audioSourceDropMold, DROP_MOLD)
+            };
+            SoundManager.Instance.SetMultipleAudioSourcesComponents(tuples);
+
         }
 
         protected override void BeginDrag(BaseEventData data)
@@ -156,6 +168,8 @@ namespace Workspace.Layout
                 timer = MoveToDestination(origin, _initialPosition, timer);
                 yield return null;
             }
+            
+            _audioSourceDropMold.Play();
         }
 
         private float MoveToDestination(Vector2 origin, Vector2 destination, float timer)

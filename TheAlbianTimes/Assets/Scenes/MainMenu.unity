@@ -1074,7 +1074,7 @@ MonoBehaviour:
     _audioMixerGroup: {fileID: -3148831458192980715, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
     _name: Conveyor Belt
     _volume: 1
-    _loop: 0
+    _loop: 1
     _play: 0
     _sound3D: 0
   - _audioClip: {fileID: 8300000, guid: 2ba086146daa5434ab50427583c50714, type: 3}

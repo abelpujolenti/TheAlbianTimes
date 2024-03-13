@@ -21,7 +21,7 @@ namespace Workspace.Layout
                 return;
             }
             _newsPaperMold.SetDraggable(!_newsPaperMold.IsDraggable());
-            _publisher.scrolling = !_publisher.scrolling;
+            _publisher.SetIsScrolling(!_publisher.IsScrolling());
             blink = false;
 
             float pressedHeightMultiplier = .75f;

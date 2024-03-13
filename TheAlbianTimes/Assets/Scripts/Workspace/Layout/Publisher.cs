@@ -2,6 +2,7 @@ using System.Collections;
 using System.Linq;
 using Managers;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Workspace.Layout
@@ -29,7 +30,7 @@ namespace Workspace.Layout
         [SerializeField] float beamSpacing = 100f;
         private double beamScrollT = 0d;
 
-        public bool scrolling = false;
+        private bool _isScrolling = false;
         
         private void Start()
         {
@@ -51,22 +52,8 @@ namespace Workspace.Layout
             }
         }
 
-        private void Update()
-        {
-            if (scrolling)
-            {
-                for (int i = 0; i < beams.Length; i++)
-                {
-                    float x = (float)(((beamScrollT + i * beamSpacing) * beamSpeed) % 70) +  10f;
-                    beams[i].rectTransform.anchoredPosition = new Vector2(x, 0f);
-                }
-                beamScrollT += Time.deltaTime;
-            }   
-        }
-
         public void Publish()
         {
-            //_audioSourceConveyorBelt.Play();
             PublishingManager.Instance.Publish(_newspaperMold.GetNewsHeadlines().ToList());
             GameManager.Instance.AddToRound();
 
@@ -104,6 +91,42 @@ namespace Workspace.Layout
             {
                 Publish();
             }
+        }
+
+        private IEnumerator StartConveyorBelt()
+        {
+            _audioSourceConveyorBelt.Play();
+
+            while (_isScrolling)
+            {
+                for (int i = 0; i < beams.Length; i++)
+                {
+                    float x = (float)(((beamScrollT + i * beamSpacing) * beamSpeed) % 70) +  10f;
+                    beams[i].rectTransform.anchoredPosition = new Vector2(x, 0f);
+                }
+                beamScrollT += Time.deltaTime;
+                yield return null;
+            }
+            
+            _audioSourceConveyorBelt.Stop();
+            
+        }
+
+        public void SetIsScrolling(bool isScrolling)
+        {
+            _isScrolling = isScrolling;
+
+            if (!_isScrolling)
+            {
+                return;
+            }
+            
+            StartCoroutine(StartConveyorBelt());
+        }
+
+        public bool IsScrolling()
+        {
+            return _isScrolling;
         }
     }
 }

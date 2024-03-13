@@ -2,8 +2,8 @@ using System.Collections;
 using System.Linq;
 using Managers;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
+using Utility;
 
 namespace Workspace.Layout
 {
@@ -11,6 +11,9 @@ namespace Workspace.Layout
     {
         private const string CONVEYOR_BELT_SOUND = "Conveyor Belt";
         private const string DROP_MOLD = "Drop Mold";
+        private const string PRINT_NEWSPAPER = "Print Newspaper";
+
+        private const float DELAY_BEFORE_PLAYING_AUDIO = 1.7f;
         
         [SerializeField] private NewspaperMold _newspaperMold;
         
@@ -47,7 +50,7 @@ namespace Workspace.Layout
                 (_audioSourceDropMold, DROP_MOLD)
             };
             
-            SoundManager.Instance.SetMultipleAudioSourcesComponents(tuples);
+//            SoundManager.Instance.SetMultipleAudioSourcesComponents(tuples);
 
             for (int i = 0; i < beams.Length; i++)
             {
@@ -73,10 +76,12 @@ namespace Workspace.Layout
             _audioSourceDropMold.Play();
             yield return new WaitForSeconds(.1f);
 
+            StartCoroutine(StartPrintSound());
+            
             StartCoroutine(TransformUtility.SetPositionCoroutine(_newspaperMold.transform, _newspaperMold.transform.position, transform.position + new Vector3(30f, 0f, 0f), 4f));
             yield return TransformUtility.SetPositionCoroutine(Camera.main.transform, Camera.main.transform.position, Camera.main.transform.position + new Vector3(40f, 0f, 0f), t);
 
-            GameManager.Instance.sceneLoader.SetScene("PublishScene");
+            //GameManager.Instance.sceneLoader.SetScene("PublishScene");
         }
 
         private void SetContainerLimiters()
@@ -114,7 +119,28 @@ namespace Workspace.Layout
             }
             
             _audioSourceConveyorBelt.Stop();
+        }
+
+        private IEnumerator StartPrintSound()
+        {
+            float time = 0;
+
+            while (time <= DELAY_BEFORE_PLAYING_AUDIO)
+            {
+                time += Time.deltaTime;
+                yield return null;
+            }
             
+            SoundManager.Instance.PlaySound(PRINT_NEWSPAPER);
+
+            time = 0;
+
+            while (time <= 3.2f)
+            {
+                time += Time.deltaTime;
+                yield return null;
+            }
+            GameManager.Instance.sceneLoader.SetScene("PublishScene");
         }
 
         public void SetIsScrolling(bool isScrolling)

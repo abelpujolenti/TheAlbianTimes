@@ -12,8 +12,6 @@ namespace Publish
 {
     public class PublishedNewspaper : InteractableRectTransform
     {
-        private const string REVEAL = "Reveal";
-        
         [SerializeField] private Image[] layouts;
         private Dictionary<Vector3, NewsData> sortedArticles;
         private Vector3 startPosition;
@@ -21,11 +19,10 @@ namespace Publish
         private float leanThreshold = 0f;
         private float sendThreshold = 1.8f;
 
-        private AudioSource _audioSourceReveal;
-
         private void Start()
         {
             startPosition = transform.position;
+            
             GetSortedArticles();
             StartCoroutine(Reveal());
         }
@@ -43,7 +40,7 @@ namespace Publish
             PointerEventData pointerData = (PointerEventData)data;
 
             Vector3 mousePosition;
-            RectTransformUtility.ScreenPointToWorldPointInRectangle(canvasRect, pointerData.position, Camera.main, out mousePosition);
+            RectTransformUtility.ScreenPointToWorldPointInRectangle(canvasRect, pointerData.position, _camera, out mousePosition);
 
             _vectorOffset = gameObjectToDrag.transform.position - mousePosition;
 

@@ -119,7 +119,7 @@ namespace Workspace.Layout
             {
                 (_audioSourceDropMold, DROP_MOLD)
             };
-            SoundManager.Instance.SetMultipleAudioSourcesComponents(tuples);
+//            SoundManager.Instance.SetMultipleAudioSourcesComponents(tuples);
 
         }
 

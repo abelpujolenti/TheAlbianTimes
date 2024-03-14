@@ -17,15 +17,15 @@
         {
             "name": "NEUTRAL",
             "description": "The USL has decided to make cities more public transport friendly.",
-            "headline": "The USL Enforces Public Transport",
-            "text": "    The United Solidarity League (USL) was recently re-elected to lead Madia. One of the campaign promises they made was the installation of more public transportation, especially for students and those entering the workforce. To this end, they have released their plans of the type of transportation that are to be implemented within the next 3 years. Every major city, including Lamar, Doma, and Comur, must have a metro and tram line. The city of Lamar has already started work on the tram line near the university, which has led to some controversy as it has replaced two car lanes.",
+            "headline": "The USL enforces public transport",
+            "text": "    The United Solidarity League (USL) was recently re-elected to lead Madia. One of the campaign promises they made was the installation of more public transport, especially for students and those entering the workforce. To this end, they have released their plans of the type of transport that are to be implemented within the next 3 years. Every major region, including Lamar, Doma, and Comur, must have a metro and tram line. The region of Lamar has already started work on the tram line near the university, which has led to some controversy as it has replaced two car lanes.",
             "additionalConsequences": []
         },
         {
             "name": "POSITIVE",
             "description": "The public transport idea is fantastic for everyone. Despite making it safer to travel, there is still controversy.",
-            "headline": "Public Transport is Great, Yet Major Madian Cities don’t Want it",
-            "text": "    There has been an effort into making the university areas in Lamar  even more walkable through the addition of a tram. This addition, being initially popular, has angered some, as this line will replace some of the car lanes leading to the university. Despite that, the students are overall happy with the change.\n    The city of Comur is very against the changes happening. The leading government, LRL, agrees that its people don’t need the investment into public transport, rather into safer roads that facilitate car travel.",
+            "headline": "Public transport is great, yet major Madian regions do not want it",
+            "text": "    There has been an effort into making the university areas in Lamar even more walkable through the addition of a tram. This addition, being initially popular, has angered some, as this line will replace some of the car lanes leading to the university. Despite that, the students are overall happy with the change.\n    The region of Comur is very against the changes happening. The leading government, LRL, agrees that its people do not need the investment into public transport, rather into safer roads that facilitate car travel.",
             "additionalConsequences": [
                 {
                     "country": 6,
@@ -36,8 +36,8 @@
         },
         {
             "name": "NEGATIVE",
-            "description": "Let people use their cars. There is no need to add metro’s when more lanes would be enough.",
-            "headline": "We Need Roads, not Tracks",
+            "description": "Let people use their cars. There is no need to add metros when more lanes would be enough.",
+            "headline": "We need roads, not tracks",
             "text": "    The United Solidarity League (USL) has been under scrutiny since it has decided to force itself into public life. There has been a conscious effort to make the major cities less car friendly whilst cramming people into public transport. Lamar is reducing the amount of lanes in the university area, known for its congestion. This is only going to make the problem worse as the city should be doing the exact opposite and adding more lanes.",
             "additionalConsequences": [
                 {

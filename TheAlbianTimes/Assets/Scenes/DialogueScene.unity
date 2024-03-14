@@ -1133,7 +1133,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: Balls
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9a0a6430c69be1e4288fc1fd5328f2fe, type: 2}
   m_sharedMaterial: {fileID: 5064664307694034, guid: 9a0a6430c69be1e4288fc1fd5328f2fe, type: 2}
@@ -1886,7 +1886,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8773585, g: 0.8773585, b: 0.8773585, a: 1}
+  m_Color: {r: 0.5566038, g: 0.5566038, b: 0.5566038, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

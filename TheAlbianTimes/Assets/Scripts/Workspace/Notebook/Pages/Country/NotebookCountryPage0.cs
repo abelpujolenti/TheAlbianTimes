@@ -10,7 +10,6 @@ namespace Workspace.Notebook.Pages.Country
         [SerializeField] private TextMeshProUGUI _countryName;
         [SerializeField] private Image _flagImage;
         [SerializeField] private TextMeshProUGUI _description;
-        [SerializeField] private TextMeshProUGUI _history;
 
         public override void FillPage(BaseNotebookPage baseNotebookPage)
         {
@@ -29,7 +28,6 @@ namespace Workspace.Notebook.Pages.Country
             _countryName.text = page.countryName;
             //_flagImage.sprite =
             _description.text = page.description;
-            _history.text = page.history;
         }
     }
 }

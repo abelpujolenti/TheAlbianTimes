@@ -20,7 +20,7 @@ namespace Managers
         private const float BOOKMARK_WIDTH = 22;
 
         private const int MAP_RANGE_OF_PAGES = 2;
-        private const int COUNTRY_RANGE_OF_PAGES = 4;
+        private const int COUNTRY_RANGE_OF_PAGES = 6;
         private const int INTERNATIONAL_RANGE_OF_PAGES = 1;
         private const int PERSON_RANGE_OF_PAGES = 1;
 
@@ -114,37 +114,43 @@ namespace Managers
                 CountryContentPage0 page0 = new CountryContentPage0
                 {
                     countryName = content.countryName,
-                    description = content.description,
                     flagImagePath = content.flagImagePath,
-                    history = content.history
+                    description = content.description
                 };
                 
                 CountryContentPage1 page1 = new CountryContentPage1
                 {
                     countryName = content.countryName,
-                    importantPeople = content.importantPeople,
-                    organizations = content.organizations
+                    history = content.history
                 };
 
                 CountryContentPage2 page2 = new CountryContentPage2
                 {
                     countryName = content.countryName,
-                    ongoingConflicts = content.ongoingConflicts
+                    importantPeople = content.importantPeople
                 };
 
                 CountryContentPage3 page3 = new CountryContentPage3
                 {
                     countryName = content.countryName,
-                    reputationHistory = content.reputationHistory
+                    organizations = content.organizations
+                };
+
+                CountryContentPage4 page4 = new CountryContentPage4
+                {
+                    countryName = content.countryName,
+                    ongoingConflicts = content.ongoingConflicts
                 };
                 
                 _notebookPages.Add(_notebookPages.Count, page0);
                 _notebookPages.Add(_notebookPages.Count, page1);
                 _notebookPages.Add(_notebookPages.Count, page2);
                 _notebookPages.Add(_notebookPages.Count, page3);
+                _notebookPages.Add(_notebookPages.Count, page4);
+                
+                FillLastPageIfUneven();
             }
             
-            FillLastPageIfUneven();
         }
 
         private void SaveInternationalsContentsInDictionary(InternationalContent[] contents)

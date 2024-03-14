@@ -4227,7 +4227,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 2
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 245228339}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -4237,7 +4237,7 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 1
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: -499439201
+  m_SortingLayerID: -1943055267
   m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!1 &1066836421
@@ -7370,9 +7370,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _countryPagesPrefabs:
   - {fileID: 5264011211100125848, guid: 29908dba3ed13b64ca055d4a61237422, type: 3}
+  - {fileID: 5264011211100125848, guid: 9568a20585242ba48973cd1c0fbc4a31, type: 3}
   - {fileID: 5264011211100125848, guid: 66235e1886bd7614fb340d4393b5af65, type: 3}
-  - {fileID: 5264011211100125848, guid: 98f32f0663285be4eb2a782351cb8301, type: 3}
   - {fileID: 5264011211100125848, guid: ce0ec128bd5f9cd45abec9b45c1144bb, type: 3}
+  - {fileID: 5264011211100125848, guid: 98f32f0663285be4eb2a782351cb8301, type: 3}
   _internationalPagesPrefabs: []
   _personPagesPrefabs: []
   _pageMarkers: {fileID: 1706987299}

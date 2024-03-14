@@ -15,17 +15,17 @@
     ],
     "biases": [
         {
-            "name": "NEW STADIUM",
+            "name": "IMPROVEMENT",
             "description": " The award show is to be held in a new Opera after years of complaints.",
-            "headline": " The Ables To be Held in a Larger Stadium",
-            "text": "    After many years of complaints by actors, filmmakers and directors, the Ables have made a deal with the Madian government to hold the event in a significantly larger stadium.\n    This year has been incredible for the world of film due to the advent of fast VHS distribution; hence, the award show's rise in significance. Everything has gone according to the committee's plans, since the deal signifies a form of legitimacy with the country and the art world. The budget is unknown, but compared to other years, it seems like the people attending will be far happier with their experience than other years.",
+            "headline": " The Ables to be held in a larger stadium",
+            "text": "    After years of complaints by actors, filmmakers and directors, the Ables awards have made a deal with the Madian government to hold the event in a significantly larger stadium.\n    This has been a prosperous year for the world of film due to the advent of fast VHS distribution; hence, the award show has risen in significance. Everything has gone according to the committee's plans, since the deal signifies the legitimacy of the art world within the country. Even if the budget is unknown, Madia anounced that the Ables would receive more budget than in previous years, so the attendants and espectators should expect an improvement to their experience.",
             "additionalConsequences": []
         },
         {
-            "name": "WASTEFUL",
-            "description": " As the headline suggests, critics feel like the Opera should not be used so frivolously.",
-            "headline": " Madia Wastes Good Money on Ables",
-            "text": "    Once again, Madia is throwing money into unnecessary places. The brand new Opera Stadium, meant for important, high-class events, has been deteriorated by their decision to remodel it for the Ables.\n    As with many other actions the country has taken over the last decade, there is a sense something is wrong. Today, it feels like the country cares more about catering to the elite than the rural man. Truly another waste of time, money and cultural capital.",
+            "name": "CAPITALISM",
+            "description": " Critics feel like the Opera should not be used so frivolously, as the Ables are mass culture.",
+            "headline": "The new Ables Stadium: a step towards capitalism",
+            "text": "    The brand new Opera Stadium, meant for prestigious cultural events, has been deteriorated by Madia's decision to remodel it for the Ables film awards.\n    Over the last decade, Madia has subtly shifted towards a different cultural model, aligned with capitalist principles. Instead of promoting meaningful cultural expressions, the Madian government seems to be encouraging the incursion of mass culture, as the films nominated for the Ables have the sole purpose of supplying the masses with ephemeral entertainment, in order to continue the cycle of consumption.",
             "additionalConsequences": [
                 {
                     "country": 6,
@@ -35,10 +35,10 @@
             ]
         },
         {
-            "name": "BEATIFUL",
+            "name": "ARCHITECTURE",
             "description": " A wonderful new place that will fit more people during the once-a-year award show.",
-            "headline": " The New Ables Stadium Looks Fantastic!",
-            "text": "   The Opera Stadium is complete, and the Ables organizers are keen on it. The fantastic golden accents, the beautiful details made possible by the handiwork of the people. All of it was made possible by years of hard work by the people and the planners. It is complete.\n    The Ables have had issues for many years with the current size of the stadium, and therefore have been looking for another place to hold this once-a-year event. It has been decided to hold it in this brand-new stadium.\n    There has been some mysterious backlash relating to its use, however the accusations being made seem to stem from a place of disliking the event itself, rather than the contract itself.",
+            "headline": " The new Opera Stadium: an architectonic prodigy",
+            "text": "    Three years after the beginning of the project, the new Opera Stadium is complete and ready to hold the next edition of the Ables film awards. The building, designed by renowned architect Sébastien bin Benderang in a modern expressionist style, is set to become one of Madia's main landmarks. The neo-renaissance interior stands out thanks to its stunning golden accents and beautiful details.\n    The Ables have had issues for many years with the size of the stadium, and had been looking for another place to hold the event.\n    It was thanks to the agreement between the Ables and the Madian government that the Opera Stadium was renovated, in order to continue hosting the event.",
             "additionalConsequences": [
                 {
                     "country": 6,

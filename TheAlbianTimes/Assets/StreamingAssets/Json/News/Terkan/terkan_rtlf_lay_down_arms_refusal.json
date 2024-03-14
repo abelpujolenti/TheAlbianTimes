@@ -1,0 +1,72 @@
+{
+    "name":"terkan_rtlf_lay_down_arms_refusal",
+    "firstRound":5,
+    "duration":1,
+    "priority":1,
+    "leniency":0,
+    "type": 5,
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 1,
+            "key": "reputation",
+            "value": 0.0
+        }
+    ],
+    "biases": [
+        {
+            "name": "FAILURE ",
+            "description": "Hetia's aggressive policies have stoked the fire of Terkani terrorism.",
+            "headline": "Hetia unable to end the Riparian Terkan Liberation Front's violence.",
+            "text": "The Hetian State has affirmed that if the RTLF continues to refuse laying down arms, military presence in the borders will be increased. Far from dissuading the terrorist organization, these declarations further fuel the Terkani's unrest over the borders situation, a feeling from which the terrorists take advantage to gain strength.\n    Aggressive policies will only lead to an escalation of violence that could end in a direct armed conflict. In order to repair the damage done to Terkan in the past, Hetia must relax migration policies and end border violence. This will make way for diplomacy and for a shift in the civilians' opinion. The only way of reconciliating both countries is rejecting violence.",        
+            "additionalConsequences": [
+                {
+                    "country": 1,
+                    "key": "reputation",
+                    "value": -0.1
+                },
+                {
+                    "country": 0,
+                    "key": "reputation",
+                    "value": -0.1
+                } 
+            ]
+        },
+        {
+            "name": "COMMITMENT",
+            "description": "The organizaton is determined to protect Terkani people from Hetia.",
+            "headline": "The Riparian Terkan Liberation Front reaffirms its commitment.",
+            "text": "Terkan's revolutionary organization does not give in to Hetia's pressure and once again expresses its commitment to the protection of its people. Even after the Hetian State's threats of increasing police presence in the borders, the RTLF publicly declared that they are 'ready to contain Hetia's destructive tendencies' by actively engaging in self-defense.\n    The RTLF was formed 15 years ago as a popular militia during the crisis brought by Hetia's damming of the Het river, as a response to Hetia's occupation of Terkani territories. The natives whose houses survived the floods were forcibly displaced by the recently founded Hetia, who erected walls to retain its territories. The Front has asserted that they will not lay down arms until the 'Dam regime' is overthrown.",        
+            "additionalConsequences": [
+                {
+                    "country": 1,
+                    "key": "reputation",
+                    "value": 0.1
+                },
+                {
+                    "country": 0,
+                    "key": "reputation",
+                    "value": -0.15
+                }
+            ]
+        },
+        {
+            "name": "THREAT",
+            "description": "The terrorist organization ignores Hetia's demands for ending violence.",
+            "headline": "The Riparian Terkan Liberation Front refuses to lay down arms.",
+            "text": "Terkan's terrorist group continues to advocate for violence even after Hetia demands for a peaceful way out of the conflict. The Hetian State declared that police presence in the borders would not be increased if the RTLF laid down arms, but the organization refused the proposal in detriment of the civilians' interests.\n    During its 15 years of existence, the RTLF has threatened to blow up the Het river's Dam three times. While the Hetian government has actively searched for solutions -thus avoiding the bombings-, Terkan has barely addressed the issue. This behaviour strengthens the hypotesis of RTLF being the Terkani State's armed wing.",        
+            "additionalConsequences": [
+                {
+                    "country": 1,
+                    "key": "reputation",
+                    "value": -0.15
+                },
+                {
+                    "country": 0,
+                    "key": "reputation",
+                    "value": 0.1
+                }
+            ]
+        }
+    ]
+}

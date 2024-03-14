@@ -1,0 +1,81 @@
+{
+    "name":"madia_capital_annexionist_protests",
+    "firstRound":7,
+    "duration":1,
+    "priority":1,
+    "leniency":1,
+    "type": 0,
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 6,
+            "key": "reputation",
+            "value": 0.1
+        },
+        {
+            "country": 7,
+            "key": "reputation",
+            "value": -0.1
+        },
+        {
+            "country": 6,
+            "key": "violent_annexion_ending",
+            "value": 0.1
+        }
+    ],
+    "biases": [
+        {
+            "name": "SECESSIONISTS",
+            "description": "The protests had a smaller following and expressed futile claims.",
+            "headline": "Lamarian secessionists evidence their decadence.",
+            "text": "   A group of secesionists gathered in Madia's capital to repeat the same claims that have not had any effect in 40 years. The protest, organized by the Lamarian National Committee, had a small following in comparison to past convocations.\n    The group marched through Madia's capital to ask for the annexion of their region to Suoka, blatantly rejecting dialogue with the State as well as dismissing the Constitutional Pact that granted peace between the two countries.",        
+            "additionalConsequences": []
+        },
+        {
+            "name": "LAMARIAN",
+            "description": "The protest asks for a referendum on the annexion to Suoka as dialogue with Madia has not been fruitful.",
+            "headline": "Lamarian people claim their rights in a massive protest.",
+            "text": "   Thousands of people marched through Madia's capital to express their desire to leave Madia and be annexed to Suoka. \n    The demands call for an increase in security measures and improved healthcare plan for power plant workers after an unfortunate accident last month.\n    The Lamarian National Commitee called a protest following Madia's denial of the possibility of a referendum by shielding itself in the Constitutional Pact -signed 40 years ago- which does not allow this fundamental right.\n    Dialogue with Madia has not been fruitful, but they will continue to assert their their right of self-determination.",        
+            "additionalConsequences": [
+                {
+                    "country": 6,
+                    "key": "reputation",
+                    "value": -0.4
+                },
+                {
+                    "country": 7,
+                    "key": "reputation",
+                    "value": 0.4
+                },
+                {
+                    "country": 6,
+                    "key": "violent_annexion_ending",
+                    "value": -0.2
+                },
+                {
+                    "country": 6,
+                    "key": "peaceful_annexion_ending",
+                    "value": 0.2
+                }
+            ]
+        },
+        {
+            "name": "NEUTRAL",
+            "description": "Take a neutral stance.",
+            "headline": "Lamarian annexionist protest in Sinhaes",
+            "text": "   A group of lamarian annexionists marched through Madia's capital, in a gathering organized by the Lamarian National Commitee.\n    The movement's main demand is to leave Madia and join Suoka but this is currently not allowed by the Constitutional Pact -which was signed by the two countries following the split-, so they are turning to a unilateral referendum.\n    While the annexionists affirm that their national identity is connected to Suoka, Madia states that their motives are economic.",        
+            "additionalConsequences": [
+                {
+                    "country": 6,
+                    "key": "reputation",
+                    "value": -0.2
+                },
+                {
+                    "country": 6,
+                    "key": "violent_annexion_ending",
+                    "value": -0.2
+                }
+            ]
+        }
+    ]
+}

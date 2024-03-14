@@ -1,0 +1,38 @@
+{
+    "name": "zuania_miner_abuse",
+    "firstRound": 4,
+    "duration": 2,
+    "priority": 0.8,
+    "leniency": 3,
+    "type": 8,
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 1,
+            "key": "reputation",
+            "value": 0.05
+        }
+    ],
+    "biases": [
+        {
+            "name": "REAL",
+            "description": "The miners in Zuania are being abused by the companies profiting from these mines.",
+            "headline": "Zuan Miners are Being Abused",
+            "text": "    Disturbing reports have surfaced regarding the alleged abuse of miners in Zuania. The recent news has shed light on the harsh conditions they endure daily, and the miserable wages they make despite it. Workers in Zuania's mining industry reportedly face grueling hours, unsafe working conditions, and insufficient wages.\n    Advocacy groups are pleading with Zuania's government to enforce stricter regulations and ensure the well-being of its workforce. The government has yet to make any statements, but it is clear that no changes will be made soon.",
+            "additionalConsequences": []
+        },
+        {
+            "name": "FAKE",
+            "description": "The reports of the conditions are most likely false, the miners have many benefits.",
+            "headline": "Are the Conditions of Zuan Mines That Bad?",
+            "text": "    The controversial mines of Zuania have been unfairly demonized. Zuan miners have been provided with large amounts of food, housing, and even entertainment.\n    At no point does it seem like they are being abused, and this idea is clearly born out of anti-Xayan sentiment. As it has been made clear by the leaders of the autonomous region, any controversy taking place in Zuania will be due to Xayan management.\n    'Miners are the backbone of all modern technology so disparaging them is despicable and an affront to what is really happening', stated Xaya's press secretary.",
+            "additionalConsequences": [
+                {
+                    "country": 1,
+                    "key": "reputation",
+                    "value": -0.05
+                }
+            ]
+        }
+    ]
+}

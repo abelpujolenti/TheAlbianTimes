@@ -1,0 +1,62 @@
+{
+    "name":"rekka_ethnographic_tourism",
+    "firstRound":6,
+    "duration":1,
+    "priority":1,
+    "leniency":0,
+    "type": 4,
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 8,
+            "key": "reputation",
+            "value": 0.05
+        }
+    ],
+    "biases": [
+        {
+            "name": "FRIENDLY",
+            "description": "Rekka is slowly ending its isolation and is willing to establish diplomacy.",
+            "headline": "Rekka opens up by offering cultural stays to foreigners.",
+            "text": "   For the first time since its establishment, Rekka has approved the entry of foreigners. The community has been completely isolated, as there are no known departures from the island as well.\n    Rekka has remained a unique phenomenon, for the counterculture movement that led to its genesis did not continue overseas once its followers settled in the island. It seems that Rekka is willing to establish foreign relationships, and facilitating the understandment of its inhabitants' beliefs and unconventional way of life is the first step.\n    To avoid intrusive visits, tourists will only be able to stay in Rekka for up to 23 days, and will be required to stay at 'visitor lodges' where they will live together with natives.",        
+            "additionalConsequences": [
+                {
+                    "country": 8,
+                    "key": "cordiality_ending",
+                    "value": 0.1
+                }
+            ]
+        },
+        {
+            "name": "ECONOMY",
+            "description": "Rekka's economic system is unstable and in desperate need of foreign capital.",
+            "headline": "Ethnographic tourism: Rekka's clever strategy to obtain foreign capital.",
+            "text": "   As its population grows, Rekka's sole reliance on agriculture and farming is starting to make its economy tremble. For a decade, the fertility rate has grown to 5 children per woman, and Rekka's autarkic model has progressively lost its stability.\n    Rekka's Council of the Coast has approved the entry of nationals of third States for stays of up to 23 days for tourism. In order to prevent violent disruptions in the community's way of life, tourists are required to stay in 'visitor lodges', where they will live together with natives and get a glimpse of their habits.\n    If successful, this project will be the first step towards a more open attitude and Rekka's integration to the international network.",
+            "additionalConsequences": [
+                {
+                    "country": 8,
+                    "key": "reputation",
+                    "value": -0.15
+                }
+            ]
+        },
+        {
+            "name": "ECOLOGY",
+            "description": "Rekka's tourism model is carefully designed to respect nature.",
+            "headline": "Rekka's sustainable tourism model: a reference for other countries.",
+            "text": "   Rekka has been a pioneer for sustainability since its founding five decades ago. Instead of expanding its economy in an aggressive way, Rekka has preferred to rely on traditional agriculture and farming, even at the cost of a lower technological level.\n    Rekkan life is intimately interwined with nature so, now that the island has decided to allow tourism for the first time, they will continue on the same track: tourists will only be able to stay in Rekka for up to 23 days, and the only way of traveling to the country will be Rekkan ships that will only offer service once every three months.\n    In addition, each person will only be allowed to visit Rekka once, and will be required to stay at 'visitor lodges' where they will live together with natives.",  
+            "additionalConsequences": [
+                {
+                    "country": 8,
+                    "key": "reputation",
+                    "value": 0.05
+                },
+                {
+                    "country": 8,
+                    "key": "cordiality_ending",
+                    "value": 0.15
+                }
+            ]
+        }
+    ]
+}

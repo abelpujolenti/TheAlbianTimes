@@ -1,0 +1,50 @@
+{
+    "name":"xaya_suokan_expat_demonstration",
+    "firstRound":7,
+    "duration":5,
+    "priority":0.6,
+    "extraBias": false,
+    "leniency":5,
+    "type": 1,
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 2,           
+            "key": "reputation",
+            "value": 0.0
+        }
+    ],
+    "biases": [
+        {
+            "name": "FRAUDULENT",
+            "description": "The program is just a cog in Xaya's influence machine.",
+            "headline": "Xaya launches expat interview program to convey an enlightened image.",
+            "text": "   Xaya's State-operated international radio station has added a new program: short interviews with expats living in Xaya, in which they answer banal questions such as 'which is the most popular animal in Xaya?'. The program has a casual, light-hearted tone that contradicts Xaya's reality: mass surveillance, ethnic persecution, forced labor camps and refusal to recognize Zuania as an independent country.\n    The State is trying to get international support in order to prevent any insurrection from succeeding or even taking place. Xaya being considered an authoritarian government by its neighbors is an essential step towards the Xayan people's liberation.",
+            "additionalConsequences": [
+                {
+                    "country": 2,
+                    "key": "reputation",
+                    "value": -0.15
+                }
+            ]
+        },
+        {
+            "name": "AUTHENTIC",
+            "description": "The program shows Xaya's welcoming attitude towards foreign countries.",
+            "headline": "Suokan expat demonstrates Xaya's open and inclusive development path.",
+            "text":"    Xaya has started broadcasting internationally a new radio program that will bring the Eastern nation closer to the international community. The program, titled 'Expat Q&A!', consists in short interviews with Xayan expats, in which they answer questions related to lifestyle, culture, economy, education…\n    The first program features Juwita binti Usop, a 22 year-old medical student from Suoka. In her answer to the question 'how is medical research conducted in Xaya?', she outlines the amicable atmosphere in Xayan universities and describes her experience as a female foreign student as 'excellent'. These interviews evidence Xaya's willingness to embrace the rest of the world.",
+            "additionalConsequences": [
+                {
+                    "country": 2,
+                    "key": "reputation",
+                    "value": 0.1
+                },
+                {
+                    "country": 6,
+                    "key": "reputation",
+                    "value": -0.1
+                }
+            ]
+        }
+    ]
+}

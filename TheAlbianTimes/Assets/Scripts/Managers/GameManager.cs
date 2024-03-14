@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Countries;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Workspace.Editorial;
@@ -17,7 +18,7 @@ namespace Managers
 
         private StatsDisplay _statsDisplay;
 
-        private int _round = 1;
+        private int _round = 0;
 
         private void Awake()
         {
@@ -37,6 +38,29 @@ namespace Managers
         {
             InitScenes();
         }
+
+        private void OnGUI()
+        {
+            Event e = Event.current;
+            if (!e.isKey || !(e.type == EventType.KeyDown)) return;
+
+            if (e.keyCode == KeyCode.F1)
+            {
+                _round = 1;
+                sceneLoader.SetScene("WorkspaceScene");
+            }
+            else if (e.keyCode == KeyCode.F2)
+            {
+                _round = 2;
+                sceneLoader.SetScene("WorkspaceScene");
+            }
+            else if (e.keyCode == KeyCode.F3)
+            {
+                _round = 3;
+                sceneLoader.SetScene("WorkspaceScene");
+            }
+        }
+
 
         private void InitData()
         {
@@ -59,7 +83,7 @@ namespace Managers
                 sceneLoader.SetScene("WorkspaceScene");
                 return;
             }
-            else if (SceneManager.GetSceneByName("StatsScene").isLoaded)
+            if (SceneManager.GetSceneByName("StatsScene").isLoaded)
             {
                 sceneLoader.SetScene("StatsScene");
                 return;
@@ -115,11 +139,10 @@ namespace Managers
             if (saveManager.SaveFileExists())
             {
                 gameState.playerData = saveManager.save.playerData;
+                return;
             }
-            else
-            {
-                gameState.playerData = new GameStatePlayerData();
-            }
+            
+            gameState.playerData = new GameStatePlayerData();
         }
 
         public void SetStatsDisplay(StatsDisplay statsDisplay)

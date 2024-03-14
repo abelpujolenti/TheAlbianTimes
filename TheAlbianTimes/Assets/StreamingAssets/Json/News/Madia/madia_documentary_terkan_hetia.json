@@ -1,0 +1,51 @@
+{
+    "name":"madia_documentary_terkan_hetia",
+    "firstRound":4,
+    "duration":1,
+    "priority":1,
+    "leniency":0,
+    "type": 6,
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 6,
+            "key": "reputation",
+            "value": -0.1
+        }
+    ],
+    "biases": [
+        {
+            "name": "BIASED",
+            "description": "Accuse Madia of siding with Terkani terrorists and comparing Lamar to Hetia.",
+            "headline": "Madia is producing terrorist propaganda, subliminally vilifying Lamar.",
+            "text": "   Madia, 'the welfare country', has taken its stance in the Terkan-Hetia conflict: portray the Terkani terrorists' ideas as morally enlightened.\n    The Madian State had decided to fund a 'documentary on Terkan and Hetia' in the framework of its independent cinema grant. The film is planned to feature interviews with politicians, civilians and also terrorists from the Riparian Terkan Liberation Front. Not only is Madia inevitably siding with them by giving space for its discourse, they are also berating Hetia for 'abandoning' Terkan, thus establishing a parallel between Hetia and the Lamar region.\n    This should be understood as another product of Madia's subtle anti-Lamar apparatus, in hopes of halting the annexionist process.",        
+            "additionalConsequences": []
+        },
+        {
+            "name": "RESPECTFUL",
+            "description": "Praise Madia for covering the conflict in an objective way.",
+            "headline": "Madian documentary on the Terkan-Hetia conflict starts filming.",
+            "text": "   As part of its independent cinema grant, the Madian State has given funding to a documentary on the sociopolitic conflict between Terkan and Hetia. The film aims to portray the relationship as objectively as possible, by incorporating testimonies from a wide range of positions: politicians, civilians, activists… from both countries.\n    The team comprises historians and renowned journalists with experience on war and international conflicts, and will travel to different locations in Terkan and Hetia.\n    The focus will be set on the Het River Dam Incident and its consequences on the region's population and the diplomatic relationship between the countries.",        
+            "additionalConsequences": [
+                {
+                    "country": 6,
+                    "key": "reputation",
+                    "value": 0.15
+                }
+            ]
+        },
+        {
+            "name": "OPPORTUNIST",
+            "description": "Denounce Madia for posing as an oppressed-friendly country instead of actually helping those in need.",
+            "headline": "Madia's performative activism continues.",
+            "text": "   As always, Madia is willing to fund a film about a sociopolitical conflict, but continues to refuse aiding those in need of international support. Despite having a prosperous economy and declaring itself a socialist country, Madia has never officially positioned itself in any foreign conflict. Instead, it has maintained a performative activism soft enough to not interfere with its unobtrusive diplomatic relationships.\n    Madia's affinity to Hetia's progressive politics is widely known, just as its deliberate disregard of Hetia's severe migration policies.\n    Besides, an economic interest lies behind the production of the documentary, as it will be ready to be shown in Madia's International Film Festival.",        
+            "additionalConsequences": [
+                {
+                    "country": 6,
+                    "key": "reputation",
+                    "value": -0.05
+                }
+            ]
+        }
+    ]
+}

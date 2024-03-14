@@ -1,13 +1,20 @@
+using System.Collections;
 using System.Collections.Generic;
 using Managers;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using Utility;
 using Workspace.Editorial;
 
 namespace Workspace.Layout
 {
-    public class NewspaperMold : MonoBehaviour
+    public class NewspaperMold : InteractableRectTransform
     {
+        private const string DROP_MOLD = "Drop Mold";
+        
+        private const float TIME_TO_SLIDE = 2f;
+        private const float SPEED_MOVEMENT = 15f;
+        
         private const int PADDING = 5;
         private const int MIN_ANCHOR_X = 0;
         private const int MAX_ANCHOR_X = 1;
@@ -21,10 +28,18 @@ namespace Workspace.Layout
 
         [SerializeField] private GameObject _cellPrefab;
 
+        [SerializeField] private MoldPlace _moldPlace;
+
+        [SerializeField] private Publisher _publisher;
+
+        [SerializeField] private NewsFolder _newsFolder;
+
+        [SerializeField] private MoldLocker _moldLocker;
+
         [SerializeField]private List<NewsHeadline> _newsHeadlines;
 
         private Cell[][] _cells;
-        
+
         private Vector2[][] _cellsPositions;
 
         private readonly Vector3[] _layoutCorners = new Vector3[4];
@@ -33,8 +48,13 @@ namespace Workspace.Layout
         private Vector2 _maxAnchorForCell;
         private Vector2 _layoutMinCoordinates;
         private Vector2 _layoutMaxCoordinates;
+        private Vector2 _initialPosition;
+
+        private Coroutine _moveCoroutine;
 
         private float _cellSize;
+
+        private AudioSource _audioSourceDropMold;
 
         private void OnEnable()
         {
@@ -90,6 +110,74 @@ namespace Workspace.Layout
                     CreateCell(i, j, _cellSize, sizeDelta);
                 }
             }
+
+            _initialPosition = _rectTransform.localPosition;
+            draggable = false;
+
+            _audioSourceDropMold = gameObject.AddComponent<AudioSource>();
+            (AudioSource, string)[] tuples = new[]
+            {
+                (_audioSourceDropMold, DROP_MOLD)
+            };
+            SoundManager.Instance.SetMultipleAudioSourcesComponents(tuples);
+
+        }
+
+        protected override void BeginDrag(BaseEventData data)
+        {
+            if (!draggable)
+            {
+                return;
+            }
+            if (_moveCoroutine != null)
+            {
+                StopCoroutine(_moveCoroutine);
+            }
+            base.BeginDrag(data);
+        }
+
+        protected override void EndDrag(BaseEventData data)
+        {
+            if (!draggable)
+            {
+                return;
+            }
+            PointerEventData pointerData = (PointerEventData)data;
+
+            if (_moldPlace.IsCoordinateInsideBounds(pointerData.position))
+            {
+                LayoutManager.Instance.SetIsMoldInPlace(true);
+                _moveCoroutine = StartCoroutine(Slide(transform.localPosition));
+            }
+            else
+            {
+                LayoutManager.Instance.SetIsMoldInPlace(false);    
+            }
+            
+            _publisher.IsCoordinateInsideBounds(pointerData.position);
+            
+            base.EndDrag(data);
+        }
+
+        private IEnumerator Slide(Vector2 origin)
+        {
+            float timer = 0;
+            
+            while (timer < TIME_TO_SLIDE)
+            {
+                timer = MoveToDestination(origin, _initialPosition, timer);
+                yield return null;
+            }
+            
+            _audioSourceDropMold.Play();
+        }
+
+        private float MoveToDestination(Vector2 origin, Vector2 destination, float timer)
+        {
+            timer += Time.deltaTime * SPEED_MOVEMENT;
+            transform.localPosition = Vector3.Lerp(origin, destination, timer / TIME_TO_SLIDE);
+            
+            return timer;
         }
 
         private void SetLayoutLimiters()
@@ -111,7 +199,7 @@ namespace Workspace.Layout
 
         private void CreateCell(int i, int j, float cellSize, Vector2 sizeDelta)
         {
-            GameObject cellGameObject = Instantiate(_cellPrefab, gameObject.transform, true);
+            GameObject cellGameObject = Instantiate(_cellPrefab, gameObject.transform, false);
             Cell cellPrefab = cellGameObject.GetComponent<Cell>();
             float cellPositionX = MathUtil.Map(cellSize * i, 0, sizeDelta.x, _minAnchorForCell.x, _maxAnchorForCell.x);
             float cellPositionY = MathUtil.Map(cellSize * j, 0, sizeDelta.y, _minAnchorForCell.y, _maxAnchorForCell.y);
@@ -129,7 +217,7 @@ namespace Workspace.Layout
 
         private Cell[] TakeCells(NewsHeadlineSubPiece draggedSubPiece, Vector2 mousePosition, NewsHeadlineSubPiece[] newsHeadlinePieces)
         {
-            if (!IsCoordinateInsideLayout(mousePosition))
+            if (!IsCoordinateInsideLayout(mousePosition) || draggable)
             {
                 return null;
             }
@@ -153,8 +241,27 @@ namespace Workspace.Layout
             return desiredCells;
         }
 
+        private NewsHeadlineSubPiece FindRealDraggedSubPiece(NewsHeadlineSubPiece[] newsHeadlinePieces)
+        {
+            NewsHeadlineSubPiece draggedSubPiece = newsHeadlinePieces[0];
+            for (int i = 0; i < newsHeadlinePieces.Length; i++)
+            {
+                var p = newsHeadlinePieces[i];
+                Vector3 screenPos = RectTransformUtility.WorldToScreenPoint(Camera.main, p.transform.position);
+                Vector3 closestScreenPos = RectTransformUtility.WorldToScreenPoint(Camera.main, draggedSubPiece.transform.position);
+                if (Vector2.Distance(screenPos, Input.mousePosition) < Vector2.Distance(closestScreenPos, Input.mousePosition))
+                {
+                    draggedSubPiece = p;
+                }
+            }
+            return draggedSubPiece;
+        }
+
         private Cell[] LookForCells(NewsHeadlineSubPiece draggedSubPiece, Vector2 mousePosition, NewsHeadlineSubPiece[] newsHeadlinePieces)
         {
+            //this sucks but the received draggedsubpiece is consistently wrong
+            draggedSubPiece = FindRealDraggedSubPiece(newsHeadlinePieces);
+
             Cell[] desiredCells = new Cell[newsHeadlinePieces.Length];
 
             int index = LookingForPieceInsideArray(draggedSubPiece, newsHeadlinePieces);
@@ -163,9 +270,10 @@ namespace Workspace.Layout
 
             foreach (NewsHeadlineSubPiece piece in newsHeadlinePieces)
             {
-                if (IsCoordinateInsideLayout((Vector2)piece.transform.position -
-                                             (Vector2)draggedSubPiece.transform.position +
-                                             (Vector2)(desiredCells[index].transform.position)))
+                if (IsCoordinateInsideLayout(
+                    (Vector2)piece.transform.position -
+                    (Vector2)draggedSubPiece.transform.position +
+                    (Vector2)(desiredCells[index].transform.position)))
                 {
                     continue;
                 }
@@ -178,10 +286,10 @@ namespace Workspace.Layout
         private int LookingForPieceInsideArray(NewsHeadlineSubPiece draggedSubPiece, NewsHeadlineSubPiece[] allPieces)
         {
             int index = 0;
-            
+
             for (; index < allPieces.Length; index++)
             {
-                if (draggedSubPiece == allPieces[index])
+                if (draggedSubPiece.transform.position == allPieces[index].transform.position)
                 {
                     break;
                 }
@@ -246,26 +354,51 @@ namespace Workspace.Layout
             return _cells[finalCellCoordinateX][finalCellCoordinateY];
         }
 
-        private Vector3 SnapNewsHeadline(Cell[] snappedCells, NewsHeadline newsHeadline)
+        private Vector3 SnapNewsHeadline(Cell[] snappedCells, NewsHeadline newsHeadline, GameObject piece)
         {
+            piece.transform.SetParent(gameObject.transform);
+            
             _newsHeadlines.Add(newsHeadline);
             
             foreach (Cell cell in snappedCells)
             {
                 cell.SetFree(false);
             }
-            
+
+            if (_newsHeadlines.Count == _newsFolder.GetNewsInLayoutAmount() && _newsFolder.GetNewsHeadlinesLength() == 0)
+            {
+                _moldLocker.blink = true;
+            }
+
             return snappedCells[0].transform.position;
         }
 
         private void RemoveNewsHeadline(NewsHeadline newsHeadline)
         {
             _newsHeadlines.Remove(newsHeadline);
+
+            _moldLocker.blink = false;
         }
 
         public NewsHeadline[] GetNewsHeadlines()
         {
             return _newsHeadlines.ToArray();
+        }
+
+        public void SetDraggable(bool draggable) 
+        {
+            base.draggable = draggable;
+            LayoutManager.Instance.SetIsMoldDraggable(draggable);
+
+            foreach (NewsHeadline article in _newsHeadlines)
+            {
+                article.SetPieceRaycastTarget(!draggable);
+            }
+        }
+
+        public bool IsDraggable() 
+        {
+            return draggable;
         }
     }
 }

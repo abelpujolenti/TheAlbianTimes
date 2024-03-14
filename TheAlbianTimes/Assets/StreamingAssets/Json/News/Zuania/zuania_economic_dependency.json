@@ -1,0 +1,61 @@
+{
+    "name": "zuania_economic_dependency",
+    "firstRound": 3,
+    "duration": 1,
+    "priority": 1,
+    "leniency": 2,
+    "type": 4,
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 3,
+            "key": "reputation",
+            "value": -0.05
+        },
+        {                    
+            "country": 5,
+            "key": "reputation",
+            "value": 0.05
+        }
+    ],
+    "biases": [
+        {
+            "name": "NEUTRAL",
+            "description": " Zuania, the country, is failing and needs help from its neighbors. Albia and Xaya are the main providers of aid.",
+            "headline": "Years of Economic Downturn Turn Into Dependency",
+            "text": "    Over the course of numerous years, grappling with an economic rut, the nation of Zuania has become heavily reliant on aid and support from neighboring countries. The most helpful ones have been Albia and Xaya as they have consistently taken action to help the country. The former has accepted immigrants from the region and funded construction efforts. Many of which have led to a little more stability and economic growth. Xaya has provided technology and finance to the region, claiming it to be part of their responsibility.",
+            "additionalConsequences": []
+        },
+        {
+            "name": "FAILURE",
+            "description": " Zuania, the autonomous government, failed its people by not doing enough.",
+            "headline": "What Happens When a Government Fails",
+            "text": "    After so many years failing its people, the autonomous government of Zuania has become dependent on the kindness of neighboring countries. The most helpful one being Albia as our beautiful homeland has given essentially free handouts.\n    It is now known that the money and support given is not being used appropriately, as evidenced by their lack of growth. This realization prompts concerns about the misuse of resources and the objectives of Zuania.",
+            "additionalConsequences": [
+                {
+                    "country": 3,
+                    "key": "reputation",
+                    "value": -0.1
+                }
+            ]
+        },
+        {
+            "name": "COLONIALISM",
+            "description": " The pressure of Xaya, the colonial state, has led to the downturn of this country of Zuania",
+            "headline": "Years of Xayan Pressure Leads to Dependency",
+            "text": "   After enduring years of perceived oppression and influence from Xaya, Zuania has gradually become reliant on its neighbor. This slow process is becoming increasingly obvious as the emigration rate rises year by year among the lower socioeconomic classes who can still somewhat afford it. It seems like the gradual erosion of Zuania’s state, being caused by the pressure of colonialism, is not going to slow down as Xaya further pushes for their power over Zuania.",
+            "additionalConsequences": [
+                {
+                    "country": 3,
+                    "key": "reputation",
+                    "value": 0.1
+                },
+                {                    
+                    "country": 2,
+                    "key": "reputation",
+                    "value": -0.15
+                }
+            ]
+        }
+    ]
+}

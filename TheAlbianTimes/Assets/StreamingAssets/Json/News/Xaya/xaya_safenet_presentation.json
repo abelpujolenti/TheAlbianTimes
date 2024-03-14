@@ -1,0 +1,55 @@
+{
+    "name":"xaya_safenet_presentation",
+    "firstRound":3,
+    "duration":1,
+    "priority":1,
+    "extraBias": false,
+    "leniency":0,
+    "type": 0,
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 2,           
+            "key": "reputation",
+            "value": 0.0
+        }
+    ],
+    "biases": [
+        {
+            "name": "REPRESSION",
+            "description": "Xaya's authoritarianism grows as civilians become an 'assisting police force'.",
+            "headline": "Xaya's new security program is set to surveil the entirety of the public space.",
+            "text": "   The Xayan government has just published a report on its new SafeNet program. SafeNet was tested in eight rural areas through more than 500 security cameras and 7000 microphones. Through special telephone lines in their homes, locals can hear live security footage, and call the police by pressing '0'.\n    This creates a feeling of 'permanent surveillance' between the citizens, as even the most insignificant actions can lead to being reported. This has raised concerns on the potential consequences of minor conflicts between neighbours.\n    Besides that, International Action for Human Rights has stated that 'SafeNet is an outrageous violation of basic human rights' and a confirmation of Xaya's 'growing authoritarianism'.\n",
+            "additionalConsequences": [
+                {
+                    "country": 2,
+                    "key": "reputation",
+                    "value": -0.1
+                },
+                {
+                    "country": 3,
+                    "key": "reputation",
+                    "value": 0.05
+                }
+            ]
+        },
+        {
+            "name": "SAFETY",
+            "description": "Innovative program boosts security thanks to civilian collaboration.",
+            "headline": "Crime drops by 10% in Xaya as government deploys SafeNet plan.",
+            "text":"    The Xayan government has just published a report on its new SafeNet program. SafeNet was tested in eight rural areas and in only two months crime, which was already at its lowest, has dropped by 10%.\n    The State argued that the citizens' collaboration has been key for success. SafeNet eases the detection of even the slightest suspicious behaviours, thus preventing crime from happening. The plan has proven to be specially effective against robbery, vandalism and disorderly conduct.\n    The government has asserted that they are already working on implementing SafeNet in urban areas, including the capital. Thomas Doe, Minister of Security and Welfare, declared that Xaya is 'on the right way' to achieving its goal of creating a 'country where everyone feels safe'.",
+            "additionalConsequences": [
+                {
+                    "country": 2,
+                    "key": "reputation",
+                    "value": 0.15
+                },
+                {
+                    "country": 3,
+                    "key": "reputation",
+                    "value": -0.05
+                }
+            ]
+        }
+    ]
+}

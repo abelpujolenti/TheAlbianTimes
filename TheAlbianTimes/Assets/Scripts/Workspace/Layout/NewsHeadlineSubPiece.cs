@@ -23,6 +23,9 @@ namespace Workspace.Layout
         
         private Image _image;
 
+        private bool _isSnapped;
+        [SerializeField]private bool _isMoldDraggable;
+
         private new void Awake()
         {
             draggable = true;
@@ -40,10 +43,14 @@ namespace Workspace.Layout
 
         protected override void BeginDrag(BaseEventData data)
         {
+            _isMoldDraggable = LayoutManager.Instance.IsMoldDraggable();
+            if (_isMoldDraggable && _isSnapped)
+            {
+                return;
+            }
             base.BeginDrag(data);
 
             EventsManager.OnStartEndDrag(true);
-            
             EventsManager.OnCrossMidPointWhileScrolling += GetGameObjectToTransferDrag;
             
             _newsHeadlinePiece.BeginDrag();
@@ -51,10 +58,14 @@ namespace Workspace.Layout
 
         protected override void Drag(BaseEventData data)
         {
+            if (_isMoldDraggable && _isSnapped)
+            {
+                return;
+            }
             base.Drag(data);
 
             PointerEventData pointerData = (PointerEventData)data;
-            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(pointerData.position);
+            Vector2 mousePosition = _camera.ScreenToWorldPoint(pointerData.position);
 
             if (mousePosition.x >= _midPoint)
             {
@@ -67,9 +78,10 @@ namespace Workspace.Layout
         {
             _rotate = false;
             _newsHeadlinePiece.SetTransferDrag(true);
+            _newsHeadlinePiece.OnCrossMidPoint();
             _newsHeadlineToTransferDrag.SetTransferDrag(false);
                 
-            _newsHeadlinePiece.gameObject.SetActive(false);  
+            _newsHeadlinePiece.gameObject.SetActive(false);
             
             _gameObjectToTransferDrag.transform.position = mousePosition;
             _gameObjectToTransferDrag.gameObject.SetActive(true);
@@ -87,6 +99,10 @@ namespace Workspace.Layout
 
         protected override void EndDrag(BaseEventData data)
         {
+            if (_isMoldDraggable && _isSnapped)
+            {
+                return;
+            }
             if (_newsHeadlineToTransferDrag.GetTransferDrag())
             {
                 _newsHeadlineToTransferDrag.SimulateEndDrag(data);
@@ -155,9 +171,12 @@ namespace Workspace.Layout
         {
             Drag(pointerData);
             
-            //TODO BUG ON TRANSFER WITH SCROLL
-            
             return !_newsHeadlinePiece.GetTransferDrag() ? _newsHeadlinePiece.gameObject : _newsHeadlineToTransferDrag.gameObject;
+        }
+
+        public void SetIsSnapped(bool isSnapped)
+        {
+            _isSnapped = isSnapped;
         }
     }
 }

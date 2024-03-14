@@ -13,9 +13,9 @@ namespace Managers
         public static Action <bool> OnStartEndDrag;
         public static Func <PointerEventData, GameObject> OnCrossMidPointWhileScrolling;
         public static Func <Vector2, Vector2> OnCheckDistanceToMouse;
-        public static Action OnExceedCameraLimitsWhileDragging;
-        public static Action <GameObject> OnAssignGameObjectToDrag;
-        public static Action <bool> OnPressPanicButton;
+        public static Action OnThowSomething;
+        public static Action OnArrangeSomething;
+        public static Action OnPressPanicButton;
         public static Action OnPressPanicButtonForPieces;
         public static Action <String> OnClickLetter;
 
@@ -24,7 +24,7 @@ namespace Managers
         #region LayoutEvents
         
         public static Func <NewsHeadlineSubPiece, Vector2, NewsHeadlineSubPiece[], Cell[]> OnPreparingCells;
-        public static Func <Cell[], NewsHeadline, Vector3> OnSuccessfulSnap;
+        public static Func <Cell[], NewsHeadline, GameObject, Vector3> OnSuccessfulSnap;
         public static Action <NewsHeadline> OnGrabSnappedPiece;
         
         #endregion
@@ -47,7 +47,7 @@ namespace Managers
 
         public static Action <GameObject> OnAddEnvelope;
         public static Action <GameObject, bool> OnAddEnvelopeContentToList;
-        public static Action<GameObject, GameObject> OnAddEnvelopeContent;
+        public static Action <GameObject, GameObject> OnAddEnvelopeContent;
 
         #endregion
     }

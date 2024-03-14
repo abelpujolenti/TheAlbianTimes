@@ -2,9 +2,9 @@ using System;
 using System.Collections;
 using Managers;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 using Utility;
 using Random = UnityEngine.Random;
@@ -98,6 +98,8 @@ namespace Workspace.Editorial
             }
 
             _selected = true;
+            _cap.transform.position = _capStartPosition + openCapOffset;
+            CloseCap();
         }
 
         private void OnEnable()
@@ -186,7 +188,7 @@ namespace Workspace.Editorial
         {
             SeparateCap();
 
-            markAnimationHeight = 0.16f * (newsFolder.GetFrontHeadline().transform.Find("Text").GetComponent<TextMeshProUGUI>().textInfo.lineCount - 1);
+            markAnimationHeight = 0.12f * (newsFolder.GetFrontHeadline().transform.Find("Text").GetComponent<TextMeshProUGUI>().textInfo.lineCount - 1);
 
             StopMarkAnimation();
             _markAnimationCoroutine = StartCoroutine(MarkAnimationCoroutine());
@@ -274,6 +276,7 @@ namespace Workspace.Editorial
         public void SelectBias()
         {
             BiasButtonStuff(true);
+            _textMeshPro.fontStyle = TMPro.FontStyles.Underline;
         }
 
         private void UnselectBias()
@@ -281,6 +284,11 @@ namespace Workspace.Editorial
             BiasButtonStuff(false);
             StopMarkAnimation();
             StartCoroutine(ReturnMarkerCoroutine());
+        }
+
+        public void ResetBiasUnderline()
+        {
+            _textMeshPro.fontStyle = TMPro.FontStyles.Normal;
         }
 
         private void BiasButtonStuff(bool isSelected)

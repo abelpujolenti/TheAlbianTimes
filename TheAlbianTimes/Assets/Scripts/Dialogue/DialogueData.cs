@@ -1,6 +1,5 @@
-using Managers;
 using System;
-using Unity.VisualScripting;
+using Managers;
 
 [Serializable]
 public class DialogueData
@@ -57,6 +56,7 @@ public class DialogueOption
 {
     public int id;
     public string text;
+    public string mood;
     public int followupLines;
     public CountryEventCondition[] countryConditions;
     public CharacterEventCondition[] characterConditions;

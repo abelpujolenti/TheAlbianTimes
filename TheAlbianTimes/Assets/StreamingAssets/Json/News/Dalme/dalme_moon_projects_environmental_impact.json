@@ -1,6 +1,6 @@
 {
     "name":"dalme_moon_projects_environmental_impact",
-    "firstRound":4,
+    "firstRound":14,
     "duration":2,
     "priority":0.80,
     "leniency":4,
@@ -10,7 +10,7 @@
         {
             "country": 4,
             "key": "reputation",
-            "value": -0.2
+            "value": -0.1
         }
     ],
     "biases": [
@@ -30,12 +30,12 @@
                 {
                     "country": 4,
                     "key": "reputation",
-                    "value": 0.6
+                    "value": 0.2
                 },
                 {
                     "country": 6,
                     "key": "reputation",
-                    "value": -0.4
+                    "value": -0.1
                 }
             ]
         },
@@ -48,7 +48,7 @@
                 {
                     "country": 4,
                     "key": "reputation",
-                    "value": 0.8
+                    "value": 0.15
                 }
             ]
         }

@@ -1,0 +1,63 @@
+{
+    "name":"albia_prince_return",
+    "firstRound":2,
+    "duration":1,
+    "priority":1,
+    "extraBias": false,
+    "leniency":0,
+    "type": 0,
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 5,
+            "key": "reputation",
+            "value": 0
+        }
+    ],
+    "biases": [
+        {
+            "name": "EXILE",
+            "description": "The prince's return could lead to the restitution of the Albian monarchy.",
+            "headline": "Francisco José de Ariza, rightful Prince of Albia, returns after 42 years in exile.",
+            "text": "   The prince landed yesterday in Mastena's airport, with his wife and children. The entire Royal Family had to leave Albia for exile 42 years ago, following the deposal of Francisco José's father Enrique: just after his coronation ceremony, an anonymous informant claimed to have proof that Enrique was an illegitimate child. Even if there was no evidence of the documents' authenticity, the shock lead Albian society to forget that the monarchs have always embodied the values of Honor, Justice and Loyalty, and resulted in the abolishment of the institution.\n    The restitution of Albia's monarchy could be a tangible possibility thanks to Francisco José's return.",        
+            "additionalConsequences": [
+                {
+                    "country": 5,
+                    "key": "albia_monarchy",
+                    "value": 0.1
+                }
+            ]
+        },
+        {
+            "name": "SCANDAL",
+            "description": "The former prince, who is an illegitimate child, prefers to not make any public statement.",
+            "headline": "Francisco José de Ariza, former Prince of Albia, returns to his country after 42 years in Dalme.",
+            "text": "   The former prince landed yesterday in Mastena's airport, with his wife Marija Reznicek and children. The Royal Family relocated to Dalme 42 years ago, following the scandal that led Francisco José's father Enrique to be deposed: just after his coronation ceremony, medical documents proving that Enrique was an illegitimate child were brought to light. The reveal induced great shock in Albian society, and resulted in the abolishment of the institution.\n    Francisco José has not made any public statement. Some speculate that he is involved with the alt-right Constitutional Motherland Party; others maintain that his trading activities have encountered serious issues.",
+            "additionalConsequences": [
+                {
+                    "country": 5,
+                    "key": "albia_monarchy",
+                    "value": -0.2
+                }
+            ]
+        },
+        {
+            "name": "BUSINESS",
+            "description": "Ariza clings to Albia as business in Dalme does not go as expected.",
+            "headline": "Francisco José de Ariza, former Prince of Albia, returns after ending business in Dalme.",
+            "text":"    The former prince landed yesterday in Mastena's airport, with his Dalmese wife Marija Reznicek and children. The Royal Family left Albia 42 years ago, after the deposal of Francisco José's father Enrique: just after his coronation ceremony, medical documents proving that Enrique was an illegitimate child were brought to light. The reveal induced great shock in Albian society, and resulted in the abolishment of the institution.\n    Francisco José has not made any official statement, but recent market movements show that Dalme's economy might be on the brink of a recession. This lack of regard for the country that backed their businesses evidences the Royal Family's unscrupulousness.",
+            "additionalConsequences": [
+                {
+                    "country": 5,
+                    "key": "albia_monarchy",
+                    "value": -0.4
+                },
+                {
+                    "country": 4,
+                    "key": "reputation",
+                    "value": -0.05
+                }
+            ]
+        }
+    ]
+}

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Managers;
@@ -6,7 +7,6 @@ using UnityEngine;
 using Workspace.Layout;
 using Workspace.Layout.Pieces;
 using Workspace.Mail.Content;
-using Random = UnityEngine.Random;
 
 namespace Workspace.Editorial
 {
@@ -14,6 +14,8 @@ namespace Workspace.Editorial
     {
         private const String NEWS_PATH = "News";
         private const float SPAWN_Y_COORDINATE = 1000;
+
+        public const float loadDelay = 5f;
     
         [SerializeField] private GameObject _newsHeadline;
         [SerializeField] private GameObject _newsHeadlinePiece;
@@ -21,22 +23,22 @@ namespace Workspace.Editorial
         [SerializeField] private NewsFolder _newsFolder;
         private PieceGenerator pieceGenerator = new PieceGenerator();
 
-        private Dictionary<EnvelopeContentType, BaseContainer> _sendBiasesContainerDictionary; 
+        private Dictionary<EnvelopeContentType, BaseMailContainer> _sendBiasesContainerDictionary; 
 
         SortedList<float, NewsData> news;
 
         private void Start()
         {
-            BiasesContainer biasesContainer = new BiasesContainer
+            BiasesMailContainer biasesMailContainer = new BiasesMailContainer
             {
-                contentBiases = Array.Empty<ContentBias>() 
+                contentBiases = Array.Empty<MailContentBias>() 
             };
-            _sendBiasesContainerDictionary = new Dictionary<EnvelopeContentType, BaseContainer>
+            _sendBiasesContainerDictionary = new Dictionary<EnvelopeContentType, BaseMailContainer>
             {
-                { EnvelopeContentType.BIAS , biasesContainer}
+                { EnvelopeContentType.BIAS , biasesMailContainer}
             };
-            
-            LoadLevelNews();
+
+            StartCoroutine(LoadLevelNewsCoroutine());
 
             if (_sendBiasesContainerDictionary[EnvelopeContentType.BIAS].GetContent().Length == 0)
             {
@@ -44,6 +46,12 @@ namespace Workspace.Editorial
             }
             
             MailManager.Instance.SendEnvelopes(_sendBiasesContainerDictionary);
+        }
+
+        private IEnumerator LoadLevelNewsCoroutine()
+        {
+            yield return new WaitForSeconds(loadDelay);
+            LoadLevelNews();
         }
 
         private void LoadLevelNews()
@@ -56,10 +64,19 @@ namespace Workspace.Editorial
 
             int newsCount = CalculateMaxArticles(GameManager.Instance.gameState.playerData.staff);
 
+            List<NewsData> newsToCreate = new List<NewsData>();
+
             for (int i = 0; news.Count > 0 && (i < newsCount || news.Last().Key == 1); i++)
             {
-                CreateNewsObject(news.Last().Value);
+                newsToCreate.Add(news.Last().Value);
                 news.RemoveAt(news.Count - 1);
+            }
+            
+            EditorialManager.Instance.SetTotalNewsToLoad(newsToCreate.Count);
+
+            foreach (NewsData newsDataToCreate in newsToCreate)
+            {
+                CreateNewsObject(newsDataToCreate);
             }
         }
 

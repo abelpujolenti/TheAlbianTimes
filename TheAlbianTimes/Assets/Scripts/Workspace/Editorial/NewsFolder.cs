@@ -28,6 +28,11 @@ namespace Workspace.Editorial
         private bool _folderEmpty;
         private bool _dragging;
 
+        private Camera _camera;
+
+        private int _totalNewsToPosition;
+        private int _totalNewsRemainsToPosition;
+
         private void OnEnable()
         {
             EventsManager.OnAddNewsHeadlineToFolder += AddNewsHeadlineGameObject;
@@ -41,7 +46,15 @@ namespace Workspace.Editorial
         private void Start()
         {
             _rectTransform.GetWorldCorners(_corners);
+            _camera = Camera.main;
             SetContainerLimiters();
+            EditorialManager.Instance.SetNewsFolder(this);
+        }
+
+        public void SetTotalNewsToPosition(int totalNewsToLoad)
+        {
+            _totalNewsToPosition = totalNewsToLoad;
+            _totalNewsRemainsToPosition = _totalNewsToPosition;
         }
 
         private void AddNewsHeadlineGameObject(GameObject newsHeadlineGameObject)
@@ -50,10 +63,10 @@ namespace Workspace.Editorial
             
             newsHeadlineComponent.SetNewsFolder(this);
             
-            AddNewsHeadlineComponent(newsHeadlineComponent, true);
+            AddNewsHeadlineComponent(newsHeadlineComponent);
         }
 
-        public void AddNewsHeadlineComponent(NewsHeadline newsHeadline, bool allAtOnce)
+        public void AddNewsHeadlineComponent(NewsHeadline newsHeadline)
         {
             AddNewsHeadlineComponentToList(newsHeadline);
             _newsHeadlinesHasToReturnToFolder++;
@@ -65,13 +78,16 @@ namespace Workspace.Editorial
             {
                 _newsHeadlines[i].transform.SetSiblingIndex((_newsHeadlines.Count - 1) - i);
             }
-
-            if (allAtOnce)
-            {
-                return;
-            }
             
-            PositionNewsHeadlinesByGivenIndex((_newsHeadlines.Count - _newsHeadlinesHasToReturnToFolder) + 1);
+            PositionNewsHeadlinesByGivenIndex((_newsHeadlines.Count + (_totalNewsToPosition - _totalNewsRemainsToPosition) - _newsHeadlinesHasToReturnToFolder) + 1);
+
+            _totalNewsRemainsToPosition--;
+
+            if (_totalNewsRemainsToPosition <= 0)
+            {
+                _totalNewsToPosition = 0;
+                _totalNewsRemainsToPosition = 0;
+            }
         }
 
         private void AddNewsHeadlineComponentToList(NewsHeadline newsHeadline)
@@ -182,19 +198,19 @@ namespace Workspace.Editorial
 
             if (_newsHeadlinesHasToReturnToFolder > 0)
             {
-                Debug.Log("Redirect");
                 RedirectInComingNewsHeadlineToFolder();
             }
             
             ReindexFolderOrderInsideRange(0, _newsHeadlines.Count);
-            ModifyInFrontProperties(true);    
 
             if (_folderEmpty)
             {
                 _tray.Hide(null);
                 EditorialManager.Instance.TurnOffBiasContainer();
                 return;
-            }        
+            }     
+            
+            ModifyInFrontProperties(true);       
             
             frontNewsHeadline = _newsHeadlines[0];
             ChangeBias(frontNewsHeadline.GetSelectedBiasIndex(), frontNewsHeadline.GetBiasesNames(),
@@ -342,6 +358,11 @@ namespace Workspace.Editorial
             return _newsHeadlines.Count;
         }
 
+        public int GetNewsInLayoutAmount()
+        {
+            return _newsHeadlinesOutOfFolder;
+        }
+
         public void SetDragging(bool dragging)
         {
             _dragging = dragging;
@@ -357,7 +378,7 @@ namespace Workspace.Editorial
 
         public bool IsCoordinateInsideBounds(Vector3 position)
         {
-            position = Camera.main.ScreenToWorldPoint(position);
+            position = _camera.ScreenToWorldPoint(position);
             return position.x > _containerMinCoordinates.x && position.x < _containerMaxCoordinates.x &&
                    position.y > _containerMinCoordinates.y && position.y < _containerMaxCoordinates.y;
         }

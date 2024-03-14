@@ -30,4 +30,20 @@ public class ColorUtil : MonoBehaviour
         v *= brightness;
         return Color.HSVToRGB(h, s, v);
     }
+    public static float GetBrightness(Color c)
+    {
+        float h, s, v;
+        Color.RGBToHSV(c, out h, out s, out v);
+        return v;
+    }
+    public static float GetSaturation(Color c)
+    {
+        float h, s, v;
+        Color.RGBToHSV(c, out h, out s, out v);
+        return s;
+    }
+    public static Color Alpha(Color c, float a)
+    {
+        return new Color(c.r, c.g, c.b, a);
+    }
 }

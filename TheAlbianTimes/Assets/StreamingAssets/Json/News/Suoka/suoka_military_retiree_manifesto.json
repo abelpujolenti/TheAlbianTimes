@@ -1,6 +1,6 @@
 {
     "name":"suoka_military_retiree_manifesto",
-    "firstRound":3,
+    "firstRound":13,
     "duration":3,
     "priority":1,
     "leniency":0,
@@ -10,12 +10,12 @@
         {
             "country": 6,
             "key": "reputation",
-            "value": -0.2
+            "value": -0.15
         },
         {
             "country": 7,
             "key": "reputation",
-            "value": -0.1
+            "value": -0.05
         }
     ],
     "biases": [
@@ -35,7 +35,7 @@
                 {
                     "country": 6,
                     "key": "reputation",
-                    "value": 0.4
+                    "value": 0.3
                 },
                 {
                     "country": 7,
@@ -53,12 +53,12 @@
                 {
                     "country": 6,
                     "key": "reputation",
-                    "value": 0.4
+                    "value": 0.3
                 },
                 {
                     "country": 7,
                     "key": "reputation",
-                    "value": -0.25
+                    "value": -0.05
                 }
             ]
         }

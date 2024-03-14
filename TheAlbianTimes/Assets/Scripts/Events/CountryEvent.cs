@@ -1,4 +1,5 @@
 using System;
+using Countries;
 
 [Serializable]
 public abstract class CountryEvent

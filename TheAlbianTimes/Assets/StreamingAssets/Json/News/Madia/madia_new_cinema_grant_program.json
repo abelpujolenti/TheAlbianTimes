@@ -1,6 +1,6 @@
 {
     "name":"madia_new_cinema_grant_program",
-    "firstRound":1,
+    "firstRound":11,
     "duration":3,
     "priority":0.65,
     "leniency":2,
@@ -10,7 +10,12 @@
         {
             "country": 6,
             "key": "reputation",
-            "value": 0.05
+            "value": 0.1
+        },
+        {
+            "country": 4,
+            "key": "reputation",
+            "value": -0.05
         }
     ],
     "biases": [
@@ -30,7 +35,12 @@
                 {
                     "country": 6,
                     "key": "reputation",
-                    "value": -0.1
+                    "value": -0.05
+                },
+                {
+                    "country": 4,
+                    "key": "reputation",
+                    "value": 0.05
                 }
             ]
         },
@@ -43,7 +53,12 @@
                 {
                     "country": 6,
                     "key": "reputation",
-                    "value": -0.2
+                    "value": -0.15
+                },
+                {
+                    "country": 4,
+                    "key": "reputation",
+                    "value": 0.1
                 }
             ]
         }

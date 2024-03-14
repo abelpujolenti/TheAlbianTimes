@@ -107,7 +107,16 @@ namespace Workspace.Editorial
             {
                 EventsManager.OnChangeSelectedBias();
             }
-            _bias[newSelectedBiasIndex].SelectBias();
+            for (int i = 0; i < _bias.Length; i++)
+            {
+                if (i == newSelectedBiasIndex) {
+                    _bias[i].SelectBias();
+                }
+                else
+                {
+                    _bias[i].ResetBiasUnderline();
+                }
+            }
             ChangeBiasDescription(newSelectedBiasIndex);
         }
 

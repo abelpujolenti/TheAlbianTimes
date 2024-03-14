@@ -8,7 +8,7 @@ using Workspace.Mail.Content;
 
 namespace Workspace.Mail
 {
-    public class Envelope : InteractableRectTransform
+    public class Envelope : ThrowableInteractableRectTransform
     {
         private const String GRAB_ENVELOPE_SOUND = "Grab Envelope";
         private const String OPEN_ENVELOPE_SOUND = "Open Envelope";
@@ -87,7 +87,7 @@ namespace Workspace.Mail
 
         protected override void BeginDrag(BaseEventData data)
         {
-            //base.BeginDrag(data);
+            base.BeginDrag(data);
             transform.SetAsLastSibling();
             CloseCover();
             _canHover = false;
@@ -118,15 +118,15 @@ namespace Workspace.Mail
         private IEnumerator SetRotationCoroutine(Transform gameObjectToDrag, float xRotation, float t)
         {
             float elapsedT = 0f;
-            Vector3 startRotation = gameObjectToDrag.transform.rotation.eulerAngles * Mathf.Rad2Deg;
+            Vector3 startRotation = gameObjectToDrag.transform.localRotation.eulerAngles * Mathf.Rad2Deg;
             while (elapsedT <= t)
             {
                 float x = Mathf.LerpAngle(startRotation.x, xRotation, elapsedT / t);
-                gameObjectToDrag.transform.rotation = Quaternion.Euler(new Vector3(x, gameObjectToDrag.transform.rotation.y, gameObjectToDrag.transform.rotation.z));
+                gameObjectToDrag.transform.localRotation = Quaternion.Euler(new Vector3(x, gameObjectToDrag.transform.localRotation.y, gameObjectToDrag.transform.localRotation.z));
                 yield return new WaitForFixedUpdate();
                 elapsedT += Time.fixedDeltaTime;
             }
-            gameObjectToDrag.transform.rotation = Quaternion.Euler(new Vector3(xRotation, gameObjectToDrag.transform.rotation.y, gameObjectToDrag.transform.rotation.z));
+            gameObjectToDrag.transform.localRotation = Quaternion.Euler(new Vector3(xRotation, gameObjectToDrag.transform.localRotation.y, gameObjectToDrag.transform.localRotation.z));
         }
 
         public void SetEnvelopeContent(GameObject envelopContentGameObject)

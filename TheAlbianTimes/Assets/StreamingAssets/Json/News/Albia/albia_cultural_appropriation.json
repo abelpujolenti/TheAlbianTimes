@@ -1,0 +1,51 @@
+{
+    "name": "albia_cultural_appropriation",
+    "firstRound": 4,
+    "duration": 2,
+    "priority": 0.8,
+    "leniency": 2,
+    "type": 6,
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 5,
+            "key": "reputation",
+            "value": 0.05
+        }
+    ],
+    "biases": [
+        {
+            "name": "REFRESHING",
+            "description": "Mass Migration from Zuania to Albia. Mixing of cultures is resulting in new forms of art being created! Albia is truly one of, if not the most accepting nation.",
+            "headline": "The Love for Zuan Culture is Revitalizing Albia",
+            "text": "    The mass migration of Zuans into Albia has caused an equally massive amount of cultural mixing. This has manifested in the form of blending Zuan influences into various aspects of Albian society such as movies, music, and art. A new genre of music called ZuanBeats is being created, reflecting the mix of Zuan and Albian musical styles. The cultural interchange is a show of how welcoming Albia has demonstrated itself to be as a nation.",
+            "additionalConsequences": []
+        },
+        {
+            "name": "APPROPRIATION",
+            "description": "Albians starting to Appropriate Zuan Art and claiming a decade-old music style as theirs.",
+            "headline": "Albians are Appropriating Zuan Culture",
+            "text": "    The advent of terrible events in Zuania has led to large swaths of Zuan migrants being forced into Albia. Due to this, Zuan culture is being appropriated by Albians and claimed to be brand new. An example of this is the popular genre of ZuanBeats, which is being touted as the next big thing. Some members of the Albian community have been claiming it as a part of Albian culture instead, despite it being a nearly 15-year-old genre and a natural evolution of Zuan culture.",
+            "additionalConsequences": [
+                {
+                    "country": 5,
+                    "key": "reputation",
+                    "value": -0.1
+                }
+            ]
+        },
+        {
+            "name": "COMPROMISING",
+            "description": "Zuan Culture is having a negative impact on the younger generation. Albians need to band together against it.",
+            "headline": "Is Zuan Culture Affecting What it Means to be Albian?",
+            "text": "    Due to the overwhelming migration of Zuans, the cultural integrity of our country is being compromised. Their music and mannerisms are starting to become popular among the youth. It should be especially telling that the people of that country, despite its decay, have found the time to waste on music, paint, intricate clothing and other unnecessary cultural 'artifacts'. The already-dwindling culture of our country is being reduced to nothing due to the constant migration of these people.",
+            "additionalConsequences": [
+                {
+                    "country": 5,
+                    "key": "reputation",
+                    "value": -0.05
+                }
+            ]
+        }
+    ]
+}

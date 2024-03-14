@@ -1,0 +1,51 @@
+    {
+    "name":"madia_sitcom_cancelled",
+    "firstRound":3,
+    "duration":1,
+    "priority":1,
+    "leniency":2,
+    "type": 2,
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 6,
+            "key": "reputation",
+            "value": -0.1
+        }
+    ],
+    "biases": [
+        {
+            "name": "ARRESTED",
+            "description": "  There was an arrest made, but the facts are yet to be conclusive. We're now investigating",
+            "headline": "Lead Actor and Fan Favorite Performer, Alan Sawyer, has Been Arrested",
+            "text": "    Alan Sawyer, lead actor of the sitcom Tomodachi, has been arrested, spelling the end of the show. The allegations seem very real, however the story is still ongoing.\n    The actor was, seemingly, found in a public park in an allegedly catatonic state. His whereabouts beforehand are still unknown, but there is a case to be made that he was at a party with the producers. The attendees have denied these accusations categorically. Lastly, the rumors of the show's cancellation seem very likely due to the channel it was hosted on being very strict.",
+            "additionalConsequences": []
+        },
+        {
+            "name": "INDECENT",
+            "description": " Alan Sawyer has put the jobs of the people working on Tomodachi in jeopardy",
+            "headline": "Alan Sawyer, Caught Doing Drugs in a Public Park",
+            "text": "    In a shocking turn of events, acclaimed actor Alan Sawyer was allegedly discovered throwing up and sleeping on a bench. The repercussions of this incident remain to be seen, as the actor faces potential legal consequences and the possibility of canceling the show.\n    The actions taken have gravely endangered the livelihoods of, not only his fellow actors, but all the people working on the show. Editors, costume designers, assistants, and all others have been slowly coming out to decry the actions. The actions taken have severely affected the ability of the season to continue airing; however, we are still not sure what is going to happen.",
+            "additionalConsequences": [
+                {
+                    "country": 6,
+                    "key": "reputation",
+                    "value": 0.2
+                }
+            ]
+        },
+        {
+            "name": "DRUGS ARE EVIL",
+            "description": " The Sitcom is being canceled by the highly professional anti-drug producers. Drugs should not be used",
+            "headline": "Beloved Sitcom 'Tomodachi' Canceled after Lead Does Drugs in Public",
+            "text": "   In a shocking development, the acclaimed television series 'Tomodachi,' led by actor Alan Sawyer, faces an uncertain future in the wake of his involvement in a troubling drug-related incident. The rumors of a swift cancellation of the show by producers reflects the industry's commitment to upholding values and standards. Devoted viewers, who once tuned in for the show's compelling narrative, are left disheartened by the seemingly abrupt end to 'Tomodachi.' This incident highlights the importance of personal responsibility, which the entertainment industry is exceedingly negligent of. As discussions unfold, the need for maintaining a moral compass within the entertainment industry and the broader cultural landscape is becoming obvious.",
+            "additionalConsequences": [
+                {
+                    "country": 6,
+                    "key": "reputation",
+                    "value": 0.15
+                }
+            ]
+        }
+    ]
+}

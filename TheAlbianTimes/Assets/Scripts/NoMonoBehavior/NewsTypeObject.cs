@@ -13,7 +13,8 @@ namespace NoMonoBehavior
         CULTURAL,
         TECHNOLOGY,
         LABOR,
-        IDEOLOGY
+        IDEOLOGY,
+        TUTORIAL
     }
 
     [Serializable]

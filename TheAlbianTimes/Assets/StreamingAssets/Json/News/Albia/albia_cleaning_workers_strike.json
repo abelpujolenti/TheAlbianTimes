@@ -1,6 +1,6 @@
 {
     "name":"albia_cleaning_workers_strike",
-    "firstRound":2,
+    "firstRound":12,
     "duration":2,
     "priority":0.80,
     "extraBias": true,
@@ -14,7 +14,7 @@
             "value": -0.1
         },
         {
-            "country": 3,
+            "country": 1,
             "key": "reputation",
             "value": 0.05
         }
@@ -24,14 +24,14 @@
             "name": "NEUTRAL",
             "description": "Take a neutral stance.",
             "headline": "As negotiations with the Albian government stall, cleaning workers go on a strike.",
-            "text": "   After Albia has refused their demands, cleaning workers -who are mostly undocumented Zuanian women- have decided to go on a strike. They are asking for facilitations in the Residence Permit obtention process, health coverage and protection from exploitation.\n    After the strike was announced, the Albian government offered them the possibility of a new 'migrant grant' to sustain them while they undergo the Residence Permit process. The workers qualified it as an 'attack to their dignity', for it consisted of 100 riels a month, and asserted their intention to go on a strike.",        
+            "text": "   After Albia has refused their demands, cleaning workers -who are mostly undocumented Terkani women- have decided to go on a strike. They are asking for facilitations in the Residence Permit obtention process, health coverage and protection from exploitation.\n    After the strike was announced, the Albian government offered them the possibility of a new 'migrant grant' to sustain them while they undergo the Residence Permit process. The workers qualified it as an 'attack to their dignity', for it consisted of 100 riels a month, and asserted their intention to go on a strike.",        
             "additionalConsequences": []
         },
         {
             "name": "VICTIMS",
             "description": "The Albian 'progressist' government fails to end the workers' precariousness.",
             "headline": "Cleaning workers on strike as Albian government fails to regulate their situation.",
-            "text": "   After months of ineffective negotiations with the Albian government, cleaning workers have decided to go on a strike to demand health coverage and protection from exploitation.\n    Most cleaning workers are undocumented Zuanian women who come to Albia in the hope of building a better life. Private individuals take advantage of the situation, and hire them with no contract and, consequently, no health insurance. They pay them insignificant salaries and force them to work after-hours.\n    To end this situtation, cleaning workers are also asking for facilitations in the Residence Permit obtention process.",
+            "text": "   After months of ineffective negotiations with the Albian government, cleaning workers have decided to go on a strike to demand health coverage and protection from exploitation.\n    Most cleaning workers are undocumented Terkani women who come to Albia in the hope of building a better life. Private individuals take advantage of the situation, and hire them with no contract and, consequently, no health insurance. They pay them insignificant salaries and force them to work after-hours.\n    To end this situtation, cleaning workers are also asking for facilitations in the Residence Permit obtention process.",
             "additionalConsequences": [
                 {
                     "country": 5,
@@ -39,7 +39,7 @@
                     "value": -0.05
                 },
                 {
-                    "country": 3,
+                    "country": 1,
                     "key": "reputation",
                     "value": 0.05
                 }
@@ -49,7 +49,7 @@
             "name": "SWINDLERS",
             "description": "Illegal immigrants demand citizen benefits.",
             "headline": "Cleaning workers without papers go on a strike as their illogical demads are not met.",
-            "text":"    Not only they work illegally, they also make demands to the government and go on strikes: these are Albia's cleaning workers.\n    Most of them are undocumented Zuanian women who manage to cross Albia's borders, and, unable to steal jobs from Albian citizens, turn to undeclared work.\n    Not satisfied with the government's relaxed policies on migrant devolutions, they are demanding citizen benefits such as health coverage, and also the obtention of Residence Permits after illegally entering the nation. It is time for the Albian police to end this surreal situation.",
+            "text":"    Not only they work illegally, they also make demands to the government and go on strikes: these are Albia's cleaning workers.\n    Most of them are undocumented Terkani women who manage to cross Albia's borders, and, unable to steal jobs from Albian citizens, turn to undeclared work.\n    Not satisfied with the government's relaxed policies on migrant devolutions, they are demanding citizen benefits such as health coverage, and also the obtention of Residence Permits after illegally entering the nation. It is time for the Albian police to end this surreal situation.",
             "additionalConsequences": [
                 {
                     "country": 5,
@@ -57,7 +57,7 @@
                     "value": 0.2
                 },
                 {
-                    "country": 3,
+                    "country": 1,
                     "key": "reputation",
                     "value": -0.1
                 }

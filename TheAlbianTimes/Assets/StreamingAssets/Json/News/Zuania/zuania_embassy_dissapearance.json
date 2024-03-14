@@ -1,0 +1,71 @@
+{
+    "name": "zuania_embassy_dissapearance",
+    "firstRound": 6,
+    "duration": 1,
+    "priority": 0, 
+    "leniency": 2,
+    "type": 3,
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 3,
+            "key": "reputation",
+            "value": 0.05
+        }
+    ],
+    "biases": [
+        {
+            "name": "NEUTRAL",
+            "description": " With the embassy dissapearing, it is unsure what the Suokan government intends with this move.",
+            "headline": "The Suokan embassy in Zuania dissapears from one day to the next",
+            "text": "    Seemingly from one day to another, the Suokan embassy's building has been sold and reconverted into a school. The government of Suoka has not made any public statement about it; however, all the diplomats and ex-pats in Zuania have returned home or have been reallocated to other countries.",
+            "additionalConsequences": []
+        },
+        {
+            "name": "RISING TENSION",
+            "description": " ",
+            "headline": "The Suokan embassy in Zuania is now empty",
+            "text": "    In a sign of support towards Xaya, the Suokan embassy has been abandoned by their government. They have not made any public statement about it; however, all the diplomats and ex-pats in Zuania have returned home or have been reallocated to more stable countries.",
+            "additionalConsequences": [
+                { 
+                    "country": 3,
+                    "key": "reputation",
+                    "value": -0.1
+                },
+                {                    
+                    "country": 7,
+                    "key": "reputation",
+                    "value": 0.05
+                },
+                {                    
+                    "country": 2,
+                    "key": "reputation",
+                    "value": 0.1
+                }
+            ]
+        },
+        {
+            "name": "AGGRESSION",
+            "description": " Clearly a sign of aggression and Suokan lining up with Xaya",
+            "headline": "Zuania in peril",
+            "text": "   In a sign of rising tensions, the Suokan embassy has been emptied and repurposed. The government of Suoka has refused to make any public statement. Unsurprisingly, all the diplomats and ex-pats in Zuania have returned home or have been reallocated to other countries.",
+            "additionalConsequences": [
+                {
+                    "country": 3,
+                    "key": "reputation",
+                    "value": 0.12
+                },
+                {                    
+                    "country": 7,
+                    "key": "reputation",
+                    "value": -0.05
+                },
+                {                    
+                    "country": 2,
+                    "key": "reputation",
+                    "value": -0.1
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,57 @@
+{
+    "name":"dalme_population_decline",
+    "firstRound":6,
+    "duration":1,
+    "priority":1,
+    "leniency":0,
+    "type": 4,
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 4,
+            "key": "reputation",
+            "value": -0.05
+        }
+    ],
+    "biases": [
+        {
+            "name": "DEMOGRAPHY",
+            "description": "Because of education, low fertility rates can make the Dalmese economy shrink.",
+            "headline": "Severe population decline threatens Dalme's social welfare.",
+            "text": "   Dalme has just recorded its lowest fertility rate: 1.48 children per woman, which is way below the replace rate of 2.1. Last year, the number of deaths oustripped births, and one third of Dalmese municipalities were designated as depopulated districts.\n    Due to Dalme's strong social welfare system, there is no sense of crisis among citizens. However, if this trend does not end, Dalme's economy might start to shrink and, eventually, be unable to maintain the living standards.\n    Education should be thanked for this fertility fall. Every year, more Dalmese young women are accessing higher education. The consequent broadening of job prospects has changed their priorities: instead of suporting the country's progress, they are focusing on individualist goals.",        
+            "additionalConsequences": [
+                {
+                    "country": 5,
+                    "key": "reputation",
+                    "value": -0.08
+                }
+            ]
+        },
+        {
+            "name": "CITIZENSHIP",
+            "description": "Unattainable citizenship requirements and harsh migration policies are to blame.",
+            "headline": "Dalme's population decline evidences the need to change citizenship requirements.",
+            "text": "   Dalme has just recorded its lowest fertility rate: 1.48 children per woman, which is way below the replace rate of 2.1, the minimum to keep a population stable.\n    Even if there is no strong sense of crisis among citizens, some voices are asking for drastic changes, specially on citizenship laws. Currently, citizenship is restricted to children of two citizens. Only citizens can access the welfare system, vote and have a guaranteed minimum income. Relaxing the requirements would increase Dalme's GDP and also induce migration, which would raise the percentage of young people.\n    If the downtrend continues, Dalme's economy will start to shrink and, eventually, be unable to maintain the current living standards.",        
+            "additionalConsequences": [
+                {
+                    "country": 4,
+                    "key": "reputation",
+                    "value": -0.07
+                }
+            ]
+        },
+        {
+            "name": "RACISM",
+            "description": "Denounce Dalme's racism and unwillingness to recognize the migrants' dignity.",
+            "headline": "Population decline and inbreeding: the consequences of Dalme's structural racism.",
+            "text": "   Dalme has just recorded its lowest fertility rate: 1.48 children per woman, which is way below the replace rate of 2.1, the minimum to keep a population stable.\n    Population has been shrinking for decades, but the Dalmese government has prioritized the preservation of 'racial purity' by safeguarding its harsh citizenship laws. Voting, access to the welfare system and a guaranteed minimum income are exclusive to citizens; that is, to children of two citizens. Not only would relaxing the requirements recognize the non-citizens' dignity, it would also increase the economy's productivity.\n    This structural racism has also lead to inbreeding, which in its turn has also reduced fertility and intensified infant and child mortality.",        
+            "additionalConsequences": [
+                {
+                    "country": 4,
+                    "key": "reputation",
+                    "value": -0.1
+                }
+            ]
+        }
+    ]
+}

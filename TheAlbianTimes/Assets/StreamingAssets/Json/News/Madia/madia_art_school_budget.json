@@ -1,0 +1,51 @@
+{
+    "name":"madia_art_school_budget",
+    "firstRound":1,
+    "duration":1,
+    "priority":1,
+    "leniency":2,
+    "type": 6,
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 6,
+            "key": "reputation",
+            "value": 0.1
+        }
+    ],
+    "biases": [
+        {
+            "name": "THE FACTS",
+            "description": " All university faculties have been made better except the art ones.",
+            "headline": "Madian Art Schools Attempt to Gain Further Funding",
+            "text": "    As of late, the government of Madia has implemented measures to enforce higher education. This included slashing the price of universities by half their previous cost, a move so popular that private institutions have made a deal with said government to partake in this price reduction.\n    The main issue is that the art universities were considered for these upgrades, but were deemed unnecessary, as the schools had recently received renovations and had far easier access to grants for students. There are now protests among students and future attendees so that the system becomes more streamlined.",
+            "additionalConsequences": []
+        },
+        {
+            "name": "FAILURE",
+            "description": " They're begging the government for more money to fund unnecessary schools.",
+            "headline": " Madian Art Schools Desperate for More Money",
+            "text": "   The once-celebrated art schools of Madia are currently facing a dire financial crisis, and are now in desperate need of additional funding. The problem seems to be the quality and focus on the arts, which has led to a catastrophic failure by the people to recognize that these schools do not serve society.\n    There has been money thrown into these institutions that could be allocated to other more important things, like more roads, as the government has decided that the main road that connected the university should be turned into a tram line.",
+            "additionalConsequences": [
+                {
+                    "country": 6,
+                    "key": "reputation",
+                    "value": -0.15
+                }
+            ]
+        },
+        {
+            "name": "FUNDING",
+            "description": " This is why the art schools in madia have lead to their prosperity",
+            "headline": " The Investment Into Art. A Case Study of Madia",
+            "text": "   Madia, a country nestled in the heart of cultural appreciation, has garnered international attention for its unwavering commitment to the arts. Renowned for its thriving creative community, Madia boasts art schools that are generously funded, fostering an environment where large amounts of high quality media is created.\n    The government's dedication to investing in the arts has resulted in state-of-the-art facilities, cutting-edge equipment, and a faculty composed of world-class instructors. As a result, Madia's art schools have become incubators of talent, producing a steady stream of globally recognized artists across various disciplines, which makes the lack of government funding in the latest move incredibly strange to many.",
+            "additionalConsequences": [
+                {
+                    "country": 6,
+                    "key": "reputation",
+                    "value": 0.05
+                }
+            ]
+        }
+    ]
+}

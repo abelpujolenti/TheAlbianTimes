@@ -12,17 +12,17 @@ namespace Workspace.Mail.Content
         ENUM_SIZE
     }
 
-    public abstract class BaseContainer
+    public abstract class BaseMailContainer
     {
         public abstract string GetContainerPath();
-        public abstract void SetContent(BaseContent[] baseContents);
-        public abstract BaseContent[] GetContent();
-        protected BaseContainer() {}
+        public abstract void SetContent(BaseMailContent[] baseContents);
+        public abstract BaseMailContent[] GetContent();
+        protected BaseMailContainer() {}
     }
 
 
     [Serializable]
-    public class EnvelopesContainer : BaseContainer
+    public class EnvelopesMailContainer : BaseMailContainer
     {
         public EnvelopeData[] contentEnvelopes = Array.Empty<EnvelopeData>();
 
@@ -31,7 +31,7 @@ namespace Workspace.Mail.Content
             return "/Json/Mail/EnvelopesContainer.json";
         }
 
-        public override void SetContent(BaseContent[] baseContents)
+        public override void SetContent(BaseMailContent[] baseContents)
         {
             try
             {
@@ -43,27 +43,27 @@ namespace Workspace.Mail.Content
             }
         }
 
-        public override BaseContent[] GetContent()
+        public override BaseMailContent[] GetContent()
         {
             return contentEnvelopes;
         }
     }
 
     [Serializable]
-    public class AdsContainer : BaseContainer
+    public class AdsMailContainer : BaseMailContainer
     {
-        public ContentAd[] contentAds = Array.Empty<ContentAd>();
+        public MailContentAd[] contentAds = Array.Empty<MailContentAd>();
 
         public override string GetContainerPath()
         {
             return "/Json/Mail/AdsContainer.json";
         }
 
-        public override void SetContent(BaseContent[] baseContents)
+        public override void SetContent(BaseMailContent[] baseContents)
         {
             try
             {
-                contentAds = (ContentAd[])baseContents;
+                contentAds = (MailContentAd[])baseContents;
             }
             catch (Exception e)
             {
@@ -71,27 +71,27 @@ namespace Workspace.Mail.Content
             }
         }
 
-        public override BaseContent[] GetContent()
+        public override BaseMailContent[] GetContent()
         {
             return contentAds;
         }
     }
 
     [Serializable]
-    public class BribesContainer : BaseContainer
+    public class BribesMailContainer : BaseMailContainer
     {
-        public ContentBribe[] contentBribes = Array.Empty<ContentBribe>();
+        public MailContentBribe[] contentBribes = Array.Empty<MailContentBribe>();
 
         public override string GetContainerPath()
         {
             return "/Json/Mail/BribesContainer.json";
         }
 
-        public override void SetContent(BaseContent[] baseContents)
+        public override void SetContent(BaseMailContent[] baseContents)
         {
             try
             {
-                contentBribes = (ContentBribe[])baseContents;
+                contentBribes = (MailContentBribe[])baseContents;
             }
             catch (Exception e)
             {
@@ -99,27 +99,27 @@ namespace Workspace.Mail.Content
             }
         }
 
-        public override BaseContent[] GetContent()
+        public override BaseMailContent[] GetContent()
         {
             return contentBribes;
         }
     }
 
     [Serializable]
-    public class BiasesContainer : BaseContainer
+    public class BiasesMailContainer : BaseMailContainer
     {
-        public ContentBias[] contentBiases = Array.Empty<ContentBias>();
+        public MailContentBias[] contentBiases = Array.Empty<MailContentBias>();
 
         public override string GetContainerPath()
         {
             return "/Json/Mail/BiasesContainer.json";
         }
 
-        public override void SetContent(BaseContent[] baseContents)
+        public override void SetContent(BaseMailContent[] baseContents)
         {
             try
             {
-                contentBiases = (ContentBias[])baseContents;
+                contentBiases = (MailContentBias[])baseContents;
             }
             catch (Exception e)
             {
@@ -127,27 +127,27 @@ namespace Workspace.Mail.Content
             }
         }
 
-        public override BaseContent[] GetContent()
+        public override BaseMailContent[] GetContent()
         {
             return contentBiases;
         }
     }
 
     [Serializable]
-    public class LettersContainer : BaseContainer
+    public class LettersMailContainer : BaseMailContainer
     {
-        public ContentLetter[] contentLetters = Array.Empty<ContentLetter>();
+        public MailContentLetter[] contentLetters = Array.Empty<MailContentLetter>();
 
         public override string GetContainerPath()
         {
             return "/Json/Mail/LettersContainer.json";
         }
 
-        public override void SetContent(BaseContent[] baseContents)
+        public override void SetContent(BaseMailContent[] baseContents)
         {
             try
             {
-                contentLetters = (ContentLetter[])baseContents;
+                contentLetters = (MailContentLetter[])baseContents;
             }
             catch (Exception e)
             {
@@ -155,45 +155,45 @@ namespace Workspace.Mail.Content
             }
         }
 
-        public override BaseContent[] GetContent()
+        public override BaseMailContent[] GetContent()
         {
             return contentLetters;
         }
     }
     
     
-    public abstract class BaseContent
+    public abstract class BaseMailContent
     {
         public int jointId;
-        protected BaseContent() {}
+        protected BaseMailContent() {}
     }
 
     [Serializable]
-    public class EnvelopeData : BaseContent
+    public class EnvelopeData : BaseMailContent
     {
         public EnvelopeContentType envelopeContentType;
     }
 
     [Serializable]
-    public class ContentAd : BaseContent
+    public class MailContentAd : BaseMailContent
     {
         
     }
 
     [Serializable]
-    public class ContentBribe : BaseContent
+    public class MailContentBribe : BaseMailContent
     {
         public float totalMoney;
     }
 
     [Serializable]
-    public class ContentBias : BaseContent
+    public class MailContentBias : BaseMailContent
     {
         public int linkId;
     }
 
     [Serializable]
-    public class ContentLetter : BaseContent
+    public class MailContentLetter : BaseMailContent
     {
         public string letterText;
     }

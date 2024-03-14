@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Countries;
 using Managers;
 using UnityEngine;
 
@@ -13,6 +14,7 @@ public class CountryEventManager : MonoBehaviour
     public Dictionary<Country.Id, List<ThreatCountryEvent>> threatCountryEvents = new Dictionary<Country.Id, List<ThreatCountryEvent>>();
 
     public SortedList<float, CountryEvent> currentEvents = new SortedList<float, CountryEvent>(new DuplicateKeyComparer<float>());
+    public HashSet<CountryEvent> triggeredEvents = new HashSet<CountryEvent>();
 
     private void Awake()
     {
@@ -52,6 +54,7 @@ public class CountryEventManager : MonoBehaviour
 
     public CountryEvent PopFirstEvent()
     {
+        if (currentEvents.Count == 0) return null;
         CountryEvent e;
         e = currentEvents.Last().Value;
         currentEvents.RemoveAt(currentEvents.Count - 1);

@@ -1,3 +1,4 @@
+using Countries;
 using Managers;
 using UnityEngine;
 
@@ -73,7 +74,6 @@ public class PlayerDataManager : MonoBehaviour
         {
             float addIncome = incomeMultiplier * (1f - country.GetCensorship()) * country.GetPurchasingPower() * country.GetPopulation() * country.GetReputation();
             income += addIncome;
-            Debug.Log(country.name + " Income: " + addIncome);
         }
         return income;
     }

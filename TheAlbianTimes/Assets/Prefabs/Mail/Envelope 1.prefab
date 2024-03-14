@@ -169,6 +169,14 @@ MonoBehaviour:
   draggable: 1
   hoverable: 1
   clickable: 1
+  hitBounds: 1
+  speed: 260
+  minVelocity: 7
+  maxVelocity: 30
+  deceleration: -60
+  maxAngularUnscaledVelocity: 1.5
+  spinFactor: 20
+  grabRotationSnapBackTime: 0.2
   _rectTransform: {fileID: 5134637585340410400}
   _envelopeContentGameObject: {fileID: 0}
   _envelopeCoverGameObject: {fileID: 182508165970413071}

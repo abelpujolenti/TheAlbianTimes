@@ -1,6 +1,6 @@
 {
     "name":"dalme_moon_offensive",
-    "firstRound":1,
+    "firstRound":11,
     "duration":2,
     "priority":1,
     "leniency":2,
@@ -35,7 +35,12 @@
                 {
                     "country": 4,
                     "key": "reputation",
-                    "value": -0.4
+                    "value": -0.15
+                },
+                {
+                    "country": 1,
+                    "key": "reputation",
+                    "value": 0.2
                 }
             ]
         },
@@ -48,7 +53,7 @@
                 {
                     "country": 4,
                     "key": "reputation",
-                    "value": -0.3
+                    "value": -0.05
                 }
             ]
         }

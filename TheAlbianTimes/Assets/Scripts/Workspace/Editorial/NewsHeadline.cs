@@ -1,8 +1,13 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
+using Countries;
 using Managers;
 using NoMonoBehavior;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -39,6 +44,9 @@ namespace Workspace.Editorial
         
         [SerializeField] private GameObject _biasMarker;
         [SerializeField] private GameObject _extraLabel;
+        [SerializeField] private Image _selectedBiasIndicator;
+        [SerializeField] private GameObject _countryIconsRoot;
+        private Image[] countryIcons;
         
         [SerializeField] private Transform _markerInkPrefab;
 
@@ -50,8 +58,8 @@ namespace Workspace.Editorial
         private GameObject _gameObjectToTransferDrag;
 
         private NewsFolder _newsFolder;
-        
-        private Image _background;
+
+        [SerializeField] private Image _background;
 
         private NewsData _data;
 
@@ -78,6 +86,7 @@ namespace Workspace.Editorial
         private bool _sendToChange;
         private bool _modified;
         private bool _onFolder = true;
+        private bool _subscribed;
 
         private AudioSource _audioSourceDropPaperOnTable;
         private AudioSource _audioSourceDropPaperInFolder;
@@ -102,15 +111,16 @@ namespace Workspace.Editorial
             };
             SoundManager.Instance.SetMultipleAudioSourcesComponents(tuples);
             
-            _headlineText.text = _headlinesText[0];
-            _contentText.text = _biasesContents[0];
+            UpdateText(_headlinesText[0], _biasesContents[0]);
             _articleTagText.text = PieceData.newsTypeName[(int)_newsType];
 
             Color color = PieceData.newsTypeColors[(int)_newsType];
             _articleTagText.GetComponentInParent<Image>().color = ColorUtil.SetSaturationMultiplicative(color, 0.5f);
-            _background = gameObject.GetComponent<Image>();
-            _background.color = ColorUtil.SetSaturationMultiplicative(color, 0.15f);
+            SetCountryIcons();
+            _background.color = ColorUtil.SetSaturationMultiplicative(color, 0.03f);
             UpdateShading(transform.parent.childCount - 1 - transform.GetSiblingIndex());
+
+            UpdateSelectedBiasIndicator();
         }
 
         public void SimulateBeginDrag(BaseEventData data)
@@ -129,6 +139,10 @@ namespace Workspace.Editorial
             
             EventsManager.OnCrossMidPointWhileScrolling += GetGameObjectToTransferDrag;
             EventsManager.OnCheckDistanceToMouse += DistanceToPosition;
+            if (_chosenBiasIndex == _selectedBiasIndex)
+            {
+                EventsManager.OnStartEndDrag(true);   
+            }
 
             if (!_newsHeadlinePieceToTransferDrag.GetTransferDrag())
             {
@@ -136,7 +150,7 @@ namespace Workspace.Editorial
             }
             
             SlideToRotation(0f, 0.1f);
-            
+
             _newsFolder.SetDragging(true);
 
             _audioSourceGrabPaper.Play();
@@ -150,7 +164,7 @@ namespace Workspace.Editorial
             }
             
             PointerEventData pointerData = (PointerEventData)data;
-            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(pointerData.position);
+            Vector2 mousePosition = _camera.ScreenToWorldPoint(pointerData.position);
 
             if (mousePosition.x > _midPoint)
             {
@@ -171,6 +185,7 @@ namespace Workspace.Editorial
             
             _transferDrag = true;
             _rotate = false;
+            _subscribed = false;
             _newsHeadlinePieceToTransferDrag.SetTransferDrag(false);
             
             gameObject.SetActive(false);
@@ -179,6 +194,11 @@ namespace Workspace.Editorial
             
             EventsManager.OnCrossMidPointWhileScrolling -= GetGameObjectToTransferDrag;
             EventsManager.OnCheckDistanceToMouse -= DistanceToPosition;
+            EventsManager.OnPressPanicButton -= DropOnFolder;
+            if (EventsManager.OnArrangeSomething != null)
+            {
+                EventsManager.OnArrangeSomething();    
+            }
 
             Transform parentTransform = _gameObjectToTransferDrag.transform.parent;
             parentTransform.position = mousePosition;
@@ -212,18 +232,16 @@ namespace Workspace.Editorial
             
             EventsManager.OnCrossMidPointWhileScrolling -= GetGameObjectToTransferDrag;
             EventsManager.OnCheckDistanceToMouse -= DistanceToPosition;
-            EventsManager.OnStartEndDrag(false);    
+            EventsManager.OnStartEndDrag(false);
             
             PointerEventData pointerData = (PointerEventData) data;
-            if (EventsManager.OnDropNewsHeadline == null)
-            {
-                DropNewsHeadline(pointerData.position);
-                base.EndDrag(data);
-                return;
-            }
+            
             EventsManager.OnDropNewsHeadline(this, pointerData.position);
-
-            _audioSourceSubmitPaper.Play();
+            
+            if (gameObject.activeSelf)
+            {
+                _audioSourceSubmitPaper.Play();
+            }
             base.EndDrag(data);
         }
 
@@ -234,34 +252,65 @@ namespace Workspace.Editorial
                 if (_newsFolder.IsCoordinateInsideBounds(position))
                 {
                     StartCoroutine(Slide(transform.localPosition, _origin));
-                    _audioSourceDropPaperInFolder.Play();
+                    if (gameObject.activeSelf)
+                    {
+                        _audioSourceDropPaperInFolder.Play();
+                    }
+                    return;
                 }
-                else
-                {
-                    DropOutFolder();   
-                    _audioSourceDropPaperOnTable.Play();
-                }
+                DropOutFolder();
             }
             else if (_newsFolder.IsCoordinateInsideBounds(position))
             {
-                DropOnFolder(false);
+                DropOnFolder();
+                return;
             }
+            OnDropOutOfFolder();
         }
 
-        private void DropOnFolder(bool allAtOnce)
+        private void DropOnFolder()
         {
             if (!gameObject.activeSelf)
             {
                 return;
             }
             _audioSourceDropPaperInFolder.Play();
+            _subscribed = false;
             EventsManager.OnPressPanicButton -= DropOnFolder;
-            _newsFolder.AddNewsHeadlineComponent(this, allAtOnce);
+            if (EventsManager.OnArrangeSomething != null)
+            {
+                EventsManager.OnArrangeSomething();    
+            }
+            _newsFolder.AddNewsHeadlineComponent(this);
+        }
+
+        private void OnDropOutOfFolder()
+        {
+            if (!gameObject.activeSelf)
+            {
+                return;
+            }
+            _audioSourceDropPaperOnTable.Play();
+
+            if (_subscribed)
+            {
+                return;
+            }
+
+            _subscribed = true;
+                
+            EventsManager.OnPressPanicButton += DropOnFolder;    
+                
+            if (EventsManager.OnThowSomething != null) 
+            {
+                EventsManager.OnThowSomething();
+            }
         }
 
         private void DropOutFolder()
         {
-            EventsManager.OnPressPanicButton += DropOnFolder;
+            OnDropOutOfFolder();
+            
             _onFolder = false;
             StateOnDropOutOfFolder();
             _newsFolder.DropNewsHeadlineOutOfFolder(false);
@@ -309,6 +358,7 @@ namespace Workspace.Editorial
             if (_moveCoroutine != null)
             {
                 StopCoroutine(_moveCoroutine);
+                _rotate = true;
             }
 
             transform.localPosition = _origin;
@@ -354,9 +404,36 @@ namespace Workspace.Editorial
             EventsManager.OnChangeSelectedBiasIndex -= SetSelectedBiasIndex;
         }
 
+        private void SetCountryIcons()
+        {
+            countryIcons = _countryIconsRoot.GetComponentsInChildren<Image>();
+            List<Country.Id> affectedCountries = new List<Country.Id>();
+            foreach (var c in _data.consequences)
+            {
+                affectedCountries.Add(c.country);
+            }
+            for (int i = 0; i < countryIcons.Length; i++)
+            {
+                if (i < affectedCountries.Count)
+                {
+                    countryIcons[i].sprite = Resources.Load<Sprite>("Images/Icons/" + Country.names[(int)affectedCountries[i]]);
+                }
+                else
+                {
+                    countryIcons[i].gameObject.SetActive(false);
+                }
+            }
+        }
+
         public void UpdateShading(int index)
         {
             _background.color = ColorUtil.SetBrightness(_background.color, Mathf.Max(.2f, PAPER_BRIGHTNESS - index * PAPER_BRIGHTNESS_BASE_DECREASE));
+        }
+
+        public void UpdateSelectedBiasIndicator()
+        {
+            if (_selectedBiasIndicator == null) return;
+            _selectedBiasIndicator.color = PieceData.biasColors[_selectedBiasIndex];
         }
 
         public void SetOrigin(Vector2 newOrigin)
@@ -382,6 +459,7 @@ namespace Workspace.Editorial
                 timer = MoveToDestination(origin, destination, timer);
                 yield return null;
             }
+            
             _rotate = true;
         }
 
@@ -389,9 +467,10 @@ namespace Workspace.Editorial
         {
             _chosenBiasIndex = _selectedBiasIndex;
             _data.currentBias = _selectedBiasIndex;
-            _headlineText.text = _headlinesText[_chosenBiasIndex];
-            _contentText.text = _biasesContents[_chosenBiasIndex];
-            
+            UpdateText(_headlinesText[_chosenBiasIndex], _biasesContents[_chosenBiasIndex]);
+
+            UpdateSelectedBiasIndicator();
+
             _newsFolder.DropNewsHeadlineOutOfFolder(true);
 
             ClearBiasMarks();
@@ -402,7 +481,41 @@ namespace Workspace.Editorial
             
             _origin = destination;
         }
-        
+
+        private void UpdateText(string headline, string text)
+        {
+            List<string> countries = new List<string>();
+            countries.AddRange(Country.names);
+            countries.AddRange(new string[] { "Hetian", "Terkani", "Xayan", "Zuanian", "Dalmese", "Dalmian", "Albian", "Madian", "Suokan", "Rekkan" });
+            
+            foreach (string s in countries)
+            {
+                string color = "#701f1f";
+                headline = Regex.Replace(headline, "\\b" + s + "\\b", "<color=" + color + ">" + s + "</color>");
+                headline = Regex.Replace(headline, "\\b" + s.ToLower() + "\\b", "<color=" + color + ">" + s.ToLower() + "</color>");
+                text = Regex.Replace(text, "\\b" + s + "\\b", "<font=courbd SDF><color=" + color + ">" + s + "<font=cour SDF></color>");
+                text = Regex.Replace(text, "\\b" + s.ToLower() + "\\b", "<font=courbd SDF><color=" + color + ">" + s.ToLower() + " <font=cour SDF></color>");
+            }
+
+            Dictionary<string, Color> keyWords = new Dictionary<string, Color>();
+            keyWords.Add("Moon", new Color(0.3f, 0.3f, 0.1f));
+            keyWords.Add("Lamar", new Color(0.5f, 0.25f, 0.1f));
+            keyWords.Add("Lamarish", new Color(0.5f, 0.25f, 0.1f));
+
+            foreach (KeyValuePair<string, Color> v in keyWords)
+            {
+                string s = v.Key;
+                string color = "#" + v.Value.ToHexString();
+                headline = Regex.Replace(headline, "\\b" + s + "\\b", "<color=" + color + ">" + s + "</color>");
+                headline = Regex.Replace(headline, "\\b" + s.ToLower() + "\\b", "<color=" + color + ">" + s.ToLower() + "</color>");
+                text = Regex.Replace(text, "\\b" + s + "\\b", "<font=courbd SDF><color=" + color + ">" + s + " <font=cour SDF></color>");
+                text = Regex.Replace(text, "\\b" + s.ToLower() + "\\b", "<font=courbd SDF><color=" + color + ">" + s.ToLower() + " <font=cour SDF></color>");
+            }
+
+            _headlineText.text = headline;
+            _contentText.text = text;
+        }
+
         private IEnumerator SendToChangeContent(Vector2 destination)
         {
             float timer = 0;
@@ -468,7 +581,6 @@ namespace Workspace.Editorial
             _origin = _destination;
 
             _newsFolder.ReturnNewsHeadline(this, _folderOrderIndex, _onFolder);
-            
             _rotate = true;
             _onFolder = true;
         }
@@ -649,6 +761,31 @@ namespace Workspace.Editorial
             return !_transferDrag ? gameObject : _newsHeadlinePieceToTransferDrag.gameObject;
         }
 
+        public Vector3 GetPiecePosition() {
+            return _newsHeadlinePieceToTransferDrag.transform.localPosition;
+        }
+
+        public void SetPieceRaycastTarget(bool isEnabled)
+        {
+            var subPieces = _newsHeadlinePieceToTransferDrag.GetComponentsInChildren<RectTransform>();
+            foreach (RectTransform subPiece in subPieces)
+            {
+                var img = subPiece.GetComponent<Image>();
+                if (img != null)
+                {
+                    img.color = isEnabled ? ColorUtil.SetBrightness(img.color, 0.8f) : ColorUtil.SetBrightness(img.color, 0.6f);
+                    img.raycastTarget = isEnabled;
+                    continue;
+                }
+                var tmp = subPiece.GetComponent<TextMeshProUGUI>();
+                if (tmp != null)
+                {
+                    tmp.raycastTarget = isEnabled;
+                    continue;
+                }
+            }
+        }
+
         public void SetTransferDrag(bool transferDrag)
         {
             _transferDrag = transferDrag;
@@ -667,6 +804,11 @@ namespace Workspace.Editorial
         private Vector2 DistanceToPosition(Vector2 position)
         {
             return (Vector2)transform.position - position;
+        }
+
+        private void OnDestroy()
+        {
+            UnsubscribeEvents();
         }
     }
 }

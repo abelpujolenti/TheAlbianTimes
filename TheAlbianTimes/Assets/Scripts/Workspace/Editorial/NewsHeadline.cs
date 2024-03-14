@@ -45,6 +45,8 @@ namespace Workspace.Editorial
         [SerializeField] private GameObject _biasMarker;
         [SerializeField] private GameObject _extraLabel;
         [SerializeField] private Image _selectedBiasIndicator;
+        [SerializeField] private GameObject _countryIconsRoot;
+        private Image[] countryIcons;
         
         [SerializeField] private Transform _markerInkPrefab;
 
@@ -114,6 +116,7 @@ namespace Workspace.Editorial
 
             Color color = PieceData.newsTypeColors[(int)_newsType];
             _articleTagText.GetComponentInParent<Image>().color = ColorUtil.SetSaturationMultiplicative(color, 0.5f);
+            SetCountryIcons();
             _background.color = ColorUtil.SetSaturationMultiplicative(color, 0.03f);
             UpdateShading(transform.parent.childCount - 1 - transform.GetSiblingIndex());
 
@@ -399,6 +402,27 @@ namespace Workspace.Editorial
         {
             EventsManager.OnChangeNewsHeadlineContent -= ChangeContent;
             EventsManager.OnChangeSelectedBiasIndex -= SetSelectedBiasIndex;
+        }
+
+        private void SetCountryIcons()
+        {
+            countryIcons = _countryIconsRoot.GetComponentsInChildren<Image>();
+            List<Country.Id> affectedCountries = new List<Country.Id>();
+            foreach (var c in _data.consequences)
+            {
+                affectedCountries.Add(c.country);
+            }
+            for (int i = 0; i < countryIcons.Length; i++)
+            {
+                if (i < affectedCountries.Count)
+                {
+                    countryIcons[i].sprite = Resources.Load<Sprite>("Images/Icons/" + Country.names[(int)affectedCountries[i]]);
+                }
+                else
+                {
+                    countryIcons[i].gameObject.SetActive(false);
+                }
+            }
         }
 
         public void UpdateShading(int index)

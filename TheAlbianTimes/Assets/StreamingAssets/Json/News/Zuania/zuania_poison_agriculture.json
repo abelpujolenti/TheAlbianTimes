@@ -16,16 +16,16 @@
     "biases": [
         {
             "name": "DEFECTIVE",
-            "description": " They're having their water poisoned by defective material",
-            "headline": "Zuania and the use of defective machinery",
-            "text": "    They have learnt that the gas and general wastes of these machines is getting into the crops they grow, water they drink and clothes they wear.\n    This has lead to the populations of other countries criticising them for their poor management of their agricultural machine and innefective use of resources.\n    It is true that the machines are second hand and Xayan originally however, the new owners seem to be incapable of correctly utilising the value",
+            "description": " Zuans are having their water poisoned by defective farming materials. There are people blaming Xaya.",
+            "headline": "Zuania and The Use of Defective Machinery",
+            "text": "    It has been discovered that the gas and general wastes of machines used by Zuan farmers is getting into the crops they grow, the water they drink, and the clothes they wear. This has led to the populations of other countries criticizing them for their poor management of agricultural machinery and ineffective use of resources, further reducing the legitimacy of the region.\n    It is true that the machines are second-hand and of Xayan origin; however, the new owners seem to be incapable of correctly utilizing the value.",
             "additionalConsequences": []
         },
         {
             "name": "UNGRATEFUL",
-            "description": "Zuania is ungrateful to Xaya after they got donated machinery. They then proceed to try and blame it on them",
-            "headline": "The people of Zuania are using technology kindly donated to them by Xaya, still complain",
-            "text": "    Zuanians have been using defective machines to produce their agricultural goods. Their inneptitude with new technologies has lead to a steady decline in the health of their lands. Despite this clearly being an issue theiur could attempt to solve themselves, it seems they are keen on blaming it on Xayan people, who kindly donated these technologies to them.",
+            "description": "Zuania is ungrateful to Xaya after they donated machinery. They then proceed to try and blame it on them.",
+            "headline": "The People of Zuania Are Using Technology Kindly Donated to Them by Xaya, Still Complain",
+            "text": "    Zuans have been using defective machines to produce their agricultural goods. Their ineptitude with new technologies has led to a steady decline in the health of their lands. Despite this clearly being an issue they could attempt to solve themselves, it seems they are keen on blaming it on the Xayan people, who kindly donated these technologies to them.",
             "additionalConsequences": [
                 {
                     "country": 2,
@@ -41,9 +41,9 @@
         },
         {
             "name": "CONSPIRACY",
-            "description": "Xaya is conspiring against Zuania to make them polute themselves. They also make themselves look like benefactors.",
-            "headline": "Xaya is intentionally selling archaic technology to Zuanian farmers",
-            "text": "   The people of Zuania have been trying to make their land better for a number of years now. With that has come a massive amount of agricultural changes and improvements and despite their conflict with Xaya and its attempted takeover of Zuanian lands, they've purchased tractors and other machines from them.\n    Xayan people and their government seem to have purposefully sold them archaic and toxic technologies. They now insist on critique towards the people of Zuania for 'destroying the environemnt'",
+            "description": "Xaya is conspiring against Zuania to make them pollute themselves. They also make themselves look like benefactors.",
+            "headline": "Xaya is Intentionally Selling Archaic Technology to Zuan Farmers",
+            "text": "   The people of Zuania have been trying to make their land better for a number of years now. With that has come a massive amount of agricultural changes and improvement, and despite their conflict with Xaya and its attempted takeover of Zuan lands, they've purchased tractors and other machines from them.\n    Xayan people and their government seem to have purposefully sold them archaic and toxic technologies. They now insist on criticizing the people of Zuania for 'destroying the environemnt'",
             "additionalConsequences": [
                 {
                     "country": 2,

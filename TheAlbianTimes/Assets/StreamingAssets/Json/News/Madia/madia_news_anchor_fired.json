@@ -1,0 +1,38 @@
+{
+    "name": "madia_news_anchor_fired",
+    "firstRound": 4,
+    "duration": 1,
+    "priority": 1,
+    "leniency": 2,
+    "type": 2,
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 6,
+            "key": "reputation",
+            "value": -0.1
+        }
+    ],
+    "biases": [
+        {
+            "name": "CONSPIRACY",
+            "description": "Former prime-time host tells biographer he 'knows' firing was part of a deal to destroy conservative plans in Madia.",
+            "headline": "Tukere bin Carl Reveals he Allegedly has Secret Documents",
+            "text": "    After weeks of silence on the part of Tukere, he has decided to come out and reveal that he 'has documents proving a conspiracy against conservatives.' He alleges that he was not let go due to the statements that he is being accused of making, rather than the 'people in control have a narrative they want pushed.'\n    He has been beloved as a prime-time host for nearly a decade. Loved by his fans and hated by 'those who can't think for themselves', he has truly become an icon of conservative thought and his removal has affected them deeply over this short period. Protests are being held and planned, while support for bin Carl to start with another show.",
+            "additionalConsequences": []
+        },
+        {
+            "name": "RACIST HOST",
+            "description": "A private communication that higher-ups were only made aware of last month 'set off a panic' at the company.",
+            "headline": "Report: Conservative News Show Fired Tukere bin Carl After Discovering He Wasn't Just Playing a Racist on the Radio",
+            "text": "    Two weeks after being fired, it has finally been revealed why Tukere bin Carl was let go as a radio host. A conversation was recently leaked to the higher-ups at the station, making them aware of concerning behavior from the host. It seems that the 'character' that Tukere had been performing wasn't just a face he put on; rather, Tukere has been revealed to be deeply racist.\n    While specific details in the redacted documents remain undisclosed, it is revealed that he believed in a conspiracy that minorities are trying to take over the world, that he was a target of their ire, and that they were all 'subhuman garbage.' Concerningly, the company has yet to release official statements regarding these communications.",
+            "additionalConsequences": [
+                {
+                    "country": 6,
+                    "key": "reputation",
+                    "value": 0.05
+                }
+            ]
+        }
+    ]
+}

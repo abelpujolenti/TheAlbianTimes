@@ -773,7 +773,7 @@ namespace Workspace.Editorial
                 var img = subPiece.GetComponent<Image>();
                 if (img != null)
                 {
-                    img.color = isEnabled ? Color.white : new Color(0.8f, 0.78f, 0.78f);
+                    img.color = isEnabled ? ColorUtil.SetBrightness(img.color, 0.8f) : ColorUtil.SetBrightness(img.color, 0.6f);
                     img.raycastTarget = isEnabled;
                     continue;
                 }

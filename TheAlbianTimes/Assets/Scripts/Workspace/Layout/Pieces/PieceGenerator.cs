@@ -35,6 +35,7 @@ namespace Workspace.Layout.Pieces
                 Vector2 v = pieceCoords[i];
                 GameObject os = FakeInstantiate.Instantiate(op.transform);
                 Image subPieceImage = os.AddComponent<Image>();
+                subPieceImage.color = ColorUtil.SetBrightness(ColorUtil.SetSaturation(subPieceColor, 0.3f), 0.8f);
                 NewsHeadlineSubPiece subPiece = os.AddComponent<NewsHeadlineSubPiece>();
 
                 subPiece.SetCoordinates(v);

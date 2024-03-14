@@ -3199,7 +3199,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6c233aff05a3b54eb2e7a26c50be08c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _newsHeadline: {fileID: 1539600970624240966, guid: 9c2b5018074cafe47be0508253e46f70, type: 3}
+  _newsHeadline: {fileID: 4977326676851883143, guid: 9c2b5018074cafe47be0508253e46f70, type: 3}
   _newsHeadlinePiece: {fileID: 8212201120594379693, guid: 21f0edc00ea2de94587c6a8c3cc8bff1, type: 3}
   _newsHeadlinesPiecesContainer: {fileID: 9773716}
   _newsFolder: {fileID: 429106997}

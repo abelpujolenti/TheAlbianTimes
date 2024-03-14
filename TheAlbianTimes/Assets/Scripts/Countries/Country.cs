@@ -90,30 +90,21 @@ namespace Countries
             {
                 foreach (GiftCountryEvent giftEvent in CountryEventManager.Instance.giftCountryEvents[data.countryId])
                 {
-                    if (giftEvent.ConditionsFulfilled())
-                    {
-                        GenerateEventAddToList(giftEvent, events);
-                    }
+                    GenerateEventAddToList(giftEvent, events);
                 }
             }
             else if (random < (giftChance + bribeChance) / totalChance)
             {
                 foreach (BribeCountryEvent bribeEvent in CountryEventManager.Instance.bribeCountryEvents[data.countryId])
                 {
-                    if (bribeEvent.ConditionsFulfilled())
-                    {
-                        GenerateEventAddToList(bribeEvent, events);
-                    }
+                    GenerateEventAddToList(bribeEvent, events);
                 }
             }
             else if (random < (giftChance + bribeChance + threatChance) / totalChance)
             {
                 foreach (ThreatCountryEvent threatEvent in CountryEventManager.Instance.threatCountryEvents[data.countryId])
                 {
-                    if (threatEvent.ConditionsFulfilled())
-                    {
-                        GenerateEventAddToList(threatEvent, events);
-                    }
+                    GenerateEventAddToList(threatEvent, events);
                 }
             }
 
@@ -128,10 +119,8 @@ namespace Countries
 
         private void GenerateEventAddToList(CountryEvent ev, SortedList<float, CountryEvent> events)
         {
-            if (ev.ConditionsFulfilled())
-            {
-                events.Add(ev.priority, ev);
-            }
+            if (!ev.ConditionsFulfilled() || CountryEventManager.Instance.triggeredEvents.Contains(ev)) return;
+            events.Add(ev.priority, ev);
         }
 
         public string DisplayValues()

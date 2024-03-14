@@ -24,7 +24,12 @@
                 {
                     "country": 2,
                     "key": "reputation",
-                    "value": -0.3
+                    "value": -0.1
+                },
+                {
+                    "country": 3,
+                    "key": "reputation",
+                    "value": 0.05
                 }
             ]
         },
@@ -37,7 +42,12 @@
                 {
                     "country": 2,
                     "key": "reputation",
-                    "value": 0.2
+                    "value": 0.15
+                },
+                {
+                    "country": 3,
+                    "key": "reputation",
+                    "value": -0.05
                 }
             ]
         }

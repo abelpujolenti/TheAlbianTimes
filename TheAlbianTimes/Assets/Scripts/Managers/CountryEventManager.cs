@@ -14,6 +14,7 @@ public class CountryEventManager : MonoBehaviour
     public Dictionary<Country.Id, List<ThreatCountryEvent>> threatCountryEvents = new Dictionary<Country.Id, List<ThreatCountryEvent>>();
 
     public SortedList<float, CountryEvent> currentEvents = new SortedList<float, CountryEvent>(new DuplicateKeyComparer<float>());
+    public HashSet<CountryEvent> triggeredEvents = new HashSet<CountryEvent>();
 
     private void Awake()
     {

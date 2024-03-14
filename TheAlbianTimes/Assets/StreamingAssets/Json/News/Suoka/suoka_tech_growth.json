@@ -11,6 +11,11 @@
             "country": 7,
             "key": "reputation",
             "value": 0.08
+        },
+        {
+            "country": 6,
+            "key": "reputation",
+            "value": -0.03
         }
     ],
     "biases": [
@@ -19,13 +24,7 @@
             "description": "Highlight technological advances.",
             "headline": "Suoka maintains tech research excellence.",
             "text": "   Since its foundation 40 years ago, tech research has been a pillar of Suoka's economy. The country's strong and competitive tech sector has lead to major advances such as the telegraph. WireLive, a Suokan company, developed the Sagari character coding system for telegraphs.\n    PunchaCode, who has the patents for many punched card machines, was ranked Suoka's fastest growing company. Punched card machines are frequenly dubbed as 'the tech revolution of the century', as they have changed business, bureaucracy, education and daily life.\n    During the last quarter, PunchaCode anounced that they are working in a pattern generator for their Encrypter Card Machine. Little is known about the project, other than the company's intention to 'focus on education'.",        
-            "additionalConsequences": [
-                {
-                    "country": 6,
-                    "key": "reputation",
-                    "value": -0.01
-                }
-            ]
+            "additionalConsequences": []
         },
         {
             "name": "PROSPERITY",
@@ -54,12 +53,12 @@
                 {
                     "country": 6,
                     "key": "reputation",
-                    "value": 0.05
+                    "value": 0.07
                 },
                 {
                     "country": 7,
                     "key": "reputation",
-                    "value": -0.25
+                    "value": -0.1
                 }
             ]
         }

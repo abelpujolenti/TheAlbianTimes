@@ -10,7 +10,7 @@
         {
             "country": 8,
             "key": "reputation",
-            "value": 0.1
+            "value": 0.05
         }
     ],
     "biases": [
@@ -36,7 +36,7 @@
                 {
                     "country": 8,
                     "key": "reputation",
-                    "value": -0.25
+                    "value": -0.15
                 }
             ]
         },
@@ -49,7 +49,7 @@
                 {
                     "country": 8,
                     "key": "reputation",
-                    "value": 0.001
+                    "value": 0.05
                 },
                 {
                     "country": 8,

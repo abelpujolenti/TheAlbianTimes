@@ -1,0 +1,67 @@
+{
+    "name":"terkan_brain_drain_suoka_xaya",
+    "firstRound":7,
+    "duration":10,
+    "priority":0.5,
+    "leniency":3,
+    "type": 4,
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 1,
+            "key": "reputation",
+            "value": 0.0
+        }
+    ],
+    "biases": [
+        {
+            "name": "RETURN",
+            "description": "The migrants will return with a better background and boost Terkan's economy.",
+            "headline": "Training abroad its most qualified professionals: an economic opportunity for Terkan.",
+            "text": "Terkan seems to be on the right track towards economic recovery as a new trend is detected in the migratory patterns of skilled workers. While Terkan has been suffering from increasing brain drain since the economic recession brought by the flooding crisis, recent data shows that 53% of migrants return to their home country after a period ranging from 2 to 5 years.\n    This could indicate that, after accumulating experience in foreign successful corporations, Terkani human capital returns as full-fledged talent ready to revitalize the country's industry.",        
+            "additionalConsequences": [
+                {
+                    "country": 1,
+                    "key": "reputation",
+                    "value": -0.08
+                },
+                {
+                    "country": 0,
+                    "key": "reputation",
+                    "value": 0.02
+                } 
+            ]
+        },
+        {
+            "name": "SURVIVAL",
+            "description": "As academic conditions in Terkan are unbearable, researchers and professionals need to emigrate.",
+            "headline": "Terkan faces massive brain drain as academic precarity worsens.",
+            "text": "Since the great recession 15 years ago, Terkan's economy has deteriorated with no perspectives of recovering in the near future. While the diminishment of social wellbeing and the rise of the unemployment rate have been the most visible faces of the crisis, the situation has also had a significant effect in Terkani higher education. Public universities have experienced budget cuts of up to 21%, which have resulted in the cancellation of many research programs.\n    With low salaries and short-term contracts, pre-doctoral investigators and associate professors enter the cycle of precarity, which can only be broken by leaving for research-investing countries such as Xaya and Suoka. If the government does not act, Terkan is condemned to losing an academic generation.",        
+            "additionalConsequences": [
+                {
+                    "country": 1,
+                    "key": "reputation",
+                    "value": -0.15
+                }
+            ]
+        },
+        {
+            "name": "ASPHYXIA ",
+            "description": "Hetia is to blame for Terkan's economic downfall and subsequent brain drain.",
+            "headline": "Hetia's economic asphyxiation of Terkan, the root cause of brain drain.",
+            "text": "Following the Dam Crisis, Terkan's economy has successively deteriorated for 15 years. After directly causing a great recession in Terkan with the flooding of upstream towns, Hetia has continued putting pressure on its neighbour by imposing financial hardships such as freezing assets from Terkani companies with subsidiaries in Hetia.\n    Besides of increasing Terkan's uneployment rate, the situation has also led to significant budget cuts in social services that have resulted in substantial diminishment of welfare. Education has experienced cuts of up to 21%, which have prompted many young researchers to leave for countries such as Xaya and Suoka in order to escape the cycle of precarity.",        
+            "additionalConsequences": [
+                {
+                    "country": 1,
+                    "key": "reputation",
+                    "value": 0.1
+                },
+                {
+                    "country": 0,
+                    "key": "reputation",
+                    "value": -0.1
+                }
+            ]
+        }
+    ]
+}

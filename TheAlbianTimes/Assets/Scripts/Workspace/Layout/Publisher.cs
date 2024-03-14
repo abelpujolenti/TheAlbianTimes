@@ -72,7 +72,7 @@ namespace Workspace.Layout
             ((RectTransform)_newspaperMold.transform).pivot = new Vector2(.5f, .5f);
             StartCoroutine(TransformUtility.SetRotationCoroutine(_newspaperMold.transform, 90f, 0.3f));
             StartCoroutine(TransformUtility.SetPositionCoroutine(_newspaperMold.transform, _newspaperMold.transform.position, transform.position + new Vector3(-3f, 0f, 0f), 0.3f));
-            yield return TransformUtility.SetScaleCoroutine(_newspaperMold.transform, new Vector3(.35f, .35f, .35f), 0.25f);
+            yield return TransformUtility.SetScaleCoroutine(_newspaperMold.transform, new Vector3(.45f, .45f, .45f), 0.25f);
             _audioSourceDropMold.Play();
             yield return new WaitForSeconds(.1f);
 

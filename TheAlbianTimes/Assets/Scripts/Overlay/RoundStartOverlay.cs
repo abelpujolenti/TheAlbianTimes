@@ -17,7 +17,7 @@ namespace Overlay
         private Coroutine roundStartCoroutine;
         private void Start()
         {
-            SoundManager.Instance.PlaySound(ENTER_OFFICE);
+            SoundManager.Instance.Play2DSound(ENTER_OFFICE);
             fadeOverlayAnimator = fadeOverlay.GetComponent<Animator>();
             fadeOverlayTextAnimator = fadeOverlayText.GetComponent<Animator>();
 

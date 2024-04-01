@@ -32,8 +32,8 @@ namespace Workspace.Mail
         private Vector2 _containerMinCoordinates;
         private Vector2 _containerMaxCoordinates;
 
-        private AudioSource _audioSourceOpenDrawer;
-        private AudioSource _audioSourceCloseDrawer;
+        /*private AudioSource _audioSourceOpenDrawer;
+        private AudioSource _audioSourceCloseDrawer;*/
 
         private void OnEnable()
         {
@@ -51,14 +51,14 @@ namespace Workspace.Mail
 
         private void Start()
         {
-            _audioSourceOpenDrawer = gameObject.AddComponent<AudioSource>();
+            /*_audioSourceOpenDrawer = gameObject.AddComponent<AudioSource>();
             _audioSourceCloseDrawer = gameObject.AddComponent<AudioSource>();
             (AudioSource, String)[] tuples =
             {
                 (_audioSourceOpenDrawer, OPEN_DRAWER_SOUND),
                 (_audioSourceCloseDrawer, CLOSE_DRAWER_SOUND)
             };
-            SoundManager.Instance.SetMultipleAudioSourcesComponents(tuples);
+            SoundManager.Instance.SetMultipleAudioSourcesComponents(tuples);*/
             
             MailManager.Instance.SetEnvelopesContainer(_envelopesContainerRectTransform);
             
@@ -139,13 +139,15 @@ namespace Workspace.Mail
         private void OpenContainer()
         {
             _moveContainerCoroutine = StartCoroutine(MoveContainerEnum(gameObjectToDrag.transform.position.x, maxX, openTime));
-            _audioSourceOpenDrawer.Play();
+            //_audioSourceOpenDrawer.Play();
+            SoundManager.Instance.Play2DSound(OPEN_DRAWER_SOUND);
         }
 
         private void CloseContainer()
         {
             _moveContainerCoroutine = StartCoroutine(MoveContainerEnum(gameObjectToDrag.transform.position.x, minX, closeTime));
-            _audioSourceCloseDrawer.Play();
+            //_audioSourceCloseDrawer.Play();
+            SoundManager.Instance.Play2DSound(CLOSE_DRAWER_SOUND);
         }
 
         private IEnumerator MoveContainerEnum(float start, float end, float t)

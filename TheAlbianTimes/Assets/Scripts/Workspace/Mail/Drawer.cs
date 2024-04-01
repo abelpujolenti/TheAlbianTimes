@@ -21,19 +21,19 @@ namespace Workspace.Mail
         [SerializeField] protected float closeTime = .8f;
         protected Coroutine _moveContainerCoroutine;
 
-        private AudioSource _audioSourceOpenDrawer;
-        private AudioSource _audioSourceCloseDrawer;
+        /*private AudioSource _audioSourceOpenDrawer;
+        private AudioSource _audioSourceCloseDrawer;*/
 
         private void Start()
         {
-            _audioSourceOpenDrawer = gameObject.AddComponent<AudioSource>();
+            /*_audioSourceOpenDrawer = gameObject.AddComponent<AudioSource>();
             _audioSourceCloseDrawer = gameObject.AddComponent<AudioSource>();
             (AudioSource, String)[] tuples =
             {
                 (_audioSourceOpenDrawer, OPEN_DRAWER_SOUND),
                 (_audioSourceCloseDrawer, CLOSE_DRAWER_SOUND)
             };
-            SoundManager.Instance.SetMultipleAudioSourcesComponents(tuples);
+            SoundManager.Instance.SetMultipleAudioSourcesComponents(tuples);*/
 
 
             baseHandleWidth = handleTarget.sizeDelta.x;
@@ -80,7 +80,8 @@ namespace Workspace.Mail
         {
             Vector3 end = new Vector3(maxX, gameObjectToDrag.transform.position.y, gameObjectToDrag.transform.position.z);
             _moveContainerCoroutine = StartCoroutine(SetPositionCoroutine(gameObjectToDrag.transform.position, end, openTime));
-            _audioSourceOpenDrawer.Play();
+            //_audioSourceOpenDrawer.Play();
+            SoundManager.Instance.Play2DSound(OPEN_DRAWER_SOUND);
 
             handleTarget.sizeDelta = new Vector2(rectTransform.sizeDelta.x, handleTarget.sizeDelta.y);
         }
@@ -89,7 +90,8 @@ namespace Workspace.Mail
         {
             Vector3 end = new Vector3(minX, gameObjectToDrag.transform.position.y, gameObjectToDrag.transform.position.z);
             _moveContainerCoroutine = StartCoroutine(SetPositionCoroutine(gameObjectToDrag.transform.position, end, closeTime));
-            _audioSourceCloseDrawer.Play();
+            //_audioSourceCloseDrawer.Play();
+            SoundManager.Instance.Play2DSound(CLOSE_DRAWER_SOUND);
 
             handleTarget.sizeDelta = new Vector2(baseHandleWidth, handleTarget.sizeDelta.y);
         }

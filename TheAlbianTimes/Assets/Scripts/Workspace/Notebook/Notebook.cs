@@ -44,9 +44,9 @@ namespace Workspace.Notebook
 
         private bool open;
 
-        private AudioSource _audioSourceOpenNotebook;
+        /*private AudioSource _audioSourceOpenNotebook;
         private AudioSource _audioSourceCloseNotebook;
-        private AudioSource _audioSourceGrabNotebook;
+        private AudioSource _audioSourceGrabNotebook;*/
 
         protected override void Setup()
         {
@@ -59,7 +59,7 @@ namespace Workspace.Notebook
             NotebookManager.Instance.SetNotebook(this);
             imageBrightness = ColorUtil.GetBrightness(_flipPageBackground.color);
             
-            _audioSourceOpenNotebook = gameObject.AddComponent<AudioSource>();
+            /*_audioSourceOpenNotebook = gameObject.AddComponent<AudioSource>();
             _audioSourceCloseNotebook = gameObject.AddComponent<AudioSource>();
             _audioSourceGrabNotebook = gameObject.AddComponent<AudioSource>();
             (AudioSource, string)[] tuples = {
@@ -68,7 +68,7 @@ namespace Workspace.Notebook
                 (_audioSourceGrabNotebook, GRAB_NOTEBOOK)
             };
             
-            SoundManager.Instance.SetMultipleAudioSourcesComponents(tuples);
+            SoundManager.Instance.SetMultipleAudioSourcesComponents(tuples);*/
         }
 
         protected override void Drag(BaseEventData data)
@@ -148,10 +148,12 @@ namespace Workspace.Notebook
             EnableCover();
             if (move)
             {
-                _audioSourceGrabNotebook.Play();
+                //_audioSourceGrabNotebook.Play();
+                SoundManager.Instance.Play2DSound(GRAB_NOTEBOOK);
                 yield return MoveUpCoroutine(PULL_UP_BOOK_TIME);
             }
-            _audioSourceOpenNotebook.Play();
+            //_audioSourceOpenNotebook.Play();
+            SoundManager.Instance.Play2DSound(OPEN_NOTEBOOK);
             yield return StartCoroutine(RotatePageCoroutine((RectTransform)leftPage.transform, PAGE_OPEN_TIME, 179.9f, 0f, 0.5f, DisableCover));
             
             open = true;
@@ -176,7 +178,8 @@ namespace Workspace.Notebook
             {
                 pageMarkerActiveParent.GetChild(i).SetParent(pageMarkerParent);
             }
-            _audioSourceCloseNotebook.Play();
+            //_audioSourceCloseNotebook.Play();
+            SoundManager.Instance.Play2DSound(CLOSE_NOTEBOOK);
             open = false;
             NotebookManager.Instance.SetIsNotebookOpen(open);
         }

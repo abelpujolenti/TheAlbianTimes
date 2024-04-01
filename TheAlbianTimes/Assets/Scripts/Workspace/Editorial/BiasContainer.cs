@@ -32,7 +32,7 @@ namespace Workspace.Editorial
         [SerializeField] private float postitScaleAnimationTime = .2f;
         [SerializeField] private float postitAppearDelay = .5f;
 
-        private AudioSource _audioSourcePostit;
+        //private AudioSource _audioSourcePostit;
 
         private void OnEnable()
         {
@@ -58,12 +58,12 @@ namespace Workspace.Editorial
 
         private void Start()
         {
-            _audioSourcePostit = gameObject.AddComponent<AudioSource>();
+            /*_audioSourcePostit = gameObject.AddComponent<AudioSource>();
             (AudioSource, String)[] tuples =
             {
                 (_audioSourcePostit, POST_IT_SOUND)
             };
-            SoundManager.Instance.SetMultipleAudioSourcesComponents(tuples);
+            SoundManager.Instance.SetMultipleAudioSourcesComponents(tuples);*/
             foreach (Bias bias in _bias)
             {
                 bias.SetBiasContainer(this);
@@ -166,7 +166,8 @@ namespace Workspace.Editorial
             TextMeshProUGUI biasdescriptionText = biasDescriptionPostit.transform.Find("BiasDescriptionText").GetComponent<TextMeshProUGUI>();
             biasdescriptionText.text = _biasesDescriptions[newSelectedBiasIndex];
 
-            _audioSourcePostit.Play();
+            //_audioSourcePostit.Play();
+            SoundManager.Instance.Play2DSound(POST_IT_SOUND);
             yield return ScaleAnimationCoroutine(biasDescriptionPostit.transform, postitScaleAnimationTime, postitInitialScale, 1f);
         }
 

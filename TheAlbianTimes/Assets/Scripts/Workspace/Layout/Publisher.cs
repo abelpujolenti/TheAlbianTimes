@@ -25,9 +25,11 @@ namespace Workspace.Layout
         private Vector2 _containerMaxCoordinates;
 
         private Camera _camera;
+
+        private int _conveyorBeltAudioId;
         
-        private AudioSource _audioSourceConveyorBelt;
-        private AudioSource _audioSourceDropMold;
+        /*private AudioSource _audioSourceConveyorBelt;
+        private AudioSource _audioSourceDropMold;*/
 
         [SerializeField] Image[] beams;
 
@@ -43,14 +45,14 @@ namespace Workspace.Layout
             _camera = Camera.main;
             SetContainerLimiters();
             
-            _audioSourceConveyorBelt = gameObject.AddComponent<AudioSource>();
+            /*_audioSourceConveyorBelt = gameObject.AddComponent<AudioSource>();
             _audioSourceDropMold = gameObject.AddComponent<AudioSource>();
             (AudioSource, string)[] tuples = {
                 (_audioSourceConveyorBelt, CONVEYOR_BELT_SOUND),
                 (_audioSourceDropMold, DROP_MOLD)
             };
             
-            SoundManager.Instance.SetMultipleAudioSourcesComponents(tuples);
+            SoundManager.Instance.SetMultipleAudioSourcesComponents(tuples);*/
 
             for (int i = 0; i < beams.Length; i++)
             {
@@ -73,7 +75,8 @@ namespace Workspace.Layout
             StartCoroutine(TransformUtility.SetRotationCoroutine(_newspaperMold.transform, 90f, 0.3f));
             StartCoroutine(TransformUtility.SetPositionCoroutine(_newspaperMold.transform, _newspaperMold.transform.position, transform.position + new Vector3(-3f, 0f, 0f), 0.3f));
             yield return TransformUtility.SetScaleCoroutine(_newspaperMold.transform, new Vector3(.45f, .45f, .45f), 0.25f);
-            _audioSourceDropMold.Play();
+            //_audioSourceDropMold.Play();
+            SoundManager.Instance.Play2DSound(DROP_MOLD);
             yield return new WaitForSeconds(.1f);
 
             StartCoroutine(StartPrintSound());
@@ -105,7 +108,8 @@ namespace Workspace.Layout
 
         private IEnumerator StartConveyorBelt()
         {
-            _audioSourceConveyorBelt.Play();
+            //_audioSourceConveyorBelt.Play();
+            _conveyorBeltAudioId = SoundManager.Instance.Play2DLoopSound(CONVEYOR_BELT_SOUND);
 
             while (_isScrolling)
             {
@@ -118,7 +122,8 @@ namespace Workspace.Layout
                 yield return null;
             }
             
-            _audioSourceConveyorBelt.Stop();
+            //_audioSourceConveyorBelt.Stop();
+            SoundManager.Instance.StopLoopingAudio(_conveyorBeltAudioId);
         }
 
         private IEnumerator StartPrintSound()
@@ -131,7 +136,7 @@ namespace Workspace.Layout
                 yield return null;
             }
             
-            SoundManager.Instance.PlaySound(PRINT_NEWSPAPER);
+            SoundManager.Instance.Play2DSound(PRINT_NEWSPAPER);
 
             time = 0;
 

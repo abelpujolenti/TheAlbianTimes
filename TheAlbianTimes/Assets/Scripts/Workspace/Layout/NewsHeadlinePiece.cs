@@ -40,15 +40,15 @@ namespace Workspace.Layout
         private bool _transferDrag;
         private bool _subscribed;
 
-        private AudioSource _audioSourceGrabPiece;
+        /*private AudioSource _audioSourceGrabPiece;
         private AudioSource _audioSourceDropPieceInBox;
-        private AudioSource _audioSourceSnapPiece;
+        private AudioSource _audioSourceSnapPiece;*/
 
         private Camera _camera;
 
         private void Start()
         {
-            _audioSourceGrabPiece = gameObject.AddComponent<AudioSource>();
+            /*_audioSourceGrabPiece = gameObject.AddComponent<AudioSource>();
             _audioSourceDropPieceInBox = gameObject.AddComponent<AudioSource>();
             _audioSourceSnapPiece = gameObject.AddComponent<AudioSource>();
             (AudioSource, String)[] tuples =
@@ -57,7 +57,7 @@ namespace Workspace.Layout
                 (_audioSourceDropPieceInBox, DROP_PIECE_IN_BOX_SOUND),
                 (_audioSourceSnapPiece, SNAP_PIECE_SOUND)
             };
-            SoundManager.Instance.SetMultipleAudioSourcesComponents(tuples);
+            SoundManager.Instance.SetMultipleAudioSourcesComponents(tuples);*/
             _newsHeadline = _newsHeadlineSubPieces[0].GetNewsHeadline();
             _newsHeadlinePiecesContainer = LayoutManager.Instance.GetNewsHeadlinePiecesContainer();
             _subPiecesPositionsRelativeToRoot = new Vector2[_newsHeadlineSubPieces.Length];
@@ -69,7 +69,8 @@ namespace Workspace.Layout
         {
             transform.SetAsLastSibling();
 
-            _audioSourceGrabPiece.Play();
+            //_audioSourceGrabPiece.Play();
+            SoundManager.Instance.Play2DSound(GRAB_PIECE_SOUND);
 
             EventsManager.OnCheckDistanceToMouse += DistanceToPosition;
 
@@ -118,7 +119,8 @@ namespace Workspace.Layout
             if (_snappedCells == null)
             {
                 FailSnapOnMold();
-                _audioSourceDropPieceInBox.Play();
+                //_audioSourceDropPieceInBox.Play();
+                SoundManager.Instance.Play2DSound(DROP_PIECE_IN_BOX_SOUND);
                 return;
             }
             
@@ -133,7 +135,8 @@ namespace Workspace.Layout
                 subPiece.SetIsSnapped(true);
             }
             
-            _audioSourceSnapPiece.Play();
+            //_audioSourceSnapPiece.Play();
+            SoundManager.Instance.Play2DSound(SNAP_PIECE_SOUND);
         }
 
         private void FailSnapOnMold()

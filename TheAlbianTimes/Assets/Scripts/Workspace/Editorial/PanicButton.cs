@@ -18,7 +18,7 @@ namespace Workspace.Editorial
 
         private bool _pressed;
 
-        private AudioSource _audioSourcePressPanicButton;
+        //private AudioSource _audioSourcePressPanicButton;
 
         private void OnEnable()
         {
@@ -37,12 +37,12 @@ namespace Workspace.Editorial
 
         private void Start()
         {
-            _audioSourcePressPanicButton = gameObject.AddComponent<AudioSource>();
+            /*_audioSourcePressPanicButton = gameObject.AddComponent<AudioSource>();
             (AudioSource, String)[] tuples =
             {
                 (_audioSourcePressPanicButton, PRESS_PANIC_BUTTON_SOUND)
             };
-            SoundManager.Instance.SetMultipleAudioSourcesComponents(tuples);
+            SoundManager.Instance.SetMultipleAudioSourcesComponents(tuples);*/
             gameObject.SetActive(false);
         }
 
@@ -59,7 +59,8 @@ namespace Workspace.Editorial
                 gameObject.SetActive(true);
                 EventsManager.OnThowSomething = null;
             };
-            _audioSourcePressPanicButton.Play();
+            //_audioSourcePressPanicButton.Play();
+            SoundManager.Instance.Play2DSound(PRESS_PANIC_BUTTON_SOUND);
             if (EventsManager.OnPressPanicButton != null)
             {
                 EditorialManager.Instance.SetTotalNewsToLoad(EventsManager.OnPressPanicButton.GetInvocationList().Length);

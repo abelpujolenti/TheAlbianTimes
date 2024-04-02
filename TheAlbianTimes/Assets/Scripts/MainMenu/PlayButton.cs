@@ -13,31 +13,20 @@ namespace MainMenu
         [SerializeField] Animator backgroundAnimator;
         [SerializeField] Animator buttonAnimator;
         private Coroutine startGameCoroutine;
-
-        private AudioSource _audioSourceIntro;
-        private AudioSource _audioSourceChangeBias;
         
         public void OnClick()
         {
-            _audioSourceIntro = gameObject.AddComponent<AudioSource>();
-            _audioSourceChangeBias = gameObject.AddComponent<AudioSource>();
-            (AudioSource, String)[] tuples =
-            {
-                (_audioSourceIntro, INTRO_SOUND),
-                (_audioSourceChangeBias, CLICK_BUTTON_SOUND)
-            };
-            SoundManager.Instance.SetMultipleAudioSourcesComponents(tuples);
             if (startGameCoroutine != null) return;
             startGameCoroutine = StartCoroutine(StartGameCoroutine());
         }
 
         private IEnumerator StartGameCoroutine()
         {
-            _audioSourceChangeBias.Play();
+            SoundManager.Instance.Play2DSound(CLICK_BUTTON_SOUND);
             backgroundAnimator.Play("Start", 0);
             buttonAnimator.Play("ButtonsFadeOut", 0);
             yield return new WaitForFixedUpdate();
-            _audioSourceIntro.Play();
+            SoundManager.Instance.Play2DSound(INTRO_SOUND);
             AnimatorClipInfo[] currentClipInfo = backgroundAnimator.GetCurrentAnimatorClipInfo(0);
             yield return new WaitForSeconds(currentClipInfo[0].clip.length);
             yield return new WaitForSeconds(2.5f);

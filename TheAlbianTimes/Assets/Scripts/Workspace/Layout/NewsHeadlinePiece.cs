@@ -40,24 +40,10 @@ namespace Workspace.Layout
         private bool _transferDrag;
         private bool _subscribed;
 
-        private AudioSource _audioSourceGrabPiece;
-        private AudioSource _audioSourceDropPieceInBox;
-        private AudioSource _audioSourceSnapPiece;
-
         private Camera _camera;
 
         private void Start()
         {
-            _audioSourceGrabPiece = gameObject.AddComponent<AudioSource>();
-            _audioSourceDropPieceInBox = gameObject.AddComponent<AudioSource>();
-            _audioSourceSnapPiece = gameObject.AddComponent<AudioSource>();
-            (AudioSource, String)[] tuples =
-            {
-                (_audioSourceGrabPiece, GRAB_PIECE_SOUND),
-                (_audioSourceDropPieceInBox, DROP_PIECE_IN_BOX_SOUND),
-                (_audioSourceSnapPiece, SNAP_PIECE_SOUND)
-            };
-            SoundManager.Instance.SetMultipleAudioSourcesComponents(tuples);
             _newsHeadline = _newsHeadlineSubPieces[0].GetNewsHeadline();
             _newsHeadlinePiecesContainer = LayoutManager.Instance.GetNewsHeadlinePiecesContainer();
             _subPiecesPositionsRelativeToRoot = new Vector2[_newsHeadlineSubPieces.Length];
@@ -69,7 +55,7 @@ namespace Workspace.Layout
         {
             transform.SetAsLastSibling();
 
-            _audioSourceGrabPiece.Play();
+            SoundManager.Instance.Play3DSound(GRAB_PIECE_SOUND, 10, 100, gameObject.transform.position);
 
             EventsManager.OnCheckDistanceToMouse += DistanceToPosition;
 
@@ -118,7 +104,7 @@ namespace Workspace.Layout
             if (_snappedCells == null)
             {
                 FailSnapOnMold();
-                _audioSourceDropPieceInBox.Play();
+                SoundManager.Instance.Play3DSound(DROP_PIECE_IN_BOX_SOUND, 10, 100, gameObject.transform.position);
                 return;
             }
             
@@ -133,7 +119,7 @@ namespace Workspace.Layout
                 subPiece.SetIsSnapped(true);
             }
             
-            _audioSourceSnapPiece.Play();
+            SoundManager.Instance.Play3DSound(SNAP_PIECE_SOUND, 10, 100, gameObject.transform.position);
         }
 
         private void FailSnapOnMold()

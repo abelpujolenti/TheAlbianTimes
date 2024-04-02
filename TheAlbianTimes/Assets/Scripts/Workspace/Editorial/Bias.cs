@@ -4,7 +4,6 @@ using Managers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 using Utility;
 using Random = UnityEngine.Random;
@@ -64,10 +63,6 @@ namespace Workspace.Editorial
         private Vector3 _capStartPosition;
         private Vector3 _markerStartPosition;
 
-        private AudioSource _audioSourceOpenCap;
-        private AudioSource _audioSourceCloseCap;
-        private AudioSource _audioSourceMark;
-
         protected override void Setup()
         {
             base.Setup();
@@ -77,16 +72,6 @@ namespace Workspace.Editorial
 
         void Start()
         {
-            _audioSourceOpenCap = gameObject.AddComponent<AudioSource>();
-            _audioSourceCloseCap = gameObject.AddComponent<AudioSource>();
-            _audioSourceMark = gameObject.AddComponent<AudioSource>();
-            (AudioSource, String)[] tuples =
-            {
-                (_audioSourceOpenCap, OPEN_MARKER_CAP_SOUND),
-                (_audioSourceCloseCap, CLOSE_MARKER_CAP_SOUND),
-                (_audioSourceMark, MARK_SOUND)
-            };
-            SoundManager.Instance.SetMultipleAudioSourcesComponents(tuples);
 
             _textMeshPro.text = _text;
 
@@ -162,7 +147,7 @@ namespace Workspace.Editorial
             if (_openCapPositionCoroutine != null) StopCoroutine(_openCapPositionCoroutine);
             if (_openCapRotationCoroutine != null) StopCoroutine(_openCapRotationCoroutine);
             _openCapPositionCoroutine = StartCoroutine(TransformUtility.SetPositionCoroutine(_cap.transform, _cap.transform.position, _capStartPosition + openCapOffset, openCapTime));
-            _audioSourceOpenCap.Play();
+            SoundManager.Instance.Play3DSound(OPEN_MARKER_CAP_SOUND, 10, 100, gameObject.transform.position);
         }
 
         private void CloseCap()
@@ -172,7 +157,7 @@ namespace Workspace.Editorial
             if (_closeCapRotationCoroutine != null) StopCoroutine(_closeCapRotationCoroutine);
             _closeCapPositionCoroutine = StartCoroutine(TransformUtility.SetPositionCoroutine(_cap.transform, _cap.transform.position, _capStartPosition, closeCapTime));
             _closeCapRotationCoroutine = StartCoroutine(TransformUtility.SetRotationCoroutine(_cap.transform, 0f, closeCapTime));
-            StartCoroutine(DelaySoundCoroutine(closeCapTime / 2f, _audioSourceCloseCap));
+            StartCoroutine(DelaySoundCoroutine(closeCapTime / 2f, CLOSE_MARKER_CAP_SOUND));
         }
 
         private void SeparateCap()
@@ -181,7 +166,7 @@ namespace Workspace.Editorial
             if (_openCapRotationCoroutine != null) StopCoroutine(_openCapRotationCoroutine);
             _openCapPositionCoroutine = StartCoroutine(TransformUtility.SetPositionCoroutine(_cap.transform, _cap.transform.position, _capStartPosition + separateCapOffset, closeCapTime));
             _openCapRotationCoroutine = StartCoroutine(TransformUtility.SetRotationCoroutine(_cap.transform, separateCapRotation, separateCapTime));
-            _audioSourceOpenCap.Play();
+            SoundManager.Instance.Play3DSound(OPEN_MARKER_CAP_SOUND, 10, 100, gameObject.transform.position);
         }
 
         public void MarkAnimation()
@@ -201,10 +186,10 @@ namespace Workspace.Editorial
             _markAnimationRunning = false;
         }
 
-        private IEnumerator DelaySoundCoroutine(float t, AudioSource audioSource)
+        private IEnumerator DelaySoundCoroutine(float t, string audioSourceName)
         {
             yield return new WaitForSeconds(t);
-            audioSource.Play();
+            SoundManager.Instance.Play3DSound(audioSourceName, 10, 100, gameObject.transform.position);
         }
 
         private IEnumerator MarkAnimationCoroutine()
@@ -225,7 +210,7 @@ namespace Workspace.Editorial
                 Vector3 passMovement = new Vector3(markAnimationWidth, -inc1, 0f);
                 newsFolder.GetFrontHeadline().SpawnBiasMark(_siblingIndex, _image.transform.position);
 
-                _audioSourceMark.Play();
+                SoundManager.Instance.Play3DSound(MARK_SOUND, 10, 100, gameObject.transform.position);
 
                 yield return TransformUtility.SetPositionCoroutine(_image.transform, _image.transform.position, _image.transform.position + passMovement, markAnimationPassTime);
 
@@ -276,7 +261,7 @@ namespace Workspace.Editorial
         public void SelectBias()
         {
             BiasButtonStuff(true);
-            _textMeshPro.fontStyle = TMPro.FontStyles.Underline;
+            _textMeshPro.fontStyle = FontStyles.Underline;
         }
 
         private void UnselectBias()
@@ -288,7 +273,7 @@ namespace Workspace.Editorial
 
         public void ResetBiasUnderline()
         {
-            _textMeshPro.fontStyle = TMPro.FontStyles.Normal;
+            _textMeshPro.fontStyle = FontStyles.Normal;
         }
 
         private void BiasButtonStuff(bool isSelected)

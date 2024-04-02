@@ -1,63 +1,66 @@
 using System;
 using Managers;
 
-[Serializable]
-public class DialogueData
+namespace Dialogue
 {
-    public string name;
-
-    public int firstRound;
-    public float duration;
-    public float priority;
-    public CountryEventCondition[] countryConditions;
-    public CharacterEventCondition[] characterConditions;
-
-    public DialogueLine[] lines;
-
-    public bool ConditionsFulfilled(int round)
+    [Serializable]
+    public class DialogueData
     {
-        if (GameManager.Instance.gameState.viewedDialogue.Contains(name) || round < firstRound || round >= firstRound + duration) return false;
-        if (countryConditions == null && characterConditions == null) return true;
-        bool ret = true;
-        foreach (CountryEventCondition condition in countryConditions)
+        public string name;
+
+        public int firstRound;
+        public float duration;
+        public float priority;
+        public CountryEventCondition[] countryConditions;
+        public CharacterEventCondition[] characterConditions;
+
+        public DialogueLine[] lines;
+
+        public bool ConditionsFulfilled(int round)
         {
-            if (!condition.IsFulfilled())
+            if (GameManager.Instance.gameState.viewedDialogue.Contains(name) || round < firstRound || round >= firstRound + duration) return false;
+            if (countryConditions == null && characterConditions == null) return true;
+            bool ret = true;
+            foreach (CountryEventCondition condition in countryConditions)
             {
-                ret = false;
+                if (!condition.IsFulfilled())
+                {
+                    ret = false;
+                }
             }
-        }
-        foreach (CharacterEventCondition condition in characterConditions)
-        {
-            if (!condition.IsFulfilled())
+            foreach (CharacterEventCondition condition in characterConditions)
             {
-                ret = false;
+                if (!condition.IsFulfilled())
+                {
+                    ret = false;
+                }
             }
+            return ret;
         }
-        return ret;
     }
-}
 
-[Serializable]
-public class DialogueLine
-{
-    public DialoguePart[] parts;
-    public DialogueOption[] options;
-}
+    [Serializable]
+    public class DialogueLine
+    {
+        public DialoguePart[] parts;
+        public DialogueOption[] options;
+    }
 
-[Serializable]
-public class DialoguePart
-{
-    public string speaker;
-    public string text;
-}
+    [Serializable]
+    public class DialoguePart
+    {
+        public string speaker;
+        public string text;
+    }
 
-[Serializable]
-public class DialogueOption
-{
-    public int id;
-    public string text;
-    public string mood;
-    public int followupLines;
-    public CountryEventCondition[] countryConditions;
-    public CharacterEventCondition[] characterConditions;
+    [Serializable]
+    public class DialogueOption
+    {
+        public int id;
+        public string text;
+        public string mood;
+        public int followupLines;
+        public CountryEventCondition[] countryConditions;
+        public CharacterEventCondition[] characterConditions;
+    }
 }

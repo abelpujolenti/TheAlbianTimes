@@ -256,7 +256,7 @@ namespace Workspace.Editorial
                     if (gameObject.activeSelf)
                     {
                         //_audioSourceDropPaperInFolder.Play();
-                        SoundManager.Instance.Play2DSound(DROP_PAPER_SOUND_IN_FOLDER);
+                        SoundManager.Instance.Play2DRandomSound(new string[] { DROP_PAPER_SOUND_IN_FOLDER }, 1f, 1f, 0.7f, 1f);
                     }
                     return;
                 }
@@ -277,7 +277,7 @@ namespace Workspace.Editorial
                 return;
             }
             //_audioSourceDropPaperInFolder.Play();
-            SoundManager.Instance.Play2DSound(DROP_PAPER_SOUND_IN_FOLDER);
+            SoundManager.Instance.Play2DRandomSound(new string[] { DROP_PAPER_SOUND_IN_FOLDER }, 1f, 1f, 0.7f, 1f);
             _subscribed = false;
             EventsManager.OnPressPanicButton -= DropOnFolder;
             if (EventsManager.OnArrangeSomething != null)
@@ -287,6 +287,11 @@ namespace Workspace.Editorial
             _newsFolder.AddNewsHeadlineComponent(this);
         }
 
+        private void PlayDropOnTableSound()
+        {
+            SoundManager.Instance.Play3DRandomSound(new string[] { DROP_PAPER_ON_TABLE_SOUND }, 10f, 1000f, 1f, 1f, 0.7f, 1f, transform.position);
+        }
+
         private void OnDropOutOfFolder()
         {
             if (!gameObject.activeSelf)
@@ -294,7 +299,7 @@ namespace Workspace.Editorial
                 return;
             }
             //_audioSourceDropPaperOnTable.Play();
-            SoundManager.Instance.Play2DSound(DROP_PAPER_ON_TABLE_SOUND);
+            PlayDropOnTableSound();
 
             if (_subscribed)
             {
@@ -572,7 +577,7 @@ namespace Workspace.Editorial
             {
                 /*_audioSourceDropPaperInFolder.Play();
                 _audioSourceThud.Play();*/
-                SoundManager.Instance.Play2DSound(DROP_PAPER_SOUND_IN_FOLDER);
+                PlayDropOnTableSound();
                 SoundManager.Instance.Play2DSound(THUD_SOUND);
             }
 

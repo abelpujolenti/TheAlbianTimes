@@ -9,7 +9,9 @@ namespace Managers
 {
     public enum AudioMixerSnapshots
     {   
-        DEFAULT
+        DEFAULT,
+        MENU,
+        TRANSITION
     }
     
     public enum AudioMixerGroups
@@ -45,6 +47,8 @@ namespace Managers
         private Dictionary<AudioMixerSnapshots, AudioMixerSnapshot> _audioMixerSnapshot;
         
         [SerializeField] private AudioMixerSnapshot _defaultSnapshot;
+        [SerializeField] private AudioMixerSnapshot _menuSnapshot;
+        [SerializeField] private AudioMixerSnapshot _transitionSnapshot;
         
         [SerializeField] private string _masterVolumeMixer;
         [SerializeField] private string _SFXVolumeMixer;
@@ -159,7 +163,9 @@ namespace Managers
         {
             _audioMixerSnapshot = new Dictionary<AudioMixerSnapshots, AudioMixerSnapshot>
             {
-                { AudioMixerSnapshots.DEFAULT, _defaultSnapshot }
+                { AudioMixerSnapshots.DEFAULT, _defaultSnapshot },
+                { AudioMixerSnapshots.MENU, _menuSnapshot },
+                { AudioMixerSnapshots.TRANSITION, _transitionSnapshot }
             };
             
             foreach (Sound sound in _sounds)

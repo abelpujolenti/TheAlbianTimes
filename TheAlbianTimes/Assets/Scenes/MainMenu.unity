@@ -1325,6 +1325,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _audioMixer: {fileID: 24100000, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
   _defaultSnapshot: {fileID: 24500006, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
+  _menuSnapshot: {fileID: 5745898505093695254, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
+  _transitionSnapshot: {fileID: -6234146734570892572, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
   _masterVolumeMixer: MasterSound
   _SFXVolumeMixer: SFXSound
   _musicVolumeMixer: MusicSound
@@ -1397,7 +1399,7 @@ MonoBehaviour:
     _volume: 1
     _pitch: 1
   - _audioClip: {fileID: 8300000, guid: eb52906e15268654b944cb79146152f9, type: 3}
-    audioMixerGroup: 0
+    audioMixerGroup: 1
     _name: Intro
     _volume: 1
     _pitch: 1
@@ -1515,6 +1517,16 @@ MonoBehaviour:
     audioMixerGroup: 0
     _name: Enter Office
     _volume: 1
+    _pitch: 1
+  - _audioClip: {fileID: 8300000, guid: 0231220d5b7390b4da5de673bceec10c, type: 3}
+    audioMixerGroup: 1
+    _name: Room Tone
+    _volume: 0.397
+    _pitch: 1
+  - _audioClip: {fileID: 8300000, guid: 084fcde6d3cc75e448a4fd36e1502b68, type: 3}
+    audioMixerGroup: 1
+    _name: Music
+    _volume: 0.236
     _pitch: 1
 --- !u!4 &1318108280
 Transform:

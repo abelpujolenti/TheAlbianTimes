@@ -71,6 +71,8 @@ namespace Workspace.Layout
 
         private IEnumerator EndRoundCoroutine(float t)
         {
+            SoundManager.Instance.ChangeAudioMixerSnapshot(AudioMixerSnapshots.TRANSITION, t);
+
             ((RectTransform)_newspaperMold.transform).pivot = new Vector2(.5f, .5f);
             StartCoroutine(TransformUtility.SetRotationCoroutine(_newspaperMold.transform, 90f, 0.3f));
             StartCoroutine(TransformUtility.SetPositionCoroutine(_newspaperMold.transform, _newspaperMold.transform.position, transform.position + new Vector3(-3f, 0f, 0f), 0.3f));

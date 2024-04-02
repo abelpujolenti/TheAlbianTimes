@@ -87,29 +87,8 @@ namespace Workspace.Editorial
         private bool _onFolder = true;
         private bool _subscribed;
 
-        /*private AudioSource _audioSourceDropPaperOnTable;
-        private AudioSource _audioSourceDropPaperInFolder;
-        private AudioSource _audioSourceGrabPaper;
-        private AudioSource _audioSourceThud;
-        private AudioSource _audioSourceSubmitPaper;*/
-
         void Start()
         {
-            /*_audioSourceDropPaperOnTable = gameObject.AddComponent<AudioSource>();
-            _audioSourceDropPaperInFolder = gameObject.AddComponent<AudioSource>();
-            _audioSourceGrabPaper = gameObject.AddComponent<AudioSource>();
-            _audioSourceThud = gameObject.AddComponent<AudioSource>();
-            _audioSourceSubmitPaper = gameObject.AddComponent<AudioSource>();
-            (AudioSource, String)[] tuples =
-            {
-                (_audioSourceDropPaperOnTable, DROP_PAPER_ON_TABLE_SOUND),
-                (_audioSourceDropPaperInFolder, DROP_PAPER_SOUND_IN_FOLDER),
-                (_audioSourceGrabPaper, GRAB_PAPER_SOUND),
-                (_audioSourceThud, THUD_SOUND),
-                (_audioSourceSubmitPaper, SUBMIT_PAPER_SOUND)
-            };
-            SoundManager.Instance.SetMultipleAudioSourcesComponents(tuples);*/
-            
             UpdateText(_headlinesText[0], _biasesContents[0]);
             _articleTagText.text = PieceData.newsTypeName[(int)_newsType];
 
@@ -152,8 +131,7 @@ namespace Workspace.Editorial
 
             _newsFolder.SetDragging(true);
 
-            //_audioSourceGrabPaper.Play();
-            SoundManager.Instance.Play2DSound(GRAB_PAPER_SOUND);
+            SoundManager.Instance.Play3DSound(GRAB_PAPER_SOUND, 5, 100, gameObject.transform.position);
         }
 
         protected override void Drag(BaseEventData data)
@@ -240,8 +218,7 @@ namespace Workspace.Editorial
             
             if (gameObject.activeSelf)
             {
-                //_audioSourceSubmitPaper.Play();
-                SoundManager.Instance.Play2DSound(SUBMIT_PAPER_SOUND);
+                SoundManager.Instance.Play3DSound(SUBMIT_PAPER_SOUND, 5, 100, gameObject.transform.position);
             }
             base.EndDrag(data);
         }
@@ -255,8 +232,7 @@ namespace Workspace.Editorial
                     StartCoroutine(Slide(transform.localPosition, _origin));
                     if (gameObject.activeSelf)
                     {
-                        //_audioSourceDropPaperInFolder.Play();
-                        SoundManager.Instance.Play2DRandomSound(new string[] { DROP_PAPER_SOUND_IN_FOLDER }, 1f, 1f, 0.7f, 1f);
+                        SoundManager.Instance.Play3DRandomSound(new string[] { DROP_PAPER_SOUND_IN_FOLDER }, 5, 100, 1f, 1f, 0.7f, 1f, gameObject.transform.position);
                     }
                     return;
                 }
@@ -276,9 +252,8 @@ namespace Workspace.Editorial
             {
                 return;
             }
-            //_audioSourceDropPaperInFolder.Play();
-            SoundManager.Instance.Play2DRandomSound(new string[] { DROP_PAPER_SOUND_IN_FOLDER }, 1f, 1f, 0.7f, 1f);
-            _subscribed = false;
+            SoundManager.Instance.Play3DRandomSound(new string[] { DROP_PAPER_SOUND_IN_FOLDER }, 5, 100, 1f, 1f, 0.7f, 1f, gameObject.transform.position);
+            
             EventsManager.OnPressPanicButton -= DropOnFolder;
             if (EventsManager.OnArrangeSomething != null)
             {
@@ -289,7 +264,7 @@ namespace Workspace.Editorial
 
         private void PlayDropOnTableSound()
         {
-            SoundManager.Instance.Play3DRandomSound(new string[] { DROP_PAPER_ON_TABLE_SOUND }, 10f, 1000f, 1f, 1f, 0.7f, 1f, transform.position);
+            SoundManager.Instance.Play3DRandomSound(new string[] { DROP_PAPER_ON_TABLE_SOUND }, 5f, 100f, 1f, 1f, 0.7f, 1f, transform.position);
         }
 
         private void OnDropOutOfFolder()
@@ -298,7 +273,6 @@ namespace Workspace.Editorial
             {
                 return;
             }
-            //_audioSourceDropPaperOnTable.Play();
             PlayDropOnTableSound();
 
             if (_subscribed)
@@ -575,10 +549,8 @@ namespace Workspace.Editorial
 
             if (_modified)
             {
-                /*_audioSourceDropPaperInFolder.Play();
-                _audioSourceThud.Play();*/
                 PlayDropOnTableSound();
-                SoundManager.Instance.Play2DSound(THUD_SOUND);
+                SoundManager.Instance.Play3DSound(THUD_SOUND, 5, 100, gameObject.transform.position);
             }
 
             while (timer < TIME_TO_SLIDE)
@@ -789,11 +761,11 @@ namespace Workspace.Editorial
                     continue;
                 }
                 var tmp = subPiece.GetComponent<TextMeshProUGUI>();
-                if (tmp != null)
+                if (tmp == null)
                 {
-                    tmp.raycastTarget = isEnabled;
                     continue;
                 }
+                tmp.raycastTarget = isEnabled;
             }
         }
 

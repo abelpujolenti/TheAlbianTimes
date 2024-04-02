@@ -9,8 +9,8 @@ namespace Managers
 {
     public enum AudioMixerSnapshots
     {   
-        DEFAULT,
         MENU,
+        WORKSPACE,
         TRANSITION
     }
     
@@ -38,7 +38,7 @@ namespace Managers
 
         private const int NUM_2D_SFX_AUDIO_SOURCES = 6;
         private const int NUM_2D_MUSIC_AUDIO_SOURCES = 3;
-        private const int NUM_3D_SFX_AUDIO_SOURCES = 6;
+        private const int NUM_3D_SFX_AUDIO_SOURCES = 8;
         private const int NUM_3D_MUSIC_AUDIO_SOURCES = 3;
         private const int MUTE_VOLUME_VALUE = -80;
 
@@ -46,8 +46,8 @@ namespace Managers
 
         private Dictionary<AudioMixerSnapshots, AudioMixerSnapshot> _audioMixerSnapshot;
         
-        [SerializeField] private AudioMixerSnapshot _defaultSnapshot;
         [SerializeField] private AudioMixerSnapshot _menuSnapshot;
+        [SerializeField] private AudioMixerSnapshot _workspaceSnapshot;
         [SerializeField] private AudioMixerSnapshot _transitionSnapshot;
         
         [SerializeField] private string _masterVolumeMixer;
@@ -92,18 +92,18 @@ namespace Managers
                 
                 FillAudioFunctionsDictionaries();
                 
-                if (!PlayerPrefs.HasKey(PLAYERS_PREFS_MASTER_VOLUME_VALUE))
+                /*if (!PlayerPrefs.HasKey(PLAYERS_PREFS_MASTER_VOLUME_VALUE))
                 {
                     PlayerPrefs.SetFloat(PLAYERS_PREFS_MASTER_VOLUME_VALUE, 1);
                     PlayerPrefs.SetFloat(PLAYERS_PREFS_SFX_VOLUME_VALUE, 1);
                     PlayerPrefs.SetFloat(PLAYERS_PREFS_MUSIC_VOLUME_VALUE, 1);
-                }
+                }*/
 
                 DontDestroyOnLoad(gameObject);
             }
             else
             {
-                Destroy(_instance);
+                Destroy(gameObject);
             }
         }
 
@@ -163,7 +163,7 @@ namespace Managers
         {
             _audioMixerSnapshot = new Dictionary<AudioMixerSnapshots, AudioMixerSnapshot>
             {
-                { AudioMixerSnapshots.DEFAULT, _defaultSnapshot },
+                { AudioMixerSnapshots.WORKSPACE, _workspaceSnapshot },
                 { AudioMixerSnapshots.MENU, _menuSnapshot },
                 { AudioMixerSnapshots.TRANSITION, _transitionSnapshot }
             };
@@ -246,9 +246,9 @@ namespace Managers
 
         private void Start()
         {
-            SetInitialVolumeValue(PLAYERS_PREFS_MASTER_MUTE, PLAYERS_PREFS_MASTER_VOLUME_VALUE, _masterVolumeMixer);
+            /*SetInitialVolumeValue(PLAYERS_PREFS_MASTER_MUTE, PLAYERS_PREFS_MASTER_VOLUME_VALUE, _masterVolumeMixer);
             SetInitialVolumeValue(PLAYERS_PREFS_SFX_MUTE, PLAYERS_PREFS_SFX_VOLUME_VALUE, _SFXVolumeMixer);
-            SetInitialVolumeValue(PLAYERS_PREFS_MUSIC_MUTE, PLAYERS_PREFS_MUSIC_VOLUME_VALUE, _musicVolumeMixer);
+            SetInitialVolumeValue(PLAYERS_PREFS_MUSIC_MUTE, PLAYERS_PREFS_MUSIC_VOLUME_VALUE, _musicVolumeMixer);*/
         }
 
         private void SetInitialVolumeValue(String volumeMuteName, String volumeValueName, String mixerGroupName)
@@ -359,7 +359,7 @@ namespace Managers
             
             AudioSource audioSource = audioSources[audioSourceIndex];
 
-            audioSource.gameObject.transform.position = position;
+            audioSource.gameObject.transform.position = new Vector3(position.x, position.y, -10);
 
             audioSource.clip = sound.GetClip();
             audioSource.volume = sound.GetVolume();

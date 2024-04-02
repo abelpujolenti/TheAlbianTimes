@@ -26,8 +26,6 @@ namespace Stats
         [SerializeField] private float foldMinBrightness = .2f;
         [SerializeField] private float showStatsTime = .3f;
 
-        //private AudioSource _audioSourceMapUnfold;
-
         private void Start()
         {
             GameObject statsDisplayRoot = mapImage.transform.Find("Stats").gameObject;
@@ -50,13 +48,6 @@ namespace Stats
             Debug.Log(ev.Value.id);
             ev.Value.Run();
         }*/
-
-            /*_audioSourceMapUnfold = gameObject.AddComponent<AudioSource>();
-            (AudioSource, string)[] tuples = {
-                (_audioSourceMapUnfold, MAP_UNFOLD)
-            };
-
-            SoundManager.Instance.SetMultipleAudioSourcesComponents(tuples);*/
 
         }
 
@@ -139,7 +130,6 @@ namespace Stats
 
             yield return new WaitForSeconds(unfoldDelay);
 
-            //_audioSourceMapUnfold.Play();
             SoundManager.Instance.Play2DSound(MAP_UNFOLD);
 
             for (int i = 0; i < mapFolds.Length; i++)

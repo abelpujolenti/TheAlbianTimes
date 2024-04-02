@@ -1324,8 +1324,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _audioMixer: {fileID: 24100000, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
-  _defaultSnapshot: {fileID: 24500006, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
   _menuSnapshot: {fileID: 5745898505093695254, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
+  _workspaceSnapshot: {fileID: 24500006, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
   _transitionSnapshot: {fileID: -6234146734570892572, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
   _masterVolumeMixer: MasterSound
   _SFXVolumeMixer: SFXSound
@@ -1357,7 +1357,7 @@ MonoBehaviour:
     audioMixerGroup: 0
     _name: Drop Piece In Box
     _volume: 1
-    _pitch: 0
+    _pitch: 1
   - _audioClip: {fileID: 8300000, guid: 705d926f80e2ac74f89516df89c4ae86, type: 3}
     audioMixerGroup: 0
     _name: Friction
@@ -1377,7 +1377,7 @@ MonoBehaviour:
     audioMixerGroup: 0
     _name: Grab Piece
     _volume: 1
-    _pitch: 0
+    _pitch: 1
   - _audioClip: {fileID: 8300000, guid: 52b8c287a72d741419ae9f4b9233f083, type: 3}
     audioMixerGroup: 0
     _name: Open Drawer
@@ -1391,11 +1391,6 @@ MonoBehaviour:
   - _audioClip: {fileID: 8300000, guid: 8ae62c974cd36384d90ca9ac441b7045, type: 3}
     audioMixerGroup: 0
     _name: Phone
-    _volume: 1
-    _pitch: 1
-  - _audioClip: {fileID: 0}
-    audioMixerGroup: 0
-    _name: Type
     _volume: 1
     _pitch: 1
   - _audioClip: {fileID: 8300000, guid: eb52906e15268654b944cb79146152f9, type: 3}
@@ -1526,7 +1521,7 @@ MonoBehaviour:
   - _audioClip: {fileID: 8300000, guid: 084fcde6d3cc75e448a4fd36e1502b68, type: 3}
     audioMixerGroup: 1
     _name: Music
-    _volume: 0.236
+    _volume: 0.109
     _pitch: 1
 --- !u!4 &1318108280
 Transform:

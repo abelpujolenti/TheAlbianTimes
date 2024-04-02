@@ -16,8 +16,6 @@ namespace Dialogue
         private const int TOTAL_KEY_TYPES_AUDIOS = 7;
         private const String CLICK_BUTTON_SOUND = "Click Button";
 
-        //private AudioSource _audioSourceChangeBias;
-
         [SerializeField] private GameObject root;
         [SerializeField] private Image character;
         [SerializeField] private RawImage background;
@@ -44,20 +42,6 @@ namespace Dialogue
         {
             ds = DialogueSystem.instance;
             architect = new TextArchitect(ds.container.dialogueText, TOTAL_KEY_TYPES_AUDIOS);
-
-            /*AudioSource[] keyTypingAudioSources = new AudioSource[TOTAL_KEY_TYPES_AUDIOS];
-
-            for (int i = 0; i < TOTAL_KEY_TYPES_AUDIOS; i++)
-            {
-                keyTypingAudioSources[i] = gameObject.AddComponent<AudioSource>();
-            }
-
-            _audioSourceChangeBias = gameObject.AddComponent<AudioSource>();
-            (AudioSource, String)[] tuples =
-            {
-                (_audioSourceChangeBias, CLICK_BUTTON_SOUND)
-            };
-            SoundManager.Instance.SetMultipleAudioSourcesComponents(tuples);*/
 
             architect.speed = 0.5f;
             dialogueOptionButtons = dialogueOptionButtonsRoot.GetComponentsInChildren<DialogueOptionButton>();
@@ -129,7 +113,6 @@ namespace Dialogue
 
         private void DisplayNextLine()
         {
-            //_audioSourceChangeBias.Play();
             SoundManager.Instance.Play2DSound(CLICK_BUTTON_SOUND);
 
             currentLine++;

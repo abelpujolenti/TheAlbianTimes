@@ -10,9 +10,9 @@ AudioMixerSnapshotController:
   m_AudioMixer: {fileID: 24100000}
   m_SnapshotID: e030be1f0cf786e419159aadda99da80
   m_FloatValues:
-    bffe5a73617b5604984eeef59d0b66b3: -39.703533
-    d7e1ad573a4aee44fb425107f9e58efd: -0.39762527
-    ae69c72f48cb59a41967455e477e3da7: -0.3016385
+    bffe5a73617b5604984eeef59d0b66b3: -19.928473
+    d7e1ad573a4aee44fb425107f9e58efd: 0
+    ae69c72f48cb59a41967455e477e3da7: 0
   m_TransitionOverrides: {}
 --- !u!243 &-5493082629166276277
 AudioMixerGroupController:
@@ -139,12 +139,12 @@ AudioMixerSnapshotController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Default
+  m_Name: Workspace
   m_AudioMixer: {fileID: 24100000}
   m_SnapshotID: ffb59a996ecdeba448769b2cad5dbef6
   m_FloatValues:
     bffe5a73617b5604984eeef59d0b66b3: -2.2889848
-    ae69c72f48cb59a41967455e477e3da7: -0.3016385
+    ae69c72f48cb59a41967455e477e3da7: 0
   m_TransitionOverrides: {}
 --- !u!244 &2186504027646305039
 AudioMixerEffectController:
@@ -171,5 +171,7 @@ AudioMixerSnapshotController:
   m_SnapshotID: 282a7b6ac2705974b84866a6a44ad303
   m_FloatValues:
     bffe5a73617b5604984eeef59d0b66b3: -5.323069
-    ae69c72f48cb59a41967455e477e3da7: -0.3016385
+    35450e734d45c4649b1ebec3f612fc43: 20
+    59dfc71801bc61746b020e369d1be316: -22.003613
+    ae69c72f48cb59a41967455e477e3da7: 0
   m_TransitionOverrides: {}

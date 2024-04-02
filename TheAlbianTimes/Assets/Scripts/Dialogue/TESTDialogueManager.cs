@@ -23,19 +23,8 @@ namespace Dialogue
         Image bg;
         Button button;
 
-        /*private AudioSource _audioSourcePhone;
-        private AudioSource _audioSourceType;*/
-
         void Start()
         {
-            /*_audioSourcePhone = gameObject.AddComponent<AudioSource>();
-            _audioSourceType = gameObject.AddComponent<AudioSource>();
-            (AudioSource, String)[] tuples =
-            {
-                (_audioSourcePhone, PHONE_SOUND),
-                (_audioSourceType, TYPE_SOUND)
-            };
-            SoundManager.Instance.SetMultipleAudioSourcesComponents(tuples);*/
             tmpText = transform.Find("text").GetComponent<TextMeshProUGUI>();
             tmpTitle = transform.Find("title").GetComponent<TextMeshProUGUI>();
             bg = GetComponent<Image>();
@@ -61,7 +50,6 @@ namespace Dialogue
             }
             text = text1 + Country.names[(int)madCountry.GetId()] + text2;
 
-            //_audioSourcePhone.Play();
             SoundManager.Instance.Play2DSound(PHONE_SOUND);
             yield return new WaitForSeconds(2.5f);
 
@@ -78,7 +66,6 @@ namespace Dialogue
             {
                 runningText = "<color=#FFFFFFFF>" + text.Substring(0, i + 1) + "<color=#FFFFFF00>" + text.Substring(i + 1, text.Length - i - 1);
                 tmpText.text = runningText;
-                //_audioSourceType.Play();
                 SoundManager.Instance.Play2DSound(TYPE_SOUND);
                 yield return new WaitForSeconds(.08f);
                 if (i == 75) yield return new WaitForSeconds(1.2f);

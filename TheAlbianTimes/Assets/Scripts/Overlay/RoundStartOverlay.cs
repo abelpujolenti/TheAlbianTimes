@@ -56,8 +56,13 @@ namespace Overlay
             yield return new WaitForSeconds(currentClipInfo[0].clip.length);
             fadeOverlay.gameObject.SetActive(false);
             fadeOverlayText.gameObject.SetActive(false);
-            SoundManager.Instance.ChangeAudioMixerSnapshot(AudioMixerSnapshots.DEFAULT, 1f);
-            SoundManager.Instance.Play3DLoopSound(ROOM_TONE, 10, 10000, new Vector2(7f, 0f));
+            SoundManager.Instance.ChangeAudioMixerSnapshot(AudioMixerSnapshots.WORKSPACE, 1f);
+            if (!GameManager.Instance._startWorkspace)
+            {
+                SoundManager.Instance.Play3DLoopSound(ROOM_TONE, 10, 10000, new Vector2(7f, 20f), 5000);
+                GameManager.Instance._startWorkspace = true;
+            }
+            
             SoundManager.Instance.Play2DLoopSound(MUSIC);
         }
 

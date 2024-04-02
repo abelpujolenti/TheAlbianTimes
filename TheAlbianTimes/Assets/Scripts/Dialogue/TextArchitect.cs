@@ -41,8 +41,6 @@ namespace Dialogue
 
         private string[] _keyTypeSoundStrings;
 
-        //private AudioSource[] _audioSourceKeyTypings;
-
         public TextArchitect(TextMeshProUGUI ui, int totalKeyTypeSoundStrings)
         {
             tmpro_ui = ui;

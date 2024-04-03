@@ -3,14 +3,22 @@ using System.Collections.Generic;
 using NoMonoBehavior;
 using UnityEngine;
 using UnityEngine.Audio;
+using Random = UnityEngine.Random;
 
 namespace Managers
 {
-    public enum AudioMixers
+    public enum AudioMixerSnapshots
+    {   
+        MENU,
+        WORKSPACE,
+        TRANSITION
+    }
+    
+    public enum AudioMixerGroups
     {
         SFX,
         MUSIC
-    } 
+    }
 
     public class SoundManager : MonoBehaviour
     {
@@ -28,11 +36,19 @@ namespace Managers
         private const String AMBIENT = "Ambiente";
         private const String BOTON_MENU = "BotonMenu";
 
-        private const int NUM_SFX_AUDIO_SOURCES = 6;
-        private const int NUM_MUSIC_AUDIO_SOURCES = 3;
+        private const int NUM_2D_SFX_AUDIO_SOURCES = 6;
+        private const int NUM_2D_MUSIC_AUDIO_SOURCES = 3;
+        private const int NUM_3D_SFX_AUDIO_SOURCES = 8;
+        private const int NUM_3D_MUSIC_AUDIO_SOURCES = 3;
         private const int MUTE_VOLUME_VALUE = -80;
 
         [SerializeField] private AudioMixer _audioMixer;
+
+        private Dictionary<AudioMixerSnapshots, AudioMixerSnapshot> _audioMixerSnapshot;
+        
+        [SerializeField] private AudioMixerSnapshot _menuSnapshot;
+        [SerializeField] private AudioMixerSnapshot _workspaceSnapshot;
+        [SerializeField] private AudioMixerSnapshot _transitionSnapshot;
         
         [SerializeField] private string _masterVolumeMixer;
         [SerializeField] private string _SFXVolumeMixer;
@@ -43,13 +59,28 @@ namespace Managers
         
         [SerializeField] private Sound[] _sounds;
 
-        private Dictionary<string, Sound> _soundsDictionary;
-        private Dictionary<AudioMixerGroup, Action<Sound>> _playSoundFunctions;
-        private Dictionary<AudioSource, DateTime> _audioSourcesPlayTimestamps;
-        private Dictionary<AudioMixers, AudioMixerGroup> _audioMixersGroups;
+        private Dictionary<string, Sound> _soundsDictionary = new Dictionary<string, Sound>();
+        private Dictionary<AudioMixerGroups, Action<Sound>> _play2DSoundFunctions;
+        private Dictionary<AudioMixerGroups, Func<Sound, int>> _play2DLoopSoundFunctions;
+        private Dictionary<AudioMixerGroups, Action<Sound, float, float, float, float>> _play2DRandomSoundFunctions;
+        private Dictionary<AudioMixerGroups, Action<Sound, float, float, Vector2, float>> _play3DSoundFunctions;
+        private Dictionary<AudioMixerGroups, Func<Sound, float, float, Vector2, float, int>> _play3DLoopSoundFunctions;
+        private Dictionary<AudioMixerGroups, Action<Sound, float, float, float, float, float, float, Vector2, float>> _play3DRandomSoundFunctions;
+        private Dictionary<AudioSource, DateTime> _audioSourcesPlayTimestamps = new Dictionary<AudioSource, DateTime>();
 
-        private AudioSource[] _SFXAudioSources;
-        private AudioSource[] _MusicAudioSources;
+        private AudioSource[] _2DSFXAudioSources;
+        private AudioSource[] _2DMusicAudioSources;
+        
+        private AudioSource[] _3DSFXAudioSources;
+        private AudioSource[] _3DMusicAudioSources;
+        
+        private AudioLowPassFilter[] _3DSFXAudioLowPassFilters;
+        private AudioLowPassFilter[] _3DMusicAudioLowPassFilters;
+
+        private Dictionary<int, AudioSource> _audiosLooping = new Dictionary<int, AudioSource>();
+        
+        private GameObject[] _3DSFXGameObjects;
+        private GameObject[] _3DMusicGameObjects;
 
         private void Awake()
         {
@@ -59,77 +90,165 @@ namespace Managers
                 
                 InitializeAudioSourcesArrays();
                 
-                FillSoundsDictionary();
+                FillAudioFunctionsDictionaries();
                 
-                if (!PlayerPrefs.HasKey(PLAYERS_PREFS_MASTER_VOLUME_VALUE))
+                /*if (!PlayerPrefs.HasKey(PLAYERS_PREFS_MASTER_VOLUME_VALUE))
                 {
                     PlayerPrefs.SetFloat(PLAYERS_PREFS_MASTER_VOLUME_VALUE, 1);
                     PlayerPrefs.SetFloat(PLAYERS_PREFS_SFX_VOLUME_VALUE, 1);
                     PlayerPrefs.SetFloat(PLAYERS_PREFS_MUSIC_VOLUME_VALUE, 1);
-                }
+                }*/
 
                 DontDestroyOnLoad(gameObject);
             }
             else
             {
-                Destroy(_instance);
+                Destroy(gameObject);
             }
         }
 
         private void InitializeAudioSourcesArrays()
         {
-            _SFXAudioSources = new AudioSource[NUM_SFX_AUDIO_SOURCES];
-            _MusicAudioSources = new AudioSource[NUM_MUSIC_AUDIO_SOURCES];
+            _2DSFXAudioSources = new AudioSource[NUM_2D_SFX_AUDIO_SOURCES];
+            
+            _3DSFXAudioSources = new AudioSource[NUM_3D_SFX_AUDIO_SOURCES];
+            _3DSFXAudioLowPassFilters = new AudioLowPassFilter[NUM_3D_SFX_AUDIO_SOURCES];
+            
+            _3DSFXGameObjects = new GameObject[NUM_3D_SFX_AUDIO_SOURCES];
+            
+            Initialize2DAudioSourcesArrays(NUM_2D_SFX_AUDIO_SOURCES, _2DSFXAudioSources, _SFXAudioMixerGroup);
+            Initialize3DAudioSourcesArrays(NUM_3D_SFX_AUDIO_SOURCES, _3DSFXAudioSources, _3DSFXGameObjects, 
+                _3DSFXAudioLowPassFilters, _SFXAudioMixerGroup);
+            
+            
+            _2DMusicAudioSources = new AudioSource[NUM_2D_MUSIC_AUDIO_SOURCES];
+            
+            _3DMusicAudioSources = new AudioSource[NUM_3D_MUSIC_AUDIO_SOURCES];
+            _3DMusicAudioLowPassFilters = new AudioLowPassFilter[NUM_3D_MUSIC_AUDIO_SOURCES];
+            
+            _3DMusicGameObjects = new GameObject[NUM_3D_MUSIC_AUDIO_SOURCES];
+            
+            Initialize2DAudioSourcesArrays(NUM_2D_MUSIC_AUDIO_SOURCES, _2DMusicAudioSources, _MusicAudioMixerGroup);
+            Initialize3DAudioSourcesArrays(NUM_3D_MUSIC_AUDIO_SOURCES, _3DMusicAudioSources, _3DMusicGameObjects, 
+                _3DMusicAudioLowPassFilters, _MusicAudioMixerGroup);
+        }
 
-            for (int i = 0; i < NUM_SFX_AUDIO_SOURCES; i++)
+        private void Initialize2DAudioSourcesArrays(int numAudioSources, AudioSource[] audioSources,
+            AudioMixerGroup audioMixerGroup)
+        {
+            for (int i = 0; i < numAudioSources; i++)
             {
-                _SFXAudioSources[i] = gameObject.AddComponent<AudioSource>();
-                _SFXAudioSources[i].outputAudioMixerGroup = _SFXAudioMixerGroup;
+                audioSources[i] = gameObject.AddComponent<AudioSource>();
+                audioSources[i].outputAudioMixerGroup = audioMixerGroup;
             }
-
-            for (int i = 0; i < NUM_MUSIC_AUDIO_SOURCES; i++)
+        }
+        
+        private void Initialize3DAudioSourcesArrays(int numAudioSources, AudioSource[] audioSources,
+            GameObject[] gameObjects, AudioLowPassFilter[] audioLowPassFilters, AudioMixerGroup audioMixerGroup)
+        {
+            for (int i = 0; i < numAudioSources; i++)
             {
-                _MusicAudioSources[i] = gameObject.AddComponent<AudioSource>();
-                _MusicAudioSources[i].outputAudioMixerGroup = _MusicAudioMixerGroup;
+                GameObject obj = new GameObject();
+                obj.transform.SetParent(transform);
+                gameObjects[i] = obj;
+                audioSources[i] = obj.AddComponent<AudioSource>();
+                audioSources[i].spatialBlend = 1;
+                audioSources[i].outputAudioMixerGroup = audioMixerGroup;
+                audioLowPassFilters[i] = obj.AddComponent<AudioLowPassFilter>();
+                audioLowPassFilters[i].cutoffFrequency = 22000;
             }
         }
 
-        private void FillSoundsDictionary()
+        private void FillAudioFunctionsDictionaries()
         {
-            _soundsDictionary = new Dictionary<string, Sound>();
+            _audioMixerSnapshot = new Dictionary<AudioMixerSnapshots, AudioMixerSnapshot>
+            {
+                { AudioMixerSnapshots.WORKSPACE, _workspaceSnapshot },
+                { AudioMixerSnapshots.MENU, _menuSnapshot },
+                { AudioMixerSnapshots.TRANSITION, _transitionSnapshot }
+            };
+            
             foreach (Sound sound in _sounds)
             {
                 _soundsDictionary.Add(sound.GetName(), sound);
             }
 
-            _playSoundFunctions = new Dictionary<AudioMixerGroup, Action<Sound>>
+            _play2DSoundFunctions = new Dictionary<AudioMixerGroups, Action<Sound>>
             {
-                {_SFXAudioMixerGroup, (sound) => PlayAudioOnOlderOrPausedAudioSource(_SFXAudioSources, sound)},
-                {_MusicAudioMixerGroup, (sound) => PlayAudioOnOlderOrPausedAudioSource(_MusicAudioSources, sound)}
+                {AudioMixerGroups.SFX, (sound) => Play2DAudioOnAudioSource(_2DSFXAudioSources, sound)},
+                {AudioMixerGroups.MUSIC, (sound) => Play2DAudioOnAudioSource(_2DMusicAudioSources, sound)}
             };
 
-            _audioSourcesPlayTimestamps = new Dictionary<AudioSource, DateTime>();
-            foreach (AudioSource audioSource in _SFXAudioSources)
+            _play2DLoopSoundFunctions = new Dictionary<AudioMixerGroups, Func<Sound, int>>
+            {
+                {AudioMixerGroups.SFX, (sound) => Play2DLoopAudioOnAudioSource(_2DSFXAudioSources, sound)},
+                {AudioMixerGroups.MUSIC, (sound) => Play2DLoopAudioOnAudioSource(_2DMusicAudioSources, sound)}
+            };
+            
+            _play2DRandomSoundFunctions = new Dictionary<AudioMixerGroups, Action<Sound, float, float, float, float>>
+            {
+                {AudioMixerGroups.SFX, (sound, minVolume, maxVolume, minPitch, maxPitch) => 
+                    Play2DRandomAudioOnAudioSource(_2DSFXAudioSources, sound, minVolume, maxVolume, minPitch, maxPitch)},
+                
+                {AudioMixerGroups.MUSIC, (sound, minVolume, maxVolume, minPitch, maxPitch) => 
+                    Play2DRandomAudioOnAudioSource(_2DMusicAudioSources, sound, minVolume, maxVolume, minPitch, maxPitch)}
+            };
+
+            _play3DSoundFunctions = new Dictionary<AudioMixerGroups, Action<Sound, float, float, Vector2, float>>
+            {
+                {AudioMixerGroups.SFX, (sound, minDistance, maxDistance, position, lowPassCutoff) => 
+                    Play3DAudioOnAudioSource(_3DSFXAudioSources, _3DSFXAudioLowPassFilters, sound, minDistance, maxDistance, position, lowPassCutoff)},
+                
+                {AudioMixerGroups.MUSIC, (sound, minDistance, maxDistance, position, lowPassCutoff) => 
+                    Play3DAudioOnAudioSource(_3DMusicAudioSources, _3DMusicAudioLowPassFilters, sound, minDistance, maxDistance, position, lowPassCutoff)}
+            };
+
+            _play3DLoopSoundFunctions = new Dictionary<AudioMixerGroups, Func<Sound, float, float, Vector2, float, int>>
+            {
+                {AudioMixerGroups.SFX, (sound, minDistance, maxDistance, position, lowPassCutoff) => 
+                    Play3DLoopAudioOnAudioSource(_3DSFXAudioSources, _3DSFXAudioLowPassFilters, sound, minDistance, maxDistance, position, lowPassCutoff)},
+                
+                {AudioMixerGroups.MUSIC, (sound, minDistance, maxDistance, position, lowPassCutoff) => 
+                    Play3DLoopAudioOnAudioSource(_3DMusicAudioSources, _3DMusicAudioLowPassFilters, sound, minDistance, maxDistance, position, lowPassCutoff)}
+            };
+
+            _play3DRandomSoundFunctions = new Dictionary<AudioMixerGroups, Action<Sound, float, float, float, float, float, float, Vector2, float>>
+            {
+                {AudioMixerGroups.SFX, (sound, minDistance, maxDistance, minVolume, maxVolume, minPitch, maxPitch, position, lowPassCutoff) => 
+                    Play3DRandomAudioOnAudioSource(_3DSFXAudioSources, _3DSFXAudioLowPassFilters, sound, 
+                        minDistance, maxDistance, minVolume, maxVolume, minPitch, maxPitch, position, lowPassCutoff)},
+                
+                {AudioMixerGroups.MUSIC, (sound, minDistance, maxDistance, minVolume, maxVolume, minPitch, maxPitch, position, lowPassCutoff) => 
+                    Play3DRandomAudioOnAudioSource(_3DMusicAudioSources, _3DMusicAudioLowPassFilters, sound, 
+                        minDistance, maxDistance, minVolume, maxVolume, minPitch, maxPitch, position, lowPassCutoff)}
+            };
+
+            foreach (AudioSource audioSource in _2DSFXAudioSources)
             {
                 _audioSourcesPlayTimestamps.Add(audioSource, DateTime.Now);
             }
-            foreach (AudioSource audioSource in _MusicAudioSources)
+            
+            foreach (AudioSource audioSource in _2DMusicAudioSources)
             {
                 _audioSourcesPlayTimestamps.Add(audioSource, DateTime.Now);
             }
-
-            _audioMixersGroups = new Dictionary<AudioMixers, AudioMixerGroup>
+            
+            foreach (AudioSource audioSource in _3DSFXAudioSources)
             {
-                { AudioMixers.SFX, _SFXAudioMixerGroup},
-                { AudioMixers.MUSIC, _MusicAudioMixerGroup}
-            };
+                _audioSourcesPlayTimestamps.Add(audioSource, DateTime.Now);
+            }
+            
+            foreach (AudioSource audioSource in _3DMusicAudioSources)
+            {
+                _audioSourcesPlayTimestamps.Add(audioSource, DateTime.Now);
+            }
         }
 
         private void Start()
         {
-            SetInitialVolumeValue(PLAYERS_PREFS_MASTER_MUTE, PLAYERS_PREFS_MASTER_VOLUME_VALUE, _masterVolumeMixer);
+            /*SetInitialVolumeValue(PLAYERS_PREFS_MASTER_MUTE, PLAYERS_PREFS_MASTER_VOLUME_VALUE, _masterVolumeMixer);
             SetInitialVolumeValue(PLAYERS_PREFS_SFX_MUTE, PLAYERS_PREFS_SFX_VOLUME_VALUE, _SFXVolumeMixer);
-            SetInitialVolumeValue(PLAYERS_PREFS_MUSIC_MUTE, PLAYERS_PREFS_MUSIC_VOLUME_VALUE, _musicVolumeMixer);
+            SetInitialVolumeValue(PLAYERS_PREFS_MUSIC_MUTE, PLAYERS_PREFS_MUSIC_VOLUME_VALUE, _musicVolumeMixer);*/
         }
 
         private void SetInitialVolumeValue(String volumeMuteName, String volumeValueName, String mixerGroupName)
@@ -140,79 +259,182 @@ namespace Managers
             _audioMixer.SetFloat(mixerGroupName, volumeValue);
         }
 
-        public void SetMultipleAudioSourcesComponents((AudioSource, String)[] tuples)
+        public void ChangeAudioMixerSnapshot(AudioMixerSnapshots audioMixerSnapshot, float timeToTransition)
         {
-            foreach ((AudioSource, String) tuple in tuples)
-            {
-                SetAudioSourceComponent(tuple.Item1, tuple.Item2);
-            }
+            _audioMixerSnapshot[audioMixerSnapshot].TransitionTo(timeToTransition);
         }
 
-        private void SetAudioSourceComponent(AudioSource audioSource, string name)
-        {
-            Sound sound = _soundsDictionary[name];
-            
-            sound.SetAudioSource(audioSource);
-            sound.GetAudioSource().outputAudioMixerGroup = _audioMixersGroups[sound.GetAudioMixerGroup()];
-            sound.GetAudioSource().clip = sound.GetClip();
-            sound.GetAudioSource().volume = sound.GetVolume();
-            sound.GetAudioSource().loop = sound.GetLoop();
-            sound.GetAudioSource().spatialBlend = Convert.ToSingle(sound.GetSound3D());
-            if (sound.GetSound3D())
-            {
-                sound.GetAudioSource().rolloffMode = AudioRolloffMode.Linear;
-                sound.GetAudioSource().minDistance = 0;
-                sound.GetAudioSource().maxDistance = 30;    
-            }
-
-            sound.GetAudioSource().playOnAwake = false;
-
-            if (sound.GetPlay())
-            {
-                sound.GetAudioSource().Play();
-            }
-        }
-
-        public void PlaySound(string soundName)
+        public void Play2DSound(string soundName)
         {
             Sound sound = _soundsDictionary[soundName];
-            AudioMixerGroup audioMixerGroup = _audioMixersGroups[sound.GetAudioMixerGroup()];
-            _playSoundFunctions[audioMixerGroup](sound);
+            _play2DSoundFunctions[sound.GetAudioMixerGroup()](sound);
         }
 
-        private void PlayAudioOnOlderOrPausedAudioSource(AudioSource[] audioSources, Sound sound)
+        public int Play2DLoopSound(string soundName)
         {
-            AudioSource audioSourceToPlaySound = audioSources[0];
+            Sound sound = _soundsDictionary[soundName];
+            return _play2DLoopSoundFunctions[sound.GetAudioMixerGroup()](sound);
+        }
 
-            if (audioSourceToPlaySound.isPlaying)
-            {
-                AudioSource currentAudioSource;
+        public void Play2DRandomSound(string[] soundsNames, float minVolume, float maxVolume, 
+            float minPitch, float maxPitch)
+        {
+            Sound sound = _soundsDictionary[soundsNames[Random.Range(0, soundsNames.Length)]];
+            _play2DRandomSoundFunctions[sound.GetAudioMixerGroup()](sound, minVolume, maxVolume, 
+                minPitch, maxPitch);
+        }
+
+        public void Play3DSound(string soundName, float minDistance, float maxDistance, 
+            Vector2 position, float lowPassCutoff = 22000)
+        {
+            Sound sound = _soundsDictionary[soundName];
+            _play3DSoundFunctions[sound.GetAudioMixerGroup()](sound, minDistance, maxDistance, position, lowPassCutoff);
+        }
+
+        public int Play3DLoopSound(string soundName, float minDistance, float maxDistance, 
+            Vector2 position, float lowPassCutoff = 22000)
+        {
+            Sound sound = _soundsDictionary[soundName];
+            return _play3DLoopSoundFunctions[sound.GetAudioMixerGroup()](sound, minDistance, maxDistance, position, lowPassCutoff);
+        }
+
+        public void Play3DRandomSound(string[] soundsNames, float minDistance, float maxDistance, 
+            float minVolume, float maxVolume, float minPitch, float maxPitch,
+            Vector2 position, float lowPassCutoff = 22000)
+        {
+            Sound sound = _soundsDictionary[soundsNames[Random.Range(0, soundsNames.Length)]];
+            _play3DRandomSoundFunctions[sound.GetAudioMixerGroup()](sound, minDistance, maxDistance, 
+                minVolume, maxVolume, minPitch, maxPitch, position, lowPassCutoff);
+        }
+
+        public void StopLoopingAudio(int id)
+        {
+            AudioSource audioSource = _audiosLooping[id];
+            audioSource.loop = false;
+            audioSource.Stop();
+            _audiosLooping.Remove(id);
+        }
+
+        private AudioSource Play2DAudioOnAudioSource(AudioSource[] audioSources, Sound sound)
+        {
+            int audioSourceIndex = GetOldestOrPausedAudioSourceIndex(audioSources);
+            
+            AudioSource audioSource = audioSources[audioSourceIndex];
+
+            audioSource.clip = sound.GetClip();
+            audioSource.volume = sound.GetVolume();
+            audioSource.pitch = sound.GetPitch();
+            _audioSourcesPlayTimestamps[audioSource] = DateTime.Now;
+            audioSource.Play();
+
+            return audioSource;
+        }
+
+        private int Play2DLoopAudioOnAudioSource(AudioSource[] audioSources, Sound sound)
+        {
+            AudioSource audioSource = Play2DAudioOnAudioSource(audioSources, sound);
+
+            audioSource.loop = true;
+
+            int randomId = Random.Range(0, 100000);
+            
+            _audiosLooping.Add(randomId, audioSource);
+
+            return randomId;
+        }
+
+        private void Play2DRandomAudioOnAudioSource(AudioSource[] audioSources, Sound sound, 
+            float minVolume, float maxVolume, float minPitch, float maxPitch)
+        {
+            AudioSource audioSource = Play2DAudioOnAudioSource(audioSources, sound);
+
+            audioSource.volume = Random.Range(minVolume, maxVolume);
+            audioSource.pitch = Random.Range(minPitch, maxPitch);
+        }
+
+        private AudioSource Play3DAudioOnAudioSource(AudioSource[] audioSources, AudioLowPassFilter[] audioLowPassFilters, 
+            Sound sound, float minDistance, float maxDistance, Vector2 position, float lowPassCutoff = 22000)
+        {
+            int audioSourceIndex = GetOldestOrPausedAudioSourceIndex(audioSources);
+            
+            AudioSource audioSource = audioSources[audioSourceIndex];
+
+            audioSource.gameObject.transform.position = new Vector3(position.x, position.y, -10);
+
+            audioSource.clip = sound.GetClip();
+            audioSource.volume = sound.GetVolume();
+            audioSource.pitch = sound.GetPitch();
+            audioSource.minDistance = minDistance;
+            audioSource.maxDistance = maxDistance; 
+            audioLowPassFilters[audioSourceIndex].cutoffFrequency = lowPassCutoff;
+            _audioSourcesPlayTimestamps[audioSource] = DateTime.Now;
+            audioSource.Play();
+
+            return audioSource;
+        }
+
+        private int Play3DLoopAudioOnAudioSource(AudioSource[] audioSources, AudioLowPassFilter[] audioLowPassFilters, 
+            Sound sound, float minDistance, float maxDistance, Vector2 position, float lowPassCutoff = 22000)
+        {
+            AudioSource audioSource = Play3DAudioOnAudioSource(audioSources, audioLowPassFilters, sound, 
+                minDistance, maxDistance, position, lowPassCutoff);
+
+            audioSource.loop = true;
+
+            int randomId = Random.Range(0, 100000);
+            
+            _audiosLooping.Add(randomId, audioSource);
+
+            return randomId;
+        }
+
+        private void Play3DRandomAudioOnAudioSource(AudioSource[] audioSources, AudioLowPassFilter[] audioLowPassFilters, 
+            Sound sound, float minDistance, float maxDistance, float minVolume, float maxVolume, 
+            float minPitch, float maxPitch, Vector2 position, float lowPassCutoff = 22000)
+        {
+            AudioSource audioSource = Play3DAudioOnAudioSource(audioSources, audioLowPassFilters, sound, 
+                minDistance, maxDistance, position, lowPassCutoff);
+
+            audioSource.minDistance = minDistance;
+            audioSource.maxDistance = maxDistance;
+            audioSource.volume = Random.Range(minVolume, maxVolume);
+            audioSource.pitch = Random.Range(minPitch, maxPitch);
+        }
+
+        private int GetOldestOrPausedAudioSourceIndex(AudioSource[] audioSources)
+        {
+            int audioSouceIndex = 0;
+            
+            AudioSource currentAudioSource;
                 
-                DateTime oldestAudioSourcePlayTime = _audioSourcesPlayTimestamps[audioSourceToPlaySound];
-                DateTime currentAudioSourcePlayTime;
+            DateTime oldestAudioSourcePlayTime = DateTime.Now;
+            DateTime currentAudioSourcePlayTime;
 
-                for (int i = 1; i < audioSources.Length; i++)
+            for (int i = 0; i < audioSources.Length; i++)
+            {
+                currentAudioSource = audioSources[i];
+                if (!currentAudioSource.isPlaying)
                 {
-                    currentAudioSource = audioSources[i];
-                    if (!currentAudioSource.isPlaying)
-                    {
-                        audioSourceToPlaySound = currentAudioSource;
-                        break;
-                    }
-                    
-                    currentAudioSourcePlayTime = _audioSourcesPlayTimestamps[currentAudioSource];
-                    if (currentAudioSourcePlayTime < oldestAudioSourcePlayTime)
-                    {
-                        oldestAudioSourcePlayTime = currentAudioSourcePlayTime;
-                    }
+                    audioSouceIndex = i;
+                    break;
                 }
+
+                if (currentAudioSource.loop)
+                {
+                    continue;
+                }
+                    
+                currentAudioSourcePlayTime = _audioSourcesPlayTimestamps[currentAudioSource];
+                if (currentAudioSourcePlayTime >= oldestAudioSourcePlayTime)
+                {
+                    continue;
+                }
+
+                audioSouceIndex = i;
+                oldestAudioSourcePlayTime = currentAudioSourcePlayTime;
             }
 
-            audioSourceToPlaySound.clip = sound.GetClip();
-            audioSourceToPlaySound.volume = sound.GetVolume();
-            audioSourceToPlaySound.loop = sound.GetLoop();
-            audioSourceToPlaySound.Play();
-            _audioSourcesPlayTimestamps[audioSourceToPlaySound] = DateTime.Now;
+            return audioSouceIndex;
         }
 
         public void SetVolumePrefs(String playerPrefsVolumeName, float volumeValue)

@@ -20,6 +20,8 @@ namespace Managers
 
         private int _round = 0;
 
+        public bool _startWorkspace;
+
         private void Awake()
         {
             if (_instance == null)

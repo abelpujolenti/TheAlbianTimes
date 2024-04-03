@@ -3,7 +3,7 @@ using Managers;
 using TMPro;
 using UnityEngine;
 
-namespace NoMonoBehavior
+namespace Dialogue
 {
     public class TextArchitect
     {
@@ -39,17 +39,21 @@ namespace NoMonoBehavior
         private const float MIN_PITCH = 0.8f;
         private const float MAX_PITCH = 1.2f;
 
-        private AudioSource[] _audioSourceKeyTypings;
+        private string[] _keyTypeSoundStrings;
 
-        public TextArchitect(TextMeshProUGUI ui)
+        public TextArchitect(TextMeshProUGUI ui, int totalKeyTypeSoundStrings)
         {
             tmpro_ui = ui;
+            _keyTypeSoundStrings = new string[totalKeyTypeSoundStrings];
+            SetKeyTypingSoundsStrings();
         }
 
-        public TextArchitect(TextMeshPro world)
+        //?????????
+        public TextArchitect(TextMeshPro world, int totalKeyTypeSoundStrings)
         {
             tmpro_world = world;
         }
+        //?????????
 
         public Coroutine Build(string text)
         {
@@ -178,28 +182,18 @@ namespace NoMonoBehavior
             buildProcess = null;
         }
 
-        public void SetKeyTypingAudioSources(AudioSource[] audioSources) 
+        private void SetKeyTypingSoundsStrings()
         {
-            _audioSourceKeyTypings = audioSources;
-
-            (AudioSource, string)[] tuples = new (AudioSource, string)[_audioSourceKeyTypings.Length];
-
-            for (int i = 0; i < audioSources.Length; i++)
+            for (int i = 0; i < _keyTypeSoundStrings.Length; i++)
             {
-                tuples[i] = (_audioSourceKeyTypings[i], KEY + i);
+                _keyTypeSoundStrings[i] = KEY + i;
             }
-
-            SoundManager.Instance.SetMultipleAudioSourcesComponents(tuples);
         }
 
         void PlayRandomAudioSource() 
         {
-            AudioSource audioSource = _audioSourceKeyTypings[Random.Range(0, _audioSourceKeyTypings.Length)];
-
-            audioSource.pitch = Random.Range(MIN_PITCH, MAX_PITCH);
-            audioSource.volume = Random.Range(MIN_VOLUME, MAX_VOLUME);
-
-            audioSource.Play();
+            SoundManager.Instance.Play2DRandomSound(_keyTypeSoundStrings, 
+                MIN_VOLUME, MAX_VOLUME, MIN_PITCH, MAX_PITCH);
         }
     }
 }

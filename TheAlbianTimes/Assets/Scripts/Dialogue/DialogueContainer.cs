@@ -2,7 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 
-namespace NoMonoBehavior
+namespace Dialogue
 {
     [Serializable]
     public class DialogueContainer

@@ -1,18 +1,20 @@
-using NoMonoBehavior;
 using UnityEngine;
 
-public class DialogueSystem : MonoBehaviour
+namespace Dialogue
 {
-    public DialogueContainer container = new DialogueContainer();
-
-    public static DialogueSystem instance;
-
-    private void Awake()
+    public class DialogueSystem : MonoBehaviour
     {
-        if (instance == null)
-            instance = this;
-        else
-            DestroyImmediate(gameObject);
+        public DialogueContainer container = new DialogueContainer();
 
+        public static DialogueSystem instance;
+
+        private void Awake()
+        {
+            if (instance == null)
+                instance = this;
+            else
+                DestroyImmediate(gameObject);
+
+        }
     }
 }

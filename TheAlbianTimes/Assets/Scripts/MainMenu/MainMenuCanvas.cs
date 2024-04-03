@@ -21,9 +21,6 @@ public class MainMenuCanvas : MonoBehaviour
 
     private Coroutine startGameCoroutine;
 
-    private AudioSource _audioSourceIntro;
-    private AudioSource _audioSourceChangeBias;
-
     private void Start()
     {
         _currentActivePanel = _buttons;
@@ -31,14 +28,6 @@ public class MainMenuCanvas : MonoBehaviour
 
     public void Play() 
     {
-        _audioSourceIntro = gameObject.AddComponent<AudioSource>();
-        _audioSourceChangeBias = gameObject.AddComponent<AudioSource>();
-        (AudioSource, string)[] tuples =
-        {
-            (_audioSourceIntro, INTRO_SOUND),
-            (_audioSourceChangeBias, CLICK_BUTTON_SOUND)
-        };
-        SoundManager.Instance.SetMultipleAudioSourcesComponents(tuples);
         if (startGameCoroutine != null) return;
         startGameCoroutine = StartCoroutine(StartGameCoroutine());
     }
@@ -73,11 +62,11 @@ public class MainMenuCanvas : MonoBehaviour
 
     private IEnumerator StartGameCoroutine()
     {
-        _audioSourceChangeBias.Play();
+        SoundManager.Instance.Play2DSound(CLICK_BUTTON_SOUND);
         backgroundAnimator.Play("Start", 0);
         buttonAnimator.Play("ButtonsFadeOut", 0);
         yield return new WaitForFixedUpdate();
-        _audioSourceIntro.Play();
+        SoundManager.Instance.Play2DSound(INTRO_SOUND);
         AnimatorClipInfo[] currentClipInfo = backgroundAnimator.GetCurrentAnimatorClipInfo(0);
         yield return new WaitForSeconds(currentClipInfo[0].clip.length);
         yield return new WaitForSeconds(2.5f);

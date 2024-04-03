@@ -54,8 +54,6 @@ namespace Workspace.Layout
 
         private float _cellSize;
 
-        private AudioSource _audioSourceDropMold;
-
         private void OnEnable()
         {
             EventsManager.OnPreparingCells += TakeCells;
@@ -113,14 +111,6 @@ namespace Workspace.Layout
 
             _initialPosition = _rectTransform.localPosition;
             draggable = false;
-
-            _audioSourceDropMold = gameObject.AddComponent<AudioSource>();
-            (AudioSource, string)[] tuples = new[]
-            {
-                (_audioSourceDropMold, DROP_MOLD)
-            };
-            SoundManager.Instance.SetMultipleAudioSourcesComponents(tuples);
-
         }
 
         protected override void BeginDrag(BaseEventData data)
@@ -169,7 +159,7 @@ namespace Workspace.Layout
                 yield return null;
             }
             
-            _audioSourceDropMold.Play();
+            SoundManager.Instance.Play3DSound(DROP_MOLD, 10, 100, gameObject.transform.position);
         }
 
         private float MoveToDestination(Vector2 origin, Vector2 destination, float timer)

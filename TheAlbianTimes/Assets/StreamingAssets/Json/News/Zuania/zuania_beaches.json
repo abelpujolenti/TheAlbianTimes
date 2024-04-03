@@ -23,8 +23,8 @@
         {
             "name": "UNCONCERNED",
             "description": "The ongoing territorial dispute is irrelevant to this article.",
-            "headline": "The beaches of the Zuanian region : an unknown paradise.",
-            "text": "   Tired of the same old discount holiday package in some crummy Suokan spa? This season you can discover Zuanian region's best kept secret.\n    Often associated with winter wonderland imagery, its southern coast boasts a wide array of idyllic beaches yet to be defiled by mass tourism.",        
+            "headline": "The beaches of the Zuan region : an unknown paradise.",
+            "text": "   Tired of the same old discount holiday package in some crummy Suokan spa? This season you can discover Zuan region's best kept secret.\n    Often associated with winter wonderland imagery, its southern coast boasts a wide array of idyllic beaches yet to be defiled by mass tourism.",        
             "additionalConsequences": []
         },
         {
@@ -48,8 +48,8 @@
         {
             "name": "COUNTRY",
             "description": "Zuania is an independent country.",
-            "headline": "The wonders of Zuanian beaches: an unknown paradise.",
-            "text":"    Tired of the same old discount holiday package in some crummy Suokan spa? This season you can discover Zuanian region's best kept secret.\n    Most associated with winter wonderland imagery and attempts at annexation by power-hungry neighbors, its southern coast boasts a wide array of idyllic beaches yet to be defiled by mass tourism.",
+            "headline": "The wonders of Zuan beaches: an unknown paradise.",
+            "text":"    Tired of the same old discount holiday package in some crummy Suokan spa? This season you can discover Zuan region's best kept secret.\n    Most associated with winter wonderland imagery and attempts at annexation by power-hungry neighbors, its southern coast boasts a wide array of idyllic beaches yet to be defiled by mass tourism.",
             "additionalConsequences": [
                 {
                     "country": 2,

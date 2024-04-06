@@ -40,6 +40,8 @@ namespace Workspace.Layout
 
         private Cell[][] _cells;
 
+        private Cell[] _hoveredCells;
+
         private Vector2[][] _cellsPositions;
 
         private readonly Vector3[] _layoutCorners = new Vector3[4];
@@ -56,6 +58,7 @@ namespace Workspace.Layout
 
         private void OnEnable()
         {
+            EventsManager.OnDraggingPiece += HighlightCells;
             EventsManager.OnPreparingCells += TakeCells;
             EventsManager.OnSuccessfulSnap += SnapNewsHeadline;
             EventsManager.OnGrabSnappedPiece += RemoveNewsHeadline;
@@ -63,6 +66,7 @@ namespace Workspace.Layout
 
         private void OnDisable()
         {
+            EventsManager.OnDraggingPiece -= HighlightCells;
             EventsManager.OnPreparingCells -= TakeCells;
             EventsManager.OnSuccessfulSnap -= SnapNewsHeadline;
             EventsManager.OnGrabSnappedPiece -= RemoveNewsHeadline;
@@ -159,7 +163,7 @@ namespace Workspace.Layout
                 yield return null;
             }
             
-            SoundManager.Instance.Play3DSound(DROP_MOLD, 10, 100, gameObject.transform.position);
+            SoundManager.Instance.Play3DSound(DROP_MOLD, 10, 100, transform.position);
         }
 
         private float MoveToDestination(Vector2 origin, Vector2 destination, float timer)
@@ -205,8 +209,59 @@ namespace Workspace.Layout
                    worldCoordinate.y < _layoutMinCoordinates.y && worldCoordinate.y > _layoutMaxCoordinates.y;
         }
 
+        private void HighlightCells(NewsHeadlineSubPiece draggedSubPiece, Vector2 mousePosition, NewsHeadlineSubPiece[] newsHeadlineSubPieces)
+        {
+            mousePosition = _camera.ScreenToWorldPoint(mousePosition);
+            
+            if (!IsCoordinateInsideLayout(mousePosition) || draggable)
+            {
+                if (_hoveredCells == null)
+                {
+                    return;
+                }
+
+                foreach (Cell cell in _hoveredCells)
+                {
+                    cell.ChangeColor(false);
+                }
+
+                _hoveredCells = null;
+                return;
+            }
+
+            if (_hoveredCells != null)
+            {
+                foreach (Cell cell in _hoveredCells)
+                {
+                    cell.ChangeColor(false);
+                }
+            }
+            
+            _hoveredCells = LookForCells(draggedSubPiece, mousePosition, newsHeadlineSubPieces);
+            
+            if (_hoveredCells == null)
+            {
+                return;
+            }
+            
+            foreach (Cell cell in _hoveredCells)
+            {
+                cell.ChangeColor(true);
+            }
+        }
+
         private Cell[] TakeCells(NewsHeadlineSubPiece draggedSubPiece, Vector2 mousePosition, NewsHeadlineSubPiece[] newsHeadlinePieces)
         {
+            if (_hoveredCells != null)
+            {
+                foreach (Cell cell in _hoveredCells)
+                {
+                    cell.ChangeColor(false);
+                }
+            
+                _hoveredCells = null;
+            }
+            
             if (!IsCoordinateInsideLayout(mousePosition) || draggable)
             {
                 return null;
@@ -237,8 +292,8 @@ namespace Workspace.Layout
             for (int i = 0; i < newsHeadlinePieces.Length; i++)
             {
                 var p = newsHeadlinePieces[i];
-                Vector3 screenPos = RectTransformUtility.WorldToScreenPoint(Camera.main, p.transform.position);
-                Vector3 closestScreenPos = RectTransformUtility.WorldToScreenPoint(Camera.main, draggedSubPiece.transform.position);
+                Vector3 screenPos = RectTransformUtility.WorldToScreenPoint(_camera, p.transform.position);
+                Vector3 closestScreenPos = RectTransformUtility.WorldToScreenPoint(_camera, draggedSubPiece.transform.position);
                 if (Vector2.Distance(screenPos, Input.mousePosition) < Vector2.Distance(closestScreenPos, Input.mousePosition))
                 {
                     draggedSubPiece = p;

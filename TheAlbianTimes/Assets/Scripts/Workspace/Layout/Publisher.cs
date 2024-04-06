@@ -65,7 +65,7 @@ namespace Workspace.Layout
             StartCoroutine(TransformUtility.SetRotationCoroutine(_newspaperMold.transform, 90f, 0.3f));
             StartCoroutine(TransformUtility.SetPositionCoroutine(_newspaperMold.transform, _newspaperMold.transform.position, transform.position + new Vector3(-3f, 0f, 0f), 0.3f));
             yield return TransformUtility.SetScaleCoroutine(_newspaperMold.transform, new Vector3(.45f, .45f, .45f), 0.25f);
-            SoundManager.Instance.Play3DSound(DROP_MOLD, 5, 100, gameObject.transform.position);
+            SoundManager.Instance.Play3DSound(DROP_MOLD, 5, 100, transform.position);
             yield return new WaitForSeconds(.1f);
 
             StartCoroutine(StartPrintSound());

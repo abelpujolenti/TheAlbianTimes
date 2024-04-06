@@ -127,7 +127,7 @@ namespace Workspace.Editorial
 
             _newsFolder.SetDragging(true);
 
-            SoundManager.Instance.Play3DSound(GRAB_PAPER_SOUND, 5, 100, gameObject.transform.position);
+            SoundManager.Instance.Play3DSound(GRAB_PAPER_SOUND, 5, 100, transform.position);
         }
 
         protected override void Drag(BaseEventData data)
@@ -208,12 +208,12 @@ namespace Workspace.Editorial
             
             if (gameObject.activeSelf)
             {
-                SoundManager.Instance.Play3DSound(SUBMIT_PAPER_SOUND, 5, 100, gameObject.transform.position);
+                SoundManager.Instance.Play3DSound(SUBMIT_PAPER_SOUND, 5, 100, transform.position);
             }
             base.EndDrag(data);
         }
 
-        public void DropNewsHeadline(Vector2 position)
+        private void DropNewsHeadline(Vector2 position)
         {
             if (_onFolder)
             {
@@ -222,7 +222,7 @@ namespace Workspace.Editorial
                     StartCoroutine(Slide(transform.localPosition, _origin));
                     if (gameObject.activeSelf)
                     {
-                        SoundManager.Instance.Play3DRandomSound(new string[] { DROP_PAPER_SOUND_IN_FOLDER }, 5, 100, 1f, 1f, 0.7f, 1f, gameObject.transform.position);
+                        SoundManager.Instance.Play3DRandomSound(new string[] { DROP_PAPER_SOUND_IN_FOLDER }, 5, 100, 1f, 1f, 0.7f, 1f, transform.position);
                     }
                     return;
                 }
@@ -242,7 +242,7 @@ namespace Workspace.Editorial
             {
                 return;
             }
-            SoundManager.Instance.Play3DRandomSound(new string[] { DROP_PAPER_SOUND_IN_FOLDER }, 5, 100, 1f, 1f, 0.7f, 1f, gameObject.transform.position);
+            SoundManager.Instance.Play3DRandomSound(new string[] { DROP_PAPER_SOUND_IN_FOLDER }, 5, 100, 1f, 1f, 0.7f, 1f, transform.position);
             
             EventsManager.OnPressPanicButton -= DropOnFolder;
             _subscribed = false;
@@ -545,7 +545,7 @@ namespace Workspace.Editorial
             if (_modified)
             {
                 PlayDropOnTableSound();
-                SoundManager.Instance.Play3DSound(THUD_SOUND, 5, 100, gameObject.transform.position);
+                SoundManager.Instance.Play3DSound(THUD_SOUND, 5, 100, transform.position);
             }
 
             while (timer < TIME_TO_SLIDE)

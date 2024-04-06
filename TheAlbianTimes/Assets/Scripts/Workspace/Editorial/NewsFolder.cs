@@ -138,7 +138,6 @@ namespace Workspace.Editorial
         public void ReorderNewsHeadline(int newsHeadlineToSwitchIndex, int newSelectedBiasIndex, 
             String[] biasesNames, String[] newBiasesDescriptions, int totalBiasesToActivate)
         {
-
             if (_isNewsModifying)
             {
                 return;
@@ -185,19 +184,18 @@ namespace Workspace.Editorial
             if (_newsHeadlines.Count == 0)
             {
                 EditorialManager.Instance.TurnOffBiasContainer();
+                return;
             }
-            else
-            {
-                EditorialManager.Instance.TurnOnBiasContainer();
-            }
+            EditorialManager.Instance.TurnOnBiasContainer();
         }
 
         private void RedirectInComingNewsHeadlineToFolder()
         {
-            if (EventsManager.OnChangeFolderOrderIndexWhenGoingToFolder != null)
+            if (EventsManager.OnChangeFolderOrderIndexWhenGoingToFolder == null)
             {
-                EventsManager.OnChangeFolderOrderIndexWhenGoingToFolder();
+                return;
             }
+            EventsManager.OnChangeFolderOrderIndexWhenGoingToFolder();
         }
 
         public float GiveNewFolderYCoordinate(int index, int countOfTotalNewsHeadline)

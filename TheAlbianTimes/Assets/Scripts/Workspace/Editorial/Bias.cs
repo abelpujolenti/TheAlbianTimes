@@ -4,7 +4,6 @@ using Managers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Utility;
 using Random = UnityEngine.Random;
@@ -142,7 +141,7 @@ namespace Workspace.Editorial
             if (_openCapPositionCoroutine != null) StopCoroutine(_openCapPositionCoroutine);
             if (_openCapRotationCoroutine != null) StopCoroutine(_openCapRotationCoroutine);
             _openCapPositionCoroutine = StartCoroutine(TransformUtility.SetPositionCoroutine(_cap.transform, _cap.transform.position, _capStartPosition + openCapOffset, openCapTime));
-            SoundManager.Instance.Play3DSound(OPEN_MARKER_CAP_SOUND, 10, 100, gameObject.transform.position);
+            SoundManager.Instance.Play3DSound(OPEN_MARKER_CAP_SOUND, 10, 100, transform.position);
         }
 
         private void CloseCap()
@@ -161,7 +160,7 @@ namespace Workspace.Editorial
             if (_openCapRotationCoroutine != null) StopCoroutine(_openCapRotationCoroutine);
             _openCapPositionCoroutine = StartCoroutine(TransformUtility.SetPositionCoroutine(_cap.transform, _cap.transform.position, _capStartPosition + separateCapOffset, closeCapTime));
             _openCapRotationCoroutine = StartCoroutine(TransformUtility.SetRotationCoroutine(_cap.transform, separateCapRotation, separateCapTime));
-            SoundManager.Instance.Play3DSound(OPEN_MARKER_CAP_SOUND, 10, 100, gameObject.transform.position);
+            SoundManager.Instance.Play3DSound(OPEN_MARKER_CAP_SOUND, 10, 100, transform.position);
         }
 
         public void MarkAnimation()
@@ -184,7 +183,7 @@ namespace Workspace.Editorial
         private IEnumerator DelaySoundCoroutine(float t, string audioSourceName)
         {
             yield return new WaitForSeconds(t);
-            SoundManager.Instance.Play3DSound(audioSourceName, 10, 100, gameObject.transform.position);
+            SoundManager.Instance.Play3DSound(audioSourceName, 10, 100, transform.position);
         }
 
         private IEnumerator MarkAnimationCoroutine()
@@ -205,7 +204,7 @@ namespace Workspace.Editorial
                 Vector3 passMovement = new Vector3(markAnimationWidth, -inc1, 0f);
                 _newsFolder.GetFrontHeadline().SpawnBiasMark(_siblingIndex, _image.transform.position);
 
-                SoundManager.Instance.Play3DSound(MARK_SOUND, 10, 100, gameObject.transform.position);
+                SoundManager.Instance.Play3DSound(MARK_SOUND, 10, 100, transform.position);
 
                 yield return TransformUtility.SetPositionCoroutine(_image.transform, _image.transform.position, _image.transform.position + passMovement, markAnimationPassTime);
 

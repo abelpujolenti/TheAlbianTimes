@@ -158,13 +158,13 @@ namespace Publish
 
         private void Finish()
         {
-            /*CountryEvent currEvent = CountryEventManager.Instance.PopFirstEvent();
+            CountryEvent currEvent = CountryEventManager.Instance.PopFirstEvent();
             if (currEvent != null)
             {
                 Debug.Log(currEvent.id);
                 currEvent.Run();
                 CountryEventManager.Instance.triggeredEvents.Add(currEvent);
-            }*/
+            }
 
             GameManager.Instance.sceneLoader.SetScene("StatsScene");
         }

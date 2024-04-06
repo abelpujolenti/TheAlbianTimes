@@ -54,7 +54,6 @@ namespace Workspace.Editorial
             SoundManager.Instance.Play3DSound(PRESS_PANIC_BUTTON_SOUND, 5, 100, gameObject.transform.position);
             if (EventsManager.OnPressPanicButton != null)
             {
-                EditorialManager.Instance.SetTotalNewsToLoad(EventsManager.OnPressPanicButton.GetInvocationList().Length);
                 EventsManager.OnPressPanicButton();
             }
             

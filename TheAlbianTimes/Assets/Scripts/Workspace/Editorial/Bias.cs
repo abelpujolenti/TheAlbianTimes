@@ -4,6 +4,7 @@ using Managers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Utility;
 using Random = UnityEngine.Random;
@@ -18,7 +19,7 @@ namespace Workspace.Editorial
 
         [SerializeField] private TextMeshProUGUI _textMeshPro;
 
-        [SerializeField] private NewsFolder newsFolder;
+        [SerializeField] private NewsFolder _newsFolder;
         [SerializeField] private Image _image;
         [SerializeField] private Image _cap;
 
@@ -97,7 +98,7 @@ namespace Workspace.Editorial
 
         private void OnDestroy()
         {
-            EventsManager.OnChangeSelectedBias -= UnselectBias;
+            EventsManager.OnChangeChosenBias -= UnselectBias;
         }
 
         protected override void PointerClick(BaseEventData data)
@@ -107,21 +108,15 @@ namespace Workspace.Editorial
                 return;
             }
 
-            EventsManager.OnChangeSelectedBiasIndex(_siblingIndex);
-            EventsManager.OnChangeSelectedBias();
+            EventsManager.OnChangeChosenBiasIndex(_siblingIndex);
+            EventsManager.OnChangeChosenBias();
             _selected = true;
             
-            EventsManager.OnChangeSelectedBias += UnselectBias;
+            EventsManager.OnChangeChosenBias += UnselectBias;
 
-            newsFolder.GetFrontHeadline().ClearBiasMarks();
-            if (newsFolder.GetFrontHeadline().GetChosenBiasIndex() != _siblingIndex)
-            {
-                MarkAnimation();
-            }
-            else
-            {
-                StartCoroutine(WiggleCoroutine(resetBiasWiggleIntensity, resetBiasWiggleTime));
-            }
+            _newsFolder.GetFrontHeadline().ClearBiasMarks();
+            
+            MarkAnimation();
         }
 
         protected override void PointerEnter(BaseEventData data)
@@ -173,7 +168,7 @@ namespace Workspace.Editorial
         {
             SeparateCap();
 
-            markAnimationHeight = 0.12f * (newsFolder.GetFrontHeadline().transform.Find("Text").GetComponent<TextMeshProUGUI>().textInfo.lineCount - 1);
+            markAnimationHeight = 0.12f * (_newsFolder.GetFrontHeadline().transform.Find("Text").GetComponent<TextMeshProUGUI>().textInfo.lineCount - 1);
 
             StopMarkAnimation();
             _markAnimationCoroutine = StartCoroutine(MarkAnimationCoroutine());
@@ -208,7 +203,7 @@ namespace Workspace.Editorial
                 y += inc;
 
                 Vector3 passMovement = new Vector3(markAnimationWidth, -inc1, 0f);
-                newsFolder.GetFrontHeadline().SpawnBiasMark(_siblingIndex, _image.transform.position);
+                _newsFolder.GetFrontHeadline().SpawnBiasMark(_siblingIndex, _image.transform.position);
 
                 SoundManager.Instance.Play3DSound(MARK_SOUND, 10, 100, gameObject.transform.position);
 
@@ -224,6 +219,8 @@ namespace Workspace.Editorial
             }
 
             yield return ReturnMarkerCoroutine();
+
+            EventsManager.OnChangeNewsHeadlineContent();
 
             _markAnimationRunning = false;
         }
@@ -281,10 +278,10 @@ namespace Workspace.Editorial
             _selected = isSelected;
             if (isSelected)
             {
-                EventsManager.OnChangeSelectedBias += UnselectBias;
+                EventsManager.OnChangeChosenBias += UnselectBias;
                 return;
             }
-            EventsManager.OnChangeSelectedBias -= UnselectBias;
+            EventsManager.OnChangeChosenBias -= UnselectBias;
         }
 
         public void SetText(String newText)

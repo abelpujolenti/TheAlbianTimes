@@ -67,10 +67,5 @@ namespace Managers
         {
             return _linkIds.ToArray();
         }
-
-        public void SetTotalNewsToLoad(int totalNewsToLoad)
-        {
-            _newsFolder.SetTotalNewsToPosition(totalNewsToLoad);
-        }
     }
 }

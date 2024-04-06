@@ -394,6 +394,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 429106997}
     - target: {fileID: 7761201008241955963, guid: c5218dff6a8b0764784f08ee64c3e567, type: 3}
+      propertyPath: _newsFolder
+      value: 
+      objectReference: {fileID: 429106997}
+    - target: {fileID: 7761201008241955963, guid: c5218dff6a8b0764784f08ee64c3e567, type: 3}
       propertyPath: biasContainer
       value: 
       objectReference: {fileID: 1808916519}
@@ -1636,6 +1640,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 429106997}
     - target: {fileID: 7761201008241955963, guid: c5218dff6a8b0764784f08ee64c3e567, type: 3}
+      propertyPath: _newsFolder
+      value: 
+      objectReference: {fileID: 429106997}
+    - target: {fileID: 7761201008241955963, guid: c5218dff6a8b0764784f08ee64c3e567, type: 3}
       propertyPath: biasContainer
       value: 
       objectReference: {fileID: 1808916519}
@@ -1653,96 +1661,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3431029387715111428, guid: c5218dff6a8b0764784f08ee64c3e567, type: 3}
   m_PrefabInstance: {fileID: 345262298}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &361920312
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 361920313}
-  - component: {fileID: 361920315}
-  - component: {fileID: 361920314}
-  - component: {fileID: 361920316}
-  m_Layer: 5
-  m_Name: Tray
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &361920313
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 361920312}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1249752860}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 37.5, y: 197.2}
-  m_SizeDelta: {x: 163.6, y: 140.8}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &361920314
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 361920312}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 84fca26cce21eb94fb303010d5f0c431, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 1
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &361920315
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 361920312}
-  m_CullTransparentMesh: 1
---- !u!114 &361920316
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 361920312}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ece8796b9e1939a45ae455eecbc12a45, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _rectTransform: {fileID: 361920313}
 --- !u!1 &429106995
 GameObject:
   m_ObjectHideFlags: 0
@@ -1794,10 +1712,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rectTransform: {fileID: 429106996}
-  _tray: {fileID: 361920316}
+  _newsHeadlines: []
+  _isNewsModifying: 0
   _newsHeadlinesHasToReturnToFolder: 0
   _newsHeadlinesOutOfFolder: 0
-  _newsHeadlines: []
 --- !u!222 &429106999
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1806,316 +1724,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 429106995}
   m_CullTransparentMesh: 1
---- !u!1 &432756234
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 432756236}
-  - component: {fileID: 432756235}
-  m_Layer: 0
-  m_Name: SoundManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &432756235
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 432756234}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a02ff3ab2496214e9cbe817551e8719, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _audioMixer: {fileID: 24100000, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
-  _masterVolumeMixer: MasterSound
-  _SFXVolumeMixer: SFXSound
-  _musicVolumeMixer: MusicSound
-  _SFXAudioMixerGroup: {fileID: -3148831458192980715, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
-  _MusicAudioMixerGroup: {fileID: -5493082629166276277, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
-  _sounds:
-  - _audioClip: {fileID: 8300000, guid: b975c0c98fd9591488fac2874c4ebac3, type: 3}
-    _audioMixerGroup: 0
-    _name: Click Button
-    _volume: 1
-    _loop: 0
-    _play: 0
-    _sound3D: 0
-  - _audioClip: {fileID: 8300000, guid: 622d53c4f59533443baf2d6053f476b1, type: 3}
-    _audioMixerGroup: 0
-    _name: Drop Paper In Folder
-    _volume: 1
-    _loop: 0
-    _play: 0
-    _sound3D: 0
-  - _audioClip: {fileID: 8300000, guid: 83b3915451875744792eda0a28e88596, type: 3}
-    _audioMixerGroup: 0
-    _name: Grab Paper
-    _volume: 1
-    _loop: 0
-    _play: 0
-    _sound3D: 0
-  - _audioClip: {fileID: 0}
-    _audioMixerGroup: 0
-    _name: Submit Paper
-    _volume: 1
-    _loop: 0
-    _play: 0
-    _sound3D: 0
-  - _audioClip: {fileID: 8300000, guid: 5fc52bdc63cdd50468bd6cc417e9ad50, type: 3}
-    _audioMixerGroup: 0
-    _name: Drop Piece In Box
-    _volume: 1
-    _loop: 0
-    _play: 0
-    _sound3D: 0
-  - _audioClip: {fileID: 8300000, guid: 705d926f80e2ac74f89516df89c4ae86, type: 3}
-    _audioMixerGroup: 0
-    _name: Friction
-    _volume: 1
-    _loop: 0
-    _play: 0
-    _sound3D: 0
-  - _audioClip: {fileID: 8300000, guid: a7e35e3beab199b499697075647433d0, type: 3}
-    _audioMixerGroup: 0
-    _name: Thud
-    _volume: 1
-    _loop: 0
-    _play: 0
-    _sound3D: 0
-  - _audioClip: {fileID: 8300000, guid: 0dd31c72bbdfe6e46b000716b2e63d58, type: 3}
-    _audioMixerGroup: 0
-    _name: Snap Piece
-    _volume: 1
-    _loop: 0
-    _play: 0
-    _sound3D: 0
-  - _audioClip: {fileID: 8300000, guid: 4763662a333c7cf4fa7551660367dbe5, type: 3}
-    _audioMixerGroup: 0
-    _name: Grab Piece
-    _volume: 1
-    _loop: 0
-    _play: 0
-    _sound3D: 0
-  - _audioClip: {fileID: 8300000, guid: 52b8c287a72d741419ae9f4b9233f083, type: 3}
-    _audioMixerGroup: 0
-    _name: Open Drawer
-    _volume: 1
-    _loop: 0
-    _play: 0
-    _sound3D: 0
-  - _audioClip: {fileID: 8300000, guid: d28ad59da6d02c04a910e6995f8d7f3a, type: 3}
-    _audioMixerGroup: 0
-    _name: Close Drawer
-    _volume: 1
-    _loop: 0
-    _play: 0
-    _sound3D: 0
-  - _audioClip: {fileID: 8300000, guid: 8ae62c974cd36384d90ca9ac441b7045, type: 3}
-    _audioMixerGroup: 0
-    _name: Phone
-    _volume: 1
-    _loop: 0
-    _play: 0
-    _sound3D: 0
-  - _audioClip: {fileID: 0}
-    _audioMixerGroup: 0
-    _name: Type
-    _volume: 1
-    _loop: 0
-    _play: 0
-    _sound3D: 0
-  - _audioClip: {fileID: 8300000, guid: eb52906e15268654b944cb79146152f9, type: 3}
-    _audioMixerGroup: 0
-    _name: Intro
-    _volume: 1
-    _loop: 0
-    _play: 0
-    _sound3D: 0
-  - _audioClip: {fileID: 8300000, guid: 20e1450740c7bcf408282c91c1e1fb4f, type: 3}
-    _audioMixerGroup: 0
-    _name: Grab Envelope
-    _volume: 1
-    _loop: 0
-    _play: 0
-    _sound3D: 0
-  - _audioClip: {fileID: 8300000, guid: 1086590b959d3f94f83bc0302ea0f098, type: 3}
-    _audioMixerGroup: 0
-    _name: Open Envelope
-    _volume: 1
-    _loop: 0
-    _play: 0
-    _sound3D: 0
-  - _audioClip: {fileID: 8300000, guid: 9ce8af68a45f5094398f76943878830b, type: 3}
-    _audioMixerGroup: 0
-    _name: Close Marker Cap
-    _volume: 1
-    _loop: 0
-    _play: 0
-    _sound3D: 0
-  - _audioClip: {fileID: 8300000, guid: cf96a42338696024781e84379a2f5a19, type: 3}
-    _audioMixerGroup: 0
-    _name: Open Marker Cap
-    _volume: 1
-    _loop: 0
-    _play: 0
-    _sound3D: 0
-  - _audioClip: {fileID: 8300000, guid: 9934691c00e94d846814b722e30b9c56, type: 3}
-    _audioMixerGroup: 0
-    _name: Mark With Marker
-    _volume: 1
-    _loop: 0
-    _play: 0
-    _sound3D: 0
-  - _audioClip: {fileID: 8300000, guid: b05a2fce8acfbc74d88e107f91bb5472, type: 3}
-    _audioMixerGroup: 0
-    _name: Post it
-    _volume: 1
-    _loop: 0
-    _play: 0
-    _sound3D: 0
-  - _audioClip: {fileID: 8300000, guid: 70be6bd2fb13cd64daaccda730d68bd4, type: 3}
-    _audioMixerGroup: 0
-    _name: Press Panic Button
-    _volume: 1
-    _loop: 0
-    _play: 0
-    _sound3D: 0
-  - _audioClip: {fileID: 8300000, guid: 914e2e75914868a45bf7508621930049, type: 3}
-    _audioMixerGroup: 0
-    _name: Conveyor Belt
-    _volume: 1
-    _loop: 0
-    _play: 0
-    _sound3D: 0
-  - _audioClip: {fileID: 8300000, guid: 2ba086146daa5434ab50427583c50714, type: 3}
-    _audioMixerGroup: 0
-    _name: Drop Paper On Table
-    _volume: 1
-    _loop: 0
-    _play: 0
-    _sound3D: 0
-  - _audioClip: {fileID: 8300000, guid: a9fb2ca02ed809e48a71410ff7a9f41c, type: 3}
-    _audioMixerGroup: 0
-    _name: Open Notebook
-    _volume: 1
-    _loop: 0
-    _play: 0
-    _sound3D: 0
-  - _audioClip: {fileID: 8300000, guid: 16e4febe8933b3446bf91c876eb107e8, type: 3}
-    _audioMixerGroup: 0
-    _name: Grab Notebook
-    _volume: 1
-    _loop: 0
-    _play: 0
-    _sound3D: 0
-  - _audioClip: {fileID: 8300000, guid: 45aa110dce155b243b29aed8165ada10, type: 3}
-    _audioMixerGroup: 0
-    _name: Close Notebook
-    _volume: 1
-    _loop: 0
-    _play: 0
-    _sound3D: 0
-  - _audioClip: {fileID: 8300000, guid: 468dfba2ece29a042b39d998ac48ac4d, type: 3}
-    _audioMixerGroup: 0
-    _name: Map Unfold
-    _volume: 1
-    _loop: 0
-    _play: 0
-    _sound3D: 0
-  - _audioClip: {fileID: 8300000, guid: 001d7ff910d432b45b5e8cb403eb6235, type: 3}
-    _audioMixerGroup: 0
-    _name: Key Typing 0
-    _volume: 1
-    _loop: 0
-    _play: 0
-    _sound3D: 0
-  - _audioClip: {fileID: 8300000, guid: 9c24987f0d1ffb2449b081038499e6bb, type: 3}
-    _audioMixerGroup: 0
-    _name: Key Typing 1
-    _volume: 1
-    _loop: 0
-    _play: 0
-    _sound3D: 0
-  - _audioClip: {fileID: 8300000, guid: b8864af2450e80443b7b9b13453453de, type: 3}
-    _audioMixerGroup: 0
-    _name: Key Typing 2
-    _volume: 1
-    _loop: 0
-    _play: 0
-    _sound3D: 0
-  - _audioClip: {fileID: 8300000, guid: 1a484fbfc0e7dee4bbf1d74776c1dfc2, type: 3}
-    _audioMixerGroup: 0
-    _name: Key Typing 3
-    _volume: 1
-    _loop: 0
-    _play: 0
-    _sound3D: 0
-  - _audioClip: {fileID: 8300000, guid: 61882b6efd4a7314a8c786c9603ed76c, type: 3}
-    _audioMixerGroup: 0
-    _name: Key Typing 4
-    _volume: 1
-    _loop: 0
-    _play: 0
-    _sound3D: 0
-  - _audioClip: {fileID: 8300000, guid: b9fa9402177cc3b4e901d9bdcf90e814, type: 3}
-    _audioMixerGroup: 0
-    _name: Key Typing 5
-    _volume: 1
-    _loop: 0
-    _play: 0
-    _sound3D: 0
-  - _audioClip: {fileID: 8300000, guid: d827d55e3b58e9b41a5e29ef1da35dfa, type: 3}
-    _audioMixerGroup: 0
-    _name: Key Typing 6
-    _volume: 1
-    _loop: 0
-    _play: 0
-    _sound3D: 0
-  - _audioClip: {fileID: 8300000, guid: f4b909e07b81bfc4987a7463808624d5, type: 3}
-    _audioMixerGroup: 0
-    _name: Drop Mold
-    _volume: 1
-    _loop: 0
-    _play: 0
-    _sound3D: 0
-  - _audioClip: {fileID: 8300000, guid: db9378be1ce0e1444b516b5082266c47, type: 3}
-    _audioMixerGroup: 0
-    _name: Print Newspaper
-    _volume: 1
-    _loop: 0
-    _play: 0
-    _sound3D: 0
-  - _audioClip: {fileID: 8300000, guid: 98fd6c5a92513db47a65f335b2fc426f, type: 3}
-    _audioMixerGroup: 0
-    _name: Enter Office
-    _volume: 1
-    _loop: 0
-    _play: 0
-    _sound3D: 0
---- !u!4 &432756236
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 432756234}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 22
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &437483085
 GameObject:
   m_ObjectHideFlags: 0
@@ -4759,6 +4367,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 429106997}
     - target: {fileID: 7761201008241955963, guid: c5218dff6a8b0764784f08ee64c3e567, type: 3}
+      propertyPath: _newsFolder
+      value: 
+      objectReference: {fileID: 429106997}
+    - target: {fileID: 7761201008241955963, guid: c5218dff6a8b0764784f08ee64c3e567, type: 3}
       propertyPath: biasContainer
       value: 
       objectReference: {fileID: 1808916519}
@@ -4962,7 +4574,6 @@ RectTransform:
   - {fileID: 614990586666321554}
   - {fileID: 796000441}
   - {fileID: 1795147230}
-  - {fileID: 361920313}
   - {fileID: 477263767}
   m_Father: {fileID: 0}
   m_RootOrder: 4
@@ -5845,6 +5456,250 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &1680457892
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1680457894}
+  - component: {fileID: 1680457893}
+  m_Layer: 0
+  m_Name: SoundManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1680457893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1680457892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a02ff3ab2496214e9cbe817551e8719, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioMixer: {fileID: 24100000, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
+  _menuSnapshot: {fileID: 5745898505093695254, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
+  _workspaceSnapshot: {fileID: 24500006, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
+  _transitionSnapshot: {fileID: -6234146734570892572, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
+  _masterVolumeMixer: MasterSound
+  _SFXVolumeMixer: SFXSound
+  _musicVolumeMixer: MusicSound
+  _SFXAudioMixerGroup: {fileID: -3148831458192980715, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
+  _MusicAudioMixerGroup: {fileID: -5493082629166276277, guid: fecc80433adb2c44e9ceb1ced76c622e, type: 2}
+  _sounds:
+  - _audioClip: {fileID: 8300000, guid: b975c0c98fd9591488fac2874c4ebac3, type: 3}
+    audioMixerGroup: 0
+    _name: Click Button
+    _volume: 1
+    _pitch: 0
+  - _audioClip: {fileID: 8300000, guid: 622d53c4f59533443baf2d6053f476b1, type: 3}
+    audioMixerGroup: 0
+    _name: Drop Paper In Folder
+    _volume: 1
+    _pitch: 0
+  - _audioClip: {fileID: 8300000, guid: 83b3915451875744792eda0a28e88596, type: 3}
+    audioMixerGroup: 0
+    _name: Grab Paper
+    _volume: 1
+    _pitch: 0
+  - _audioClip: {fileID: 0}
+    audioMixerGroup: 0
+    _name: Submit Paper
+    _volume: 1
+    _pitch: 0
+  - _audioClip: {fileID: 8300000, guid: 5fc52bdc63cdd50468bd6cc417e9ad50, type: 3}
+    audioMixerGroup: 0
+    _name: Drop Piece In Box
+    _volume: 1
+    _pitch: 0
+  - _audioClip: {fileID: 8300000, guid: 705d926f80e2ac74f89516df89c4ae86, type: 3}
+    audioMixerGroup: 0
+    _name: Friction
+    _volume: 1
+    _pitch: 0
+  - _audioClip: {fileID: 8300000, guid: a7e35e3beab199b499697075647433d0, type: 3}
+    audioMixerGroup: 0
+    _name: Thud
+    _volume: 1
+    _pitch: 0
+  - _audioClip: {fileID: 8300000, guid: 0dd31c72bbdfe6e46b000716b2e63d58, type: 3}
+    audioMixerGroup: 0
+    _name: Snap Piece
+    _volume: 1
+    _pitch: 0
+  - _audioClip: {fileID: 8300000, guid: 4763662a333c7cf4fa7551660367dbe5, type: 3}
+    audioMixerGroup: 0
+    _name: Grab Piece
+    _volume: 1
+    _pitch: 0
+  - _audioClip: {fileID: 8300000, guid: 52b8c287a72d741419ae9f4b9233f083, type: 3}
+    audioMixerGroup: 0
+    _name: Open Drawer
+    _volume: 1
+    _pitch: 0
+  - _audioClip: {fileID: 8300000, guid: d28ad59da6d02c04a910e6995f8d7f3a, type: 3}
+    audioMixerGroup: 0
+    _name: Close Drawer
+    _volume: 1
+    _pitch: 0
+  - _audioClip: {fileID: 8300000, guid: 8ae62c974cd36384d90ca9ac441b7045, type: 3}
+    audioMixerGroup: 0
+    _name: Phone
+    _volume: 1
+    _pitch: 0
+  - _audioClip: {fileID: 8300000, guid: eb52906e15268654b944cb79146152f9, type: 3}
+    audioMixerGroup: 0
+    _name: Intro
+    _volume: 1
+    _pitch: 0
+  - _audioClip: {fileID: 8300000, guid: 20e1450740c7bcf408282c91c1e1fb4f, type: 3}
+    audioMixerGroup: 0
+    _name: Grab Envelope
+    _volume: 1
+    _pitch: 0
+  - _audioClip: {fileID: 8300000, guid: 1086590b959d3f94f83bc0302ea0f098, type: 3}
+    audioMixerGroup: 0
+    _name: Open Envelope
+    _volume: 1
+    _pitch: 0
+  - _audioClip: {fileID: 8300000, guid: 9ce8af68a45f5094398f76943878830b, type: 3}
+    audioMixerGroup: 0
+    _name: Close Marker Cap
+    _volume: 1
+    _pitch: 0
+  - _audioClip: {fileID: 8300000, guid: cf96a42338696024781e84379a2f5a19, type: 3}
+    audioMixerGroup: 0
+    _name: Open Marker Cap
+    _volume: 1
+    _pitch: 0
+  - _audioClip: {fileID: 8300000, guid: 9934691c00e94d846814b722e30b9c56, type: 3}
+    audioMixerGroup: 0
+    _name: Mark With Marker
+    _volume: 1
+    _pitch: 0
+  - _audioClip: {fileID: 8300000, guid: b05a2fce8acfbc74d88e107f91bb5472, type: 3}
+    audioMixerGroup: 0
+    _name: Post it
+    _volume: 1
+    _pitch: 0
+  - _audioClip: {fileID: 8300000, guid: 70be6bd2fb13cd64daaccda730d68bd4, type: 3}
+    audioMixerGroup: 0
+    _name: Press Panic Button
+    _volume: 1
+    _pitch: 0
+  - _audioClip: {fileID: 8300000, guid: 914e2e75914868a45bf7508621930049, type: 3}
+    audioMixerGroup: 0
+    _name: Conveyor Belt
+    _volume: 1
+    _pitch: 0
+  - _audioClip: {fileID: 8300000, guid: 2ba086146daa5434ab50427583c50714, type: 3}
+    audioMixerGroup: 0
+    _name: Drop Paper On Table
+    _volume: 1
+    _pitch: 0
+  - _audioClip: {fileID: 8300000, guid: a9fb2ca02ed809e48a71410ff7a9f41c, type: 3}
+    audioMixerGroup: 0
+    _name: Open Notebook
+    _volume: 1
+    _pitch: 0
+  - _audioClip: {fileID: 8300000, guid: 16e4febe8933b3446bf91c876eb107e8, type: 3}
+    audioMixerGroup: 0
+    _name: Grab Notebook
+    _volume: 1
+    _pitch: 0
+  - _audioClip: {fileID: 8300000, guid: 45aa110dce155b243b29aed8165ada10, type: 3}
+    audioMixerGroup: 0
+    _name: Close Notebook
+    _volume: 1
+    _pitch: 0
+  - _audioClip: {fileID: 8300000, guid: 468dfba2ece29a042b39d998ac48ac4d, type: 3}
+    audioMixerGroup: 0
+    _name: Map Unfold
+    _volume: 1
+    _pitch: 0
+  - _audioClip: {fileID: 8300000, guid: 001d7ff910d432b45b5e8cb403eb6235, type: 3}
+    audioMixerGroup: 0
+    _name: Key Typing 0
+    _volume: 1
+    _pitch: 0
+  - _audioClip: {fileID: 8300000, guid: 9c24987f0d1ffb2449b081038499e6bb, type: 3}
+    audioMixerGroup: 0
+    _name: Key Typing 1
+    _volume: 1
+    _pitch: 0
+  - _audioClip: {fileID: 8300000, guid: b8864af2450e80443b7b9b13453453de, type: 3}
+    audioMixerGroup: 0
+    _name: Key Typing 2
+    _volume: 1
+    _pitch: 0
+  - _audioClip: {fileID: 8300000, guid: 1a484fbfc0e7dee4bbf1d74776c1dfc2, type: 3}
+    audioMixerGroup: 0
+    _name: Key Typing 3
+    _volume: 1
+    _pitch: 0
+  - _audioClip: {fileID: 8300000, guid: 61882b6efd4a7314a8c786c9603ed76c, type: 3}
+    audioMixerGroup: 0
+    _name: Key Typing 4
+    _volume: 1
+    _pitch: 0
+  - _audioClip: {fileID: 8300000, guid: b9fa9402177cc3b4e901d9bdcf90e814, type: 3}
+    audioMixerGroup: 0
+    _name: Key Typing 5
+    _volume: 1
+    _pitch: 0
+  - _audioClip: {fileID: 8300000, guid: d827d55e3b58e9b41a5e29ef1da35dfa, type: 3}
+    audioMixerGroup: 0
+    _name: Key Typing 6
+    _volume: 1
+    _pitch: 0
+  - _audioClip: {fileID: 8300000, guid: f4b909e07b81bfc4987a7463808624d5, type: 3}
+    audioMixerGroup: 0
+    _name: Drop Mold
+    _volume: 1
+    _pitch: 0
+  - _audioClip: {fileID: 8300000, guid: db9378be1ce0e1444b516b5082266c47, type: 3}
+    audioMixerGroup: 0
+    _name: Print Newspaper
+    _volume: 1
+    _pitch: 0
+  - _audioClip: {fileID: 8300000, guid: 98fd6c5a92513db47a65f335b2fc426f, type: 3}
+    audioMixerGroup: 0
+    _name: Enter Office
+    _volume: 1
+    _pitch: 0
+  - _audioClip: {fileID: 8300000, guid: 0231220d5b7390b4da5de673bceec10c, type: 3}
+    audioMixerGroup: 0
+    _name: Room Tone
+    _volume: 0.397
+    _pitch: 0
+  - _audioClip: {fileID: 8300000, guid: 084fcde6d3cc75e448a4fd36e1502b68, type: 3}
+    audioMixerGroup: 0
+    _name: Music
+    _volume: 0.109
+    _pitch: 0
+--- !u!4 &1680457894
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1680457892}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 22
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1684997432
 GameObject:
   m_ObjectHideFlags: 0
@@ -6355,7 +6210,6 @@ MonoBehaviour:
   _biasDescriptionRoot: {fileID: 562062638}
   _biasDescriptionPostitPrefab: {fileID: 1253985461064584690, guid: 58d9916a72d14ba499571cd4cd52e460, type: 3}
   _newsFolder: {fileID: 429106997}
-  _tray: {fileID: 361920316}
   postitInitialScale: 3
   postitScaleAnimationTime: 0.2
   postitAppearDelay: 0.5
@@ -8218,6 +8072,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7761201008241955963, guid: c5218dff6a8b0764784f08ee64c3e567, type: 3}
       propertyPath: newsFolder
+      value: 
+      objectReference: {fileID: 429106997}
+    - target: {fileID: 7761201008241955963, guid: c5218dff6a8b0764784f08ee64c3e567, type: 3}
+      propertyPath: _newsFolder
       value: 
       objectReference: {fileID: 429106997}
     - target: {fileID: 7761201008241955963, guid: c5218dff6a8b0764784f08ee64c3e567, type: 3}

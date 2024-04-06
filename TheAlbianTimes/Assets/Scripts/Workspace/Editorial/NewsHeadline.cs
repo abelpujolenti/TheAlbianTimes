@@ -29,7 +29,7 @@ namespace Workspace.Editorial
         private const float SPEED_MOVEMENT = 15;
         private const float TIME_TO_SLIDE = 2f;
         private const float Y_DISTANCE_TO_MOVE_ON_HOVER = 10f;
-        private const float SECONDS_AWAITING_TO_RETURN_TO_FOLDER = 1.5f;
+        private const float SECONDS_AWAITING_TO_RETURN_TO_FOLDER = 0.5f;
         private const float PAPER_BRIGHTNESS = .9f;
         private const float PAPER_BRIGHTNESS_BASE_DECREASE = .14f;
 
@@ -78,9 +78,8 @@ namespace Workspace.Editorial
         private int _totalBiasesToActivate;
         [SerializeField]private int _folderOrderIndex;
         [SerializeField]private int _chosenBiasIndex;
-        [SerializeField]private int _selectedBiasIndex;
         
-        private bool _inFront;
+        [SerializeField] private bool _inFront;
         private bool _transferDrag;
         private bool _sendToChange;
         private bool _modified;
@@ -117,10 +116,7 @@ namespace Workspace.Editorial
             
             EventsManager.OnCrossMidPointWhileScrolling += GetGameObjectToTransferDrag;
             EventsManager.OnCheckDistanceToMouse += DistanceToPosition;
-            if (_chosenBiasIndex == _selectedBiasIndex)
-            {
-                EventsManager.OnStartEndDrag(true);   
-            }
+            EventsManager.OnStartEndDrag(true);   
 
             if (!_newsHeadlinePieceToTransferDrag.GetTransferDrag())
             {
@@ -131,7 +127,7 @@ namespace Workspace.Editorial
 
             _newsFolder.SetDragging(true);
 
-            SoundManager.Instance.Play3DSound(GRAB_PAPER_SOUND, 5, 100, gameObject.transform.position);
+            SoundManager.Instance.Play3DSound(GRAB_PAPER_SOUND, 5, 100, transform.position);
         }
 
         protected override void Drag(BaseEventData data)
@@ -155,12 +151,6 @@ namespace Workspace.Editorial
 
         private void CrossMidPoint(PointerEventData pointerData, Vector2 mousePosition)
         {
-            if (_chosenBiasIndex != _selectedBiasIndex)
-            {
-                gameObjectToDrag.transform.position = new Vector2(_midPoint, mousePosition.y + _vectorOffset.y);
-                return;
-            }
-            
             _transferDrag = true;
             _rotate = false;
             _subscribed = false;
@@ -214,16 +204,16 @@ namespace Workspace.Editorial
             
             PointerEventData pointerData = (PointerEventData) data;
             
-            EventsManager.OnDropNewsHeadline(this, pointerData.position);
+            DropNewsHeadline(pointerData.position);
             
             if (gameObject.activeSelf)
             {
-                SoundManager.Instance.Play3DSound(SUBMIT_PAPER_SOUND, 5, 100, gameObject.transform.position);
+                SoundManager.Instance.Play3DSound(SUBMIT_PAPER_SOUND, 5, 100, transform.position);
             }
             base.EndDrag(data);
         }
 
-        public void DropNewsHeadline(Vector2 position)
+        private void DropNewsHeadline(Vector2 position)
         {
             if (_onFolder)
             {
@@ -232,7 +222,7 @@ namespace Workspace.Editorial
                     StartCoroutine(Slide(transform.localPosition, _origin));
                     if (gameObject.activeSelf)
                     {
-                        SoundManager.Instance.Play3DRandomSound(new string[] { DROP_PAPER_SOUND_IN_FOLDER }, 5, 100, 1f, 1f, 0.7f, 1f, gameObject.transform.position);
+                        SoundManager.Instance.Play3DRandomSound(new string[] { DROP_PAPER_SOUND_IN_FOLDER }, 5, 100, 1f, 1f, 0.7f, 1f, transform.position);
                     }
                     return;
                 }
@@ -252,9 +242,11 @@ namespace Workspace.Editorial
             {
                 return;
             }
-            SoundManager.Instance.Play3DRandomSound(new string[] { DROP_PAPER_SOUND_IN_FOLDER }, 5, 100, 1f, 1f, 0.7f, 1f, gameObject.transform.position);
+            SoundManager.Instance.Play3DRandomSound(new string[] { DROP_PAPER_SOUND_IN_FOLDER }, 5, 100, 1f, 1f, 0.7f, 1f, transform.position);
             
             EventsManager.OnPressPanicButton -= DropOnFolder;
+            _subscribed = false;
+            
             if (EventsManager.OnArrangeSomething != null)
             {
                 EventsManager.OnArrangeSomething();    
@@ -296,12 +288,17 @@ namespace Workspace.Editorial
             
             _onFolder = false;
             StateOnDropOutOfFolder();
-            _newsFolder.DropNewsHeadlineOutOfFolder(false);
+            _newsFolder.DropNewsHeadlineOutOfFolder();
         }
 
         protected override void PointerEnter(BaseEventData data)
         {
             if (!hoverable)
+            {
+                return;
+            }
+
+            if (_newsFolder.IsNewsModifying())
             {
                 return;
             }
@@ -336,7 +333,7 @@ namespace Workspace.Editorial
                 return;
             }
             
-            _newsFolder.ReorderNewsHeadline(_folderOrderIndex, _selectedBiasIndex, _biasesNames, _biasesDescription, _totalBiasesToActivate);
+            _newsFolder.ReorderNewsHeadline(_folderOrderIndex, _chosenBiasIndex, _biasesNames, _biasesDescription, _totalBiasesToActivate);
             
             if (_moveCoroutine != null)
             {
@@ -375,7 +372,7 @@ namespace Workspace.Editorial
             if (_inFront)
             {
                 EventsManager.OnChangeNewsHeadlineContent += ChangeContent;
-                EventsManager.OnChangeSelectedBiasIndex += SetSelectedBiasIndex;
+                EventsManager.OnChangeChosenBiasIndex += SetChosenBiasIndex;
                 return;
             }
             UnsubscribeEvents();
@@ -384,7 +381,7 @@ namespace Workspace.Editorial
         private void UnsubscribeEvents()
         {
             EventsManager.OnChangeNewsHeadlineContent -= ChangeContent;
-            EventsManager.OnChangeSelectedBiasIndex -= SetSelectedBiasIndex;
+            EventsManager.OnChangeChosenBiasIndex -= SetChosenBiasIndex;
         }
 
         private void SetCountryIcons()
@@ -413,10 +410,10 @@ namespace Workspace.Editorial
             _background.color = ColorUtil.SetBrightness(_background.color, Mathf.Max(.2f, PAPER_BRIGHTNESS - index * PAPER_BRIGHTNESS_BASE_DECREASE));
         }
 
-        public void UpdateSelectedBiasIndicator()
+        private void UpdateSelectedBiasIndicator()
         {
             if (_selectedBiasIndicator == null) return;
-            _selectedBiasIndicator.color = PieceData.biasColors[_selectedBiasIndex];
+            _selectedBiasIndicator.color = PieceData.biasColors[_chosenBiasIndex];
         }
 
         public void SetOrigin(Vector2 newOrigin)
@@ -444,25 +441,6 @@ namespace Workspace.Editorial
             }
             
             _rotate = true;
-        }
-
-        private void ChangeContent()
-        {
-            _chosenBiasIndex = _selectedBiasIndex;
-            _data.currentBias = _selectedBiasIndex;
-            UpdateText(_headlinesText[_chosenBiasIndex], _biasesContents[_chosenBiasIndex]);
-
-            UpdateSelectedBiasIndicator();
-
-            _newsFolder.DropNewsHeadlineOutOfFolder(true);
-
-            ClearBiasMarks();
-
-            Vector2 destination = new Vector2(0, CHANGE_CONTENT_Y_COORDINATE);
-            
-            StartCoroutine(SendToChangeContent(destination));
-            
-            _origin = destination;
         }
 
         private void UpdateText(string headline, string text)
@@ -499,6 +477,24 @@ namespace Workspace.Editorial
             _contentText.text = text;
         }
 
+        private void ChangeContent()
+        {
+            UnsubscribeEvents();
+            
+            _data.currentBias = _chosenBiasIndex;
+            UpdateText(_headlinesText[_chosenBiasIndex], _biasesContents[_chosenBiasIndex]);
+
+            UpdateSelectedBiasIndicator();
+
+            _newsFolder.SendNewHeadlineToWriters();
+
+            ClearBiasMarks();
+
+            Vector2 destination = new Vector2(0, CHANGE_CONTENT_Y_COORDINATE);
+            
+            StartCoroutine(SendToChangeContent(destination));
+        }
+
         private IEnumerator SendToChangeContent(Vector2 destination)
         {
             float timer = 0;
@@ -510,6 +506,8 @@ namespace Workspace.Editorial
                 timer = MoveToDestination(_origin, destination, timer);
                 yield return null;
             }
+            
+            _origin = destination;
 
             yield return new WaitForSeconds(SECONDS_AWAITING_TO_RETURN_TO_FOLDER);
 
@@ -533,7 +531,6 @@ namespace Workspace.Editorial
             }
             
             _destination = new Vector2(0, _newsFolder.GiveNewFolderYCoordinate(_folderOrderIndex, countOfTotalNewsHeadline));
-            
             EventsManager.OnChangeFolderOrderIndexWhenGoingToFolder += GiveDestinationToReturnToFolder;
             
             StartCoroutine(SendToFolderAgain());
@@ -541,8 +538,6 @@ namespace Workspace.Editorial
 
         private IEnumerator SendToFolderAgain()
         {
-            transform.SetAsFirstSibling();
-
             float timer = 0;
 
             Vector2 origin = transform.localPosition;
@@ -550,7 +545,7 @@ namespace Workspace.Editorial
             if (_modified)
             {
                 PlayDropOnTableSound();
-                SoundManager.Instance.Play3DSound(THUD_SOUND, 5, 100, gameObject.transform.position);
+                SoundManager.Instance.Play3DSound(THUD_SOUND, 5, 100, transform.position);
             }
 
             while (timer < TIME_TO_SLIDE)
@@ -558,12 +553,12 @@ namespace Workspace.Editorial
                 timer = MoveToDestination(origin, _destination, timer);
                 yield return null;
             }
-
-            EventsManager.OnChangeFolderOrderIndexWhenGoingToFolder -= GiveDestinationToReturnToFolder; 
+            
+            EventsManager.OnChangeFolderOrderIndexWhenGoingToFolder -= GiveDestinationToReturnToFolder;
 
             _origin = _destination;
 
-            _newsFolder.ReturnNewsHeadline(this, _folderOrderIndex, _onFolder);
+            _newsFolder.ReturnNewsHeadline(this, _folderOrderIndex,_onFolder);
             _rotate = true;
             _onFolder = true;
         }
@@ -658,14 +653,9 @@ namespace Workspace.Editorial
             return _totalBiasesToActivate;
         }
 
-        private void SetSelectedBiasIndex(int newSelectedBiasIndex)
+        private void SetChosenBiasIndex(int newChosenBiasIndex)
         {
-            _selectedBiasIndex = newSelectedBiasIndex;
-        }
-
-        public int GetSelectedBiasIndex()
-        {
-            return _selectedBiasIndex;
+            _chosenBiasIndex = newChosenBiasIndex;
         }
 
         public int GetChosenBiasIndex()

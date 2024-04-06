@@ -31,8 +31,8 @@ namespace Managers
 
         #region EditorialEvents
         
-        public static Action OnChangeSelectedBias;
-        public static Action <int> OnChangeSelectedBiasIndex;
+        public static Action OnChangeChosenBias;
+        public static Action <int> OnChangeChosenBiasIndex;
         public static Action OnChangeNewsHeadlineContent;
         public static Action <GameObject> OnAddNewsHeadlineToFolder;
         public static Action <int> OnChangeFrontNewsHeadline;

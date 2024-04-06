@@ -19,8 +19,6 @@ namespace Workspace.Editorial
         [SerializeField] private Transform _biasDescriptionPostitPrefab;
 
         [SerializeField] private NewsFolder _newsFolder;
-        
-        [SerializeField] private Tray _tray;
 
         private string[] _biasesDescriptions;
 
@@ -34,8 +32,8 @@ namespace Workspace.Editorial
 
         private void OnEnable()
         {
-            EventsManager.OnChangeFrontNewsHeadline += ChangeSelectedBias;
-            EventsManager.OnChangeSelectedBiasIndex += ChangeBiasDescription;
+            EventsManager.OnChangeFrontNewsHeadline += ChangeChosenBias;
+            EventsManager.OnChangeChosenBiasIndex += ChangeBiasDescription;
             EventsManager.OnSettingNewBiases += SetBias;
 
             FixPostitScale();
@@ -43,8 +41,8 @@ namespace Workspace.Editorial
 
         private void OnDisable()
         {
-            EventsManager.OnChangeFrontNewsHeadline -= ChangeSelectedBias;
-            EventsManager.OnChangeSelectedBiasIndex -= ChangeBiasDescription;
+            EventsManager.OnChangeFrontNewsHeadline -= ChangeChosenBias;
+            EventsManager.OnChangeChosenBiasIndex -= ChangeBiasDescription;
             EventsManager.OnSettingNewBiases -= SetBias;
         }
 
@@ -93,15 +91,16 @@ namespace Workspace.Editorial
             _biasesDescriptions = biasesDescriptions;
         }
 
-        private void ChangeSelectedBias(int newSelectedBiasIndex)
+        private void ChangeChosenBias(int newChosenBiasIndex)
         {
-            if (EventsManager.OnChangeSelectedBias != null)
+            if (EventsManager.OnChangeChosenBias != null)
             {
-                EventsManager.OnChangeSelectedBias();
+                EventsManager.OnChangeChosenBias();
             }
+            
             for (int i = 0; i < _bias.Length; i++)
             {
-                if (i == newSelectedBiasIndex) {
+                if (i == newChosenBiasIndex) {
                     _bias[i].SelectBias();
                 }
                 else
@@ -109,29 +108,12 @@ namespace Workspace.Editorial
                     _bias[i].ResetBiasUnderline();
                 }
             }
-            ChangeBiasDescription(newSelectedBiasIndex);
+            ChangeBiasDescription(newChosenBiasIndex);
         }
 
         private void ChangeBiasDescription(int newSelectedBiasIndex)
         {
             StartCoroutine(SpawnPostitCoroutine(newSelectedBiasIndex, postitAppearDelay));
-             
-            if (_newsFolder.GetFrontHeadline().GetChosenBiasIndex() != newSelectedBiasIndex)
-            {            
-                ExtendTray();
-                return;
-            }
-            HideTray(null);
-        }
-
-        private void ExtendTray()
-        {
-            _tray.Extend();
-        }
-
-        private void HideTray(GameObject newsHeadline)
-        {
-            _tray.Hide(newsHeadline);
         }
 
         private IEnumerator SpawnPostitCoroutine(int newSelectedBiasIndex, float delay)
@@ -158,7 +140,7 @@ namespace Workspace.Editorial
             TextMeshProUGUI biasdescriptionText = biasDescriptionPostit.transform.Find("BiasDescriptionText").GetComponent<TextMeshProUGUI>();
             biasdescriptionText.text = _biasesDescriptions[newSelectedBiasIndex];
 
-            SoundManager.Instance.Play3DSound(POST_IT_SOUND, 10, 100, gameObject.transform.position);
+            SoundManager.Instance.Play3DSound(POST_IT_SOUND, 10, 100, transform.position);
             yield return ScaleAnimationCoroutine(biasDescriptionPostit.transform, postitScaleAnimationTime, postitInitialScale, 1f);
         }
 

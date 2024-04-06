@@ -127,13 +127,13 @@ namespace Workspace.Mail
         private void OpenContainer()
         {
             _moveContainerCoroutine = StartCoroutine(MoveContainerEnum(gameObjectToDrag.transform.position.x, maxX, openTime));
-            SoundManager.Instance.Play3DSound(OPEN_DRAWER_SOUND, 10, 100, gameObject.transform.position);
+            SoundManager.Instance.Play3DSound(OPEN_DRAWER_SOUND, 10, 100, transform.position);
         }
 
         private void CloseContainer()
         {
             _moveContainerCoroutine = StartCoroutine(MoveContainerEnum(gameObjectToDrag.transform.position.x, minX, closeTime));
-            SoundManager.Instance.Play3DSound(CLOSE_DRAWER_SOUND, 10, 100, gameObject.transform.position);
+            SoundManager.Instance.Play3DSound(CLOSE_DRAWER_SOUND, 10, 100, transform.position);
         }
 
         private IEnumerator MoveContainerEnum(float start, float end, float t)

@@ -2,6 +2,7 @@ using System.Collections;
 using Managers;
 using TMPro;
 using UnityEngine;
+using Utility;
 using Workspace.Editorial;
 
 namespace Overlay
@@ -53,9 +54,11 @@ namespace Overlay
             FadeIn();
             yield return new WaitForFixedUpdate();
             AnimatorClipInfo[] currentClipInfo = fadeOverlayAnimator.GetCurrentAnimatorClipInfo(0);
+            StartCoroutine(PanCoroutine(0.7f, currentClipInfo[0].clip.length * 0.35f));
             yield return new WaitForSeconds(currentClipInfo[0].clip.length);
             fadeOverlay.gameObject.SetActive(false);
             fadeOverlayText.gameObject.SetActive(false);
+
             SoundManager.Instance.ChangeAudioMixerSnapshot(AudioMixerSnapshots.WORKSPACE, 1f);
             if (!GameManager.Instance._startWorkspace)
             {
@@ -64,6 +67,14 @@ namespace Overlay
             }
             
             SoundManager.Instance.Play2DLoopSound(MUSIC);
+        }
+
+        private IEnumerator PanCoroutine(float t, float delay)
+        {
+            Transform ct = Camera.main.transform;
+            ct.position = new Vector3(CameraManager.MAX_X_POSITION_CAMERA, ct.position.y, ct.position.z);
+            yield return new WaitForSeconds(delay);
+            yield return TransformUtility.SetPositionCoroutine(ct, ct.position, new Vector3(CameraManager.MIN_X_POSITION_CAMERA, ct.position.y, ct.position.z), t);
         }
 
         private void UpdateText()

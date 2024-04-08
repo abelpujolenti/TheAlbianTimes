@@ -18,6 +18,7 @@ namespace Publish
         private int newspaperLayoutIndex = 0;
         private float leanThreshold = 0f;
         private float sendThreshold = 1.8f;
+        private Coroutine hintCoroutine;
 
         private void Start()
         {
@@ -25,14 +26,29 @@ namespace Publish
             
             GetSortedArticles();
             StartCoroutine(Reveal());
+            hintCoroutine = StartCoroutine(HintCoroutine());
         }
 
-        IEnumerator Reveal()
+        private IEnumerator Reveal()
         {
             transform.position += new Vector3(0f, -20f, 0f);
             ChooseLayout();
             SetArticles();
             yield return TransformUtility.SetPositionCoroutine(transform, transform.position, transform.position + new Vector3(0f, 20f, 0f), 1f);
+        }
+
+        private IEnumerator HintCoroutine()
+        {
+            yield return new WaitForSeconds(4f);
+            while (this != null)
+            {
+                Vector3 offset = new Vector3(0f, .7f, 1.7f);
+                StartCoroutine(SetRotationCoroutine(30f, .3f));
+                yield return TransformUtility.SetPositionCoroutine(transform, transform.position, transform.position + offset, .3f);
+                StartCoroutine(SetRotationCoroutine(0f, .18f));
+                yield return TransformUtility.SetPositionCoroutine(transform, transform.position, transform.position - offset, .18f);
+                yield return new WaitForSeconds(7f);
+            }
         }
 
         protected override void BeginDrag(BaseEventData data)
@@ -49,6 +65,7 @@ namespace Publish
 
         protected override void Drag(BaseEventData data)
         {
+            if (hintCoroutine != null) StopCoroutine(hintCoroutine);
             base.Drag(data);
             float xRotation = Mathf.Min(60f, Mathf.Max(0f, (transform.position.y - leanThreshold) * 20f));
             transform.rotation = Quaternion.Euler(new Vector3(xRotation, transform.rotation.y, transform.rotation.z));

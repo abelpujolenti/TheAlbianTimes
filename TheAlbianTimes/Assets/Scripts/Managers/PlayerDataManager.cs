@@ -7,7 +7,7 @@ public class PlayerDataManager : MonoBehaviour
     private static PlayerDataManager _instance;
     public static PlayerDataManager Instance => _instance;
 
-    [SerializeField] const float incomeMultiplier = 0.5f;
+    [SerializeField] const float incomeMultiplier = 100f;
     [SerializeField] const float censorshipMarkup = 10f;
     [SerializeField] const float reputationDiscount = 6f;
     [SerializeField] const float baseStaffCost = 20f;
@@ -70,12 +70,22 @@ public class PlayerDataManager : MonoBehaviour
     public float CalculateRevenue()
     {
         float income = 0;
-        foreach (Country country in GameManager.Instance.gameState.countries)
+        foreach(float addIncome in CalculateRevenueComponents())
         {
-            float addIncome = incomeMultiplier * (1f - country.GetCensorship()) * country.GetPurchasingPower() * country.GetPopulation() * country.GetReputation();
             income += addIncome;
         }
+        Debug.Log(income);
         return income;
+    }
+    public float[] CalculateRevenueComponents()
+    {
+        float[] rev = new float[GameManager.Instance.gameState.countries.Length];
+        for (int i = 0; i < rev.Length; i++)
+        {
+            Country country = GameManager.Instance.gameState.countries[i];
+            rev[i] = incomeMultiplier * (1f - country.GetCensorship()) * country.GetPurchasingPower() * country.GetPopulation() * country.GetReputation();
+        }
+        return rev;
     }
     public float CalculateCosts()
     {

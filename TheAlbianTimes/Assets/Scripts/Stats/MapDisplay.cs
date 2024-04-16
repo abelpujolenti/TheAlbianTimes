@@ -54,7 +54,7 @@ namespace Stats
         private void SetMapStage()
         {
             int index;
-            switch (GameManager.Instance.GetRound())
+            switch (GameManager.Instance.GetRound() + 1)
             {
                 case 0:
                 case 1:

@@ -52,7 +52,6 @@ namespace Workspace.Layout
         public void Publish()
         {
             PublishingManager.Instance.Publish(_newspaperMold.GetNewsHeadlines().ToList());
-            GameManager.Instance.AddToRound();
 
             StartCoroutine(EndRoundCoroutine(3.2f));
         }

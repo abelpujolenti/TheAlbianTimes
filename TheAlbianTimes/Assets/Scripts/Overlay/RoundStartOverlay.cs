@@ -48,7 +48,7 @@ namespace Overlay
             fadeOverlayText.gameObject.SetActive(true);
             UpdateText();
             FadeTextIn();
-            yield return new WaitForSeconds(EditorialNewsLoader.loadDelay - 1f - fadeDuration);
+            yield return new WaitForSeconds(EditorialNewsLoader.loadDelay - 1.5f - fadeDuration);
             FadeTextOut();
             yield return new WaitForSeconds(fadeDuration);
             FadeIn();

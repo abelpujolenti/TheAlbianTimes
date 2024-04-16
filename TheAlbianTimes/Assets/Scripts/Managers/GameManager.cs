@@ -13,6 +13,7 @@ namespace Managers
         public static GameManager Instance => _instance;
         
         public GameState gameState;
+        public GameState prevGameState;
         private SaveManager saveManager;
         public SceneLoader sceneLoader = new SceneLoader();
 
@@ -76,6 +77,7 @@ namespace Managers
             LoadCharacters();
             LoadPlayerData();
             LoadViewedArticles();
+            prevGameState = gameState.Clone();
         }
 
         private void InitScenes()
@@ -159,6 +161,7 @@ namespace Managers
 
         public void AddToRound()
         {
+            prevGameState = gameState.Clone();
             _round++;
         }
 

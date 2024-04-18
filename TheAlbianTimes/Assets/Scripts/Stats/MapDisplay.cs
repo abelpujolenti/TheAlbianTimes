@@ -130,7 +130,10 @@ namespace Stats
 
             yield return new WaitForSeconds(unfoldDelay);
 
-            SoundManager.Instance.Play2DSound(MAP_UNFOLD);
+            if (SoundManager.Instance != null)
+            {
+                SoundManager.Instance.Play2DSound(MAP_UNFOLD);
+            }
 
             for (int i = 0; i < mapFolds.Length; i++)
             {
@@ -210,6 +213,23 @@ namespace Stats
 
         public void Finish()
         {
+            StartCoroutine(FinishCoroutine(1f));
+        }
+        private IEnumerator FinishCoroutine(float t)
+        {
+            fadeImage.gameObject.SetActive(true);
+            fadeImage.color = new Color(0f, 0f, 0f, 0f);
+
+            float elapsedT = 0f;
+            while (elapsedT <= t)
+            {
+                fadeImage.color = ColorUtil.Alpha(Color.black, Mathf.Pow(elapsedT / t, 2f));
+
+                yield return new WaitForFixedUpdate();
+                elapsedT += Time.fixedDeltaTime;
+            }
+            fadeImage.color = Color.black;
+
             GameManager.Instance.sceneLoader.SetScene("DialogueScene");
         }
     }

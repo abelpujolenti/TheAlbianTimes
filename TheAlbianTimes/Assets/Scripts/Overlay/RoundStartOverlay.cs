@@ -60,13 +60,15 @@ namespace Overlay
             fadeOverlayText.gameObject.SetActive(false);
 
             AudioManager.Instance.ChangeAudioSnapshot(AudioSnapshots.WORKSPACE, 1f);
-            if (!GameManager.Instance._startWorkspace)
+            if (GameManager.Instance.roomToneAudioId == -1)
             {
-                AudioManager.Instance.Play3DLoopSound(ROOM_TONE, 10, 10000, new Vector2(7f, 20f), 5000);
-                GameManager.Instance._startWorkspace = true;
+                GameManager.Instance.roomToneAudioId = AudioManager.Instance.Play3DLoopSound(ROOM_TONE, 10, 10000, new Vector2(7f, 20f), 5000);
             }
-            
-            AudioManager.Instance.Play2DLoopSound(MUSIC);
+
+            if (GameManager.Instance.musicAudioId == -1)
+            {
+                GameManager.Instance.musicAudioId = AudioManager.Instance.Play2DLoopSound(MUSIC);    
+            }
         }
 
         private IEnumerator PanCoroutine(float t, float delay)

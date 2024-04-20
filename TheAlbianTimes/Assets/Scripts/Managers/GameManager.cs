@@ -20,9 +20,10 @@ namespace Managers
 
         private StatsDisplay _statsDisplay;
 
-        private int _round = 0;
+        public int roomToneAudioId = -1;
+        public int musicAudioId = -1;
 
-        public bool _startWorkspace;
+        private int _round = 0;
 
         private void Awake()
         {

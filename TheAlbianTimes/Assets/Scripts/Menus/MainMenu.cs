@@ -3,9 +3,9 @@ using Managers;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace MainMenu
+namespace Menus
 {
-    public class MainMenuCanvas : MonoBehaviour
+    public class MainMenu : MonoBehaviour
     {
         private const string INTRO_SOUND = "Intro";
         private const string CLICK_BUTTON_SOUND = "Click Button";

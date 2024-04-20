@@ -192,7 +192,7 @@ namespace Dialogue
 
         void PlayRandomAudioSource() 
         {
-            SoundManager.Instance.Play2DRandomSound(_keyTypeSoundStrings, 
+            AudioManager.Instance.Play2DRandomSound(_keyTypeSoundStrings, 
                 MIN_VOLUME, MAX_VOLUME, MIN_PITCH, MAX_PITCH);
         }
     }

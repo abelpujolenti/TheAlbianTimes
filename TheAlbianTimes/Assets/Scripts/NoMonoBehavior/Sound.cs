@@ -9,7 +9,7 @@ namespace NoMonoBehavior
     {
         [SerializeField] private AudioClip _audioClip;
 
-        [SerializeField] private AudioMixerGroups audioMixerGroup;
+        [SerializeField] private AudioGroups audioGroup;
         
         [SerializeField] private string _name;
     
@@ -24,9 +24,9 @@ namespace NoMonoBehavior
             return _audioClip;
         }
 
-        public AudioMixerGroups GetAudioMixerGroup()
+        public AudioGroups GetAudioGroup()
         {
-            return audioMixerGroup;
+            return audioGroup;
         }
 
         public string GetName()

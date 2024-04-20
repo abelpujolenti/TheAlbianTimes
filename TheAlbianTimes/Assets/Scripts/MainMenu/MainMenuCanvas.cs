@@ -1,73 +1,83 @@
 using System.Collections;
 using Managers;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class MainMenuCanvas : MonoBehaviour
+namespace MainMenu
 {
-    private const string INTRO_SOUND = "Intro";
-    private const string CLICK_BUTTON_SOUND = "Click Button";
-
-    [SerializeField] private GameObject _buttons;
-    [SerializeField] private GameObject _chapters;
-    [SerializeField] private GameObject _settings;
-    [SerializeField] private GameObject _credits;
-
-    [SerializeField] Animator backgroundAnimator;
-    [SerializeField] Animator buttonAnimator;
-
-    private GameObject _currentActivePanel;
-
-    private Coroutine startGameCoroutine;
-
-    private void Start()
+    public class MainMenuCanvas : MonoBehaviour
     {
-        _currentActivePanel = _buttons;
-    }
+        private const string INTRO_SOUND = "Intro";
+        private const string CLICK_BUTTON_SOUND = "Click Button";
 
-    public void Play() 
-    {
-        if (startGameCoroutine != null) return;
-        startGameCoroutine = StartCoroutine(StartGameCoroutine());
-    }
+        [SerializeField] private GameObject _buttons;
+        [SerializeField] private GameObject _chapters;
+        [SerializeField] private GameObject _settings;
+        [SerializeField] private GameObject _credits;
+        [SerializeField] private Button _backButton;
 
-    public void Chapters() 
-    {
-        ChangeCurrentActivePanel(_chapters);
-    }
+        [SerializeField] Animator backgroundAnimator;
+        [SerializeField] Animator buttonAnimator;
 
-    public void Settings()
-    {
-        ChangeCurrentActivePanel(_settings);
-    }
+        private GameObject _currentActivePanel;
 
-    public void Credits()
-    {
-        ChangeCurrentActivePanel(_credits);
-    }
+        private Coroutine startGameCoroutine;
 
-    public void Exit() 
-    {
-        Application.Quit();
-    }
+        private void Start()
+        {
+            _currentActivePanel = _buttons;
+        }
 
-    private void ChangeCurrentActivePanel(GameObject panelToActive) 
-    {
-        _currentActivePanel.SetActive(false);
-        panelToActive.SetActive(true);
-        _currentActivePanel = panelToActive;
-    }
+        public void Play() 
+        {
+            if (startGameCoroutine != null) return;
+            startGameCoroutine = StartCoroutine(StartGameCoroutine());
+        }
 
+        public void Chapters() 
+        {
+            ChangeCurrentActivePanel(_chapters);
+        }
 
-    private IEnumerator StartGameCoroutine()
-    {
-        SoundManager.Instance.Play2DSound(CLICK_BUTTON_SOUND);
-        backgroundAnimator.Play("Start", 0);
-        buttonAnimator.Play("ButtonsFadeOut", 0);
-        yield return new WaitForFixedUpdate();
-        SoundManager.Instance.Play2DSound(INTRO_SOUND);
-        AnimatorClipInfo[] currentClipInfo = backgroundAnimator.GetCurrentAnimatorClipInfo(0);
-        yield return new WaitForSeconds(currentClipInfo[0].clip.length);
-        yield return new WaitForSeconds(2.5f);
-        GameManager.Instance.sceneLoader.SetScene("WorkspaceScene");
+        public void Settings()
+        {
+            ChangeCurrentActivePanel(_settings);
+        }
+
+        public void Credits()
+        {
+            ChangeCurrentActivePanel(_credits);
+        }
+
+        public void Exit() 
+        {
+            Application.Quit();
+        }
+
+        private void ChangeCurrentActivePanel(GameObject panelToActive) 
+        {
+            _currentActivePanel.SetActive(false);
+            panelToActive.SetActive(true);
+            _currentActivePanel = panelToActive;
+            _backButton.gameObject.SetActive(_currentActivePanel != _buttons);
+        }
+
+        public void GoBack()
+        {
+            ChangeCurrentActivePanel(_buttons);
+        }
+
+        private IEnumerator StartGameCoroutine()
+        {
+            AudioManager.Instance.Play2DSound(CLICK_BUTTON_SOUND);
+            backgroundAnimator.Play("Start", 0);
+            buttonAnimator.Play("ButtonsFadeOut", 0);
+            yield return new WaitForFixedUpdate();
+            AudioManager.Instance.Play2DSound(INTRO_SOUND);
+            AnimatorClipInfo[] currentClipInfo = backgroundAnimator.GetCurrentAnimatorClipInfo(0);
+            yield return new WaitForSeconds(currentClipInfo[0].clip.length);
+            yield return new WaitForSeconds(2.5f);
+            GameManager.Instance.sceneLoader.SetScene("WorkspaceScene");
+        }
     }
 }

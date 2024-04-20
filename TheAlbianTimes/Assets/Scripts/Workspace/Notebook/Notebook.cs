@@ -133,10 +133,10 @@ namespace Workspace.Notebook
             EnableCover();
             if (move)
             {
-                SoundManager.Instance.Play2DSound(GRAB_NOTEBOOK);
+                AudioManager.Instance.Play2DSound(GRAB_NOTEBOOK);
                 yield return MoveUpCoroutine(PULL_UP_BOOK_TIME);
             }
-            SoundManager.Instance.Play2DSound(OPEN_NOTEBOOK);
+            AudioManager.Instance.Play2DSound(OPEN_NOTEBOOK);
             yield return StartCoroutine(RotatePageCoroutine((RectTransform)leftPage.transform, PAGE_OPEN_TIME, 179.9f, 0f, 0.5f, DisableCover));
             
             open = true;
@@ -161,7 +161,7 @@ namespace Workspace.Notebook
             {
                 pageMarkerActiveParent.GetChild(i).SetParent(pageMarkerParent);
             }
-            SoundManager.Instance.Play2DSound(CLOSE_NOTEBOOK);
+            AudioManager.Instance.Play2DSound(CLOSE_NOTEBOOK);
             open = false;
             NotebookManager.Instance.SetIsNotebookOpen(open);
         }

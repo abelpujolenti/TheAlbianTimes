@@ -113,7 +113,7 @@ namespace Dialogue
 
         private void DisplayNextLine()
         {
-            SoundManager.Instance.Play2DSound(CLICK_BUTTON_SOUND);
+            AudioManager.Instance.Play2DSound(CLICK_BUTTON_SOUND);
 
             currentLine++;
 

@@ -130,9 +130,9 @@ namespace Stats
 
             yield return new WaitForSeconds(unfoldDelay);
 
-            if (SoundManager.Instance != null)
+            if (AudioManager.Instance != null)
             {
-                SoundManager.Instance.Play2DSound(MAP_UNFOLD);
+                AudioManager.Instance.Play2DSound(MAP_UNFOLD);
             }
 
             for (int i = 0; i < mapFolds.Length; i++)

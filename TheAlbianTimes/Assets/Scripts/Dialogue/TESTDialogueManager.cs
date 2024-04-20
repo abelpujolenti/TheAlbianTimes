@@ -50,7 +50,7 @@ namespace Dialogue
             }
             text = text1 + Country.names[(int)madCountry.GetId()] + text2;
 
-            SoundManager.Instance.Play2DSound(PHONE_SOUND);
+            AudioManager.Instance.Play2DSound(PHONE_SOUND);
             yield return new WaitForSeconds(2.5f);
 
             for (int i = 0; i < 255; i++)
@@ -66,7 +66,7 @@ namespace Dialogue
             {
                 runningText = "<color=#FFFFFFFF>" + text.Substring(0, i + 1) + "<color=#FFFFFF00>" + text.Substring(i + 1, text.Length - i - 1);
                 tmpText.text = runningText;
-                SoundManager.Instance.Play2DSound(TYPE_SOUND);
+                AudioManager.Instance.Play2DSound(TYPE_SOUND);
                 yield return new WaitForSeconds(.08f);
                 if (i == 75) yield return new WaitForSeconds(1.2f);
             }

@@ -163,7 +163,7 @@ namespace Workspace.Layout
                 yield return null;
             }
             
-            SoundManager.Instance.Play3DSound(DROP_MOLD, 10, 100, transform.position);
+            AudioManager.Instance.Play3DSound(DROP_MOLD, 10, 100, transform.position);
         }
 
         private float MoveToDestination(Vector2 origin, Vector2 destination, float timer)

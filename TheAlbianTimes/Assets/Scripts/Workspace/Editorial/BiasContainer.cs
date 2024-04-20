@@ -140,7 +140,7 @@ namespace Workspace.Editorial
             TextMeshProUGUI biasdescriptionText = biasDescriptionPostit.transform.Find("BiasDescriptionText").GetComponent<TextMeshProUGUI>();
             biasdescriptionText.text = _biasesDescriptions[newSelectedBiasIndex];
 
-            SoundManager.Instance.Play3DSound(POST_IT_SOUND, 10, 100, transform.position);
+            AudioManager.Instance.Play3DSound(POST_IT_SOUND, 10, 100, transform.position);
             yield return ScaleAnimationCoroutine(biasDescriptionPostit.transform, postitScaleAnimationTime, postitInitialScale, 1f);
         }
 

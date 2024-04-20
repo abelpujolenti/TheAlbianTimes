@@ -20,8 +20,8 @@ namespace Overlay
         private Coroutine roundStartCoroutine;
         private void Start()
         {
-            SoundManager.Instance.ChangeAudioMixerSnapshot(AudioMixerSnapshots.TRANSITION, 0.5f);
-            SoundManager.Instance.Play2DSound(ENTER_OFFICE);
+            AudioManager.Instance.ChangeAudioSnapshot(AudioSnapshots.TRANSITION, 0.5f);
+            AudioManager.Instance.Play2DSound(ENTER_OFFICE);
             fadeOverlayAnimator = fadeOverlay.GetComponent<Animator>();
             fadeOverlayTextAnimator = fadeOverlayText.GetComponent<Animator>();
 
@@ -59,14 +59,14 @@ namespace Overlay
             fadeOverlay.gameObject.SetActive(false);
             fadeOverlayText.gameObject.SetActive(false);
 
-            SoundManager.Instance.ChangeAudioMixerSnapshot(AudioMixerSnapshots.WORKSPACE, 1f);
+            AudioManager.Instance.ChangeAudioSnapshot(AudioSnapshots.WORKSPACE, 1f);
             if (!GameManager.Instance._startWorkspace)
             {
-                SoundManager.Instance.Play3DLoopSound(ROOM_TONE, 10, 10000, new Vector2(7f, 20f), 5000);
+                AudioManager.Instance.Play3DLoopSound(ROOM_TONE, 10, 10000, new Vector2(7f, 20f), 5000);
                 GameManager.Instance._startWorkspace = true;
             }
             
-            SoundManager.Instance.Play2DLoopSound(MUSIC);
+            AudioManager.Instance.Play2DLoopSound(MUSIC);
         }
 
         private IEnumerator PanCoroutine(float t, float delay)

@@ -24,7 +24,7 @@ namespace Dialogue
         public Color textColor { get { return tmpro.color; } set { tmpro.color = value; } }
 
         public float speed { get { return baseSpeed * speedMultiplier; } set { speedMultiplier = value; } }
-        private const float baseSpeed = 1f;
+        public static float baseSpeed = 1f;
         private float speedMultiplier = 1f;
 
         public int charactersPerCycle { get { return speed <= 2f ? characterMultiplier : speed <= 2.5f ? characterMultiplier * 2 : characterMultiplier * 3; } }

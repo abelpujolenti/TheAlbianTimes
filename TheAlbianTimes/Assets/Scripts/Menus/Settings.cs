@@ -1,5 +1,6 @@
-using System.Collections.Generic;
+using Dialogue;
 using Managers;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,9 +24,9 @@ namespace Menus
         [SerializeField] private Toggle _SFXAudioMuteToggle;
         [SerializeField] private Toggle _musicAudioMuteToggle;
 
-        [SerializeField] private float _lowTextDialogeSpeed;
-        [SerializeField] private float _mediumTextDialogeSpeed;
-        [SerializeField] private float _highTextDialogeSpeed;
+        [SerializeField] private float _lowTextDialogueSpeed;
+        [SerializeField] private float _mediumTextDialogueSpeed;
+        [SerializeField] private float _highTextDialogueSpeed;
         
         private Dictionary<AudioGroups, Toggle> _audioMuteToggles;
         private Dictionary<TextDialoguesSpeed, float> _textDialogueSpeeds;
@@ -46,9 +47,9 @@ namespace Menus
 
             _textDialogueSpeeds = new Dictionary<TextDialoguesSpeed, float>
             {
-                { TextDialoguesSpeed.LOW , _lowTextDialogeSpeed},
-                { TextDialoguesSpeed.MEDIUM , _mediumTextDialogeSpeed},
-                { TextDialoguesSpeed.HIGH , _highTextDialogeSpeed},
+                { TextDialoguesSpeed.LOW , _lowTextDialogueSpeed},
+                { TextDialoguesSpeed.MEDIUM , _mediumTextDialogueSpeed},
+                { TextDialoguesSpeed.HIGH , _highTextDialogueSpeed},
             };
         }
 
@@ -124,8 +125,9 @@ namespace Menus
 
         private void ChangeTextDialogueSpeed(TextDialoguesSpeed textDialoguesSpeed)
         {
-            //TODO LINK WITH DIALOGUE
-            float valueToAssign = _textDialogueSpeeds[textDialoguesSpeed];
+            //TODO: puto
+            Debug.Log(_textDialogueSpeeds[textDialoguesSpeed]);
+            TextArchitect.baseSpeed = _textDialogueSpeeds[textDialoguesSpeed];
         }
 
         public void LowDialogueSpeed() => ChangeTextDialogueSpeed(TextDialoguesSpeed.LOW);

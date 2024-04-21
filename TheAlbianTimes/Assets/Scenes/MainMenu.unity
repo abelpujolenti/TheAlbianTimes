@@ -3103,9 +3103,9 @@ MonoBehaviour:
   _masterAudioMuteToggle: {fileID: 1898994778}
   _SFXAudioMuteToggle: {fileID: 268677172}
   _musicAudioMuteToggle: {fileID: 419689941}
-  _lowTextDialogeSpeed: 0.5
-  _mediumTextDialogeSpeed: 1
-  _highTextDialogeSpeed: 1.3
+  _lowTextDialogueSpeed: 0.8
+  _mediumTextDialogueSpeed: 1
+  _highTextDialogueSpeed: 1.3
 --- !u!1 &875553705
 GameObject:
   m_ObjectHideFlags: 0

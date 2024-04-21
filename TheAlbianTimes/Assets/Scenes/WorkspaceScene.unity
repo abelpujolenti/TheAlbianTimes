@@ -11985,6 +11985,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a405e123ef982c348b0463c6e7324d71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _mapPagesPrefabs:
+  - {fileID: 5264011211100125848, guid: 9ee1622864f217443a47cb1301abbf55, type: 3}
+  - {fileID: 5264011211100125848, guid: 69d091c3171863e4d90b292bf752c4d6, type: 3}
   _countryPagesPrefabs:
   - {fileID: 5264011211100125848, guid: 29908dba3ed13b64ca055d4a61237422, type: 3}
   - {fileID: 5264011211100125848, guid: 9568a20585242ba48973cd1c0fbc4a31, type: 3}

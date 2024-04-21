@@ -213,6 +213,11 @@ namespace Workspace.Editorial
             base.EndDrag(data);
         }
 
+        /*protected override IEnumerator SlideCoroutine()
+        {
+            base.SlideCoroutine();
+        }*/
+
         private void DropNewsHeadline(Vector2 position)
         {
             if (_onFolder)

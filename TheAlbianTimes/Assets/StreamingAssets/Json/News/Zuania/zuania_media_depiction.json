@@ -1,0 +1,38 @@
+{
+    "name": "zuania_media_depiction",
+    "firstRound": 7,
+    "duration": 6,
+    "priority": 0.2,
+    "leniency": 0,
+    "type": 1,
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 3,
+            "key": "reputation",
+            "value": 0.05
+        }
+    ],
+    "biases": [
+        {
+            "name": "FAKE NEWS",
+            "description": "There is a problem with how Zuania is treated by the news.",
+            "headline": "Zuania and Incorrect Portrayals",
+            "text": "    With their bountiful resources and numerous allies, political leaders within Xaya have managed to cast doubt on the legitimacy of Zuania. There is now controversy about whether discussions surrounding this topic depict it correctly. Members of the public have been quoted stating that the Zuan government is a major cause of their downfall as a region. Due to this, many have stated their preference towards a stronger presence of Xaya on the territory.\n    When questioned, a member of the public stated ‘News channels have been wrongly depicting Zuania. Claiming Zuania as a legitimate government seems like an insult to the people that live in it and the Xayan government who has been trying to stabilize the region.’ After the most recent public outcry, the discussion has been resurfacing yet again.",
+            "additionalConsequences": []
+        },
+        {
+            "name": "REAL NEWS",
+            "description": "Zuania is depicted perfectly well. The nation is not doing great.",
+            "headline": "Zuania’s Media Depiction is Becoming Far Better",
+            "text": "    Over the years, news writers have been changing the way Zuania is portrayed. The Xayan nation has made moves that have made Zuania essentially dependent on them. The language being used was initially ‘horrendously misleading’ as stated by many protestors at the time. Since then, the coverage has been far more accurate and analytical.\n    Recently, members of the public have been claiming the new way that the media has been presenting this information is horrendous. One of the main things being said is that ‘Zuania is being talked about as if it were a country of its own.’ These counter-protests have lead to the conversation being resparked.",
+            "additionalConsequences": [
+                {
+                    "country": 3,
+                    "key": "reputation",
+                    "value": -0.05
+                }
+            ]
+        }
+    ]
+}

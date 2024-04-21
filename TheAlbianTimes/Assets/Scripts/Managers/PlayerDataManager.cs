@@ -7,12 +7,12 @@ public class PlayerDataManager : MonoBehaviour
     private static PlayerDataManager _instance;
     public static PlayerDataManager Instance => _instance;
 
-    [SerializeField] const float incomeMultiplier = 100f;
-    [SerializeField] const float censorshipMarkup = 10f;
-    [SerializeField] const float reputationDiscount = 6f;
-    [SerializeField] const float baseStaffCost = 20f;
-    [SerializeField] const float firingCost = 10f;
-    [SerializeField] const float hiringCost = 20f;
+    [SerializeField] public const float incomeMultiplier = 100f;
+    [SerializeField] public const float censorshipMarkup = 10f;
+    [SerializeField] public const float reputationDiscount = 6f;
+    [SerializeField] public const float baseStaffCost = 20f;
+    [SerializeField] public const float firingCost = 10f;
+    [SerializeField] public const float hiringCost = 20f;
     public float staffCost = baseStaffCost;
     public float censorshipAverage = 0f;
     public int staffChange = 0;

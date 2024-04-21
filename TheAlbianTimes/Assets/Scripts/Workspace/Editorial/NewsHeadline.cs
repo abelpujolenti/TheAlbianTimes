@@ -414,6 +414,7 @@ namespace Workspace.Editorial
         {
             if (_selectedBiasIndicator == null) return;
             _selectedBiasIndicator.color = PieceData.biasColors[_chosenBiasIndex];
+            _selectedBiasIndicator.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _biasesNames[_chosenBiasIndex];
         }
 
         public void SetOrigin(Vector2 newOrigin)

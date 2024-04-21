@@ -52,20 +52,19 @@ namespace Workspace.Layout
         public void Publish()
         {
             PublishingManager.Instance.Publish(_newspaperMold.GetNewsHeadlines().ToList());
-            GameManager.Instance.AddToRound();
 
             StartCoroutine(EndRoundCoroutine(3.2f));
         }
 
         private IEnumerator EndRoundCoroutine(float t)
         {
-            SoundManager.Instance.ChangeAudioMixerSnapshot(AudioMixerSnapshots.TRANSITION, t);
+            AudioManager.Instance.ChangeAudioSnapshot(AudioSnapshots.TRANSITION, t);
 
             ((RectTransform)_newspaperMold.transform).pivot = new Vector2(.5f, .5f);
             StartCoroutine(TransformUtility.SetRotationCoroutine(_newspaperMold.transform, 90f, 0.3f));
             StartCoroutine(TransformUtility.SetPositionCoroutine(_newspaperMold.transform, _newspaperMold.transform.position, transform.position + new Vector3(-3f, 0f, 0f), 0.3f));
             yield return TransformUtility.SetScaleCoroutine(_newspaperMold.transform, new Vector3(.45f, .45f, .45f), 0.25f);
-            SoundManager.Instance.Play3DSound(DROP_MOLD, 5, 100, gameObject.transform.position);
+            AudioManager.Instance.Play3DSound(DROP_MOLD, 5, 100, transform.position);
             yield return new WaitForSeconds(.1f);
 
             StartCoroutine(StartPrintSound());
@@ -97,7 +96,7 @@ namespace Workspace.Layout
 
         private IEnumerator StartConveyorBelt()
         {
-            _conveyorBeltAudioId = SoundManager.Instance.Play2DLoopSound(CONVEYOR_BELT_SOUND);
+            _conveyorBeltAudioId = AudioManager.Instance.Play2DLoopSound(CONVEYOR_BELT_SOUND);
 
             while (_isScrolling)
             {
@@ -110,7 +109,7 @@ namespace Workspace.Layout
                 yield return null;
             }
             
-            SoundManager.Instance.StopLoopingAudio(_conveyorBeltAudioId);
+            AudioManager.Instance.StopLoopingAudio(_conveyorBeltAudioId);
         }
 
         private IEnumerator StartPrintSound()
@@ -122,7 +121,7 @@ namespace Workspace.Layout
                 time += Time.deltaTime;
                 yield return null;
             }
-            SoundManager.Instance.Play2DSound(PRINT_NEWSPAPER);
+            AudioManager.Instance.Play2DSound(PRINT_NEWSPAPER);
 
             time = 0;
             
@@ -133,7 +132,7 @@ namespace Workspace.Layout
             }
 
             time = 0;
-            SoundManager.Instance.StopLoopingAudio(_conveyorBeltAudioId);
+            AudioManager.Instance.StopLoopingAudio(_conveyorBeltAudioId);
 
             while (time <= 1.6f)
             {

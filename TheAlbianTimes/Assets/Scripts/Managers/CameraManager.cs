@@ -16,8 +16,8 @@ namespace Managers
 
         public static CameraManager Instance => _instance;
 
-        private const float MIN_X_POSITION_CAMERA = 0;
-        private const float MAX_X_POSITION_CAMERA = 17.77f;
+        public const float MIN_X_POSITION_CAMERA = 0;
+        public const float MAX_X_POSITION_CAMERA = 17.77f;
         
         private Transform camTransform;
         

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Characters;
 using Countries;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -13,14 +14,16 @@ namespace Managers
         public static GameManager Instance => _instance;
         
         public GameState gameState;
+        public GameState prevGameState;
         private SaveManager saveManager;
         public SceneLoader sceneLoader = new SceneLoader();
 
         private StatsDisplay _statsDisplay;
 
-        private int _round = 0;
+        public int roomToneAudioId = -1;
+        public int musicAudioId = -1;
 
-        public bool _startWorkspace;
+        private int _round = 0;
 
         private void Awake()
         {
@@ -76,6 +79,7 @@ namespace Managers
             LoadCharacters();
             LoadPlayerData();
             LoadViewedArticles();
+            prevGameState = gameState.Clone();
         }
 
         private void InitScenes()
@@ -159,6 +163,7 @@ namespace Managers
 
         public void AddToRound()
         {
+            prevGameState = gameState.Clone();
             _round++;
         }
 

@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using Characters;
 using Countries;
 using Newtonsoft.Json;
 using UnityEngine;

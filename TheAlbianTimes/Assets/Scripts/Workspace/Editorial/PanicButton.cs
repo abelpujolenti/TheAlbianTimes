@@ -51,10 +51,9 @@ namespace Workspace.Editorial
                 gameObject.SetActive(true);
                 EventsManager.OnThowSomething = null;
             };
-            SoundManager.Instance.Play3DSound(PRESS_PANIC_BUTTON_SOUND, 5, 100, gameObject.transform.position);
+            AudioManager.Instance.Play3DSound(PRESS_PANIC_BUTTON_SOUND, 5, 100, transform.position);
             if (EventsManager.OnPressPanicButton != null)
             {
-                EditorialManager.Instance.SetTotalNewsToLoad(EventsManager.OnPressPanicButton.GetInvocationList().Length);
                 EventsManager.OnPressPanicButton();
             }
             

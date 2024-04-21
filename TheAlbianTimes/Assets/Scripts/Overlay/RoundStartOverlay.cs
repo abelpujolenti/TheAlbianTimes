@@ -2,6 +2,7 @@ using System.Collections;
 using Managers;
 using TMPro;
 using UnityEngine;
+using Utility;
 using Workspace.Editorial;
 
 namespace Overlay
@@ -19,8 +20,8 @@ namespace Overlay
         private Coroutine roundStartCoroutine;
         private void Start()
         {
-            SoundManager.Instance.ChangeAudioMixerSnapshot(AudioMixerSnapshots.TRANSITION, 0.5f);
-            SoundManager.Instance.Play2DSound(ENTER_OFFICE);
+            AudioManager.Instance.ChangeAudioSnapshot(AudioSnapshots.TRANSITION, 0.5f);
+            AudioManager.Instance.Play2DSound(ENTER_OFFICE);
             fadeOverlayAnimator = fadeOverlay.GetComponent<Animator>();
             fadeOverlayTextAnimator = fadeOverlayText.GetComponent<Animator>();
 
@@ -47,23 +48,35 @@ namespace Overlay
             fadeOverlayText.gameObject.SetActive(true);
             UpdateText();
             FadeTextIn();
-            yield return new WaitForSeconds(EditorialNewsLoader.loadDelay - 1f - fadeDuration);
+            yield return new WaitForSeconds(EditorialNewsLoader.loadDelay - 1.5f - fadeDuration);
             FadeTextOut();
             yield return new WaitForSeconds(fadeDuration);
             FadeIn();
             yield return new WaitForFixedUpdate();
             AnimatorClipInfo[] currentClipInfo = fadeOverlayAnimator.GetCurrentAnimatorClipInfo(0);
+            StartCoroutine(PanCoroutine(0.7f, currentClipInfo[0].clip.length * 0.35f));
             yield return new WaitForSeconds(currentClipInfo[0].clip.length);
             fadeOverlay.gameObject.SetActive(false);
             fadeOverlayText.gameObject.SetActive(false);
-            SoundManager.Instance.ChangeAudioMixerSnapshot(AudioMixerSnapshots.WORKSPACE, 1f);
-            if (!GameManager.Instance._startWorkspace)
+
+            AudioManager.Instance.ChangeAudioSnapshot(AudioSnapshots.WORKSPACE, 1f);
+            if (GameManager.Instance.roomToneAudioId == -1)
             {
-                SoundManager.Instance.Play3DLoopSound(ROOM_TONE, 10, 10000, new Vector2(7f, 20f), 5000);
-                GameManager.Instance._startWorkspace = true;
+                GameManager.Instance.roomToneAudioId = AudioManager.Instance.Play3DLoopSound(ROOM_TONE, 10, 10000, new Vector2(7f, 20f), 5000);
             }
-            
-            SoundManager.Instance.Play2DLoopSound(MUSIC);
+
+            if (GameManager.Instance.musicAudioId == -1)
+            {
+                GameManager.Instance.musicAudioId = AudioManager.Instance.Play2DLoopSound(MUSIC);    
+            }
+        }
+
+        private IEnumerator PanCoroutine(float t, float delay)
+        {
+            Transform ct = Camera.main.transform;
+            ct.position = new Vector3(CameraManager.MAX_X_POSITION_CAMERA, ct.position.y, ct.position.z);
+            yield return new WaitForSeconds(delay);
+            yield return TransformUtility.SetPositionCoroutine(ct, ct.position, new Vector3(CameraManager.MIN_X_POSITION_CAMERA, ct.position.y, ct.position.z), t);
         }
 
         private void UpdateText()

@@ -1,12 +1,15 @@
 using TMPro;
 using Utility;
 
-public class MessagePostit : ThrowableInteractableRectTransform
+namespace Workspace.Editorial
 {
-    public void Setup(MessagePostitData data)
+    public class MessagePostit : ThrowableInteractableRectTransform
     {
-        var tmp = GetComponentInChildren<TextMeshProUGUI>();
-        tmp.text = data.text;
-        tmp.color = data.color;
+        public void Setup(MessagePostitData data)
+        {
+            var tmp = GetComponentInChildren<TextMeshProUGUI>();
+            tmp.text = data.text;
+            tmp.color = data.color;
+        }
     }
 }

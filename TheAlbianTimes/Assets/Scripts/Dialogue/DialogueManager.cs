@@ -23,7 +23,7 @@ namespace Dialogue
         [SerializeField] private GameObject dialogueOptionButtonsRoot;
         [SerializeField] private GameObject continueText;
 
-        DialogueSystem ds; //discord??
+        DialogueSystem ds;
         TextArchitect architect;
         DialogueOptionButton[] dialogueOptionButtons;
 
@@ -100,7 +100,7 @@ namespace Dialogue
         {
             DialogueData dialogueData = JsonUtility.FromJson<DialogueData>(json);
 
-            int round = GameManager.Instance.GetRound() - 1;
+            int round = GameManager.Instance.GetRound();
 
             if (!dialogueData.ConditionsFulfilled(round)) return;
             float priority = dialogueData.priority;
@@ -113,7 +113,7 @@ namespace Dialogue
 
         private void DisplayNextLine()
         {
-            SoundManager.Instance.Play2DSound(CLICK_BUTTON_SOUND);
+            AudioManager.Instance.Play2DSound(CLICK_BUTTON_SOUND);
 
             currentLine++;
 
@@ -121,6 +121,7 @@ namespace Dialogue
 
             if (currentLine >= selectedDialogue.lines.Length)
             {
+                GameManager.Instance.AddToRound();
                 GameManager.Instance.sceneLoader.SetScene("WorkspaceScene");
                 return;
             }

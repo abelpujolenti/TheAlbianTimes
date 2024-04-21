@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Linq;
+using Characters;
 using Countries;
 
 public class GameStatePlayerData
@@ -15,4 +17,17 @@ public class GameState
     public Character[] characters;
     public HashSet<string> viewedArticles;
     public HashSet<string> viewedDialogue;
+    public GameState Clone()
+    {
+        GameState ret = new GameState();
+        ret.playerData = new GameStatePlayerData();
+        ret.playerData.money = playerData.money;
+        ret.playerData.staff = playerData.staff;
+        ret.playerData.reputation = playerData.reputation;
+        ret.countries = countries.ToArray();
+        ret.characters = characters.ToArray();
+        ret.viewedArticles = viewedArticles.ToHashSet();
+        ret.viewedDialogue = viewedDialogue.ToHashSet();
+        return ret;
+    }
 }

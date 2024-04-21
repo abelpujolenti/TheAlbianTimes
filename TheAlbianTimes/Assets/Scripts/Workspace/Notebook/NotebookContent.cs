@@ -67,6 +67,23 @@ namespace Workspace.Notebook
         public Dictionary <int, int> reputationHistory;
     }
 
+    public class MapPage0 : BaseNotebookPage
+    {
+        public Action hetiaClick;
+        public Action albiaClick;
+        public Action terkanClick;
+        public Action dalmeClick;
+        public Action madiaClick;
+    }
+
+    public class MapPage1 : BaseNotebookPage
+    {
+        public Action xayaClick;
+        public Action suokaClick;
+        public Action zuaniaClick;
+        public Action rekkaClick;
+    }
+
     public class CountryContentPage0 : BaseNotebookPage
     {
         public string countryName;

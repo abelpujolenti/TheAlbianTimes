@@ -67,7 +67,7 @@ namespace Utility
             setRotationCoroutine = StartCoroutine(SetRotationCoroutine(rotation, t));
         }
 
-        private IEnumerator SlideCoroutine()
+        protected virtual IEnumerator SlideCoroutine()
         {
             float slideVelocity = Mathf.Min(maxVelocity, dragVelocity.magnitude * speed);
             Vector3 direction = dragVelocity.normalized;

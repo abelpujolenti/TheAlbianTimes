@@ -14,6 +14,7 @@ namespace Menus
         private void Start()
         {
             _currentActivePanel = _mainMenu;
+            DontDestroyOnLoad(gameObject);
         }
 
         public void PauseButton()
@@ -33,7 +34,8 @@ namespace Menus
             GameManager.Instance.roomToneAudioId = -1;
             AudioManager.Instance.StopLoopingAudio(GameManager.Instance.musicAudioId);
             GameManager.Instance.musicAudioId = -1;
-            //TODO LOAD MAIN MENU
+            Destroy(gameObject);
+            GameManager.Instance.sceneLoader.SetScene("MainMenu");
         }
 
         public void ChangeCurrentActivePanel(GameObject panelToActive) 

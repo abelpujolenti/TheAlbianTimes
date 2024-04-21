@@ -619,6 +619,10 @@ namespace Managers
 
         private void OnDestroy()
         {
+            if (_instance != null)
+            {
+                return;
+            }
             PlayerPrefs.SetFloat(PLAYER_PREFS_MASTER_VOLUME_VALUE, _groupAudioVolumeValues[AudioGroups.MASTER]);
             PlayerPrefs.SetFloat(PLAYER_PREFS_SFX_VOLUME_VALUE, _groupAudioVolumeValues[AudioGroups.SFX]);
             PlayerPrefs.SetFloat(PLAYER_PREFS_MUSIC_VOLUME_VALUE, _groupAudioVolumeValues[AudioGroups.MUSIC]);

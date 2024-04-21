@@ -1,11 +1,25 @@
 using UnityEngine;
 
-public class StatFormat : MonoBehaviour
+namespace Utility
 {
-    private const string statIncreaseColor = "green";
-    private const string statDecreaseColor = "red";
-    public static string FormatValueChange(float value)
+    public class StatFormat : MonoBehaviour
     {
-        return value >= 0 ? "<color=" + statIncreaseColor + ">(+" + value.ToString("p0") + ")</color>" : "<color=" + statDecreaseColor + ">(" + value.ToString("p0") + ")</color>";
+        private const string statIncreaseColor = "green";
+        private const string statNeutralColor = "#3e3e3e";
+        private const string statDecreaseColor = "red";
+        public static string FormatValueChange(float value)
+        {
+            if (value == 0)
+            {
+                return "<color=" + statNeutralColor + ">(+" + value.ToString("p0") + ")</color>";
+            }
+
+            if (value > 0)
+            {
+                return "<color=" + statIncreaseColor + ">(+" + value.ToString("p0") + ")</color>";
+            }
+            
+            return "<color=" + statDecreaseColor + ">(" + value.ToString("p0") + ")</color>";
+        }
     }
 }

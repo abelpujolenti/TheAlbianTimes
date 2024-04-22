@@ -1,0 +1,14 @@
+{
+    "id": "bribe_albia",
+    "bribeAmount": 5000,
+    "priority": 1,
+    "triggerCountry": 5,
+    "conditions": [
+        {
+            "entityId": 5,
+            "field": "reputation",
+            "predicate": 2,
+            "value": 0.3
+        }
+    ]
+}

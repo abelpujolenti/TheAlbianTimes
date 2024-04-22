@@ -47,7 +47,15 @@ namespace Managers
         {
             if (GameManager.Instance.GetRound() != 0) return;
             biasContainerCanvas.enabled = false;
+            StartCoroutine(CameraNudgeCoroutine(1.3f, 1f, 2f));
             EventsManager.OnChangeNewsHeadlineContent -= LockBiases;
+        }
+
+        private IEnumerator CameraNudgeCoroutine(float offset, float t, float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            yield return TransformUtility.SetPositionCoroutine(Camera.main.transform, Camera.main.transform.position, Camera.main.transform.position + new Vector3(offset, 0f, 0f), t/2f);
+            yield return TransformUtility.SetPositionCoroutine(Camera.main.transform, Camera.main.transform.position, Camera.main.transform.position + new Vector3(-offset, 0f, 0f), t/2f);
         }
 
         private IEnumerator RevealMail()

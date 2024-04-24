@@ -25,6 +25,7 @@ namespace Workspace.Notebook
         [SerializeField] private GameObject rightPage;
         [SerializeField] private GameObject leftPage;
         [SerializeField] private GameObject flipPage;
+        [SerializeField] private GameObject _flipPageBackgroundGameObject;
         [SerializeField] private Transform pageMarkerParent;
         [SerializeField] private Transform pageMarkerActiveParent;
 
@@ -176,34 +177,40 @@ namespace Workspace.Notebook
             yield return StartCoroutine(TransformUtility.SetPositionCoroutine(transform, transform.position, initialPosition, t));
         }
 
-        public void FlipPageLeft()
+        public void FlipPageLeft(/*GameObject pageToSpawn*/)
         {
             if (flipCoroutine != null) StopCoroutine(flipCoroutine);
-            flipCoroutine = StartCoroutine(FlipPageLeftCoroutine());
+            flipCoroutine = StartCoroutine(FlipPageLeftCoroutine(/*pageToSpawn*/));
         }
 
-        public void FlipPageRight()
+        public void FlipPageRight(/*GameObject pageToSpawn*/)
         {
             if (flipCoroutine != null) StopCoroutine(flipCoroutine);
-            flipCoroutine = StartCoroutine(FlipPageRightCoroutine());
+            flipCoroutine = StartCoroutine(FlipPageRightCoroutine(/*pageToSpawn*/));
         }
 
-        private IEnumerator FlipPageLeftCoroutine()
+        private IEnumerator FlipPageLeftCoroutine(/*GameObject pageToSpawn*/)
         {
             flipPage.SetActive(true);
 
             yield return StartCoroutine(RotatePageCoroutine((RectTransform)flipPage.transform, PAGE_FLIP_TIME / 2f, 0f, 90f, 0.5f));
+            /*Destroy(_flipPageBackgroundGameObject.transform.GetChild(0));
+            pageToSpawn.transform.SetParent(_flipPageBackgroundGameObject.transform);
+            pageToSpawn.SetActive(true);*/
             StartCoroutine(ShadePageCoroutine(_flipPageBackground, PAGE_FLIP_TIME / 2f, 0.3f, imageBrightness, 2f));
             yield return StartCoroutine(RotatePageCoroutine((RectTransform)flipPage.transform, PAGE_FLIP_TIME / 2f, 90f, 180f, 2f));
             flipPage.SetActive(false);
         }
 
-        private IEnumerator FlipPageRightCoroutine()
+        private IEnumerator FlipPageRightCoroutine(/*GameObject pageToSpawn*/)
         {
             flipPage.SetActive(true);
 
             StartCoroutine(ShadePageCoroutine(_flipPageBackground, PAGE_FLIP_TIME / 2f, 0.3f, imageBrightness, 2f));
             yield return StartCoroutine(RotatePageCoroutine((RectTransform)flipPage.transform, PAGE_FLIP_TIME / 2f, 180f, 90f, 0.5f));
+            /*Destroy(_flipPageBackgroundGameObject.transform.GetChild(0));
+            pageToSpawn.transform.SetParent(_flipPageBackgroundGameObject.transform);
+            pageToSpawn.SetActive(true);*/
             yield return StartCoroutine(RotatePageCoroutine((RectTransform)flipPage.transform, PAGE_FLIP_TIME / 2f, 90f, 0f, 2f));
             flipPage.SetActive(false);
         }

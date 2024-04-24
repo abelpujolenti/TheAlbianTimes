@@ -25,6 +25,7 @@ namespace Managers
         private const int INTERNATIONAL_RANGE_OF_PAGES = 1;
         private const int PERSON_RANGE_OF_PAGES = 1;
 
+        [SerializeField] private GameObject _coverPrefab;
         [SerializeField] private GameObject[] _mapPagesPrefabs;
         [SerializeField] private GameObject[] _countryPagesPrefabs;
         [SerializeField] private GameObject[] _internationalPagesPrefabs;
@@ -36,6 +37,7 @@ namespace Managers
         [SerializeField] private NotebookBookmark[] _bookmarks;
 
         [SerializeField] private NotebookPage _leftPage;
+        [SerializeField] private NotebookPage _flipPage;
         [SerializeField] private NotebookPage _rightPage;
 
         private Notebook _notebook;
@@ -327,6 +329,7 @@ namespace Managers
         {            
             CheckBookmark(page);
             FlipPage(page);
+            float auxCurrentPage = _currentPage;
             _currentPage = page;
             CheckContentToShow();
         }
@@ -336,11 +339,13 @@ namespace Managers
             if (_currentPage < nextPage)
             {
                 MoveBookmarks(_shouldBeOnRightSide, nextPage);
+                _flipPage.ChangeContent(_rightPage.GetCurrentPage());
                 _notebook.FlipPageLeft();
                 return;
             }
             
             MoveBookmarks(_shouldBeOnLeftSide, nextPage);
+            _flipPage.ChangeContent(_leftPage.GetCurrentPage());
             _notebook.FlipPageRight();
         }
 
@@ -372,6 +377,9 @@ namespace Managers
             int mapIndex = _notebookIndices[NotebookContentType.MAP];
             int internationalsIndex = _notebookIndices[NotebookContentType.INTERNATIONAL];
             int peopleIndex = _notebookIndices[NotebookContentType.PERSON];
+
+            GameObject leftPage;
+            GameObject rightPage;
 
             if (_currentPage == mapIndex)
             {
@@ -435,11 +443,11 @@ namespace Managers
         {
             _noteBookOpen = notebookOpen;
             
-            OnCloseOrCloseNotebook();
+            OnOpenOrCloseNotebook();
             
         }
 
-        private void OnCloseOrCloseNotebook()
+        private void OnOpenOrCloseNotebook()
         {
             foreach (NotebookBookmark bookmark in _bookmarks)
             {

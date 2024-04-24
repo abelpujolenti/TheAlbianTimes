@@ -125,8 +125,6 @@ namespace Menus
 
         private void ChangeTextDialogueSpeed(TextDialoguesSpeed textDialoguesSpeed)
         {
-            //TODO: puto
-            Debug.Log(_textDialogueSpeeds[textDialoguesSpeed]);
             TextArchitect.baseSpeed = _textDialogueSpeeds[textDialoguesSpeed];
         }
 
@@ -136,7 +134,7 @@ namespace Menus
 
         public void ResetProgress()
         {
-            Debug.Log("Adri fes-li el aquello a l'arxiu de desat");   
+            Debug.Log("Adri fes-li el aquello a l'arxiu de desat");
         }
     }
 }

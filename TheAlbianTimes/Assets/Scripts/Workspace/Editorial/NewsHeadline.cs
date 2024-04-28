@@ -25,7 +25,7 @@ namespace Workspace.Editorial
         private const String THUD_SOUND = "Thud";
         private const String SUBMIT_PAPER_SOUND = "Submit Paper";
         
-        private const float CHANGE_CONTENT_Y_COORDINATE = 1000;
+        private const float CHANGE_CONTENT_Y_COORDINATE = 360;
         private const float SPEED_MOVEMENT = 15;
         private const float TIME_TO_SLIDE = 2f;
         private const float Y_DISTANCE_TO_MOVE_ON_HOVER = 10f;
@@ -73,6 +73,7 @@ namespace Workspace.Editorial
 
         private Vector2 _destination;
         private Vector2 _origin;
+        private Vector2 _positionDropped;
 
         private int _linkId;
         private int _totalBiasesToActivate;
@@ -213,10 +214,11 @@ namespace Workspace.Editorial
             base.EndDrag(data);
         }
 
-        /*protected override IEnumerator SlideCoroutine()
+        protected override IEnumerator SlideCoroutine()
         {
-            base.SlideCoroutine();
-        }*/
+            yield return base.SlideCoroutine();
+            _positionDropped = transform.position;
+        }
 
         private void DropNewsHeadline(Vector2 position)
         {
@@ -783,6 +785,11 @@ namespace Workspace.Editorial
         private Vector2 DistanceToPosition(Vector2 position)
         {
             return (Vector2)transform.position - position;
+        }
+
+        public Vector2 GetPositionDropped()
+        {
+            return _positionDropped;
         }
 
         private void OnDestroy()

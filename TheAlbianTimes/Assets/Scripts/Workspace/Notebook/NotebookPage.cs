@@ -4,14 +4,10 @@ namespace Workspace.Notebook
 {
     public class NotebookPage : MonoBehaviour
     {
-        [SerializeField] private bool _righPage;
-
         private GameObject _currentPage;
 
         public void ChangeContent(GameObject pagePrefab)
         {
-            Destroy(_currentPage);
-
             if (pagePrefab == null)
             {
                 return;
@@ -22,6 +18,11 @@ namespace Workspace.Notebook
             pageTransform.localPosition = new Vector3(0, 0, 0);
             pageTransform.localScale = new Vector3(1, 1, 1);
             _currentPage = pagePrefab;
+        }
+
+        public GameObject GetCurrentPage()
+        {
+            return _currentPage;
         }
     }
 }

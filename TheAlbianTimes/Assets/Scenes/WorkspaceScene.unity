@@ -6426,7 +6426,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6de88b891e09be741a8be1fbb2145589, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _righPage: 1
 --- !u!114 &1134771396
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6440,7 +6439,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.95, g: 0.95, b: 0.93, a: 1}
+  m_Color: {r: 0.9529412, g: 0.9529412, b: 0.9529412, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -8093,6 +8092,7 @@ MonoBehaviour:
   statOverlay: {fileID: 477263766}
   folder: {fileID: 429106995}
   biasContainerCanvas: {fileID: 1808916517}
+  _cameraTransform: {fileID: 245228341}
 --- !u!4 &1493753360
 Transform:
   m_ObjectHideFlags: 0
@@ -9510,9 +9510,9 @@ MonoBehaviour:
   _masterAudioMuteToggle: {fileID: 1931541296}
   _SFXAudioMuteToggle: {fileID: 2105738182}
   _musicAudioMuteToggle: {fileID: 195378826}
-  _lowTextDialogeSpeed: 0.5
-  _mediumTextDialogeSpeed: 1
-  _highTextDialogeSpeed: 1.3
+  _lowTextDialogueSpeed: 0.8
+  _mediumTextDialogueSpeed: 1
+  _highTextDialogueSpeed: 1.3
 --- !u!114 &1737060011
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11446,7 +11446,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.5, g: 0.25, b: 0.3, a: 1}
+  m_Color: {r: 0.9529412, g: 0.9529412, b: 0.9529412, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -11483,7 +11483,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6de88b891e09be741a8be1fbb2145589, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _righPage: 0
 --- !u!1 &1968293759
 GameObject:
   m_ObjectHideFlags: 0
@@ -11985,9 +11984,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a405e123ef982c348b0463c6e7324d71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _coverPrefab: {fileID: 5264011211100125848, guid: f60b32df6fb7fa342b960bf83aecdabf, type: 3}
   _mapPagesPrefabs:
   - {fileID: 5264011211100125848, guid: 9ee1622864f217443a47cb1301abbf55, type: 3}
-  - {fileID: 5264011211100125848, guid: 69d091c3171863e4d90b292bf752c4d6, type: 3}
+  - {fileID: 5264011211100125848, guid: 5b6d2c57f8cb7194dbc0f68296038817, type: 3}
   _countryPagesPrefabs:
   - {fileID: 5264011211100125848, guid: 29908dba3ed13b64ca055d4a61237422, type: 3}
   - {fileID: 5264011211100125848, guid: 9568a20585242ba48973cd1c0fbc4a31, type: 3}
@@ -12003,6 +12003,7 @@ MonoBehaviour:
   - {fileID: 808319615}
   - {fileID: 2133697287}
   _leftPage: {fileID: 1965983469}
+  _flipPage: {fileID: 2078445754}
   _rightPage: {fileID: 1134771395}
 --- !u!4 &2040586313
 Transform:
@@ -12107,6 +12108,7 @@ GameObject:
   - component: {fileID: 2078445751}
   - component: {fileID: 2078445753}
   - component: {fileID: 2078445752}
+  - component: {fileID: 2078445754}
   m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
@@ -12147,7 +12149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9490196, g: 0.9490196, b: 0.92941177, a: 1}
+  m_Color: {r: 0.9529412, g: 0.9529412, b: 0.9529412, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -12172,6 +12174,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2078445750}
   m_CullTransparentMesh: 1
+--- !u!114 &2078445754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2078445750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6de88b891e09be741a8be1fbb2145589, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2081507658
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,6 +12,7 @@ namespace Managers
         [SerializeField] GameObject statOverlay;
         [SerializeField] GameObject folder;
         [SerializeField] Canvas biasContainerCanvas;
+        [SerializeField] private Transform _cameraTransform;
         void Start()
         {
             switch (GameManager.Instance.GetRound())
@@ -53,9 +54,10 @@ namespace Managers
 
         private IEnumerator CameraNudgeCoroutine(float offset, float t, float delay)
         {
+            Vector3 cameraPosition = _cameraTransform.position;
             yield return new WaitForSeconds(delay);
-            yield return TransformUtility.SetPositionCoroutine(Camera.main.transform, Camera.main.transform.position, Camera.main.transform.position + new Vector3(offset, 0f, 0f), t/2f);
-            yield return TransformUtility.SetPositionCoroutine(Camera.main.transform, Camera.main.transform.position, Camera.main.transform.position + new Vector3(-offset, 0f, 0f), t/2f);
+            yield return TransformUtility.SetPositionCoroutine(_cameraTransform, cameraPosition, cameraPosition + new Vector3(offset, 0f, 0f), t/2f);
+            yield return TransformUtility.SetPositionCoroutine(_cameraTransform, _cameraTransform.position, _cameraTransform.position + new Vector3(-offset, 0f, 0f), t/2f);
         }
 
         private IEnumerator RevealMail()

@@ -25,7 +25,6 @@ namespace Workspace.Notebook
         [SerializeField] private GameObject rightPage;
         [SerializeField] private GameObject leftPage;
         [SerializeField] private GameObject flipPage;
-        [SerializeField] private GameObject _flipPageBackgroundGameObject;
         [SerializeField] private Transform pageMarkerParent;
         [SerializeField] private Transform pageMarkerActiveParent;
 
@@ -35,7 +34,6 @@ namespace Workspace.Notebook
         private float boundX = 10f;
 
         private List<NotebookPage> pages;
-        private int currentPage = 0;
 
         private Vector3 initialPosition;
         private Vector3 dragVector;
@@ -74,15 +72,8 @@ namespace Workspace.Notebook
         protected override void EndDrag(BaseEventData data)
         {
             base.EndDrag(data);
-            if (open && (transform.position.y <= AUTO_CLOSE_THRESHOLD || transform.position.y <= AUTO_CLOSE_THRESHOLD * 0.5f && dragVector.y < -0.04f))
-            {
-                Close();
-            }
-            else if (!open)
-            {
-                if (transform.position.y > AUTO_CLOSE_THRESHOLD) Open(false);
-                else StartCoroutine(MoveDownCoroutine(PULL_DOWN_BOOK_TIME * (Vector2.Distance(transform.position, initialPosition) / 7f)));
-            }
+            
+            NotebookManager.Instance.EndDragNotebook(transform.position.y, dragVector.y, AUTO_CLOSE_THRESHOLD);
         }
 
         protected override void PointerClick(BaseEventData data)
@@ -103,59 +94,39 @@ namespace Workspace.Notebook
                 }
                 
                 NotebookManager.Instance.PreviousPage();
+                return;
             }
-            else
-            {
-                Open();
-            }
+            NotebookManager.Instance.OpenNotebook();
         }
 
-        public void ClickFromBooknote(int page)
+        public void Open(Action open, bool move)
         {
-            currentPage = page;
-            if (!open)
-            {
-                Open();
-            }
-            else
-            {
-                NotebookManager.Instance.MoveToPage(page);
-            }
+            StartCoroutine(OpenCoroutine(move, open));
         }
 
-        public void Open(bool move = true)
+        private IEnumerator OpenCoroutine(bool move, Action open)
         {
-            if (open) return;
-            StartCoroutine(OpenCoroutine(move));
-        }
-
-        private IEnumerator OpenCoroutine(bool move)
-        {
-            EnableCover();
             if (move)
             {
                 AudioManager.Instance.Play2DSound(GRAB_NOTEBOOK);
                 yield return MoveUpCoroutine(PULL_UP_BOOK_TIME);
             }
             AudioManager.Instance.Play2DSound(OPEN_NOTEBOOK);
-            yield return StartCoroutine(RotatePageCoroutine((RectTransform)leftPage.transform, PAGE_OPEN_TIME, 179.9f, 0f, 0.5f, DisableCover));
+            yield return StartCoroutine(RotatePageCoroutine((RectTransform)leftPage.transform, PAGE_OPEN_TIME, 179.9f, 0f, 0.5f, open));
             
-            open = true;
-            NotebookManager.Instance.SetIsNotebookOpen(open);
+            this.open = true;
         }
 
-        public void Close()
+        public void Close(Action close)
         {
-            if (!open) return;
             if (flipCoroutine != null) StopCoroutine(flipCoroutine);
-            StartCoroutine(CloseCoroutine());
+            StartCoroutine(CloseCoroutine(close));
         }
 
-        private IEnumerator CloseCoroutine()
+        private IEnumerator CloseCoroutine(Action close)
         {
             float speed = Mathf.Max(0.4f, (Vector2.Distance(transform.position, initialPosition) / 8f));
-            DisableCover();
-            StartCoroutine(RotatePageCoroutine((RectTransform)leftPage.transform, PAGE_CLOSE_TIME * speed, 0.01f, 180f, 0.5f, EnableCover));
+            StartCoroutine(RotatePageCoroutine((RectTransform)leftPage.transform, PAGE_CLOSE_TIME * speed, 0.01f, 180f, 0.5f, close));
             yield return MoveDownCoroutine(PULL_DOWN_BOOK_TIME * speed);
 
             for (int i = 0; i < pageMarkerActiveParent.childCount; i++)
@@ -164,7 +135,6 @@ namespace Workspace.Notebook
             }
             AudioManager.Instance.Play2DSound(CLOSE_NOTEBOOK);
             open = false;
-            NotebookManager.Instance.SetIsNotebookOpen(open);
         }
 
         private IEnumerator MoveUpCoroutine(float t)
@@ -172,57 +142,54 @@ namespace Workspace.Notebook
             yield return StartCoroutine(TransformUtility.SetPositionCoroutine(transform, transform.position, new Vector3(transform.position.x, -.5f, transform.position.z), PULL_UP_BOOK_TIME));
         }
 
+        public void StartMoveDownCoroutine()
+        {
+            StartCoroutine(MoveDownCoroutine(PULL_DOWN_BOOK_TIME * (Vector2.Distance(transform.position, initialPosition) / 7f)));
+        }
+
         private IEnumerator MoveDownCoroutine(float t)
         {
             yield return StartCoroutine(TransformUtility.SetPositionCoroutine(transform, transform.position, initialPosition, t));
         }
 
-        public void FlipPageLeft(/*GameObject pageToSpawn*/)
+        public void FlipPageLeft(Action midPointFlip, Action endFlip)
         {
             if (flipCoroutine != null) StopCoroutine(flipCoroutine);
-            flipCoroutine = StartCoroutine(FlipPageLeftCoroutine(/*pageToSpawn*/));
+            flipCoroutine = StartCoroutine(FlipPageLeftCoroutine(midPointFlip, endFlip));
         }
 
-        public void FlipPageRight(/*GameObject pageToSpawn*/)
+        public void FlipPageRight(Action midPointFlip, Action endFlip)
         {
             if (flipCoroutine != null) StopCoroutine(flipCoroutine);
-            flipCoroutine = StartCoroutine(FlipPageRightCoroutine(/*pageToSpawn*/));
+            flipCoroutine = StartCoroutine(FlipPageRightCoroutine(midPointFlip, endFlip));
         }
 
-        private IEnumerator FlipPageLeftCoroutine(/*GameObject pageToSpawn*/)
+        private IEnumerator FlipPageLeftCoroutine(Action midPointFlip, Action endFlip)
         {
             flipPage.SetActive(true);
 
             yield return StartCoroutine(RotatePageCoroutine((RectTransform)flipPage.transform, PAGE_FLIP_TIME / 2f, 0f, 90f, 0.5f));
-            /*Destroy(_flipPageBackgroundGameObject.transform.GetChild(0));
-            pageToSpawn.transform.SetParent(_flipPageBackgroundGameObject.transform);
-            pageToSpawn.SetActive(true);*/
-            StartCoroutine(ShadePageCoroutine(_flipPageBackground, PAGE_FLIP_TIME / 2f, 0.3f, imageBrightness, 2f));
+            midPointFlip();
+            
+            Image pageImage = _flipPageBackground.transform.GetChild(1).GetComponent<Image>();
+            StartCoroutine(ShadePageCoroutine(pageImage, PAGE_FLIP_TIME / 2f, 0.3f, ColorUtil.GetBrightness(pageImage.color), 2f));
             yield return StartCoroutine(RotatePageCoroutine((RectTransform)flipPage.transform, PAGE_FLIP_TIME / 2f, 90f, 180f, 2f));
+            endFlip();
             flipPage.SetActive(false);
         }
 
-        private IEnumerator FlipPageRightCoroutine(/*GameObject pageToSpawn*/)
+        private IEnumerator FlipPageRightCoroutine(Action midPointFlip, Action endFlip)
         {
             flipPage.SetActive(true);
 
-            StartCoroutine(ShadePageCoroutine(_flipPageBackground, PAGE_FLIP_TIME / 2f, 0.3f, imageBrightness, 2f));
+            Image pageImage = _flipPageBackground.transform.GetChild(0).GetComponent<Image>();
+
+            StartCoroutine(ShadePageCoroutine(pageImage, PAGE_FLIP_TIME / 2f, ColorUtil.GetBrightness(pageImage.color), 0.3f, 2f));
             yield return StartCoroutine(RotatePageCoroutine((RectTransform)flipPage.transform, PAGE_FLIP_TIME / 2f, 180f, 90f, 0.5f));
-            /*Destroy(_flipPageBackgroundGameObject.transform.GetChild(0));
-            pageToSpawn.transform.SetParent(_flipPageBackgroundGameObject.transform);
-            pageToSpawn.SetActive(true);*/
+            midPointFlip();
             yield return StartCoroutine(RotatePageCoroutine((RectTransform)flipPage.transform, PAGE_FLIP_TIME / 2f, 90f, 0f, 2f));
+            endFlip();
             flipPage.SetActive(false);
-        }
-
-        private void EnableCover()
-        {
-            _leftPageBackground.color = new Color(.5f, .25f, .3f);
-        }
-
-        private void DisableCover()
-        {
-            _leftPageBackground.color = new Color(.95f, .95f, .93f);
         }
 
         private IEnumerator ShadePageCoroutine(Image image, float t, float start, float end, float exp = 0.5f)

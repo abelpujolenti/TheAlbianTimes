@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8444562852491736496}
   - component: {fileID: 4602653676282760839}
   m_Layer: 5
-  m_Name: CoverPage0
+  m_Name: CoverPage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -60,7 +60,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.7264151, g: 0.26740754, b: 0, a: 0.5882353}
+  m_Color: {r: 0.9529412, g: 0.9529412, b: 0.9529412, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

@@ -8,8 +8,6 @@ namespace Workspace.Notebook
 
         public void ChangeContent(GameObject pagePrefab)
         {
-            Destroy(_currentPage);
-
             if (pagePrefab == null)
             {
                 return;

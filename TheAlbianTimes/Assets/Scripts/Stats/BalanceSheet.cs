@@ -58,7 +58,7 @@ public class BalanceSheet : MonoBehaviour
         var values = PlayerDataManager.Instance.CalculateRevenueComponents();
         for (int i = 0; i < values.Length; i++)
         {
-            AddLine(Country.names[i] + ":", values[i], 12f);
+            AddLine(Country.names[i] + ":", values[i], 16f);
         }
 
         float cost = PlayerDataManager.Instance.CalculateCosts();

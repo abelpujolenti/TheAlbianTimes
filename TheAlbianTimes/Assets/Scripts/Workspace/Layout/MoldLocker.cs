@@ -26,6 +26,11 @@ namespace Workspace.Layout
 
             float pressedHeightMultiplier = .75f;
             rectTransform.sizeDelta = _newsPaperMold.IsDraggable() ? new Vector2(rectTransform.sizeDelta.x, rectTransform.sizeDelta.y * pressedHeightMultiplier) : new Vector2(rectTransform.sizeDelta.x, rectTransform.sizeDelta.y / pressedHeightMultiplier);
+        
+            if (GameManager.Instance.GetRound() == 0)
+            {
+                _newsPaperMold.Nudge();
+            }
         }
 
         private void Update()

@@ -22,6 +22,7 @@ namespace Workspace.Mail
 
         private EnvelopeContent _envelopeContent;
 
+        private int _country;
         private int _jointId;
 
         private bool _hover;
@@ -148,6 +149,16 @@ namespace Workspace.Mail
         public EnvelopeContentType GetEnvelopeContentType()
         {
             return _envelopeContentType;
+        }
+
+        public void SetCountry(int country)
+        {
+            _country = country;
+        }
+
+        public int GetCountry()
+        {
+            return _country;
         }
 
         public void SetJointId(int jointId)

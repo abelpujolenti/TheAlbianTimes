@@ -277,7 +277,7 @@ MonoBehaviour:
   hoverable: 1
   clickable: 1
   _textMeshPro: {fileID: 1392757449047932225}
-  newsFolder: {fileID: 0}
+  _newsFolder: {fileID: 0}
   _image: {fileID: 5529821363963962048}
   _cap: {fileID: 4587410891916809666}
   openCapOffset: {x: -0.8, y: 0, z: 0}
@@ -286,7 +286,7 @@ MonoBehaviour:
   separateCapOffset: {x: -1.7, y: 1.5, z: 0}
   separateCapRotation: -12
   separateCapTime: 0.18
-  markAnimationStart: {x: 0.4, y: 0.1, z: 90}
+  markAnimationStartPos: {x: 2.6, y: 0.1, z: 90}
   markAnimationWidth: 3
   markAnimationHeight: 4
   markAnimationPassMinHeight: 0.9
@@ -299,6 +299,7 @@ MonoBehaviour:
   markAnimationReturnTime: 0.3
   resetBiasWiggleIntensity: 25
   resetBiasWiggleTime: 0.25
+  _selected: 0
 --- !u!95 &2397013507912438976
 Animator:
   serializedVersion: 5

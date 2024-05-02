@@ -231,7 +231,7 @@ MonoBehaviour:
   speed: 260
   minVelocity: 6
   maxVelocity: 30
-  deceleration: -60
+  deceleration: -50
   maxAngularUnscaledVelocity: 1.5
   spinFactor: 30
   grabRotationSnapBackTime: 0.2

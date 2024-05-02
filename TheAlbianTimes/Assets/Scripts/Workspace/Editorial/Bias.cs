@@ -40,7 +40,7 @@ namespace Workspace.Editorial
         [SerializeField] private float separateCapRotation = -22f;
         [SerializeField] private float separateCapTime = 0.25f;
         [Header("Marker Animation")]
-        [SerializeField] private Vector3 markAnimationStart = new Vector3(.4f, .5f, 90f);
+        [SerializeField] private Vector3 markAnimationStartPos = new Vector3(1.4f, .1f, 90f);
         [SerializeField] private float markAnimationWidth = 1f;
         [SerializeField] private float markAnimationHeight = 2f;
         [SerializeField] private float markAnimationPassMinHeight = .15f;
@@ -190,7 +190,7 @@ namespace Workspace.Editorial
             _markAnimationRunning = true;
             yield return new WaitForSeconds(markAnimationStartDelay);
             StartCoroutine(TransformUtility.SetRotationCoroutine(_image.transform, 0f, markAnimationStartTime));
-            yield return TransformUtility.SetPositionCoroutine(_image.transform, _image.transform.position, markAnimationStart, markAnimationStartTime);
+            yield return TransformUtility.SetPositionCoroutine(_image.transform, _image.transform.position, markAnimationStartPos, markAnimationStartTime);
 
             float y = 0f;
             while (y <= markAnimationHeight)
@@ -256,7 +256,7 @@ namespace Workspace.Editorial
         public void SelectBias()
         {
             BiasButtonStuff(true);
-            _textMeshPro.fontStyle = FontStyles.Underline;
+            //_textMeshPro.fontStyle = FontStyles.Underline;
         }
 
         private void UnselectBias()

@@ -38,6 +38,7 @@ namespace Menus
         public void MainMenuButton()
         {
             //Time.timeScale = 1;
+            _paused = false;
             AudioManager.Instance.StopLoopingAudio(GameManager.Instance.musicAudioId);
             GameManager.Instance.musicAudioId = -1;
             Destroy(gameObject);

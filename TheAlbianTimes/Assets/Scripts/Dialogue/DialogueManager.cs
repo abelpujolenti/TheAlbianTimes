@@ -49,6 +49,7 @@ namespace Dialogue
             bool loaded = LoadDialogue();
             if (!loaded)
             {
+                GameManager.Instance.AddToRound();
                 GameManager.Instance.sceneLoader.SetScene("WorkspaceScene");
                 return;
             }

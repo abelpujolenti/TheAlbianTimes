@@ -15,9 +15,9 @@ namespace Workspace.Mail
         private const String OPEN_DRAWER_SOUND = "Open Drawer";
         private const String CLOSE_DRAWER_SOUND = "Close Drawer";
         
-        [SerializeField] private float maxX = -10f;
-        [SerializeField] private float minX = -14.7f;
-        [SerializeField] private float isOpenThreshold = -13.5f;
+        [SerializeField] private float maxX = -9.33f;
+        [SerializeField] private float minX = -13.1f;
+        [SerializeField] private float isOpenThreshold = -11.5f;
         [SerializeField] private float openTime = 1f;
         [SerializeField] private float closeTime = .8f;
         private Coroutine _moveContainerCoroutine;
@@ -54,6 +54,11 @@ namespace Workspace.Mail
             _envelopesContent = new List<GameObject>();
             
             _envelopesContainerRectTransform.GetWorldCorners(_corners);
+
+            for (int i = 0; i < _corners.Length; i++)
+            {
+                Instantiate(new GameObject(), _corners[i], new Quaternion());
+            }
             
             SetContainerLimiters();
 
@@ -114,14 +119,13 @@ namespace Workspace.Mail
             {
                 StopCoroutine(_moveContainerCoroutine);
             }
+            
             if (IsOpen())
             {
                 CloseContainer();
+                return;
             }
-            else
-            {
-                OpenContainer();
-            }
+            OpenContainer();
         }
 
         private void OpenContainer()
@@ -152,25 +156,35 @@ namespace Workspace.Mail
             gameObjectToDrag.transform.position = endPos;
         }
 
-        public bool IsOpen()
+        private bool IsOpen()
         {
             return gameObjectToDrag.transform.position.x > isOpenThreshold;
         }
         
-        private Vector2 PositionInsideContainer()
+        private Vector2 PositionInsideContainer(Vector2 size)
         {
             Vector2 position;
-
-            position.x = Random.Range(_containerMinCoordinates.x, _containerMaxCoordinates.x);
-            position.y = Random.Range(_containerMinCoordinates.y, _containerMaxCoordinates.y);
-
+            
+            position.x = Random.Range(_containerMinCoordinates.x + size.x, _containerMaxCoordinates.x - size.x);
+            position.y = Random.Range(_containerMinCoordinates.y + size.y, _containerMaxCoordinates.y - size.y);
+            
             return position;
         }
 
         private void ReceiveEnvelope(GameObject envelope)
         {
             _envelopes.Add(envelope);
-            envelope.transform.position = PositionInsideContainer();
+
+            RectTransform envelopRectTransform = envelope.GetComponent<RectTransform>();
+
+            Vector3[] envelopeCorners = new Vector3[4]; 
+
+            envelopRectTransform.GetWorldCorners(envelopeCorners);
+
+            Vector2 size = new Vector2(Math.Abs(envelopeCorners[0].x - envelopeCorners[2].x), Math.Abs(envelopeCorners[1].y - envelopeCorners[3].y));
+            
+            envelope.transform.position = PositionInsideContainer(size);
+            
             envelope.GetComponent<Envelope>().SetCanvas(_envelopesContainerRectTransform.gameObject.GetComponent<Canvas>());
         }
 
@@ -186,10 +200,26 @@ namespace Workspace.Mail
             SetEnvelopeContentProperties(envelopeContent);
         }
 
+        private bool IsInsideCoordinates(Vector2 point)
+        {
+            return point.x > _containerMinCoordinates.x && point.x < _containerMaxCoordinates.x &&
+                   point.y > _containerMinCoordinates.y && point.y < _containerMaxCoordinates.y;
+        }
+
         private void SetEnvelopeContentProperties(GameObject envelopeContent)
         {
             envelopeContent.transform.SetParent(_envelopesContainerRectTransform);
-            envelopeContent.transform.position = PositionInsideContainer();
+
+            RectTransform envelopeContentRectTransform = envelopeContent.GetComponent<RectTransform>();
+
+            Vector3[] envelopeCorners = new Vector3[4]; 
+
+            envelopeContentRectTransform.GetWorldCorners(envelopeCorners);
+
+            Vector2 size = new Vector2(Math.Abs(envelopeCorners[0].x - envelopeCorners[2].x), Math.Abs(envelopeCorners[1].y - envelopeCorners[3].y));
+            
+            envelopeContent.transform.position = PositionInsideContainer(size);
+            
             envelopeContent.GetComponent<EnvelopeContent>().SetCanvas(_envelopesContainerRectTransform.gameObject.GetComponent<Canvas>());
         }
 

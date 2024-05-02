@@ -5078,6 +5078,71 @@ MonoBehaviour:
     _name: Music
     _volume: 0.109
     _pitch: 1
+  - _audioClip: {fileID: 8300000, guid: e42d53ffc0cf42f4680ffc167aa39158, type: 3}
+    audioGroup: 2
+    _name: Office0
+    _volume: 0.109
+    _pitch: 1
+  - _audioClip: {fileID: 8300000, guid: 8d2c271aea518e0429a33dfe5b7fc579, type: 3}
+    audioGroup: 2
+    _name: Office1
+    _volume: 1
+    _pitch: 1
+  - _audioClip: {fileID: 8300000, guid: 1a0f04ed70d5dad44a8e54217257cfd7, type: 3}
+    audioGroup: 2
+    _name: Office2
+    _volume: 1
+    _pitch: 1
+  - _audioClip: {fileID: 8300000, guid: d1b1939f8ea5ab744910cedac6cec16c, type: 3}
+    audioGroup: 2
+    _name: Office3
+    _volume: 1
+    _pitch: 1
+  - _audioClip: {fileID: 8300000, guid: 434b38145cf580d4ba5b6ff5726e9a4a, type: 3}
+    audioGroup: 2
+    _name: Office4
+    _volume: 1
+    _pitch: 1
+  - _audioClip: {fileID: 8300000, guid: e6bb1d42d4a9afe4791686690a174ce8, type: 3}
+    audioGroup: 2
+    _name: Office5
+    _volume: 1
+    _pitch: 1
+  - _audioClip: {fileID: 8300000, guid: e85e395588bf7fb47bf55f8d52de1386, type: 3}
+    audioGroup: 2
+    _name: Office6
+    _volume: 1
+    _pitch: 1
+  - _audioClip: {fileID: 8300000, guid: 2074ef349c5ec314ca453ce898a9e21c, type: 3}
+    audioGroup: 2
+    _name: Office7
+    _volume: 1
+    _pitch: 1
+  - _audioClip: {fileID: 8300000, guid: c88c3f274fd274b4db48c88f795bc40e, type: 3}
+    audioGroup: 2
+    _name: Office8
+    _volume: 1
+    _pitch: 1
+  - _audioClip: {fileID: 8300000, guid: 8df1f34f548de134989f076c8385b659, type: 3}
+    audioGroup: 2
+    _name: Office9
+    _volume: 1
+    _pitch: 1
+  - _audioClip: {fileID: 8300000, guid: 2594839aaacadd747a8d9fea2e485015, type: 3}
+    audioGroup: 2
+    _name: Office10
+    _volume: 1
+    _pitch: 1
+  - _audioClip: {fileID: 8300000, guid: 948b023025e396b47914a8c7a2167a33, type: 3}
+    audioGroup: 2
+    _name: Office11
+    _volume: 1
+    _pitch: 1
+  - _audioClip: {fileID: 8300000, guid: 823710c0f7dc46b47ae3fbad84eec58f, type: 3}
+    audioGroup: 1
+    _name: Office12
+    _volume: 1
+    _pitch: 1
 --- !u!4 &1318108280
 Transform:
   m_ObjectHideFlags: 0

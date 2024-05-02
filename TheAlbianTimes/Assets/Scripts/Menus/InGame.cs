@@ -1,3 +1,4 @@
+using System;
 using Managers;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,6 +12,8 @@ namespace Menus
 
         private GameObject _currentActivePanel;
 
+        private bool _paused;
+
         private void Start()
         {
             _currentActivePanel = _mainMenu;
@@ -19,20 +22,22 @@ namespace Menus
 
         public void PauseButton()
         {
+            _paused = true;
             _mainMenu.SetActive(true);
             //Time.timeScale = 0;
         }
 
         public void ResumeButton()
         {
+            _paused = false;
+            ChangeCurrentActivePanel(_mainMenu);
+            _mainMenu.SetActive(false);
             //Time.timeScale = 1;
         }
 
         public void MainMenuButton()
         {
             //Time.timeScale = 1;
-            AudioManager.Instance.StopLoopingAudio(GameManager.Instance.roomToneAudioId);
-            GameManager.Instance.roomToneAudioId = -1;
             AudioManager.Instance.StopLoopingAudio(GameManager.Instance.musicAudioId);
             GameManager.Instance.musicAudioId = -1;
             Destroy(gameObject);
@@ -50,6 +55,27 @@ namespace Menus
         public void GoBack()
         {
             ChangeCurrentActivePanel(_mainMenu);
+        }
+
+        public void OnGUI()
+        {
+            Event currentEvent = Event.current;
+            if (!currentEvent.isKey || currentEvent.type != EventType.KeyDown)
+            {
+                return;
+            }
+
+            if (currentEvent.keyCode != KeyCode.Escape)
+            {
+                return;
+            }
+
+            if (!_paused)
+            {
+                PauseButton();
+                return;
+            }
+            ResumeButton();
         }
     }
 }

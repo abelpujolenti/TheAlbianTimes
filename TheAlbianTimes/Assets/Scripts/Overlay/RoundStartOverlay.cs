@@ -10,7 +10,6 @@ namespace Overlay
     public class RoundStartOverlay : MonoBehaviour
     {
         private const string ENTER_OFFICE = "Enter Office";
-        private const string ROOM_TONE = "Room Tone";
         private const string MUSIC = "Music";
         
         [SerializeField] private GameObject fadeOverlay;
@@ -60,10 +59,6 @@ namespace Overlay
             fadeOverlayText.gameObject.SetActive(false);
 
             AudioManager.Instance.ChangeAudioSnapshot(AudioSnapshots.WORKSPACE, 1f);
-            if (GameManager.Instance.roomToneAudioId == -1)
-            {
-                //GameManager.Instance.roomToneAudioId = AudioManager.Instance.Play3DLoopSound(ROOM_TONE, 10, 10000, new Vector2(7f, 20f), 5000);
-            }
 
             if (GameManager.Instance.musicAudioId == -1)
             {

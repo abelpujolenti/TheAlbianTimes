@@ -441,6 +441,21 @@ namespace Workspace.Layout
             }
         }
 
+        public void Nudge()
+        {
+            StartCoroutine(NudgeCoroutine());
+        }
+
+        private IEnumerator NudgeCoroutine()
+        {
+            Vector3 offset = new Vector3(.4f, 0f, 0f);
+            Vector3 pos = transform.position;
+            yield return TransformUtility.SetPositionCoroutine(transform, transform.position, pos - offset, .2f);
+            yield return TransformUtility.SetPositionCoroutine(transform, transform.position, pos + offset, .3f);
+            yield return TransformUtility.SetPositionCoroutine(transform, transform.position, pos - offset * 0.6f, .18f);
+            yield return TransformUtility.SetPositionCoroutine(transform, transform.position, pos, .1f);
+        }
+
         public bool IsDraggable() 
         {
             return draggable;

@@ -5139,7 +5139,7 @@ MonoBehaviour:
     _volume: 1
     _pitch: 1
   - _audioClip: {fileID: 8300000, guid: 823710c0f7dc46b47ae3fbad84eec58f, type: 3}
-    audioGroup: 1
+    audioGroup: 2
     _name: Office12
     _volume: 1
     _pitch: 1

@@ -256,7 +256,7 @@ namespace Workspace.Editorial
         public void SelectBias()
         {
             BiasButtonStuff(true);
-            _textMeshPro.fontStyle = FontStyles.Underline;
+            //_textMeshPro.fontStyle = FontStyles.Underline;
         }
 
         private void UnselectBias()

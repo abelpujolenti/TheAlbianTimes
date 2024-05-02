@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Workspace.Editorial;
 
 namespace Managers
@@ -10,10 +11,9 @@ namespace Managers
         private static EditorialManager _instance;
 
         public static EditorialManager Instance => _instance;
-
-        private NewsFolder _newsFolder;
         
-        private GameObject _biasContainerCanvas;
+        [SerializeField] private GameObject _biasContainerGameObject;
+        [SerializeField] private BiasContainer _biasContainer;
 
         private List<int> _linkIds = new List<int>();
 
@@ -29,28 +29,18 @@ namespace Managers
             }
         }
 
-        public void SetNewsFolder(NewsFolder newsFolder)
-        {
-            _newsFolder = newsFolder;
-        }
-
-        public void SetBiasContainerCanvas(GameObject biasContainerCanvasGameObject)
-        {
-            _biasContainerCanvas = biasContainerCanvasGameObject;
-        }
-
         public void TurnOnBiasContainer()
         {
-            if (_biasContainerCanvas.activeSelf)
+            if (_biasContainerGameObject.activeSelf)
             {
                 return;
             }
-            _biasContainerCanvas.SetActive(true);
+            _biasContainerGameObject.SetActive(true);
         }
 
         public void TurnOffBiasContainer()
         {
-            _biasContainerCanvas.SetActive(false);
+            _biasContainerGameObject.SetActive(false);
         }
 
         public void AddLinkId(int linkId)

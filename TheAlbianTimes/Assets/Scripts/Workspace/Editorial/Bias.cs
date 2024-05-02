@@ -72,7 +72,6 @@ namespace Workspace.Editorial
 
         void Start()
         {
-
             _textMeshPro.text = _text;
 
             _siblingIndex = transform.GetSiblingIndex();

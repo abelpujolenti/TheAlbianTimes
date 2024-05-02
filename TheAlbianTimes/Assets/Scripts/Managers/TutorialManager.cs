@@ -11,7 +11,7 @@ namespace Managers
         [SerializeField] GameObject mail;
         [SerializeField] GameObject statOverlay;
         [SerializeField] GameObject folder;
-        [SerializeField] Canvas biasContainerCanvas;
+        [SerializeField] private GameObject _biasContainer;
         [SerializeField] private Transform _cameraTransform;
         void Start()
         {
@@ -47,7 +47,7 @@ namespace Managers
         private void LockBiases()
         {
             if (GameManager.Instance.GetRound() != 0) return;
-            biasContainerCanvas.enabled = false;
+            _biasContainer.SetActive(false);
             StartCoroutine(CameraNudgeCoroutine(1.3f, 1f, 2f));
             EventsManager.OnChangeNewsHeadlineContent -= LockBiases;
         }

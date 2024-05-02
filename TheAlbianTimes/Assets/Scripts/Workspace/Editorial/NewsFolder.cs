@@ -42,7 +42,6 @@ namespace Workspace.Editorial
             _rectTransform.GetWorldCorners(_corners);
             _camera = Camera.main;
             SetContainerLimiters();
-            EditorialManager.Instance.SetNewsFolder(this);
         }
 
         private void AddNewsHeadlineGameObject(GameObject newsHeadlineGameObject)
@@ -204,9 +203,9 @@ namespace Workspace.Editorial
                 FOLDER_NEWS_MIN_Y_COORDINATE, FOLDER_NEWS_MAX_Y_COORDINATE);
         }
 
-        public void ReturnNewsHeadline(NewsHeadline newsHeadline, int folderOrderIndex, bool wasOnFolder)
+        public void ReturnNewsHeadline(NewsHeadline newsHeadline, int folderOrderIndex, bool wasInFolder)
         {
-            if (!wasOnFolder)
+            if (!wasInFolder)
             {
                 _newsHeadlinesOutOfFolder--;
             }
@@ -221,8 +220,18 @@ namespace Workspace.Editorial
             {
                 return;
             }
+
+            if (folderOrderIndex != 0)
+            {
+                return;
+            }
             
             EditorialManager.Instance.TurnOnBiasContainer();
+
+            if (wasInFolder)
+            {
+                return;
+            }
 
             NewsHeadline frontNewsHeadline = _newsHeadlines[0];
             ChangeBias(frontNewsHeadline.GetChosenBiasIndex(), frontNewsHeadline.GetBiasesNames(), 

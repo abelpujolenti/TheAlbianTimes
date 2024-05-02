@@ -25,7 +25,7 @@ namespace Workspace.Editorial
         private const String THUD_SOUND = "Thud";
         private const String SUBMIT_PAPER_SOUND = "Submit Paper";
         
-        private const float CHANGE_CONTENT_Y_COORDINATE = 360;
+        private const float CHANGE_CONTENT_Y_COORDINATE = 385;
         private const float SPEED_MOVEMENT = 15;
         private const float TIME_TO_SLIDE = 2f;
         private const float Y_DISTANCE_TO_MOVE_ON_HOVER = 10f;
@@ -84,7 +84,7 @@ namespace Workspace.Editorial
         private bool _transferDrag;
         private bool _sendToChange;
         private bool _modified;
-        private bool _onFolder = true;
+        private bool _onFolder;
         private bool _subscribed;
 
         void Start()
@@ -566,7 +566,7 @@ namespace Workspace.Editorial
 
             _origin = _destination;
 
-            _newsFolder.ReturnNewsHeadline(this, _folderOrderIndex,_onFolder);
+            _newsFolder.ReturnNewsHeadline(this, _folderOrderIndex, _onFolder);
             _rotate = true;
             _onFolder = true;
         }
@@ -775,11 +775,6 @@ namespace Workspace.Editorial
         public bool GetTransferDrag()
         {
             return _transferDrag;
-        }
-
-        public bool WasOnFolder()
-        {
-            return _onFolder;
         }
         
         private Vector2 DistanceToPosition(Vector2 position)

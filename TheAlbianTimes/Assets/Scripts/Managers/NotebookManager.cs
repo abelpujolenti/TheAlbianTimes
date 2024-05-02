@@ -579,7 +579,7 @@ namespace Managers
                 Destroy(_leftPage.GetCurrentPage());
                 GameObject page = Instantiate(_coverPrefab);
                 _leftPage.ChangeContent(page);
-                page.transform.localRotation = new Quaternion(0, 0, 0, 1);
+                page.transform.localRotation = new Quaternion(0, 180, 0, 1);
             };
         }
 

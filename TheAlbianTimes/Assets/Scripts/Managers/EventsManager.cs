@@ -23,6 +23,7 @@ namespace Managers
         
         #region LayoutEvents
         
+        public static Action <NewsHeadlineSubPiece, Vector2, NewsHeadlineSubPiece[]> OnDraggingPiece;
         public static Func <NewsHeadlineSubPiece, Vector2, NewsHeadlineSubPiece[], Cell[]> OnPreparingCells;
         public static Func <Cell[], NewsHeadline, GameObject, Vector3> OnSuccessfulSnap;
         public static Action <NewsHeadline> OnGrabSnappedPiece;
@@ -31,14 +32,13 @@ namespace Managers
 
         #region EditorialEvents
         
-        public static Action OnChangeSelectedBias;
-        public static Action <int> OnChangeSelectedBiasIndex;
+        public static Action OnChangeChosenBias;
+        public static Action <int> OnChangeChosenBiasIndex;
         public static Action OnChangeNewsHeadlineContent;
         public static Action <GameObject> OnAddNewsHeadlineToFolder;
         public static Action <int> OnChangeFrontNewsHeadline;
         public static Action <String[], String[], int> OnSettingNewBiases;
         public static Action OnChangeFolderOrderIndexWhenGoingToFolder;
-        public static Action <NewsHeadline, Vector3> OnDropNewsHeadline;
         public static Action <int> OnLinkFouthBiasWithNewsHeadline;
 
         #endregion

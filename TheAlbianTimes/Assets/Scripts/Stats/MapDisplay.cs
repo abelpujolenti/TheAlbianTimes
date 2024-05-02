@@ -4,6 +4,7 @@ using Managers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Utility;
 
 namespace Stats
 {
@@ -17,7 +18,9 @@ namespace Stats
         [SerializeField] private Image mapImage;
         [SerializeField] private Image fadeImage;
         private Image[] mapFolds;
-        private GameObject[] statsDisplayObjects;
+        [SerializeField] private GameObject[] statsDisplayObjects;
+        [SerializeField] private TextMeshProUGUI[] _reputations;
+        [SerializeField] private Image[] _statModificationIcon;
         const int folds = 4;
 
         [SerializeField] private float unfoldTime = .8f;
@@ -26,17 +29,8 @@ namespace Stats
         [SerializeField] private float foldMinBrightness = .2f;
         [SerializeField] private float showStatsTime = .3f;
 
-        private AudioSource _audioSourceMapUnfold;
-
         private void Start()
         {
-            GameObject statsDisplayRoot = mapImage.transform.Find("Stats").gameObject;
-            statsDisplayObjects = new GameObject[statsDisplayRoot.transform.childCount];
-            for (int i = 0; i < statsDisplayObjects.Length; i++)
-            {
-                statsDisplayObjects[i] = statsDisplayRoot.transform.GetChild(i).gameObject;
-            }
-
             SetMapStage();
 
             mapImage.gameObject.SetActive(false);
@@ -51,19 +45,12 @@ namespace Stats
             ev.Value.Run();
         }*/
 
-            _audioSourceMapUnfold = gameObject.AddComponent<AudioSource>();
-            (AudioSource, string)[] tuples = {
-                (_audioSourceMapUnfold, MAP_UNFOLD)
-            };
-
-            SoundManager.Instance.SetMultipleAudioSourcesComponents(tuples);
-
         }
 
         private void SetMapStage()
         {
             int index;
-            switch (GameManager.Instance.GetRound())
+            switch (GameManager.Instance.GetRound() + 1)
             {
                 case 0:
                 case 1:
@@ -139,7 +126,7 @@ namespace Stats
 
             yield return new WaitForSeconds(unfoldDelay);
 
-            _audioSourceMapUnfold.Play();
+            AudioManager.Instance.Play2DSound(MAP_UNFOLD);
 
             for (int i = 0; i < mapFolds.Length; i++)
             {
@@ -161,9 +148,25 @@ namespace Stats
             for (int i = 0; i < statsDisplayObjects.Length; i++)
             {
                 if (!statsDisplayObjects[i].activeSelf) continue;
-                TextMeshProUGUI reputationText = statsDisplayObjects[i].transform.Find("reputation").GetComponent<TextMeshProUGUI>();
                 Country country = GameManager.Instance.gameState.countries[i];
-                reputationText.text = "Rep: <b>" + country.GetReputation().ToString("p0") + "</b> " + StatFormat.FormatValueChange(country.GetValueChange("reputation"));
+                float value = country.GetValueChange("reputation");
+                Sprite statModificationIcon;
+                if (value == 0)
+                {
+                    statModificationIcon = Resources.Load<Sprite>("Images/Icons/StatNeutral");
+                }
+                else if (value > 0)
+                {
+                    statModificationIcon = Resources.Load<Sprite>("Images/Icons/StatIncrease");
+                }
+                else
+                {
+                    statModificationIcon = Resources.Load<Sprite>("Images/Icons/StatDecrease");
+                }
+
+                _statModificationIcon[i].sprite = statModificationIcon;
+                _statModificationIcon[i].type = Image.Type.Simple;
+                _reputations[i].text = "Rep: <b>" + country.GetReputation().ToString("p0") + "</b> " + StatFormat.FormatValueChange(value);
             }
         } 
 
@@ -174,7 +177,9 @@ namespace Stats
             {
                 foreach (Image image in mapFolds)
                 {
-                    image.color = new Color(image.color.r, image.color.g, image.color.b, 1f - elapsedT / t);
+                    Color color = image.color;
+                    color.a = 1f - elapsedT / t;
+                    image.color = color;
                 }
 
                 yield return new WaitForFixedUpdate();
@@ -219,6 +224,23 @@ namespace Stats
 
         public void Finish()
         {
+            StartCoroutine(FinishCoroutine(1f));
+        }
+        private IEnumerator FinishCoroutine(float t)
+        {
+            fadeImage.gameObject.SetActive(true);
+            fadeImage.color = new Color(0f, 0f, 0f, 0f);
+
+            float elapsedT = 0f;
+            while (elapsedT <= t)
+            {
+                fadeImage.color = ColorUtil.Alpha(Color.black, Mathf.Pow(elapsedT / t, 2f));
+
+                yield return new WaitForFixedUpdate();
+                elapsedT += Time.fixedDeltaTime;
+            }
+            fadeImage.color = Color.black;
+
             GameManager.Instance.sceneLoader.SetScene("DialogueScene");
         }
     }

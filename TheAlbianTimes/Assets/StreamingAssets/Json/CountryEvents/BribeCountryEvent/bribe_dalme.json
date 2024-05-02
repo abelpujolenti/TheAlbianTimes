@@ -1,0 +1,14 @@
+{
+    "id": "bribe_dalme",
+    "bribeAmount": 1500,
+    "priority": 1,
+    "triggerCountry": 4,
+    "conditions": [
+        {
+            "entityId": 4,
+            "field": "reputation",
+            "predicate": 2,
+            "value": 0.3
+        }
+    ]
+}

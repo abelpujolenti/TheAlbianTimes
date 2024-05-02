@@ -29,7 +29,6 @@ namespace Workspace.Notebook
         protected override void PointerClick(BaseEventData data)
         {
             base.PointerClick(data);
-            notebook.ClickFromBooknote(_page);
             NotebookManager.Instance.OnClickBookmark(this, _page);
             MoveDown();
         }

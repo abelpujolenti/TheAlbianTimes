@@ -1,0 +1,14 @@
+{
+    "id": "bribe_xaya",
+    "bribeAmount": 2000,
+    "priority": 1,
+    "triggerCountry": 2,
+    "conditions": [
+        {
+            "entityId": 2,
+            "field": "reputation",
+            "predicate": 2,
+            "value": 0.3
+        }
+    ]
+}

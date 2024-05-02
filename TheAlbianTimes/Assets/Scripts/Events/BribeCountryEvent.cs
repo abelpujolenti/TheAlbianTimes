@@ -13,6 +13,7 @@ public class BribeCountryEvent : CountryEvent
         Dictionary<EnvelopeContentType, BaseMailContainer> mailToSend = new Dictionary<EnvelopeContentType, BaseMailContainer>();
         MailContentBribe mailContent = new MailContentBribe();
         mailContent.totalMoney = bribeAmount;
+        mailContent.country = (int)triggerCountry;
         BribesMailContainer mailContainer = new BribesMailContainer();
         mailContainer.SetContent(new MailContentBribe[] { mailContent });
 

@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Managers;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Workspace.Layout.Pieces;
 using Random = UnityEngine.Random;
@@ -12,32 +14,30 @@ namespace Workspace.Editorial
     public class BiasContainer : MonoBehaviour
     {
         private const String POST_IT_SOUND = "Post it";
+        private const int MAX_POSTITS_PER_COLOR = 2;
         
         [SerializeField] private Bias[] _bias;
 
-        [SerializeField] private GameObject _biasDescriptionRoot;
+        [SerializeField] private RectTransform[] _biasesDescriptionRectTransform;
         [SerializeField] private Transform _biasDescriptionPostitPrefab;
 
+        [SerializeField] private GameObject _biasContainer;
+
         [SerializeField] private NewsFolder _newsFolder;
-        
-        [SerializeField] private Tray _tray;
+
+        private Dictionary<int, Queue<Postit>> _postitsPools;
 
         private string[] _biasesDescriptions;
 
         private int _totalBiasesToActive;
 
-        private int maxPostits = 4;
-
         [SerializeField] private float postitInitialScale = 3f;
         [SerializeField] private float postitScaleAnimationTime = .2f;
         [SerializeField] private float postitAppearDelay = .5f;
 
-        private AudioSource _audioSourcePostit;
-
         private void OnEnable()
         {
-            EventsManager.OnChangeFrontNewsHeadline += ChangeSelectedBias;
-            EventsManager.OnChangeSelectedBiasIndex += ChangeBiasDescription;
+            EventsManager.OnChangeFrontNewsHeadline += ChangeChosenBias;
             EventsManager.OnSettingNewBiases += SetBias;
 
             FixPostitScale();
@@ -45,25 +45,14 @@ namespace Workspace.Editorial
 
         private void OnDisable()
         {
-            EventsManager.OnChangeFrontNewsHeadline -= ChangeSelectedBias;
-            EventsManager.OnChangeSelectedBiasIndex -= ChangeBiasDescription;
+            EventsManager.OnChangeFrontNewsHeadline -= ChangeChosenBias;
             EventsManager.OnSettingNewBiases -= SetBias;
-        }
-
-        private void Awake()
-        {
-            EditorialManager.Instance.SetBiasContainerCanvas(gameObject);
-            gameObject.SetActive(false);
         }
 
         private void Start()
         {
-            _audioSourcePostit = gameObject.AddComponent<AudioSource>();
-            (AudioSource, String)[] tuples =
-            {
-                (_audioSourcePostit, POST_IT_SOUND)
-            };
-            SoundManager.Instance.SetMultipleAudioSourcesComponents(tuples);
+            InitializePostits();
+            
             foreach (Bias bias in _bias)
             {
                 bias.SetBiasContainer(this);
@@ -73,6 +62,13 @@ namespace Workspace.Editorial
         private void SetBias(string[] biasesNames, string[] biasesDescriptions, int totalBiasesToActivate)
         {
             GameObject bias;
+
+            Postit[] previousPostits = new Postit[_postitsPools.Count];
+
+            for (int i = 0; i < _postitsPools.Count; i++)
+            {
+                previousPostits[i] = _postitsPools[i].Dequeue();
+            }
 
             for (int i = 0; i < _bias.Length; i++)
             {
@@ -87,99 +83,88 @@ namespace Workspace.Editorial
                     }
 
                     bias.SetActive(true);
+                    continue;
                 }
-                else
+                
+                if (!bias.activeSelf)
                 {
-                    if (bias.activeSelf)
-                    {
-                        bias.SetActive(false);
-                    }
+                    continue;
                 }
+                bias.SetActive(false);
             }
 
-            _biasesDescriptions = new string[biasesDescriptions.Length];
             _biasesDescriptions = biasesDescriptions;
+
+            for (int i = 0; i < _postitsPools.Count; i++)
+            {
+                Postit previousPostit = previousPostits[i]; 
+                
+                if (i < _biasesDescriptions.Length)
+                {
+                    StartCoroutine(SpawnPostitCoroutine(i, postitAppearDelay, previousPostit));
+                    continue;
+                }
+                
+                previousPostit.StartThrowAway();
+                _postitsPools[i].Enqueue(previousPostit);
+            }
         }
 
-        private void ChangeSelectedBias(int newSelectedBiasIndex)
+        private void ChangeChosenBias(int newChosenBiasIndex)
         {
-            if (EventsManager.OnChangeSelectedBias != null)
+            if (EventsManager.OnChangeChosenBias != null)
             {
-                EventsManager.OnChangeSelectedBias();
+                EventsManager.OnChangeChosenBias();
             }
+            
             for (int i = 0; i < _bias.Length; i++)
             {
-                if (i == newSelectedBiasIndex) {
-                    _bias[i].SelectBias();
-                }
-                else
+                if (i == newChosenBiasIndex) 
                 {
-                    _bias[i].ResetBiasUnderline();
+                    _bias[i].SelectBias();
+                    continue;
                 }
+                _bias[i].ResetBiasUnderline();
             }
-            ChangeBiasDescription(newSelectedBiasIndex);
         }
 
-        private void ChangeBiasDescription(int newSelectedBiasIndex)
+        private IEnumerator SpawnPostitCoroutine(int biasDescriptionIndex, float delay, Postit previousPostit)
         {
-            StartCoroutine(SpawnPostitCoroutine(newSelectedBiasIndex, postitAppearDelay));
-             
-            if (_newsFolder.GetFrontHeadline().GetChosenBiasIndex() != newSelectedBiasIndex)
-            {            
-                ExtendTray();
-                return;
-            }
-            HideTray(null);
-        }
-
-        private void ExtendTray()
-        {
-            _tray.Extend();
-        }
-
-        private void HideTray(GameObject newsHeadline)
-        {
-            _tray.Hide(newsHeadline);
-        }
-
-        private IEnumerator SpawnPostitCoroutine(int newSelectedBiasIndex, float delay)
-        {
+            previousPostit.StartThrowAway();
+            
             yield return new WaitForFixedUpdate();
-            yield return new WaitUntil(() => !_bias[newSelectedBiasIndex].IsMarkAnimationRunning());
+            yield return new WaitUntil(() => !_bias[biasDescriptionIndex].IsMarkAnimationRunning());
             yield return new WaitForSeconds(delay);
 
-            if (!_bias[newSelectedBiasIndex].IsSelected()) yield break;
+            Vector3 position = _biasesDescriptionRectTransform[biasDescriptionIndex].position;
+            Quaternion rotation = Quaternion.Euler(0f, 0f, (int)(Random.Range(-8f, 8f) / 2f) * 2);
+            
+            Postit postit = _postitsPools[biasDescriptionIndex].Dequeue();
+            postit.gameObject.SetActive(true);
+            _postitsPools[biasDescriptionIndex].Enqueue(postit);
+            _postitsPools[biasDescriptionIndex].Enqueue(previousPostit);
 
-            Vector3 position = _biasDescriptionRoot.transform.position;
-            Quaternion rotation = _biasDescriptionRoot.transform.childCount > 0 ? Quaternion.Euler(0f, 0f, (int)(Random.Range(-8f, 8f) / 2f) * 2) : Quaternion.identity;
-            Image biasDescriptionPostit = Instantiate(_biasDescriptionPostitPrefab, position, rotation, _biasDescriptionRoot.transform).GetComponent<Image>();
+            Transform postitTransform = postit.gameObject.transform;
 
-            if (_biasDescriptionRoot.transform.childCount > maxPostits)
-            {
-                Destroy(_biasDescriptionRoot.transform.GetChild(0).gameObject);
-            }
+            postitTransform.position = position;
+            postitTransform.rotation = rotation;
 
-            ApplyPostitShading();
+            ApplyPostitShading(postit.GetImage());
 
-            biasDescriptionPostit.color = ColorUtil.SetSaturation(PieceData.biasColors[newSelectedBiasIndex], .3f);
+            postit.SetText(_biasesDescriptions[biasDescriptionIndex]);
 
-            TextMeshProUGUI biasdescriptionText = biasDescriptionPostit.transform.Find("BiasDescriptionText").GetComponent<TextMeshProUGUI>();
-            biasdescriptionText.text = _biasesDescriptions[newSelectedBiasIndex];
-
-            _audioSourcePostit.Play();
-            yield return ScaleAnimationCoroutine(biasDescriptionPostit.transform, postitScaleAnimationTime, postitInitialScale, 1f);
+            AudioManager.Instance.Play3DSound(POST_IT_SOUND, 10, 100, transform.position);
+            yield return ScaleAnimationCoroutine(postitTransform, postitScaleAnimationTime, postitInitialScale, 1f);
         }
 
-        private void ApplyPostitShading()
+        private void ApplyPostitShading(Image postitImage)
         {
-            float v;
-            for (int i = _biasDescriptionRoot.transform.childCount - 2; i >= 0; i--)
+            /*float v;
+            for (int i = _greenBiasDescription.transform.childCount - 2; i >= 0; i--)
             {
-                Image postitImage = _biasDescriptionRoot.transform.GetChild(i).GetComponent<Image>();
-
-                v = .2f + (maxPostits - (_biasDescriptionRoot.transform.childCount - 2 - i)) * .12f;
+                v = .2f + (_maxPostits - (_greenBiasDescription.transform.childCount - 2 - i)) * .12f;
                 postitImage.color = ColorUtil.SetBrightness(postitImage.color, v);
-            }
+            }*/
         }
 
         private IEnumerator ScaleAnimationCoroutine(Transform transformToChange, float t, float start, float end)
@@ -197,11 +182,59 @@ namespace Workspace.Editorial
 
         private void FixPostitScale()
         {
-            for (int i = 0; i < _biasDescriptionRoot.transform.childCount; i++)
+            foreach (RectTransform rectTransform in _biasesDescriptionRectTransform)
             {
-                Transform t = _biasDescriptionRoot.transform.GetChild(i);
-                t.localScale = new Vector3(1f, 1f, 1f);
+                for (int j = 0; j < rectTransform.childCount; j++)
+                {
+                    Transform postitTransform = rectTransform.GetChild(j);
+                    postitTransform.localScale = new Vector3(1f, 1f, 1f);
+                }
             }
+        }
+
+        private void InitializePostits()
+        {
+            Queue<Postit> greenPostitPool = new Queue<Postit>();
+            Queue<Postit> bluePostitPool = new Queue<Postit>();
+            Queue<Postit> redPostitPool = new Queue<Postit>();
+            Queue<Postit> extraPostitPool = new Queue<Postit>();
+
+            _postitsPools = new Dictionary<int, Queue<Postit>>
+            {
+                {0, greenPostitPool},
+                {1, bluePostitPool},
+                {2, redPostitPool},
+                {3, extraPostitPool},
+            };
+
+            for (int i = 0; i < _postitsPools.Count; i++)
+            {
+                for (int j = 0; j < MAX_POSTITS_PER_COLOR; j++)
+                {
+                    Postit postit = Instantiate(_biasDescriptionPostitPrefab,_biasesDescriptionRectTransform[i]).GetComponent<Postit>();
+                    
+                    postit.gameObject.SetActive(false);
+
+                    postit.gameObject.name = i + j.ToString();
+
+                    postit.GetImage().color = ColorUtil.SetSaturation(PieceData.biasColors[i], 0.3f);
+                    
+                    _postitsPools[i].Enqueue(postit);
+                }
+            }
+        }
+
+        public void ThrowAllPostitsAway()
+        {
+            for (int i = 0; i < _postitsPools.Count; i++)
+            {
+                
+            }
+        }
+
+        private void ThowPostitAway(Transform postitTransform)
+        {
+            
         }
     }
 }

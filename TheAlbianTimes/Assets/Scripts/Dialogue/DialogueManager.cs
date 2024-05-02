@@ -4,19 +4,17 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using NoMonoBehavior;
+using Managers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Managers
+namespace Dialogue
 {
     public class DialogueManager : MonoBehaviour
     {
         private const int TOTAL_KEY_TYPES_AUDIOS = 7;
         private const String CLICK_BUTTON_SOUND = "Click Button";
-
-        private AudioSource _audioSourceChangeBias;
 
         [SerializeField] private GameObject root;
         [SerializeField] private Image character;
@@ -43,23 +41,7 @@ namespace Managers
         void Start()
         {
             ds = DialogueSystem.instance;
-            architect = new TextArchitect(ds.container.dialogueText);
-
-            AudioSource[] keyTypingAudioSources = new AudioSource[TOTAL_KEY_TYPES_AUDIOS];
-
-            for (int i = 0; i < TOTAL_KEY_TYPES_AUDIOS; i++)
-            {
-                keyTypingAudioSources[i] = gameObject.AddComponent<AudioSource>();
-            }
-
-            architect.SetKeyTypingAudioSources(keyTypingAudioSources);
-
-            _audioSourceChangeBias = gameObject.AddComponent<AudioSource>();
-            (AudioSource, String)[] tuples =
-            {
-                (_audioSourceChangeBias, CLICK_BUTTON_SOUND)
-            };
-            SoundManager.Instance.SetMultipleAudioSourcesComponents(tuples);
+            architect = new TextArchitect(ds.container.dialogueText, TOTAL_KEY_TYPES_AUDIOS);
 
             architect.speed = 0.5f;
             dialogueOptionButtons = dialogueOptionButtonsRoot.GetComponentsInChildren<DialogueOptionButton>();
@@ -67,6 +49,7 @@ namespace Managers
             bool loaded = LoadDialogue();
             if (!loaded)
             {
+                GameManager.Instance.AddToRound();
                 GameManager.Instance.sceneLoader.SetScene("WorkspaceScene");
                 return;
             }
@@ -118,7 +101,7 @@ namespace Managers
         {
             DialogueData dialogueData = JsonUtility.FromJson<DialogueData>(json);
 
-            int round = GameManager.Instance.GetRound() - 1;
+            int round = GameManager.Instance.GetRound();
 
             if (!dialogueData.ConditionsFulfilled(round)) return;
             float priority = dialogueData.priority;
@@ -131,7 +114,7 @@ namespace Managers
 
         private void DisplayNextLine()
         {
-            _audioSourceChangeBias.Play();
+            AudioManager.Instance.Play2DSound(CLICK_BUTTON_SOUND);
 
             currentLine++;
 
@@ -139,6 +122,7 @@ namespace Managers
 
             if (currentLine >= selectedDialogue.lines.Length)
             {
+                GameManager.Instance.AddToRound();
                 GameManager.Instance.sceneLoader.SetScene("WorkspaceScene");
                 return;
             }

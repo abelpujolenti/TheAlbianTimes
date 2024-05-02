@@ -14,12 +14,12 @@ namespace Utility
         [SerializeField] float spinFactor = 30f;
         [SerializeField] float grabRotationSnapBackTime = .2f;
         
-        Vector3 dragVelocity;
+        protected Vector3 dragVelocity;
         
         Coroutine slideCoroutine;
         Coroutine setRotationCoroutine;
 
-        [SerializeField]protected bool _rotate = true;
+        [SerializeField] protected bool _rotate = true;
         
         protected override void Drag(BaseEventData data)
         {
@@ -67,7 +67,7 @@ namespace Utility
             setRotationCoroutine = StartCoroutine(SetRotationCoroutine(rotation, t));
         }
 
-        private IEnumerator SlideCoroutine()
+        protected virtual IEnumerator SlideCoroutine()
         {
             float slideVelocity = Mathf.Min(maxVelocity, dragVelocity.magnitude * speed);
             Vector3 direction = dragVelocity.normalized;

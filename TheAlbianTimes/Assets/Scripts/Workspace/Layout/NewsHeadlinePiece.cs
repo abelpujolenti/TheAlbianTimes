@@ -3,6 +3,7 @@ using System.Collections;
 using Managers;
 using NoMonoBehavior;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using Workspace.Editorial;
 
 namespace Workspace.Layout
@@ -39,25 +40,12 @@ namespace Workspace.Layout
         private bool _rotate;
         private bool _transferDrag;
         private bool _subscribed;
-
-        private AudioSource _audioSourceGrabPiece;
-        private AudioSource _audioSourceDropPieceInBox;
-        private AudioSource _audioSourceSnapPiece;
+        private bool _dragging;
 
         private Camera _camera;
 
         private void Start()
         {
-            _audioSourceGrabPiece = gameObject.AddComponent<AudioSource>();
-            _audioSourceDropPieceInBox = gameObject.AddComponent<AudioSource>();
-            _audioSourceSnapPiece = gameObject.AddComponent<AudioSource>();
-            (AudioSource, String)[] tuples =
-            {
-                (_audioSourceGrabPiece, GRAB_PIECE_SOUND),
-                (_audioSourceDropPieceInBox, DROP_PIECE_IN_BOX_SOUND),
-                (_audioSourceSnapPiece, SNAP_PIECE_SOUND)
-            };
-            SoundManager.Instance.SetMultipleAudioSourcesComponents(tuples);
             _newsHeadline = _newsHeadlineSubPieces[0].GetNewsHeadline();
             _newsHeadlinePiecesContainer = LayoutManager.Instance.GetNewsHeadlinePiecesContainer();
             _subPiecesPositionsRelativeToRoot = new Vector2[_newsHeadlineSubPieces.Length];
@@ -65,11 +53,11 @@ namespace Workspace.Layout
             gameObject.SetActive(false);
         }
 
-        public void BeginDrag()
+        public void BeginDrag(NewsHeadlineSubPiece draggedSubPiece, PointerEventData pointerEventData)
         {
             transform.SetAsLastSibling();
 
-            _audioSourceGrabPiece.Play();
+            AudioManager.Instance.Play3DSound(GRAB_PIECE_SOUND, 10, 100, transform.position);
 
             EventsManager.OnCheckDistanceToMouse += DistanceToPosition;
 
@@ -77,6 +65,10 @@ namespace Workspace.Layout
             {
                 newsHeadlineSubPiece.Fade(TRANSPARENCY_VALUE);
             }
+
+            _dragging = true;
+
+            StartCoroutine(SendPositionToMold(draggedSubPiece, pointerEventData));
 
             if (_snappedCells == null)
             {
@@ -98,8 +90,19 @@ namespace Workspace.Layout
             }
         }
 
+        private IEnumerator SendPositionToMold(NewsHeadlineSubPiece newsHeadlineSubPiece, PointerEventData pointerData)
+        {
+            while (_dragging)
+            {
+                EventsManager.OnDraggingPiece(newsHeadlineSubPiece, pointerData.position, _newsHeadlineSubPieces);
+                yield return null;
+            }
+        }
+
         public void EndDrag(NewsHeadlineSubPiece draggedSubPiece, Vector2 mousePosition)
         {
+            _dragging = false;
+            
             EventsManager.OnCheckDistanceToMouse -= DistanceToPosition;
             
             foreach (NewsHeadlineSubPiece newsHeadlineSubPiece in _newsHeadlineSubPieces)
@@ -118,7 +121,7 @@ namespace Workspace.Layout
             if (_snappedCells == null)
             {
                 FailSnapOnMold();
-                _audioSourceDropPieceInBox.Play();
+                AudioManager.Instance.Play3DSound(DROP_PIECE_IN_BOX_SOUND, 10, 100, transform.position);
                 return;
             }
             
@@ -133,7 +136,7 @@ namespace Workspace.Layout
                 subPiece.SetIsSnapped(true);
             }
             
-            _audioSourceSnapPiece.Play();
+            AudioManager.Instance.Play3DSound(SNAP_PIECE_SOUND, 10, 100, transform.position);
         }
 
         private void FailSnapOnMold()

@@ -1,0 +1,14 @@
+{
+    "id": "bribe_hetia",
+    "bribeAmount": 100,
+    "priority": 1,
+    "triggerCountry": 0,
+    "conditions": [
+        {
+            "entityId": 0,
+            "field": "reputation",
+            "predicate": 2,
+            "value": 0.3
+        }
+    ]
+}

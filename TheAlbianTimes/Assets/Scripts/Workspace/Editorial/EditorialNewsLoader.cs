@@ -71,8 +71,6 @@ namespace Workspace.Editorial
                 newsToCreate.Add(news.Last().Value);
                 news.RemoveAt(news.Count - 1);
             }
-            
-            EditorialManager.Instance.SetTotalNewsToLoad(newsToCreate.Count);
 
             foreach (NewsData newsDataToCreate in newsToCreate)
             {

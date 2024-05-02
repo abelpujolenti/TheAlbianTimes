@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Workspace.Layout
 {
@@ -6,14 +7,20 @@ namespace Workspace.Layout
     {
         [SerializeField] private RectTransform _rectTransform;
 
+        [SerializeField] private Image _image;
+
         private Vector2 _coordinates;
 
         private bool _isFree;
+
+        private Color _greyColor;
+        private Color _highlightColor = Color.yellow;
         
         void Start()
         {
             _rectTransform.localScale = new Vector3(1, 1, 1);
             _isFree = true;
+            _greyColor = _image.color;
         }
 
         public void SetPosition(Vector2 position, float cellSize)
@@ -68,6 +75,17 @@ namespace Workspace.Layout
         public Vector2 GetCoordinates()
         {
             return _coordinates;
+        }
+
+        public void ChangeColor(bool hovering)
+        {
+            if (hovering)
+            {
+                _image.color = _highlightColor; 
+                return;
+            }
+
+            _image.color = _greyColor;
         }
     }
 }

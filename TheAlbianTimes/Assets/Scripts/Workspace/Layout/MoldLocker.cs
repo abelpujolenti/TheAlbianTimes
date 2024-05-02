@@ -13,6 +13,7 @@ namespace Workspace.Layout
         [SerializeField] private Publisher _publisher;
 
         public bool blink = false;
+        private bool nudged = false;
 
         protected override void PointerClick(BaseEventData data)
         {
@@ -26,6 +27,12 @@ namespace Workspace.Layout
 
             float pressedHeightMultiplier = .75f;
             rectTransform.sizeDelta = _newsPaperMold.IsDraggable() ? new Vector2(rectTransform.sizeDelta.x, rectTransform.sizeDelta.y * pressedHeightMultiplier) : new Vector2(rectTransform.sizeDelta.x, rectTransform.sizeDelta.y / pressedHeightMultiplier);
+         
+            if (GameManager.Instance.GetRound() == 0 && !nudged)
+            {
+                nudged = true;
+                _newsPaperMold.Nudge();
+            }
         }
 
         private void Update()

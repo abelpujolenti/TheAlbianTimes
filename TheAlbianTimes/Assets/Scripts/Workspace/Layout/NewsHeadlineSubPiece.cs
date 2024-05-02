@@ -24,7 +24,7 @@ namespace Workspace.Layout
         private Image _image;
 
         private bool _isSnapped;
-        [SerializeField]private bool _isMoldDraggable;
+        private bool _isMoldDraggable;
 
         private new void Awake()
         {
@@ -52,8 +52,10 @@ namespace Workspace.Layout
 
             EventsManager.OnStartEndDrag(true);
             EventsManager.OnCrossMidPointWhileScrolling += GetGameObjectToTransferDrag;
+
+            PointerEventData pointerData = (PointerEventData)data;
             
-            _newsHeadlinePiece.BeginDrag();
+            _newsHeadlinePiece.BeginDrag(this, pointerData);
         }
 
         protected override void Drag(BaseEventData data)

@@ -1,0 +1,48 @@
+{
+    "name": "zuania_fossil_fuel",
+    "firstRound": 5,
+    "duration": 3,
+    "priority": 0.3,
+    "leniency": 1,
+    "type": 7,
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 3,
+            "key": "reputation",
+            "value": -0.05
+        },
+        {
+            "country": 7,
+            "key": "reputation",
+            "value": 0.05
+        }
+    ],
+    "biases": [
+        {
+            "name": "PRO-SUOKAN",
+            "description": "Due to poor management of resources from Zuania, Suokan leaders call out their destruction of the environment.",
+            "headline": "Zuania’s Energy Dependency is Horrendous",
+            "text": "    Suoka's Prime Minister launched a scathing critique against Zuania, accusing the country of negligence due to its continued reliance on fossil fuels. The minister condemned Zuania's approach as outdated and environmentally harmful. Suoka, a nation ingrained with a sense of care for people, decries Zuania's apparent disregard towards the health of its population.\n    The continued expansion of the Zuan industry has also led to a further increase in the dispute on the topic. The only option Zuania has is to limit the expansion of their use of fossil fuels.",
+            "additionalConsequences": []
+        },
+        {
+            "name": "PRO-ZUAN",
+            "description": "Suokan president, Jenab binti Bakar has led a conscious effort to demonize Zuania, and sells them fossil fuels just to decry them",
+            "headline": "Suokan Hypocrisy and the Future of Zuan Energy",
+            "text": "    In a surprising turn, Suoka's Prime Minister appears to be engaging in a hypocritical stance by publicly demonizing Zuania for utilizing fossil fuels, conveniently overlooking the fact that Suoka is a primary supplier of the very fuels under scrutiny. The Prime Minister's accusations of environmental negligence and climate change contributions ring hollow as Suoka profits from fuel exports. This contradiction raises questions about Suoka's sincerity in addressing environmental concerns and underscores the complexities of geopolitical relationships. It remains to be seen whether Suoka will address its own role in contributing to the fossil fuel reliance it criticizes in other nations.",
+            "additionalConsequences": [
+                {
+                    "country": 3,
+                    "key": "reputation",
+                    "value": 0.1
+                },
+                {
+                    "country": 7,
+                    "key": "reputation",
+                    "value": -0.1
+                }
+            ]
+        }
+    ]
+}

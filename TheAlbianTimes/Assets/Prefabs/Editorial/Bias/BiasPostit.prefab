@@ -68,8 +68,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 1b1c3462730035d4e93c687859bc30e6, type: 2}
-  m_sharedMaterial: {fileID: 1445164606963187531, guid: 1b1c3462730035d4e93c687859bc30e6, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 75b48d9130f4761409553c6b9b04f189, type: 2}
+  m_sharedMaterial: {fileID: -6739677140235052831, guid: 75b48d9130f4761409553c6b9b04f189, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -93,12 +93,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 8
+  m_fontSize: 12
   m_fontSizeBase: 8
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 12
+  m_fontSizeMax: 20
   m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
@@ -146,6 +146,7 @@ GameObject:
   - component: {fileID: 1253985461064584690}
   - component: {fileID: 7718812887237449532}
   - component: {fileID: 6631955028846260640}
+  - component: {fileID: 6584888589771605507}
   m_Layer: 5
   m_Name: BiasPostit
   m_TagString: Untagged
@@ -212,3 +213,28 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6584888589771605507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4495758696324534424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d506cd1c7ad16b94893cc6179054d5ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  draggable: 1
+  hoverable: 0
+  clickable: 0
+  speed: 260
+  minVelocity: 6
+  maxVelocity: 30
+  deceleration: -50
+  maxAngularUnscaledVelocity: 1.5
+  spinFactor: 30
+  grabRotationSnapBackTime: 0.2
+  _rotate: 1
+  _image: {fileID: 6631955028846260640}
+  _text: {fileID: 7953768788211305187}

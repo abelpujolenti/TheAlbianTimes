@@ -40,6 +40,8 @@ namespace Workspace.Layout
 
         private Cell[][] _cells;
 
+        private Cell[] _hoveredCells;
+
         private Vector2[][] _cellsPositions;
 
         private readonly Vector3[] _layoutCorners = new Vector3[4];
@@ -51,13 +53,13 @@ namespace Workspace.Layout
         private Vector2 _initialPosition;
 
         private Coroutine _moveCoroutine;
+        private Coroutine _nudgeCoroutine;
 
         private float _cellSize;
 
-        private AudioSource _audioSourceDropMold;
-
         private void OnEnable()
         {
+            EventsManager.OnDraggingPiece += HighlightCells;
             EventsManager.OnPreparingCells += TakeCells;
             EventsManager.OnSuccessfulSnap += SnapNewsHeadline;
             EventsManager.OnGrabSnappedPiece += RemoveNewsHeadline;
@@ -65,6 +67,7 @@ namespace Workspace.Layout
 
         private void OnDisable()
         {
+            EventsManager.OnDraggingPiece -= HighlightCells;
             EventsManager.OnPreparingCells -= TakeCells;
             EventsManager.OnSuccessfulSnap -= SnapNewsHeadline;
             EventsManager.OnGrabSnappedPiece -= RemoveNewsHeadline;
@@ -113,14 +116,6 @@ namespace Workspace.Layout
 
             _initialPosition = _rectTransform.localPosition;
             draggable = false;
-
-            _audioSourceDropMold = gameObject.AddComponent<AudioSource>();
-            (AudioSource, string)[] tuples = new[]
-            {
-                (_audioSourceDropMold, DROP_MOLD)
-            };
-            SoundManager.Instance.SetMultipleAudioSourcesComponents(tuples);
-
         }
 
         protected override void BeginDrag(BaseEventData data)
@@ -132,6 +127,10 @@ namespace Workspace.Layout
             if (_moveCoroutine != null)
             {
                 StopCoroutine(_moveCoroutine);
+            }
+            if (_nudgeCoroutine != null)
+            {
+                StopCoroutine(_nudgeCoroutine);
             }
             base.BeginDrag(data);
         }
@@ -169,7 +168,7 @@ namespace Workspace.Layout
                 yield return null;
             }
             
-            _audioSourceDropMold.Play();
+            AudioManager.Instance.Play3DSound(DROP_MOLD, 10, 100, transform.position);
         }
 
         private float MoveToDestination(Vector2 origin, Vector2 destination, float timer)
@@ -215,8 +214,59 @@ namespace Workspace.Layout
                    worldCoordinate.y < _layoutMinCoordinates.y && worldCoordinate.y > _layoutMaxCoordinates.y;
         }
 
+        private void HighlightCells(NewsHeadlineSubPiece draggedSubPiece, Vector2 mousePosition, NewsHeadlineSubPiece[] newsHeadlineSubPieces)
+        {
+            mousePosition = _camera.ScreenToWorldPoint(mousePosition);
+            
+            if (!IsCoordinateInsideLayout(mousePosition) || draggable)
+            {
+                if (_hoveredCells == null)
+                {
+                    return;
+                }
+
+                foreach (Cell cell in _hoveredCells)
+                {
+                    cell.ChangeColor(false);
+                }
+
+                _hoveredCells = null;
+                return;
+            }
+
+            if (_hoveredCells != null)
+            {
+                foreach (Cell cell in _hoveredCells)
+                {
+                    cell.ChangeColor(false);
+                }
+            }
+            
+            _hoveredCells = LookForCells(draggedSubPiece, mousePosition, newsHeadlineSubPieces);
+            
+            if (_hoveredCells == null)
+            {
+                return;
+            }
+            
+            foreach (Cell cell in _hoveredCells)
+            {
+                cell.ChangeColor(true);
+            }
+        }
+
         private Cell[] TakeCells(NewsHeadlineSubPiece draggedSubPiece, Vector2 mousePosition, NewsHeadlineSubPiece[] newsHeadlinePieces)
         {
+            if (_hoveredCells != null)
+            {
+                foreach (Cell cell in _hoveredCells)
+                {
+                    cell.ChangeColor(false);
+                }
+            
+                _hoveredCells = null;
+            }
+            
             if (!IsCoordinateInsideLayout(mousePosition) || draggable)
             {
                 return null;
@@ -247,8 +297,8 @@ namespace Workspace.Layout
             for (int i = 0; i < newsHeadlinePieces.Length; i++)
             {
                 var p = newsHeadlinePieces[i];
-                Vector3 screenPos = RectTransformUtility.WorldToScreenPoint(Camera.main, p.transform.position);
-                Vector3 closestScreenPos = RectTransformUtility.WorldToScreenPoint(Camera.main, draggedSubPiece.transform.position);
+                Vector3 screenPos = RectTransformUtility.WorldToScreenPoint(_camera, p.transform.position);
+                Vector3 closestScreenPos = RectTransformUtility.WorldToScreenPoint(_camera, draggedSubPiece.transform.position);
                 if (Vector2.Distance(screenPos, Input.mousePosition) < Vector2.Distance(closestScreenPos, Input.mousePosition))
                 {
                     draggedSubPiece = p;
@@ -394,6 +444,21 @@ namespace Workspace.Layout
             {
                 article.SetPieceRaycastTarget(!draggable);
             }
+        }
+
+        public void Nudge()
+        {
+            _nudgeCoroutine = StartCoroutine(NudgeCoroutine());
+        }
+
+        private IEnumerator NudgeCoroutine()
+        {
+            Vector3 offset = new Vector3(.4f, 0f, 0f);
+            Vector3 pos = transform.position;
+            yield return TransformUtility.SetPositionCoroutine(transform, transform.position, pos - offset, .2f);
+            yield return TransformUtility.SetPositionCoroutine(transform, transform.position, pos + offset, .3f);
+            yield return TransformUtility.SetPositionCoroutine(transform, transform.position, pos - offset * 0.6f, .18f);
+            yield return TransformUtility.SetPositionCoroutine(transform, transform.position, pos, .1f);
         }
 
         public bool IsDraggable() 

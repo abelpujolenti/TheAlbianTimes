@@ -26,7 +26,7 @@ namespace Workspace.Notebook.Pages.Country
             }
 
             _countryName.text = page.countryName;
-            //_flagImage.sprite =
+            _flagImage.sprite = Resources.Load<Sprite>("Images/Icons/" + _countryName.text.ToLower());
             _description.text = page.description;
         }
     }

@@ -32,9 +32,8 @@ namespace Workspace.Editorial
 
         private IEnumerator ThrowAway()
         {
-            //// SET VALUES: DRAG_VELOCITY - VECTOR_OFFSET
-            //dragVelocity
-            //_vectorOffset
+            dragVelocity = new Vector3(Random.Range(-2f, .7f), 4f, 0f);
+            _vectorOffset = new Vector3(0f, Random.Range(0f,-.1f), 0f);
             
             yield return SlideCoroutine();
             

@@ -19,6 +19,7 @@ namespace Menus
 
         public void PauseButton()
         {
+            _mainMenu.SetActive(true);
             //Time.timeScale = 0;
         }
 

@@ -20,7 +20,6 @@ namespace Managers
 
         private StatsDisplay _statsDisplay;
 
-        public int roomToneAudioId = -1;
         public int musicAudioId = -1;
 
         private int _round = 0;

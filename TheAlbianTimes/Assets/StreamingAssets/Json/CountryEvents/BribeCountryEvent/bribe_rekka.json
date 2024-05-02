@@ -1,6 +1,6 @@
 {
     "id": "bribe_hetia",
-    "bribeAmount": 5000,
+    "bribeAmount": 100,
     "priority": 1,
     "triggerCountry": 0,
     "conditions": [

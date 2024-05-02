@@ -1,6 +1,6 @@
 {
     "id": "bribe_terkan",
-    "bribeAmount": 5000,
+    "bribeAmount": 500,
     "priority": 1,
     "triggerCountry": 1,
     "conditions": [

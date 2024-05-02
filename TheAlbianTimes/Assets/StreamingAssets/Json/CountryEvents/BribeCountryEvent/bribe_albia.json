@@ -1,6 +1,6 @@
 {
     "id": "bribe_albia",
-    "bribeAmount": 5000,
+    "bribeAmount": 1000,
     "priority": 1,
     "triggerCountry": 5,
     "conditions": [

@@ -165,6 +165,7 @@ namespace Workspace.Mail.Content
     public abstract class BaseMailContent
     {
         public int jointId;
+        public int country;
         protected BaseMailContent() {}
     }
 

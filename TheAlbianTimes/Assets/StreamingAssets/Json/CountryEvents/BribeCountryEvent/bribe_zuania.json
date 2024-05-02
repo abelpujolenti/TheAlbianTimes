@@ -1,6 +1,6 @@
 {
     "id": "bribe_zuania",
-    "bribeAmount": 5000,
+    "bribeAmount": 1500,
     "priority": 1,
     "triggerCountry": 3,
     "conditions": [

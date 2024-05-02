@@ -1,6 +1,6 @@
 {
     "id": "bribe_dalme",
-    "bribeAmount": 5000,
+    "bribeAmount": 1500,
     "priority": 1,
     "triggerCountry": 4,
     "conditions": [

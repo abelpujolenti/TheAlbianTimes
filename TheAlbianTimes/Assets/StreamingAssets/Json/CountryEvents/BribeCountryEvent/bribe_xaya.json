@@ -1,6 +1,6 @@
 {
     "id": "bribe_xaya",
-    "bribeAmount": 5000,
+    "bribeAmount": 2000,
     "priority": 1,
     "triggerCountry": 2,
     "conditions": [

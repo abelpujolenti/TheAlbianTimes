@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
+using Countries;
 using Managers;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 using Utility;
 using Workspace.Mail.Content;
 
@@ -17,6 +19,7 @@ namespace Workspace.Mail
 
         [SerializeField] private GameObject _envelopeContentGameObject;
         [SerializeField] private GameObject _envelopeCoverGameObject;
+        [SerializeField] private Image _sealIcon;
 
         private EnvelopeContentType _envelopeContentType;
 
@@ -46,6 +49,10 @@ namespace Workspace.Mail
                 (_audioSourceGrabEnvelope, GRAB_ENVELOPE_SOUND),
                 (_audioSourceOpenEnvelope, OPEN_ENVELOPE_SOUND)
             };
+
+            string countryName = Country.names[_country];
+            Sprite s = Resources.Load<Sprite>("Images/Icons/" + countryName);
+            _sealIcon.sprite = s;
         }
 
         protected override void PointerEnter(BaseEventData data)

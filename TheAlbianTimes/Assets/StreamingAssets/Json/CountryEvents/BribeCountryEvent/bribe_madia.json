@@ -1,6 +1,6 @@
 {
     "id": "bribe_madia",
-    "bribeAmount": 5000,
+    "bribeAmount": 1500,
     "priority": 1,
     "triggerCountry": 6,
     "conditions": [

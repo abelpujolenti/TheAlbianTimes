@@ -3,8 +3,9 @@ using Utility;
 
 namespace Workspace.Mail.Content
 {
-    public abstract class EnvelopeContent : InteractableRectTransform      
+    public abstract class EnvelopeContent : InteractableRectTransform
     {
+        private int _country;
         private int _jointId;
         
         private EnvelopeContentType _envelopeContentType;
@@ -28,6 +29,16 @@ namespace Workspace.Mail.Content
         public EnvelopeContentType GetEnvelopeContentType()
         {
             return _envelopeContentType;
+        }
+
+        public void SetCountry(int country)
+        {
+            _country = country;
+        }
+
+        public int GetCountry()
+        {
+            return _country;
         }
 
         public void SetJointId(int jointId)

@@ -119,6 +119,7 @@ namespace Managers
 
                 envelopesMailContainer.contentEnvelopes[i] = new EnvelopeData
                 {
+                    country = envelope.GetCountry(),
                     jointId = envelope.GetJointId(),
                     envelopeContentType = envelope.GetEnvelopeContentType()
                 };
@@ -191,6 +192,7 @@ namespace Managers
             {
                 adsMailContainer.contentAds[i] = new MailContentAd
                 {
+                    country = ads[i].GetCountry(),
                     jointId = ads[i].GetJointId()
                 };
             }
@@ -209,6 +211,7 @@ namespace Managers
             {
                 biasesMailContainer.contentBiases[i] = new MailContentBias
                 {
+                    country = biases[i].GetCountry(),
                     jointId = biases[i].GetJointId(),
                     linkId = biases[i].GetLinkId()
                 };
@@ -228,6 +231,7 @@ namespace Managers
             {
                 bribesMailContainer.contentBribes[i] = new MailContentBribe
                 {
+                    country = bribes[i].GetCountry(),
                     jointId = bribes[i].GetJointId(),
                     totalMoney = bribes[i].GetTotalMoney()
                 };
@@ -247,6 +251,7 @@ namespace Managers
             {
                 lettersMailContainer.contentLetters[i] = new MailContentLetter
                 {
+                    country = letter[i].GetCountry(),
                     jointId = letter[i].GetJointId(),
                     letterText = letter[i].GetLetterText()
                 };
@@ -362,6 +367,7 @@ namespace Managers
 
                 envelopeComponent = envelopeGameObject.GetComponent<Envelope>();
 
+                envelopeComponent.SetCountry(envelopeData.country);
                 envelopeComponent.SetJointId(envelopeData.jointId);
                 envelopeComponent.SetEnvelopeContentType(envelopeData.envelopeContentType);
                 
@@ -463,6 +469,7 @@ namespace Managers
             
             GameObject adGameObject = Instantiate(_envelopeContents[0]);
             Ad adComponent = adGameObject.GetComponent<Ad>();
+            adComponent.SetCountry(mailContentAd.country);
             adComponent.SetJointId(mailContentAd.jointId);
             adComponent.SetEnvelopeContentType(EnvelopeContentType.AD);
 
@@ -485,6 +492,7 @@ namespace Managers
             
             GameObject biasGameObject = Instantiate(_envelopeContents[1]);
             Bias biasComponent = biasGameObject.GetComponent<Bias>();
+            biasComponent.SetCountry(mailContentBias.country);
             biasComponent.SetJointId(mailContentBias.jointId);
             biasComponent.SetLinkId(mailContentBias.linkId);
             biasComponent.SetEnvelopeContentType(EnvelopeContentType.BIAS);
@@ -508,6 +516,7 @@ namespace Managers
             
             GameObject bribeGameObject = Instantiate(_envelopeContents[2]);
             Bribe bribeComponent = bribeGameObject.GetComponent<Bribe>();
+            bribeComponent.SetCountry(mailContentBribe.country);
             bribeComponent.SetJointId(mailContentBribe.jointId);
             bribeComponent.SetTotalMoney(mailContentBribe.totalMoney);
             bribeComponent.SetEnvelopeContentType(EnvelopeContentType.BRIBE);
@@ -531,6 +540,7 @@ namespace Managers
             
             GameObject letterGameObject = Instantiate(_envelopeContents[3]);
             Letter letterComponent = letterGameObject.GetComponent<Letter>();
+            letterComponent.SetCountry(mailContentLetter.country);
             letterComponent.SetJointId(mailContentLetter.jointId);
             letterComponent.SetLetterText(mailContentLetter.letterText);
             letterComponent.SetEnvelopeContentType(EnvelopeContentType.LETTER);

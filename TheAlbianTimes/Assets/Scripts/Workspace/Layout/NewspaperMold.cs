@@ -53,6 +53,7 @@ namespace Workspace.Layout
         private Vector2 _initialPosition;
 
         private Coroutine _moveCoroutine;
+        private Coroutine _nudgeCoroutine;
 
         private float _cellSize;
 
@@ -126,6 +127,10 @@ namespace Workspace.Layout
             if (_moveCoroutine != null)
             {
                 StopCoroutine(_moveCoroutine);
+            }
+            if (_nudgeCoroutine != null)
+            {
+                StopCoroutine(_nudgeCoroutine);
             }
             base.BeginDrag(data);
         }
@@ -443,7 +448,7 @@ namespace Workspace.Layout
 
         public void Nudge()
         {
-            StartCoroutine(NudgeCoroutine());
+            _nudgeCoroutine = StartCoroutine(NudgeCoroutine());
         }
 
         private IEnumerator NudgeCoroutine()

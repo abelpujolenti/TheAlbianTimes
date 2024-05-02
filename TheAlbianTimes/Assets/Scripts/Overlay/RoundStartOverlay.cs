@@ -62,7 +62,7 @@ namespace Overlay
             AudioManager.Instance.ChangeAudioSnapshot(AudioSnapshots.WORKSPACE, 1f);
             if (GameManager.Instance.roomToneAudioId == -1)
             {
-                GameManager.Instance.roomToneAudioId = AudioManager.Instance.Play3DLoopSound(ROOM_TONE, 10, 10000, new Vector2(7f, 20f), 5000);
+                //GameManager.Instance.roomToneAudioId = AudioManager.Instance.Play3DLoopSound(ROOM_TONE, 10, 10000, new Vector2(7f, 20f), 5000);
             }
 
             if (GameManager.Instance.musicAudioId == -1)

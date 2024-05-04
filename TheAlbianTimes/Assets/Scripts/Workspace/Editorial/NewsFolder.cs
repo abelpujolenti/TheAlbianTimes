@@ -141,6 +141,8 @@ namespace Workspace.Editorial
             {
                 return;
             }
+
+            _isNewsModifying = true;
             
             ChangeListOrderByGivenIndex(newsHeadlineToSwitchIndex);
             
@@ -148,6 +150,8 @@ namespace Workspace.Editorial
             
             ReindexFolderOrderInsideRange(newsHeadlineToSwitchIndex + 1);
             PositionNewsHeadlinesByGivenIndex(newsHeadlineToSwitchIndex + 1);
+
+            _isNewsModifying = false;
         }
 
         private void ChangeListOrderByGivenIndex(int newsHeadlineToSwitchIndex) 

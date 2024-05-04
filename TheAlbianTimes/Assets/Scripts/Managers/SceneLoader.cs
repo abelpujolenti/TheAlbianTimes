@@ -19,24 +19,6 @@ namespace Managers
         public void SetScene(ScenesName name)
         {
             SceneManager.LoadScene((int)name);
-            
-            /*UnloadScene(_currentSceneName);
-            _currentSceneName = name;
-            LoadScene(name);*/
-        }
-        private void LoadScene(ScenesName name)
-        {
-            if (!SceneManager.GetSceneByBuildIndex((int)name).isLoaded)
-            {
-                SceneManager.LoadScene((int)name, LoadSceneMode.Additive);
-            }
-        }
-        private void UnloadScene(ScenesName name)
-        {
-            if (SceneManager.GetSceneByBuildIndex((int)name).isLoaded)
-            {
-                SceneManager.UnloadSceneAsync((int)name);
-            }
         }
     }
 }

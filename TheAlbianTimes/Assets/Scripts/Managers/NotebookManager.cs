@@ -5,7 +5,6 @@ using Newtonsoft.Json;
 using UnityEngine;
 using Workspace.Notebook;
 using Workspace.Notebook.Pages;
-using Workspace.Notebook.Pages.Map;
 
 namespace Managers
 {

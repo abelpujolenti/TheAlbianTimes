@@ -415,10 +415,7 @@ namespace Workspace.Layout
                 cell.SetFree(false);
             }
 
-            if (_newsHeadlines.Count == _newsFolder.GetNewsInLayoutAmount() && _newsFolder.GetNewsHeadlinesLength() == 0)
-            {
-                _moldLocker.blink = true;
-            }
+            _moldLocker.SetBlink(true);
 
             return snappedCells[0].transform.position;
         }
@@ -427,7 +424,12 @@ namespace Workspace.Layout
         {
             _newsHeadlines.Remove(newsHeadline);
 
-            _moldLocker.blink = false;
+            if (_newsHeadlines.Count != 0)
+            {
+                return;
+            }
+            
+            _moldLocker.SetBlink(false);
         }
 
         public NewsHeadline[] GetNewsHeadlines()

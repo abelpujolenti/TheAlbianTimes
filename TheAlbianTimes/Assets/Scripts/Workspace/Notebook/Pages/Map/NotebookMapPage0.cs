@@ -3,13 +3,14 @@ using UnityEngine;
 
 namespace Workspace.Notebook.Pages.Map
 {
-    public class NotebookMapPage0 : NotebookContentPage
+    public class NotebookMapPage0 : NotebookMapPage
     {
         private Action _hetiaClick;
         private Action _terkanClick;
         private Action _albiaClick;
         private Action _dalmeClick;
         private Action _madiaClick;
+
         public override void FillPage(BaseNotebookPage baseNotebookPage)
         {
             MapPage0 page;

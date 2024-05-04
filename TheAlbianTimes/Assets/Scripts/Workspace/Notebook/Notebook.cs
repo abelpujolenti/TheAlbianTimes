@@ -113,6 +113,11 @@ namespace Workspace.Notebook
             }
             AudioManager.Instance.Play2DSound(OPEN_NOTEBOOK);
             yield return StartCoroutine(RotatePageCoroutine((RectTransform)leftPage.transform, PAGE_OPEN_TIME, 179.9f, 0f, 0.5f, open));
+
+            if (EventsManager.OnOpenMapPages != null)
+            {
+                EventsManager.OnOpenMapPages();
+            }
             
             this.open = true;
         }

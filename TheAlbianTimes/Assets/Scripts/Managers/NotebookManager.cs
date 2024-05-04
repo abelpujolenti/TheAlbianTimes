@@ -53,6 +53,8 @@ namespace Managers
 
         private bool _noteBookOpen;
 
+        private Action _onEndFlip;
+
         private Func<int, int, bool> _shouldBeOnRightSide =>
             (index, nextPage) => _bookmarks[index].IsOnRightSide() && nextPage > _notebookIndices[(NotebookContentType)index];
         
@@ -346,6 +348,10 @@ namespace Managers
             
             if (_currentPageNumber < nextPage)
             {
+                if (_currentPageNumber == 0)
+                {
+                    EventsManager.OnCloseMapPages();
+                }
                 MoveBookmarks(_shouldBeOnRightSide, nextPage);
                 currentPage = _rightPage.GetCurrentPage();
                 _flipPage.ChangeContent(currentPage);
@@ -383,7 +389,6 @@ namespace Managers
                 _notebook.FlipPageLeft(midPointFlip, endFlip);
                 return;
             }
-            
             MoveBookmarks(_shouldBeOnLeftSide, nextPage);
             currentPage = _leftPage.GetCurrentPage();
             _flipPage.ChangeContent(currentPage);
@@ -415,6 +420,11 @@ namespace Managers
                 }
                 _rightPage.ChangeContent(page);
                 _flipPage.transform.parent.localRotation = new Quaternion(0, 180, 0, 1);
+
+                if (nextPage == 0)
+                {
+                    EventsManager.OnOpenMapPages();
+                }
             };
 
             _notebook.FlipPageRight(midPointFlip, endFlip);
@@ -581,6 +591,11 @@ namespace Managers
 
         private Action CloseTransition()
         {
+            if (_currentPageNumber == 0)
+            {
+                EventsManager.OnCloseMapPages();
+            }
+            
             return () =>
             {
                 Destroy(_leftPage.GetCurrentPage());
@@ -610,12 +625,21 @@ namespace Managers
                 if (positionY > closeThreshold)
                 {
                     OpenNotebook(false);
+                    return;
                 }
-                else
-                {
-                    _notebook.StartMoveDownCoroutine();
-                }
+                _notebook.StartMoveDownCoroutine();
             }
+        }
+
+        public void PrepareFade()
+        {
+            
+        }
+
+        public void FlipFinished()
+        {
+            _onEndFlip();
+            _onEndFlip = () => { };
         }
     }
 }

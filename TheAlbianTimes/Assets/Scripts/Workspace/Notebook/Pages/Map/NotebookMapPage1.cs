@@ -1,14 +1,18 @@
 using System;
+using System.Collections;
+using Managers;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Workspace.Notebook.Pages.Map
 {
-    public class NotebookMapPage1 : NotebookContentPage
+    public class NotebookMapPage1 : NotebookMapPage
     {
         private Action _xayaClick;
         private Action _suokaClick;
         private Action _zuaniaClick;
         private Action _rekkaClick;
+        
         public override void FillPage(BaseNotebookPage baseNotebookPage)
         {
             MapPage1 page;

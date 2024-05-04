@@ -1,6 +1,6 @@
+using System.Collections.Generic;
 using Dialogue;
 using Managers;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 

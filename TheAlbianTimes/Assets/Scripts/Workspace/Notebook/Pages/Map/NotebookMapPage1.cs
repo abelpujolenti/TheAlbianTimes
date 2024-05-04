@@ -1,8 +1,5 @@
 using System;
-using System.Collections;
-using Managers;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Workspace.Notebook.Pages.Map
 {

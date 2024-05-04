@@ -220,11 +220,6 @@ namespace Workspace.Editorial
             
             newsHeadline.SetInFront(folderOrderIndex == 0);
 
-            if (_dragging)
-            {
-                return;
-            }
-
             if (folderOrderIndex != 0)
             {
                 return;
@@ -270,11 +265,6 @@ namespace Workspace.Editorial
         public int GetNewsInLayoutAmount()
         {
             return _newsHeadlinesOutOfFolder;
-        }
-
-        public void SetDragging(bool dragging)
-        {
-            _dragging = dragging;
         }
 
         private void SetContainerLimiters()

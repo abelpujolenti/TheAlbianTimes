@@ -119,14 +119,12 @@ namespace Workspace.Editorial
             EventsManager.OnCheckDistanceToMouse += DistanceToPosition;
             EventsManager.OnStartEndDrag(true);   
 
-            if (!_newsHeadlinePieceToTransferDrag.GetTransferDrag())
+            if (!_newsHeadlinePieceToTransferDrag.GetTransferDrag() && _onFolder)
             {
                 EditorialManager.Instance.TurnOffBiasContainer();    
             }
             
             SlideToRotation(0f, 0.1f);
-
-            _newsFolder.SetDragging(true);
 
             AudioManager.Instance.Play3DSound(GRAB_PAPER_SOUND, 5, 100, transform.position);
         }
@@ -158,8 +156,6 @@ namespace Workspace.Editorial
             _newsHeadlinePieceToTransferDrag.SetTransferDrag(false);
             
             gameObject.SetActive(false);
-            
-            _newsFolder.SetDragging(false);
             
             EventsManager.OnCrossMidPointWhileScrolling -= GetGameObjectToTransferDrag;
             EventsManager.OnCheckDistanceToMouse -= DistanceToPosition;
@@ -196,7 +192,6 @@ namespace Workspace.Editorial
                 return;
             }
             
-            _newsFolder.SetDragging(false);
             _newsFolder.CheckCurrentNewsHeadlinesSent();
             
             EventsManager.OnCrossMidPointWhileScrolling -= GetGameObjectToTransferDrag;
@@ -379,7 +374,6 @@ namespace Workspace.Editorial
             if (_inFront)
             {
                 EventsManager.OnChangeNewsHeadlineContent += ChangeContent;
-                EventsManager.OnChangeChosenBiasIndex += SetChosenBiasIndex;
                 return;
             }
             UnsubscribeEvents();
@@ -388,7 +382,6 @@ namespace Workspace.Editorial
         private void UnsubscribeEvents()
         {
             EventsManager.OnChangeNewsHeadlineContent -= ChangeContent;
-            EventsManager.OnChangeChosenBiasIndex -= SetChosenBiasIndex;
         }
 
         private void SetCountryIcons()
@@ -485,12 +478,11 @@ namespace Workspace.Editorial
             _contentText.text = text;
         }
 
-        private void ChangeContent()
+        private void ChangeContent(int chosenBiasIndex)
         {
-            UnsubscribeEvents();
+            _chosenBiasIndex = chosenBiasIndex;
             
-            _data.currentBias = _chosenBiasIndex;
-            UpdateText(_headlinesText[_chosenBiasIndex], _biasesContents[_chosenBiasIndex]);
+            UnsubscribeEvents();
 
             UpdateSelectedBiasIndicator();
 
@@ -518,6 +510,9 @@ namespace Workspace.Editorial
             _origin = destination;
 
             yield return new WaitForSeconds(SECONDS_AWAITING_TO_RETURN_TO_FOLDER);
+            
+            _data.currentBias = _chosenBiasIndex;
+            UpdateText(_headlinesText[_chosenBiasIndex], _biasesContents[_chosenBiasIndex]);
 
             PrepareToAddToFolder();
         }
@@ -659,11 +654,6 @@ namespace Workspace.Editorial
         public int GetTotalBiasesToActivate()
         {
             return _totalBiasesToActivate;
-        }
-
-        private void SetChosenBiasIndex(int newChosenBiasIndex)
-        {
-            _chosenBiasIndex = newChosenBiasIndex;
         }
 
         public int GetChosenBiasIndex()

@@ -4,6 +4,7 @@ using Characters;
 using Countries;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Workspace;
 using Workspace.Editorial;
 
 namespace Managers
@@ -20,8 +21,13 @@ namespace Managers
 
         private StatsDisplay _statsDisplay;
 
-        public int musicAudioId = -1;
+        [SerializeField] private GameObject _audioSpawnerPrefab;
 
+        private GameObject _audioSpawner;
+
+        private bool _isAudioSpawnerActive;
+
+        public int musicAudioId = -1;
         private int _round = 0;
 
         private void Awake()
@@ -31,11 +37,9 @@ namespace Managers
                 _instance = this;
                 InitData();
                 DontDestroyOnLoad(gameObject);
+                return;
             }
-            else
-            {
-                Destroy(gameObject);
-            }
+            Destroy(gameObject);
         }
 
         private void Start()
@@ -46,22 +50,22 @@ namespace Managers
         private void OnGUI()
         {
             Event e = Event.current;
-            if (!e.isKey || !(e.type == EventType.KeyDown)) return;
+            if (!e.isKey || e.type != EventType.KeyDown) return;
 
             if (e.keyCode == KeyCode.F1)
             {
                 _round = 1;
-                sceneLoader.SetScene("WorkspaceScene");
+                LoadScene(ScenesName.WORKSPACE_SCENE);
             }
             else if (e.keyCode == KeyCode.F2)
             {
                 _round = 2;
-                sceneLoader.SetScene("WorkspaceScene");
+                LoadScene(ScenesName.WORKSPACE_SCENE);
             }
             else if (e.keyCode == KeyCode.F3)
             {
                 _round = 3;
-                sceneLoader.SetScene("WorkspaceScene");
+                LoadScene(ScenesName.WORKSPACE_SCENE);
             }
         }
 
@@ -83,18 +87,36 @@ namespace Managers
 
         private void InitScenes()
         {
-            if (SceneManager.GetSceneByName("WorkspaceScene").isLoaded)
+            /*if (SceneManager.GetSceneByBuildIndex((int)ScenesName.WORKSPACE_SCENE).isLoaded)
             {
-                sceneLoader.SetScene("WorkspaceScene");
+                LoadScene(ScenesName.WORKSPACE_SCENE);
                 return;
             }
-            if (SceneManager.GetSceneByName("StatsScene").isLoaded)
+            if (SceneManager.GetSceneByBuildIndex((int)ScenesName.STATS_SCENE).isLoaded)
             {
-                sceneLoader.SetScene("StatsScene");
+                LoadScene(ScenesName.STATS_SCENE);
                 return;
             }
-            sceneLoader.SetScene("MainMenu");
+            LoadScene(ScenesName.MAIN_MENU);*/
         }
+
+        public void LoadScene(ScenesName sceneName)
+        {
+            if (sceneName == ScenesName.WORKSPACE_SCENE)
+            {
+                _audioSpawner = Instantiate(_audioSpawnerPrefab);
+                DontDestroyOnLoad(_audioSpawner);
+                _isAudioSpawnerActive = true;
+            }
+
+            if ((sceneName == ScenesName.DIALOGUE_SCENE || sceneName == ScenesName.MAIN_MENU) && _isAudioSpawnerActive)
+            {
+                Destroy(_audioSpawner);
+                _isAudioSpawnerActive = false;
+            }
+            sceneLoader.SetScene(sceneName);
+        }
+
         private void LoadCountries()
         {
             Country[] countryObjects = transform.Find("Countries").GetComponentsInChildren<Country>();

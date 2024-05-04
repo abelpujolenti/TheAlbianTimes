@@ -42,7 +42,7 @@ namespace Menus
             AudioManager.Instance.StopLoopingAudio(GameManager.Instance.musicAudioId);
             GameManager.Instance.musicAudioId = -1;
             Destroy(gameObject);
-            GameManager.Instance.sceneLoader.SetScene("MainMenu");
+            GameManager.Instance.LoadScene(ScenesName.MAIN_MENU);
         }
 
         public void ChangeCurrentActivePanel(GameObject panelToActive) 

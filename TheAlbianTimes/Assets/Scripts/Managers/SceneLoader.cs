@@ -2,28 +2,40 @@ using UnityEngine.SceneManagement;
 
 namespace Managers
 {
+
+    public enum ScenesName
+    {
+        MAIN_MENU = 0,
+        WORKSPACE_SCENE = 1,
+        PUBLISH_SCENE = 2,
+        STATS_SCENE = 3,
+        DIALOGUE_SCENE = 4
+    }
+
     public class SceneLoader
     {
-        private string _currentScene = "";
+        private ScenesName _currentSceneName;
 
-        public void SetScene(string name)
+        public void SetScene(ScenesName name)
         {
-            UnloadScene(_currentScene);
-            _currentScene = name;
-            LoadScene(name);
+            SceneManager.LoadScene((int)name);
+            
+            /*UnloadScene(_currentSceneName);
+            _currentSceneName = name;
+            LoadScene(name);*/
         }
-        public void LoadScene(string name)
+        private void LoadScene(ScenesName name)
         {
-            if (!SceneManager.GetSceneByName(name).isLoaded)
+            if (!SceneManager.GetSceneByBuildIndex((int)name).isLoaded)
             {
-                SceneManager.LoadScene(name, LoadSceneMode.Additive);
+                SceneManager.LoadScene((int)name, LoadSceneMode.Additive);
             }
         }
-        public void UnloadScene(string name)
+        private void UnloadScene(ScenesName name)
         {
-            if (SceneManager.GetSceneByName(name).isLoaded)
+            if (SceneManager.GetSceneByBuildIndex((int)name).isLoaded)
             {
-                SceneManager.UnloadSceneAsync(name);
+                SceneManager.UnloadSceneAsync((int)name);
             }
         }
     }

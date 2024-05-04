@@ -72,11 +72,5 @@ namespace Dialogue
             }
             button.gameObject.SetActive(true);
         }
-
-        public void ContinueToNextRound()
-        {
-            GameManager.Instance.sceneLoader.SetScene("WorkspaceScene");
-        }
-
     }
 }

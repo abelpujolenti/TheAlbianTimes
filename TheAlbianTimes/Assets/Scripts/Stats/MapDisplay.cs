@@ -241,7 +241,7 @@ namespace Stats
             }
             fadeImage.color = Color.black;
 
-            GameManager.Instance.sceneLoader.SetScene("DialogueScene");
+            GameManager.Instance.LoadScene(ScenesName.DIALOGUE_SCENE);
         }
     }
 }

@@ -50,7 +50,7 @@ namespace Dialogue
             if (!loaded)
             {
                 GameManager.Instance.AddToRound();
-                GameManager.Instance.sceneLoader.SetScene("WorkspaceScene");
+                GameManager.Instance.LoadScene(ScenesName.WORKSPACE_SCENE);
                 return;
             }
 
@@ -123,7 +123,7 @@ namespace Dialogue
             if (currentLine >= selectedDialogue.lines.Length)
             {
                 GameManager.Instance.AddToRound();
-                GameManager.Instance.sceneLoader.SetScene("WorkspaceScene");
+                GameManager.Instance.LoadScene(ScenesName.WORKSPACE_SCENE);
                 return;
             }
             continueText.SetActive(false);

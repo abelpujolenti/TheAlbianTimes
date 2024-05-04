@@ -37,7 +37,7 @@ namespace Workspace.Notebook
 
         private Vector3 initialPosition;
         private Vector3 dragVector;
-        private float imageBrightness;
+        private float _imageBrightness;
 
         private Coroutine flipCoroutine;
 
@@ -52,7 +52,7 @@ namespace Workspace.Notebook
         private void Start()
         {
             NotebookManager.Instance.SetNotebook(this);
-            imageBrightness = ColorUtil.GetBrightness(_flipPageBackground.color);
+            _imageBrightness = ColorUtil.GetBrightness(_flipPageBackground.color);
         }
 
         protected override void Drag(BaseEventData data)
@@ -171,8 +171,7 @@ namespace Workspace.Notebook
             yield return StartCoroutine(RotatePageCoroutine((RectTransform)flipPage.transform, PAGE_FLIP_TIME / 2f, 0f, 90f, 0.5f));
             midPointFlip();
             
-            Image pageImage = _flipPageBackground.transform.GetChild(1).GetComponent<Image>();
-            StartCoroutine(ShadePageCoroutine(pageImage, PAGE_FLIP_TIME / 2f, 0.3f, ColorUtil.GetBrightness(pageImage.color), 2f));
+            StartCoroutine(ShadePageCoroutine(_flipPageBackground, PAGE_FLIP_TIME / 2f, 0.3f, _imageBrightness, 2f));
             yield return StartCoroutine(RotatePageCoroutine((RectTransform)flipPage.transform, PAGE_FLIP_TIME / 2f, 90f, 180f, 2f));
             endFlip();
             flipPage.SetActive(false);
@@ -182,11 +181,10 @@ namespace Workspace.Notebook
         {
             flipPage.SetActive(true);
 
-            Image pageImage = _flipPageBackground.transform.GetChild(0).GetComponent<Image>();
-
-            StartCoroutine(ShadePageCoroutine(pageImage, PAGE_FLIP_TIME / 2f, ColorUtil.GetBrightness(pageImage.color), 0.3f, 2f));
+            StartCoroutine(ShadePageCoroutine(_flipPageBackground, PAGE_FLIP_TIME / 2f, _imageBrightness, 0.3f, 2f));
             yield return StartCoroutine(RotatePageCoroutine((RectTransform)flipPage.transform, PAGE_FLIP_TIME / 2f, 180f, 90f, 0.5f));
             midPointFlip();
+            _flipPageBackground.color = ColorUtil.SetBrightness(_flipPageBackground.color, _imageBrightness);
             yield return StartCoroutine(RotatePageCoroutine((RectTransform)flipPage.transform, PAGE_FLIP_TIME / 2f, 90f, 0f, 2f));
             endFlip();
             flipPage.SetActive(false);

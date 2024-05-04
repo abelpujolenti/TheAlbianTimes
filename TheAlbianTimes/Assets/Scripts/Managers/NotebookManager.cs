@@ -376,7 +376,8 @@ namespace Managers
                 endFlip = () =>
                 {
                     Destroy(_leftPage.GetCurrentPage());
-                    _leftPage.ChangeContent(_flipPage.GetCurrentPage());
+                    GameObject page = _flipPage.GetCurrentPage();
+                    _leftPage.ChangeContent(page);
                 };
 
                 _notebook.FlipPageLeft(midPointFlip, endFlip);
@@ -385,7 +386,6 @@ namespace Managers
             
             MoveBookmarks(_shouldBeOnLeftSide, nextPage);
             currentPage = _leftPage.GetCurrentPage();
-            currentPage.transform.localRotation = new Quaternion(0, 0, 0, 1);
             _flipPage.ChangeContent(currentPage);
             _currentPageNumber = nextPage;
             instantiatePages = CheckContentToShow();
@@ -407,7 +407,14 @@ namespace Managers
             endFlip = () =>
             {
                 Destroy(_rightPage.GetCurrentPage());
-                _rightPage.ChangeContent(_flipPage.GetCurrentPage());
+                GameObject page = _flipPage.GetCurrentPage();
+                if (page == null)
+                {
+                    _flipPage.transform.parent.localRotation = new Quaternion(0, 180, 0, 1);
+                    return;
+                }
+                _rightPage.ChangeContent(page);
+                _flipPage.transform.parent.localRotation = new Quaternion(0, 180, 0, 1);
             };
 
             _notebook.FlipPageRight(midPointFlip, endFlip);

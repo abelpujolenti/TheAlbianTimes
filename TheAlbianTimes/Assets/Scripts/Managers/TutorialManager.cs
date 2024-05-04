@@ -41,7 +41,7 @@ namespace Managers
 
         private void RoundZero()
         {
-            EventsManager.OnChangeNewsHeadlineContent += LockBiases;
+            EventsManager.OnChangeChosenBiasIndex += LockBiases;
         }
 
         private void LockBiases()
@@ -49,7 +49,7 @@ namespace Managers
             if (GameManager.Instance.GetRound() != 0) return;
             _biasContainer.SetActive(false);
             StartCoroutine(CameraNudgeCoroutine(1.3f, 1f, 2f));
-            EventsManager.OnChangeNewsHeadlineContent -= LockBiases;
+            EventsManager.OnChangeChosenBiasIndex -= LockBiases;
         }
 
         private IEnumerator CameraNudgeCoroutine(float offset, float t, float delay)
@@ -87,7 +87,7 @@ namespace Managers
 
         private void OnDestroy()
         {
-            EventsManager.OnChangeNewsHeadlineContent -= LockBiases;
+            EventsManager.OnChangeChosenBiasIndex -= LockBiases;
         }
     }
 }

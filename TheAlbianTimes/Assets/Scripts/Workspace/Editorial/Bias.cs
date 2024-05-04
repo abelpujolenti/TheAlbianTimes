@@ -56,7 +56,7 @@ namespace Workspace.Editorial
 
         private String _text;
         
-        [SerializeField]private bool _selected;
+        private bool _selected;
 
         private int _siblingIndex;
 
@@ -101,18 +101,17 @@ namespace Workspace.Editorial
 
         protected override void PointerClick(BaseEventData data)
         {
-            if (_selected)
+            if (_selected || _markAnimationRunning)
             {
                 return;
             }
 
-            EventsManager.OnChangeChosenBiasIndex(_siblingIndex);
-            EventsManager.OnChangeChosenBias();
-            _selected = true;
-            
-            EventsManager.OnChangeChosenBias += UnselectBias;
+            if (EventsManager.OnClickBias != null)
+            {
+                EventsManager.OnClickBias();    
+            }
 
-            _newsFolder.GetFrontHeadline().ClearBiasMarks();
+            EventsManager.OnClickBias += StopAnimations;
             
             MarkAnimation();
         }
@@ -168,7 +167,6 @@ namespace Workspace.Editorial
 
             markAnimationHeight = 0.12f * (_newsFolder.GetFrontHeadline().transform.Find("Text").GetComponent<TextMeshProUGUI>().textInfo.lineCount - 1);
 
-            StopMarkAnimation();
             _markAnimationCoroutine = StartCoroutine(MarkAnimationCoroutine());
         }
 
@@ -218,7 +216,19 @@ namespace Workspace.Editorial
 
             yield return ReturnMarkerCoroutine();
 
-            EventsManager.OnChangeNewsHeadlineContent();
+            EventsManager.OnClickBias -= StopAnimations;
+
+            if (EventsManager.OnChangeChosenBiasIndex != null)
+            {
+                EventsManager.OnChangeChosenBiasIndex();    
+            }
+            EventsManager.OnChangeNewsHeadlineContent(_siblingIndex);
+            
+            EventsManager.OnChangeChosenBias();
+            
+            EventsManager.OnChangeChosenBias += UnselectBias;
+            
+            _selected = true;
 
             _markAnimationRunning = false;
         }
@@ -259,11 +269,17 @@ namespace Workspace.Editorial
             //_textMeshPro.fontStyle = FontStyles.Underline;
         }
 
+        private void StopAnimations()
+        {
+            StopMarkAnimation();
+            StartCoroutine(ReturnMarkerCoroutine());
+            _newsFolder.GetFrontHeadline().ClearBiasMarks();
+            EventsManager.OnClickBias -= StopAnimations;
+        }
+
         private void UnselectBias()
         {
             BiasButtonStuff(false);
-            StopMarkAnimation();
-            StartCoroutine(ReturnMarkerCoroutine());
         }
 
         public void ResetBiasUnderline()

@@ -1,3 +1,4 @@
+using System.Collections;
 using Managers;
 using TMPro;
 using UnityEngine;
@@ -12,8 +13,8 @@ namespace Workspace.Layout
         [SerializeField] private TextMeshProUGUI _text;
         [SerializeField] private Publisher _publisher;
 
-        public bool blink = false;
-        private bool nudged = false;
+        private bool _blink = false;
+        private bool _nudged = false;
 
         protected override void PointerClick(BaseEventData data)
         {
@@ -23,30 +24,40 @@ namespace Workspace.Layout
             }
             _newsPaperMold.SetDraggable(!_newsPaperMold.IsDraggable());
             _publisher.SetIsScrolling(!_publisher.IsScrolling());
-            blink = false;
+            _blink = false;
 
             float pressedHeightMultiplier = .75f;
             rectTransform.sizeDelta = _newsPaperMold.IsDraggable() ? new Vector2(rectTransform.sizeDelta.x, rectTransform.sizeDelta.y * pressedHeightMultiplier) : new Vector2(rectTransform.sizeDelta.x, rectTransform.sizeDelta.y / pressedHeightMultiplier);
-         
-            if (GameManager.Instance.GetRound() == 0 && !nudged)
+
+            if (GameManager.Instance.GetRound() != 0 || _nudged)
             {
-                nudged = true;
-                _newsPaperMold.Nudge();
+                return;
             }
+
+            _nudged = true;
+            _newsPaperMold.Nudge();
         }
 
-        private void Update()
+        public void SetBlink(bool blink)
         {
-            if (blink)
+            _blink = blink;
+            if (!_blink)
             {
-                float a = Mathf.Abs(Mathf.Sin(Time.time * 2f));
-                Color blinkColor = ColorUtil.Alpha(_text.color, a);
+                return;
+            }
+            StartCoroutine(Blink());
+        }
+
+        private IEnumerator Blink()
+        {
+            while (_blink)
+            {
+                float alpha = Mathf.Abs(Mathf.Sin(Time.time * 2f));
+                Color blinkColor = ColorUtil.Alpha(_text.color, alpha);
                 _text.color = blinkColor;
+                yield return null;
             }
-            else
-            {
-                _text.color = ColorUtil.Alpha(_text.color, 1f);
-            }
+            _text.color = ColorUtil.Alpha(_text.color, 1f);
         }
     }
 }

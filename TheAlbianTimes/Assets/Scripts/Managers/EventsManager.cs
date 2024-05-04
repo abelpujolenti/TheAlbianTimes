@@ -18,6 +18,8 @@ namespace Managers
         public static Action OnPressPanicButton;
         public static Action OnPressPanicButtonForPieces;
         public static Action <String> OnClickLetter;
+        public static Action OnOpenMapPages;
+        public static Action OnCloseMapPages;
 
         #endregion        
         

@@ -43,6 +43,7 @@ namespace Workspace.Notebook
         private Coroutine flipCoroutine;
 
         private bool open;
+        private bool _opening;
 
         private Action _midPointFlip;
         private Action _endFlip;
@@ -99,6 +100,13 @@ namespace Workspace.Notebook
                 NotebookManager.Instance.PreviousPage();
                 return;
             }
+
+            if (_opening)
+            {
+                return;
+            }
+
+            _opening = true;
             NotebookManager.Instance.OpenNotebook();
         }
 
@@ -123,6 +131,7 @@ namespace Workspace.Notebook
             }
             
             this.open = true;
+            _opening = false;
         }
 
         public void Close(Action close)

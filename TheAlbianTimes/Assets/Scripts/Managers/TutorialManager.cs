@@ -13,6 +13,7 @@ namespace Managers
         [SerializeField] GameObject folder;
         [SerializeField] private GameObject _biasContainer;
         [SerializeField] private Transform _cameraTransform;
+        
         void Start()
         {
             switch (GameManager.Instance.GetRound())

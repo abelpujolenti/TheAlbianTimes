@@ -58,17 +58,44 @@ namespace Managers
             {
                 _round = 1;
                 LoadScene(ScenesName.WORKSPACE_SCENE);
+                return;
             }
-            else if (currentEvent.keyCode == KeyCode.F2)
+            
+            if (currentEvent.keyCode == KeyCode.F2)
             {
                 _round = 2;
                 LoadScene(ScenesName.WORKSPACE_SCENE);
+                return;
             }
-            else if (currentEvent.keyCode == KeyCode.F3)
+            
+            if (currentEvent.keyCode == KeyCode.F3)
             {
                 _round = 3;
                 LoadScene(ScenesName.WORKSPACE_SCENE);
+                return;
             }
+            
+            if (currentEvent.keyCode == KeyCode.F4)
+            {
+                _round = 4;
+                LoadScene(ScenesName.WORKSPACE_SCENE);
+                return;
+            }
+            
+            if (currentEvent.keyCode == KeyCode.F5)
+            {
+                _round = 5;
+                LoadScene(ScenesName.WORKSPACE_SCENE);
+                return;
+            }
+
+            if (currentEvent.keyCode != KeyCode.F6)
+            {
+                return;
+            }
+
+            _round = 6;
+            LoadScene(ScenesName.WORKSPACE_SCENE);
         }
 
         private void InitData()

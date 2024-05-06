@@ -5,8 +5,6 @@ namespace Workspace.Notebook
 {
     public class NotebookPage : MonoBehaviour
     {
-        [SerializeField] private bool _leftPage;
-        
         private GameObject _currentPage;
 
         public void ChangeContent(GameObject pagePrefab)

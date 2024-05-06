@@ -262,11 +262,6 @@ namespace Workspace.Editorial
             return _newsHeadlines.Count;
         }
 
-        public int GetNewsInLayoutAmount()
-        {
-            return _newsHeadlinesOutOfFolder;
-        }
-
         private void SetContainerLimiters()
         {
             _containerMinCoordinates.x = _corners[0].x;

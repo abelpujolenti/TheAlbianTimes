@@ -1,8 +1,10 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Characters;
 using Countries;
 using UnityEngine;
+using UnityEngine.UIElements;
 using Workspace.Editorial;
 
 namespace Managers
@@ -18,6 +20,8 @@ namespace Managers
         public SceneLoader sceneLoader = new SceneLoader();
 
         private StatsDisplay _statsDisplay;
+
+        [SerializeField] private UIDocument _uiDocument;
 
         [SerializeField] private GameObject _audioSpawnerPrefab;
 
@@ -47,26 +51,25 @@ namespace Managers
 
         private void OnGUI()
         {
-            Event e = Event.current;
-            if (!e.isKey || e.type != EventType.KeyDown) return;
+            Event currentEvent = Event.current;
+            if (!currentEvent.isKey || currentEvent.type != EventType.KeyDown) return;
 
-            if (e.keyCode == KeyCode.F1)
+            if (currentEvent.keyCode == KeyCode.F1)
             {
                 _round = 1;
                 LoadScene(ScenesName.WORKSPACE_SCENE);
             }
-            else if (e.keyCode == KeyCode.F2)
+            else if (currentEvent.keyCode == KeyCode.F2)
             {
                 _round = 2;
                 LoadScene(ScenesName.WORKSPACE_SCENE);
             }
-            else if (e.keyCode == KeyCode.F3)
+            else if (currentEvent.keyCode == KeyCode.F3)
             {
                 _round = 3;
                 LoadScene(ScenesName.WORKSPACE_SCENE);
             }
         }
-
 
         private void InitData()
         {

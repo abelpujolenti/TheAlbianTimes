@@ -13,7 +13,13 @@ namespace Menus
 
         protected override void BeginDrag(BaseEventData data)
         {
+            base.BeginDrag(data);
             _dragged = true;
+        }
+
+        protected override void Drag(BaseEventData data)
+        {
+            base.Drag(data);
         }
 
         protected override void PointerClick(BaseEventData data)

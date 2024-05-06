@@ -6,7 +6,8 @@ namespace Workspace.Notebook
     public enum NotebookContentType
     {
         MAP,
-        PERSON
+        PERSON,
+        COUNTRY
     }
 
     public abstract class BaseNotebookContainer

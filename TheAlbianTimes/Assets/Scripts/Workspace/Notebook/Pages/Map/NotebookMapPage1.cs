@@ -34,5 +34,12 @@ namespace Workspace.Notebook.Pages.Map
         public void ClickSuoka() => _suokaClick();
         public void ClickZuania() => _zuaniaClick();
         public void ClickRekka() => _rekkaClick();
+        protected override void EraseClickers()
+        {
+            _xayaClick = () => { };
+            _suokaClick = () => { };
+            _zuaniaClick = () => { };
+            _rekkaClick = () => { };
+        }
     }
 }

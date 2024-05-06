@@ -28,10 +28,17 @@ namespace Workspace.Notebook.Pages.Person
 
             _name.text = page.name;
             //_photo.sprite = Resources.Load<Sprite>("Images/Icons/" + _name.text.ToLower());
+            
+            FillBulletPoints(page);
+        }
 
+        private void FillBulletPoints(PersonContentPage0 page)
+        {
             List<string> descriptions = page.descriptions;
 
             int listSize = descriptions.Count;
+
+            _bulletPoints.text = "";
             
             for (int i = 0; i < listSize; i++)
             {

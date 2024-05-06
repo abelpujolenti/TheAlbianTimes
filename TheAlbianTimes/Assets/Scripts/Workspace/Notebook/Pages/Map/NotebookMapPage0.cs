@@ -37,5 +37,13 @@ namespace Workspace.Notebook.Pages.Map
         public void ClickAlbia() => _albiaClick();
         public void ClickDalme() => _dalmeClick();
         public void ClickMadia() => _madiaClick();
+        protected override void EraseClickers()
+        {
+            _hetiaClick = () => { };
+            _terkanClick = () => { };
+            _albiaClick = () => { };
+            _dalmeClick = () => { };
+            _madiaClick = () => { };
+        }
     }
 }

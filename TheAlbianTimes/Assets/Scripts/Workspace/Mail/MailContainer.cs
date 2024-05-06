@@ -156,8 +156,6 @@ namespace Workspace.Mail
         {
             return gameObjectToDrag.transform.position.x > isOpenThreshold;
         }
-
-        public GameObject emptyPrefab; 
         
         private Vector2 PositionInsideContainer(Vector2 size)
         {

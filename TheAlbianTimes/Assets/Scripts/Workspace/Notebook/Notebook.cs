@@ -30,12 +30,13 @@ namespace Workspace.Notebook
 
         [SerializeField] private Image _leftPageBackground;
         [SerializeField] private Image _flipPageBackground;
-        
-        private float boundX = 10f;
+
+        private float _leftBoundX = -5f;
+        private float _rightBoundX = 20f;
 
         private List<NotebookPage> pages;
 
-        private Vector3 initialPosition;
+        private float _initialYPosition;
         private Vector3 dragVector;
         private float _imageBrightness;
 
@@ -43,10 +44,13 @@ namespace Workspace.Notebook
 
         private bool open;
 
+        private Action _midPointFlip;
+        private Action _endFlip;
+
         protected override void Setup()
         {
             base.Setup();
-            initialPosition = transform.position;
+            _initialYPosition = transform.position.y;
         }
 
         private void Start()
@@ -56,16 +60,16 @@ namespace Workspace.Notebook
 
         protected override void Drag(BaseEventData data)
         {
-            Vector3 prevPosition = transform.position;
+            Vector3 previousPosition = transform.position;
             base.Drag(data);
+            Vector3 newPosition = transform.position;
 
-            float x = Mathf.Max(-boundX, Mathf.Min(boundX, transform.position.x));
-            float y = Mathf.Max(initialPosition.y, Mathf.Min(6.33f, transform.position.y));
-            transform.position = new Vector3(x, y, transform.position.z);
+            float x = Mathf.Max(_leftBoundX, Mathf.Min(_rightBoundX, newPosition.x));
+            float y = Mathf.Max(_initialYPosition, Mathf.Min(6.33f, newPosition.y));
+            transform.position = new Vector3(x, y, previousPosition.z);
 
             Vector3 currPosition = transform.position;
-            dragVector = currPosition - prevPosition;
-
+            dragVector = currPosition - previousPosition;
         }
 
         protected override void EndDrag(BaseEventData data)
@@ -129,7 +133,7 @@ namespace Workspace.Notebook
 
         private IEnumerator CloseCoroutine(Action close)
         {
-            float speed = Mathf.Max(0.4f, (Vector2.Distance(transform.position, initialPosition) / 8f));
+            float speed = Mathf.Max(0.4f, (Vector2.Distance(transform.position, new Vector2(_camera.transform.position.x, _initialYPosition)) / 8f));
             StartCoroutine(RotatePageCoroutine((RectTransform)leftPage.transform, PAGE_CLOSE_TIME * speed, 0.01f, 180f, 0.5f, close));
             yield return MoveDownCoroutine(PULL_DOWN_BOOK_TIME * speed);
 
@@ -143,28 +147,37 @@ namespace Workspace.Notebook
 
         private IEnumerator MoveUpCoroutine(float t)
         {
-            yield return StartCoroutine(TransformUtility.SetPositionCoroutine(transform, transform.position, new Vector3(transform.position.x, -.5f, transform.position.z), PULL_UP_BOOK_TIME));
+            Transform notebookTransform = transform;
+            Vector3 position = notebookTransform.position;
+            yield return StartCoroutine(TransformUtility.SetPositionCoroutine(notebookTransform, position, new Vector3(position.x, -.5f, position.z), PULL_UP_BOOK_TIME));
         }
 
         public void StartMoveDownCoroutine()
         {
-            StartCoroutine(MoveDownCoroutine(PULL_DOWN_BOOK_TIME * (Vector2.Distance(transform.position, initialPosition) / 7f)));
+            StartCoroutine(MoveDownCoroutine(PULL_DOWN_BOOK_TIME * (Vector2.Distance(transform.position, new Vector2(_camera.transform.position.x, _initialYPosition)) / 7f)));
         }
 
         private IEnumerator MoveDownCoroutine(float t)
         {
-            yield return StartCoroutine(TransformUtility.SetPositionCoroutine(transform, transform.position, initialPosition, t));
+            Transform notebookTransform = transform;
+            yield return StartCoroutine(TransformUtility.SetPositionCoroutine(notebookTransform, notebookTransform.position, new Vector3(_camera.transform.position.x, _initialYPosition), t));
         }
 
         public void FlipPageLeft(Action midPointFlip, Action endFlip)
         {
-            if (flipCoroutine != null) StopCoroutine(flipCoroutine);
+            if (flipCoroutine != null)
+            {
+                StopCoroutine(flipCoroutine);
+            }
             flipCoroutine = StartCoroutine(FlipPageLeftCoroutine(midPointFlip, endFlip));
         }
 
         public void FlipPageRight(Action midPointFlip, Action endFlip)
         {
-            if (flipCoroutine != null) StopCoroutine(flipCoroutine);
+            if (flipCoroutine != null)
+            {
+                StopCoroutine(flipCoroutine);
+            }
             flipCoroutine = StartCoroutine(FlipPageRightCoroutine(midPointFlip, endFlip));
         }
 
@@ -173,12 +186,18 @@ namespace Workspace.Notebook
             flipPage.SetActive(true);
 
             yield return StartCoroutine(RotatePageCoroutine((RectTransform)flipPage.transform, PAGE_FLIP_TIME / 2f, 0f, 90f, 0.5f));
+            
             midPointFlip();
+            NotebookManager.Instance.NotifyMidPointFlip();
             
             StartCoroutine(ShadePageCoroutine(_flipPageBackground, PAGE_FLIP_TIME / 2f, 0.3f, _imageBrightness, 2f));
             yield return StartCoroutine(RotatePageCoroutine((RectTransform)flipPage.transform, PAGE_FLIP_TIME / 2f, 90f, 180f, 2f));
+            
             endFlip();
+            NotebookManager.Instance.NotifyEndFlip();
+            
             flipPage.SetActive(false);
+            flipCoroutine = null;
         }
 
         private IEnumerator FlipPageRightCoroutine(Action midPointFlip, Action endFlip)
@@ -187,11 +206,18 @@ namespace Workspace.Notebook
 
             StartCoroutine(ShadePageCoroutine(_flipPageBackground, PAGE_FLIP_TIME / 2f, _imageBrightness, 0.3f, 2f));
             yield return StartCoroutine(RotatePageCoroutine((RectTransform)flipPage.transform, PAGE_FLIP_TIME / 2f, 180f, 90f, 0.5f));
+            
             midPointFlip();
+            NotebookManager.Instance.NotifyMidPointFlip();
+            
             _flipPageBackground.color = ColorUtil.SetBrightness(_flipPageBackground.color, _imageBrightness);
             yield return StartCoroutine(RotatePageCoroutine((RectTransform)flipPage.transform, PAGE_FLIP_TIME / 2f, 90f, 0f, 2f));
+            
             endFlip();
+            NotebookManager.Instance.NotifyEndFlip();
+            
             flipPage.SetActive(false);
+            flipCoroutine = null;
         }
 
         private IEnumerator ShadePageCoroutine(Image image, float t, float start, float end, float exp = 0.5f)

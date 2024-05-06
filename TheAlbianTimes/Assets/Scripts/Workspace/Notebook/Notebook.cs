@@ -51,7 +51,6 @@ namespace Workspace.Notebook
 
         private void Start()
         {
-            NotebookManager.Instance.SetNotebook(this);
             _imageBrightness = ColorUtil.GetBrightness(_flipPageBackground.color);
         }
 

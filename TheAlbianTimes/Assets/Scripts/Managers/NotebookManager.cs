@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using Newtonsoft.Json;
 using UnityEngine;
 using Workspace.Notebook;
@@ -26,7 +25,7 @@ namespace Managers
         private const int PERSON_RANGE_OF_PAGES = 1;
         
         private readonly Vector2 _notebookBookmarkRootPosition = new Vector2(10, 0);
-        private readonly Vector2 _notebookBookmarkDifferencePosition = new Vector2(25, 0);
+        private readonly Vector2 _notebookBookmarkDifferencePosition = new Vector2(45, 0);
 
         [SerializeField] private GameObject _notebookBookmarkPrefab;
         [SerializeField] private GameObject _coverPrefab;
@@ -52,10 +51,18 @@ namespace Managers
         private Dictionary<string, int> _countryIndices = new Dictionary<string, int>();
         private Dictionary<NotebookContentType, int> _notebookIndices = new Dictionary<NotebookContentType, int>();
 
+        private Dictionary<NotebookContentType, NotebookContentPage[]> _notebookContentPages =
+            new Dictionary<NotebookContentType, NotebookContentPage[]>();
+
+        private GameObject _cover;
+
         private int _currentPageNumber;
         private int _totalPages;
 
         private bool _noteBookOpen;
+
+        private Action _midPointFlip = () => { };
+        private Action _endFlip = () => { };
 
         private Func<int, int, bool> _shouldBeOnRightSide =>
             (index, nextPage) => _bookmarks[index].IsOnRightSide() && nextPage > _notebookIndices[(NotebookContentType)index];
@@ -69,7 +76,9 @@ namespace Managers
             {
                 _instance = this; 
                 LoadNotebookContents();
-                _leftPage.ChangeContent(Instantiate(_coverPrefab));
+                _cover = Instantiate(_coverPrefab);
+                _leftPage.ChangeContent(_cover);
+                _cover.transform.localRotation = new Quaternion(0, 180, 0, 1);
                 
                 _currentBookmark = _bookmarks[0];
                 _currentBookmark.transform.SetParent(_activePageMarker);
@@ -78,6 +87,18 @@ namespace Managers
             {
                 Destroy(gameObject);
             }
+        }
+
+        private void InitializeNotebookContentPages(NotebookContentType notebookContentType, GameObject[] prefabs)
+        {
+            NotebookContentPage[] notebookContentPages = new NotebookContentPage[prefabs.Length];
+
+            for (int i = 0; i < notebookContentPages.Length; i++)
+            {
+                notebookContentPages[i] = Instantiate(prefabs[i].GetComponent<NotebookContentPage>());
+            }
+            
+            _notebookContentPages.Add(notebookContentType, notebookContentPages);
         }
 
         private TContent[] LoadNotebookContentsFromJson <TContainer, TContent>(string path)
@@ -157,12 +178,16 @@ namespace Managers
         {
             InstantiateNotebookBookmark(NotebookContentType.MAP);
             
+            InitializeNotebookContentPages(NotebookContentType.MAP, _mapPagesPrefabs);
+            
             _notebookPages.Add(_notebookPages.Count, null);
             _notebookPages.Add(_notebookPages.Count, null);
         }
 
         private void SaveCountriesContentsInDictionary(CountryContent[] contents)
         {
+            InitializeNotebookContentPages(NotebookContentType.COUNTRY, _countryPagesPrefabs);
+            
             foreach (CountryContent content in contents)
             {
                 CountryContentPage0 page0 = new CountryContentPage0
@@ -246,6 +271,8 @@ namespace Managers
         {
             InstantiateNotebookBookmark(NotebookContentType.PERSON);
             
+            InitializeNotebookContentPages(NotebookContentType.PERSON, _personPagesPrefabs);
+            
             foreach (PersonContent content in contents)
             {
                 PersonContentPage0 page0 = new PersonContentPage0
@@ -268,11 +295,6 @@ namespace Managers
             }
             
             _notebookPages.Add(_notebookPages.Count, null);
-        }
-
-        public int AssignPageToBookmark(NotebookContentType notebookContentType)
-        {
-            return _notebookIndices[notebookContentType];
         }
 
         public void NextPage()
@@ -352,8 +374,10 @@ namespace Managers
             (Func<GameObject>, Func<GameObject>) instantiatePages;
             GameObject currentPage;
 
-            Action midPointFlip;
-            Action endFlip;
+            _midPointFlip();
+            _endFlip();
+            
+            _flipPage.UnattachPageContent();
             
             if (_currentPageNumber < nextPage)
             {
@@ -366,6 +390,7 @@ namespace Managers
                 _flipPage.ChangeContent(currentPage);
                 _currentPageNumber = nextPage;
                 instantiatePages = CheckContentToShow();
+                _rightPage.UnattachPageContent();
                 
                 if (instantiatePages.Item2 != null)
                 {
@@ -377,39 +402,38 @@ namespace Managers
                     currentPage.transform.localRotation = new Quaternion(0, 0, 0, 1);
                 }
 
-                midPointFlip = () =>
+                _midPointFlip = () =>
                 {
-                    if (currentPage != null)
-                    {
-                        Destroy(currentPage);    
-                    }
                     GameObject page = instantiatePages.Item1();
                     _flipPage.ChangeContent(page);
-                    page.transform.localRotation = new Quaternion(0, 270, 0, 1);
+                    page.transform.localRotation = new Quaternion(0, 180, 0, 1);
                 };
 
-                endFlip = () =>
+                _endFlip = () =>
                 {
-                    Destroy(_leftPage.GetCurrentPage());
                     GameObject page = _flipPage.GetCurrentPage();
                     _leftPage.ChangeContent(page);
+                    page.transform.localRotation = new Quaternion(0, 0, 0, 1);
                 };
 
-                _notebook.FlipPageLeft(midPointFlip, endFlip);
+                _notebook.FlipPageLeft(_midPointFlip, _endFlip);
                 return;
             }
             MoveBookmarks(_shouldBeOnLeftSide, nextPage);
             currentPage = _leftPage.GetCurrentPage();
             _flipPage.ChangeContent(currentPage);
+            currentPage.transform.localRotation = new Quaternion(0, 180, 0, 1);
             _currentPageNumber = nextPage;
             instantiatePages = CheckContentToShow();
+            _leftPage.UnattachPageContent();
             _leftPage.ChangeContent(instantiatePages.Item1());
 
-            midPointFlip = () =>
+            _midPointFlip = () =>
             {
-                Destroy(currentPage);
                 if (instantiatePages.Item2 == null)
                 {
+                    _flipPage.GetCurrentPage().SetActive(false);
+                    _flipPage.UnattachPageContent();
                     return;
                 }
                 
@@ -418,12 +442,12 @@ namespace Managers
                 page.transform.localRotation = new Quaternion(0, 0, 0, 1);
             };
 
-            endFlip = () =>
+            _endFlip = () =>
             {
-                Destroy(_rightPage.GetCurrentPage());
                 GameObject page = _flipPage.GetCurrentPage();
                 if (page == null)
                 {
+                    _rightPage.GetCurrentPage().SetActive(false);
                     _flipPage.transform.parent.localRotation = new Quaternion(0, 180, 0, 1);
                     return;
                 }
@@ -436,7 +460,17 @@ namespace Managers
                 }
             };
 
-            _notebook.FlipPageRight(midPointFlip, endFlip);
+            _notebook.FlipPageRight(_midPointFlip, _endFlip);
+        }
+
+        public void NotifyMidPointFlip()
+        {
+            _midPointFlip = () => { };
+        }
+
+        public void NotifyEndFlip()
+        {
+            _endFlip = () => { };
         }
 
         private void MoveBookmarks(Func<int, int, bool> sideChecker, int nextPage)
@@ -472,33 +506,31 @@ namespace Managers
             
             if (_currentPageNumber == mapIndex)
             {
-                leftPage = PassContentToShow(_mapPagesPrefabs, MAP_RANGE_OF_PAGES, 0, _leftPage, true);
-                rightPage = PassContentToShow(_mapPagesPrefabs, MAP_RANGE_OF_PAGES, 0, _rightPage, false);
+                leftPage = PassContentToShow(NotebookContentType.MAP, MAP_RANGE_OF_PAGES, 0, true);
+                rightPage = PassContentToShow(NotebookContentType.MAP, MAP_RANGE_OF_PAGES, 0, false);
                 return (leftPage, rightPage);
             }
             
             if (_currentPageNumber < peopleIndex)
             {
-                leftPage = PassContentToShow(_countryPagesPrefabs, COUNTRY_RANGE_OF_PAGES,
-                    _notebookIndices[NotebookContentType.MAP] + MAP_RANGE_OF_PAGES, _leftPage, true);
+                leftPage = PassContentToShow(NotebookContentType.COUNTRY, COUNTRY_RANGE_OF_PAGES, 
+                    mapIndex + MAP_RANGE_OF_PAGES, true);
                 
-                rightPage = PassContentToShow(_countryPagesPrefabs, COUNTRY_RANGE_OF_PAGES,
-                    _notebookIndices[NotebookContentType.MAP] + MAP_RANGE_OF_PAGES, _rightPage, false);
+                rightPage = PassContentToShow(NotebookContentType.COUNTRY, COUNTRY_RANGE_OF_PAGES, 
+                    mapIndex + MAP_RANGE_OF_PAGES, false);
                 
                 return (leftPage, rightPage);
             }
             
-            leftPage = PassContentToShow(_personPagesPrefabs, PERSON_RANGE_OF_PAGES,
-                peopleIndex, _leftPage, true);
+            leftPage = PassContentToShow(NotebookContentType.PERSON, PERSON_RANGE_OF_PAGES, peopleIndex, true);
             
-            rightPage = PassContentToShow(_personPagesPrefabs, PERSON_RANGE_OF_PAGES,
-                peopleIndex, _rightPage, false);
+            rightPage = PassContentToShow(NotebookContentType.PERSON, PERSON_RANGE_OF_PAGES, peopleIndex, false);
 
             return (leftPage, rightPage);
         }
 
-        private Func<GameObject> PassContentToShow(GameObject[] pagePrefabs, int rangeOfPages, 
-            int index, NotebookPage notebookPage, bool isLeftPage)
+        private Func<GameObject> PassContentToShow(NotebookContentType notebookContentType, int rangeOfPages, 
+            int index, bool isLeftPage)
         {
             int pageToFill = _currentPageNumber;
             
@@ -511,22 +543,21 @@ namespace Managers
 
             if (pageContent == null)
             {
-                notebookPage.ChangeContent(null);
                 return null;
             }
 
             return () =>
             {
-                GameObject page = Instantiate(pagePrefabs[(pageToFill - index) % rangeOfPages]);
+                NotebookContentPage page = _notebookContentPages[notebookContentType][(pageToFill - index) % rangeOfPages];
 
                 if (!_noteBookOpen && isLeftPage)
                 {
                     page.transform.localRotation = new Quaternion(0, 180, 0, 1);
                 }
             
-                page.GetComponent<NotebookContentPage>().FillPage(pageContent);
+                page.FillPage(pageContent);
 
-                return page;
+                return page.gameObject;
             };
         }
 
@@ -557,20 +588,14 @@ namespace Managers
         private Action OpenTransition()
         {
             (Func<GameObject>, Func<GameObject>) pagesToInstantiate = CheckContentToShow();
-
+            
             if (pagesToInstantiate.Item2 != null)
             {
-                GameObject page = _rightPage.GetCurrentPage();
-                if (page != null)
-                {
-                    Destroy(page);
-                }
                 _rightPage.ChangeContent(pagesToInstantiate.Item2());    
             }
 
             return () =>
             {
-                Destroy(_leftPage.GetCurrentPage());
                 GameObject page = pagesToInstantiate.Item1();
                 _leftPage.ChangeContent(page);
                 page.transform.localRotation = new Quaternion(0, 0, 0, 1);
@@ -595,8 +620,7 @@ namespace Managers
             
             return () =>
             {
-                Destroy(_leftPage.GetCurrentPage());
-                GameObject page = Instantiate(_coverPrefab);
+                GameObject page = _cover;
                 _leftPage.ChangeContent(page);
                 page.transform.localRotation = new Quaternion(0, 180, 0, 1);
             };

@@ -31,6 +31,8 @@ namespace Workspace.Notebook.Pages.Country
 
         private void FillOrganizations(CountryContentPage3 page)
         {
+            _organizations.text = "";
+            
             foreach (KeyValuePair<string, List<string>> organization in page.organizations)
             {
                 _organizations.text += "\u2022 <b>" + organization.Key + "</b>\n";

@@ -15,13 +15,18 @@ namespace Workspace.Notebook.Pages.Map
         [SerializeField] private Image[] _backgroundsToFade;
         [SerializeField] private Image[] _buttonsToFade;
 
-        private void Start()
+        private float _currentBackgroundAlpha;
+        private float _currentButtonAlpha;
+
+        private Coroutine _fadeCoroutine;
+
+        private void OnEnable()
         {
             EventsManager.OnOpenMapPages += StartButtonsFadeIn;
             EventsManager.OnCloseMapPages += StartButtonsFadeOut;
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             EventsManager.OnOpenMapPages -= StartButtonsFadeIn;
             EventsManager.OnCloseMapPages -= StartButtonsFadeOut;
@@ -29,12 +34,19 @@ namespace Workspace.Notebook.Pages.Map
         
         private void StartButtonsFadeIn()
         {
-            StartCoroutine(ButtonsFade(0, MAX_ALPHA_BACKGROUND, 0, MAX_ALPHA_BUTTON, TIME_TO_FADE_IN));
+            _fadeCoroutine = StartCoroutine(ButtonsFade(0, MAX_ALPHA_BACKGROUND, 0, MAX_ALPHA_BUTTON, TIME_TO_FADE_IN));
         }
 
         private void StartButtonsFadeOut()
         {
-            StartCoroutine(ButtonsFade(MAX_ALPHA_BACKGROUND, 0, MAX_ALPHA_BUTTON, 0, TIME_TO_FADE_OUT));
+            EraseClickers();
+            if (_fadeCoroutine == null)
+            {
+                StartCoroutine(ButtonsFade(MAX_ALPHA_BACKGROUND, 0, MAX_ALPHA_BUTTON, 0, TIME_TO_FADE_OUT));
+                return;
+            }
+            StopCoroutine(_fadeCoroutine);
+            StartCoroutine(ButtonsFade(_currentBackgroundAlpha, 0, _currentButtonAlpha, 0, TIME_TO_FADE_OUT));
         }
 
         private IEnumerator ButtonsFade(float startAlphaBackground, float endAlphaBackground,
@@ -48,15 +60,19 @@ namespace Workspace.Notebook.Pages.Map
             while (timer < timeToFade)
             {
                 timer += Time.deltaTime;
+                
+                _currentBackgroundAlpha = Mathf.Lerp(startAlphaBackground, endAlphaBackground, timer / timeToFade);
 
-                backgroundColor.a = Mathf.Lerp(startAlphaBackground, endAlphaBackground, timer / timeToFade);
+                backgroundColor.a = _currentBackgroundAlpha;
                 
                 foreach (Image background in _backgroundsToFade)
                 {
                     background.color = backgroundColor;
                 }
                 
-                buttonColor.a = Mathf.Lerp(startAlphaButton, endAlphaButton, timer / timeToFade);
+                _currentButtonAlpha = Mathf.Lerp(startAlphaButton, endAlphaButton, timer / timeToFade);
+
+                buttonColor.a = _currentButtonAlpha;
 
                 foreach (Image button in _buttonsToFade)
                 {
@@ -78,6 +94,10 @@ namespace Workspace.Notebook.Pages.Map
             {
                 button.color = buttonColor;
             }
+
+            _fadeCoroutine = null;
         }
+
+        protected abstract void EraseClickers();
     }
 }

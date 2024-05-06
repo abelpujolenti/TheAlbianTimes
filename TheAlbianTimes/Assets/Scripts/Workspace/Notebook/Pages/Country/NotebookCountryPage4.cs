@@ -30,6 +30,8 @@ namespace Workspace.Notebook.Pages.Country
 
         private void FillOngoingConflicts(CountryContentPage4 page)
         {
+            _ongoingConflicts.text = "";
+            
             foreach (string conflict in page.ongoingConflicts)
             {
                 _ongoingConflicts.text += "\u2022 " + conflict + "\n";

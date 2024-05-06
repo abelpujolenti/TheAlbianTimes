@@ -679,6 +679,10 @@ MonoBehaviour:
   - {fileID: 4721320038934822888}
   - {fileID: 6598965840485897624}
   - {fileID: 5469648818679752073}
+  _hetia: {fileID: 7583793018559987393}
+  _terkan: {fileID: 4984351574781526188}
+  _dalme: {fileID: 1403686849788724152}
+  _mapImage: {fileID: 25597714355977562}
 --- !u!1 &6366448119435701930
 GameObject:
   m_ObjectHideFlags: 0

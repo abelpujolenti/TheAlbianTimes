@@ -79,9 +79,6 @@ namespace Managers
                 _cover = Instantiate(_coverPrefab);
                 _leftPage.ChangeContent(_cover);
                 _cover.transform.localRotation = new Quaternion(0, 180, 0, 1);
-                
-                _currentBookmark = _bookmarks[0];
-                _currentBookmark.transform.SetParent(_activePageMarker);
             }
             else
             {
@@ -187,9 +184,31 @@ namespace Managers
         private void SaveCountriesContentsInDictionary(CountryContent[] contents)
         {
             InitializeNotebookContentPages(NotebookContentType.COUNTRY, _countryPagesPrefabs);
+
+            int maxCountries = contents.Length;
             
-            foreach (CountryContent content in contents)
+            int round = GameManager.Instance.GetRound();
+
+            if (round < 3)
             {
+                maxCountries = 3;
+            }
+            else if (round == 3)
+            {
+                maxCountries = 4;
+            }
+            else if (round == 4)
+            {
+                maxCountries = 6;
+            }
+            else if (round == 5)
+            {
+                maxCountries = 8;
+            }
+
+            for (int i = 0; i < maxCountries; i++)
+            {
+                CountryContent content = contents[i];
                 CountryContentPage0 page0 = new CountryContentPage0
                 {
                     countryName = content.countryName,
@@ -253,17 +272,17 @@ namespace Managers
         /*private void SaveInternationalsContentsInDictionary(InternationalContent[] contents)
         {
             _notebookIndices.Add(NotebookContentType.INTERNATIONAL, _notebookPages.Count);
-            
+
             foreach (InternationalContent content in contents)
             {
                 InternationalContentPage0 page0 = new InternationalContentPage0
                 {
                     name = content.name
                 };
-                
+
                 _notebookPages.Add(_notebookPages.Count, page0);
             }
-            
+
             FillLastPageIfUneven();
         }*/
 
@@ -570,6 +589,8 @@ namespace Managers
 
         private void OnOpenOrCloseNotebook()
         {
+            CheckBookmark(_currentPageNumber);
+            
             foreach (NotebookBookmark bookmark in _bookmarks)
             {
                 if (bookmark.IsOnRightSide())

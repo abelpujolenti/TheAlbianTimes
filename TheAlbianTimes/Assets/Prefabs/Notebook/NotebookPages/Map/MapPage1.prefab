@@ -871,6 +871,10 @@ MonoBehaviour:
   - {fileID: 7316819651363749487}
   - {fileID: 8517112450614594343}
   - {fileID: 515944433788580205}
+  _suoka: {fileID: 6821723069005158901}
+  _zuania: {fileID: 8504344013596845627}
+  _rekka: {fileID: 4121311352120597348}
+  _mapImage: {fileID: 5193902235092178157}
 --- !u!1 &6821723069005158901
 GameObject:
   m_ObjectHideFlags: 0

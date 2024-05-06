@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Newtonsoft.Json;
 using UnityEngine;
 using Workspace.Notebook;
@@ -14,32 +15,36 @@ namespace Managers
         public static NotebookManager Instance => _instance;
         
         private const string PATH_COUNTRIES_CONTENT_CONTAINER = "/Json/Notebook/CountriesContainer.json";
-        private const string PATH_INTERNATIONALS_CONTENT_CONTAINER = "/Json/Notebook/InternationalsContainer.json";
+        //private const string PATH_INTERNATIONALS_CONTENT_CONTAINER = "/Json/Notebook/InternationalsContainer.json";
         private const string PATH_PEOPLE_CONTENT_CONTAINER = "/Json/Notebook/PeopleContainer.json";
 
         private const float BOOKMARK_WIDTH = 22;
 
         private const int MAP_RANGE_OF_PAGES = 2;
         private const int COUNTRY_RANGE_OF_PAGES = 6;
-        private const int INTERNATIONAL_RANGE_OF_PAGES = 1;
+        //private const int INTERNATIONAL_RANGE_OF_PAGES = 1;
         private const int PERSON_RANGE_OF_PAGES = 1;
+        
+        private readonly Vector2 _notebookBookmarkRootPosition = new Vector2(10, 0);
+        private readonly Vector2 _notebookBookmarkDifferencePosition = new Vector2(25, 0);
 
+        [SerializeField] private GameObject _notebookBookmarkPrefab;
         [SerializeField] private GameObject _coverPrefab;
         [SerializeField] private GameObject[] _mapPagesPrefabs;
         [SerializeField] private GameObject[] _countryPagesPrefabs;
-        [SerializeField] private GameObject[] _internationalPagesPrefabs;
+        //[SerializeField] private GameObject[] _internationalPagesPrefabs;
         [SerializeField] private GameObject[] _personPagesPrefabs;
 
         [SerializeField] private Transform _pageMarkers;
         [SerializeField] private Transform _activePageMarker;
         
-        [SerializeField] private NotebookBookmark[] _bookmarks;
+        private List<NotebookBookmark> _bookmarks = new List<NotebookBookmark>();
 
         [SerializeField] private NotebookPage _leftPage;
         [SerializeField] private NotebookPage _flipPage;
         [SerializeField] private NotebookPage _rightPage;
 
-        private Notebook _notebook;
+        [SerializeField] private Notebook _notebook;
 
         private NotebookBookmark _currentBookmark;
 
@@ -51,8 +56,6 @@ namespace Managers
         private int _totalPages;
 
         private bool _noteBookOpen;
-
-        private Action _onEndFlip;
 
         private Func<int, int, bool> _shouldBeOnRightSide =>
             (index, nextPage) => _bookmarks[index].IsOnRightSide() && nextPage > _notebookIndices[(NotebookContentType)index];
@@ -75,11 +78,6 @@ namespace Managers
             {
                 Destroy(gameObject);
             }
-        }
-        
-        public void SetNotebook(Notebook notebook)
-        {
-            _notebook = notebook;
         }
 
         private TContent[] LoadNotebookContentsFromJson <TContainer, TContent>(string path)
@@ -129,22 +127,36 @@ namespace Managers
         {
             CountryContent[] countriesContent =
                 LoadNotebookContentsFromJson<CountriesContainer, CountryContent>(PATH_COUNTRIES_CONTENT_CONTAINER);
-            InternationalContent[] internationalsContent =
-                LoadNotebookContentsFromJson<InternationalsContainer, InternationalContent>(PATH_INTERNATIONALS_CONTENT_CONTAINER);
+            /*InternationalContent[] internationalsContent =
+                LoadNotebookContentsFromJson<InternationalsContainer, InternationalContent>(PATH_INTERNATIONALS_CONTENT_CONTAINER);*/
             PersonContent[] peopleContent =
                 LoadNotebookContentsFromJson<PeopleContainer, PersonContent>(PATH_PEOPLE_CONTENT_CONTAINER);
             
             ReservePagesForMap();
             SaveCountriesContentsInDictionary(countriesContent);
-            SaveInternationalsContentsInDictionary(internationalsContent);
+            //SaveInternationalsContentsInDictionary(internationalsContent);
             SavePeopleContentsInDictionary(peopleContent);
 
             _totalPages = _notebookPages.Count;
         }
 
+        private void InstantiateNotebookBookmark(NotebookContentType notebookContentType)
+        {
+            NotebookBookmark notebookBookmark = Instantiate(_notebookBookmarkPrefab, _notebook.gameObject.transform.GetChild(0)).GetComponent<NotebookBookmark>();
+            notebookBookmark.SetPage(_notebookPages.Count);
+            notebookBookmark.SetPageMarkerActiveParent(_activePageMarker);
+            
+            notebookBookmark.gameObject.transform.localPosition = _notebookBookmarkRootPosition + _notebookBookmarkDifferencePosition * _notebookIndices.Count;
+            
+            _notebookIndices.Add(notebookContentType, _notebookPages.Count);
+            
+            _bookmarks.Add(notebookBookmark);
+        }
+
         private void ReservePagesForMap()
         {
-            _notebookIndices.Add(NotebookContentType.MAP, _notebookPages.Count);
+            InstantiateNotebookBookmark(NotebookContentType.MAP);
+            
             _notebookPages.Add(_notebookPages.Count, null);
             _notebookPages.Add(_notebookPages.Count, null);
         }
@@ -156,7 +168,6 @@ namespace Managers
                 CountryContentPage0 page0 = new CountryContentPage0
                 {
                     countryName = content.countryName,
-                    flagImagePath = content.flagImagePath,
                     description = content.description
                 };
                 
@@ -214,7 +225,7 @@ namespace Managers
             _notebookPages[1] = mapPage1;
         }
 
-        private void SaveInternationalsContentsInDictionary(InternationalContent[] contents)
+        /*private void SaveInternationalsContentsInDictionary(InternationalContent[] contents)
         {
             _notebookIndices.Add(NotebookContentType.INTERNATIONAL, _notebookPages.Count);
             
@@ -229,19 +240,18 @@ namespace Managers
             }
             
             FillLastPageIfUneven();
-        }
+        }*/
 
         private void SavePeopleContentsInDictionary(PersonContent[] contents)
         {
-            _notebookIndices.Add(NotebookContentType.PERSON, _notebookPages.Count);
+            InstantiateNotebookBookmark(NotebookContentType.PERSON);
             
             foreach (PersonContent content in contents)
             {
                 PersonContentPage0 page0 = new PersonContentPage0
                 {
                     name = content.name,
-                    descriptions =  content.descriptions,
-                    photoImagePath = content.photoImagePath
+                    descriptions =  content.descriptions
                 };
                 
                 _notebookPages.Add(_notebookPages.Count, page0);
@@ -433,7 +443,7 @@ namespace Managers
         {
             List<NotebookBookmark> notebookBookmarks = new List<NotebookBookmark>();
 
-            for (int i = 0; i < _bookmarks.Length; i++)
+            for (int i = 0; i < _bookmarks.Count; i++)
             {
                 if (sideChecker(i, nextPage))
                 {
@@ -455,7 +465,6 @@ namespace Managers
         private (Func<GameObject>, Func<GameObject>) CheckContentToShow()
         {
             int mapIndex = _notebookIndices[NotebookContentType.MAP];
-            int internationalsIndex = _notebookIndices[NotebookContentType.INTERNATIONAL];
             int peopleIndex = _notebookIndices[NotebookContentType.PERSON];
 
             Func<GameObject> leftPage;
@@ -468,24 +477,13 @@ namespace Managers
                 return (leftPage, rightPage);
             }
             
-            if (_currentPageNumber < internationalsIndex)
+            if (_currentPageNumber < peopleIndex)
             {
                 leftPage = PassContentToShow(_countryPagesPrefabs, COUNTRY_RANGE_OF_PAGES,
                     _notebookIndices[NotebookContentType.MAP] + MAP_RANGE_OF_PAGES, _leftPage, true);
                 
                 rightPage = PassContentToShow(_countryPagesPrefabs, COUNTRY_RANGE_OF_PAGES,
                     _notebookIndices[NotebookContentType.MAP] + MAP_RANGE_OF_PAGES, _rightPage, false);
-                
-                return (leftPage, rightPage);
-            }
-            
-            if (_currentPageNumber < peopleIndex)
-            {
-                leftPage = PassContentToShow(_internationalPagesPrefabs, INTERNATIONAL_RANGE_OF_PAGES,
-                    internationalsIndex, _leftPage, true);
-                
-                rightPage = PassContentToShow(_internationalPagesPrefabs, INTERNATIONAL_RANGE_OF_PAGES,
-                    internationalsIndex, _rightPage, false);
                 
                 return (leftPage, rightPage);
             }
@@ -628,17 +626,6 @@ namespace Managers
                 }
                 _notebook.StartMoveDownCoroutine();
             }
-        }
-
-        public void PrepareFade()
-        {
-            
-        }
-
-        public void FlipFinished()
-        {
-            _onEndFlip();
-            _onEndFlip = () => { };
         }
     }
 }

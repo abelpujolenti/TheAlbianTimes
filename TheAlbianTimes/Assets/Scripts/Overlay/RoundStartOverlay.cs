@@ -23,7 +23,7 @@ namespace Overlay
         private Coroutine roundStartCoroutine;
         private void Start()
         {
-            _coffeeVisualEffect.playRate = 0.2f;
+            _coffeeVisualEffect.playRate = 0.1f;
             _coffeeVisualEffect.SendEvent(STOP_COFFEE_PARTICLES_EVENT_NAME);
             AudioManager.Instance.ChangeAudioSnapshot(AudioSnapshots.TRANSITION, 0.5f);
             AudioManager.Instance.Play2DSound(ENTER_OFFICE);

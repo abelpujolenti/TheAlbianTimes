@@ -11416,7 +11416,7 @@ Transform:
   m_GameObject: {fileID: 1998229916}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 276.03, y: 276.03, z: 276.03}
+  m_LocalScale: {x: 150, y: 150, z: 150}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 323823500}
@@ -12970,7 +12970,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   messagePostitPrefab: {fileID: 1679675313347019840, guid: c2335de6370efd14184d771ff2610e54, type: 3}
-  _diegeticElementsCanvas: {fileID: 0}
+  _diegeticElementsCanvas: {fileID: 36568376}
 --- !u!114 &6325355704779021479
 MonoBehaviour:
   m_ObjectHideFlags: 0

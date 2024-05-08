@@ -18,6 +18,8 @@ namespace Workspace.Notebook.Pages.Map
         private float _currentBackgroundAlpha;
         private float _currentButtonAlpha;
 
+        protected int _countriesToFade;
+
         private Coroutine _fadeCoroutine;
 
         private void OnEnable()
@@ -54,14 +56,14 @@ namespace Workspace.Notebook.Pages.Map
         {
             if (activate)
             {
-                foreach (Image image in _backgroundsToFade)
+                for (int i = 0; i < _countriesToFade; i++)
                 {
-                    image.gameObject.SetActive(true);    
+                    _backgroundsToFade[i].gameObject.SetActive(true);
                 }
 
-                foreach (Image image in _buttonsToFade)
+                for (int i = 0; i < _countriesToFade; i++)
                 {
-                    image.gameObject.SetActive(true);
+                    _buttonsToFade[i].gameObject.SetActive(true);
                 }
             }
             
@@ -110,14 +112,14 @@ namespace Workspace.Notebook.Pages.Map
             
             if (!activate)
             {
-                foreach (Image image in _backgroundsToFade)
+                for (int i = 0; i < _countriesToFade; i++)
                 {
-                    image.gameObject.SetActive(false);    
+                    _backgroundsToFade[i].gameObject.SetActive(true);
                 }
 
-                foreach (Image image in _buttonsToFade)
+                for (int i = 0; i < _countriesToFade; i++)
                 {
-                    image.gameObject.SetActive(false);
+                    _buttonsToFade[i].gameObject.SetActive(true);
                 }
             }
 

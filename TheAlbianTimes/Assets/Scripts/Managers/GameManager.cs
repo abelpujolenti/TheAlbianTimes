@@ -1,10 +1,8 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Characters;
 using Countries;
 using UnityEngine;
-using UnityEngine.UIElements;
 using Workspace.Editorial;
 
 namespace Managers
@@ -20,8 +18,6 @@ namespace Managers
         public SceneLoader sceneLoader = new SceneLoader();
 
         private StatsDisplay _statsDisplay;
-
-        [SerializeField] private UIDocument _uiDocument;
 
         [SerializeField] private GameObject _audioSpawnerPrefab;
 
@@ -142,6 +138,7 @@ namespace Managers
                 Destroy(_audioSpawner);
                 _isAudioSpawnerActive = false;
             }
+            
             sceneLoader.SetScene(sceneName);
         }
 

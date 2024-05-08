@@ -4906,7 +4906,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae0519f0901454740b783559c262b87e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _uiDocument: {fileID: 0}
   _audioSpawnerPrefab: {fileID: 7460462998756000948, guid: 0f6ac97d0805ae742a2be65aa6a3dd71, type: 3}
   musicAudioId: -1
 --- !u!1 &1023565038

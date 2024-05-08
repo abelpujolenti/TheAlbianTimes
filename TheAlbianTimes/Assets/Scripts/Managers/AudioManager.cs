@@ -110,9 +110,8 @@ namespace Managers
 
         private void InitializeAudioValues()
         {
-            _groupAudioVolumeValues[AudioGroups.MASTER] = PlayerPrefs.GetFloat(PLAYER_PREFS_MASTER_VOLUME_VALUE);
-
-            _groupAudioMutes[AudioGroups.MASTER] = PlayerPrefs.GetInt(PLAYER_PREFS_MASTER_MUTE) != 0;
+            SetMasterVolumeValue(PlayerPrefs.GetFloat(PLAYER_PREFS_MASTER_VOLUME_VALUE));
+            SetMasterMute(PlayerPrefs.GetInt(PLAYER_PREFS_MASTER_MUTE) != 0);
             
             SetInitialVolumeValue(AudioGroups.SFX, 
                 PlayerPrefs.GetFloat(PLAYER_PREFS_SFX_VOLUME_VALUE), PlayerPrefs.GetInt(PLAYER_PREFS_SFX_MUTE) != 0);
@@ -556,10 +555,14 @@ namespace Managers
         public void SetMasterMute(bool mute)
         {
             _groupAudioMutes[AudioGroups.MASTER] = mute;
-
+            
             for (AudioGroups i = (AudioGroups)1; i < AudioGroups.SIZE; i++)
             {
-                SetMute(i, mute);
+                if (_groupAudioMutes[i])
+                {
+                    continue;
+                }
+                Mute(i, mute);
             }
         }
 
@@ -588,7 +591,17 @@ namespace Managers
         public void SetMute(AudioGroups audioGroup, bool mute)
         {
             _groupAudioMutes[audioGroup] = mute;
+            
+            if (_groupAudioMutes[AudioGroups.MASTER])
+            {
+                return;
+            }
+            
+            Mute(audioGroup, mute);
+        }
 
+        private void Mute(AudioGroups audioGroup, bool mute)
+        {
             AudioSource[] audioSources = _audioSourcesInGroups[audioGroup];
 
             foreach (AudioSource audioSource in audioSources)
@@ -619,7 +632,7 @@ namespace Managers
 
         private void OnDestroy()
         {
-            if (_instance != null)
+            if (_instance == null)
             {
                 return;
             }
@@ -627,9 +640,9 @@ namespace Managers
             PlayerPrefs.SetFloat(PLAYER_PREFS_SFX_VOLUME_VALUE, _groupAudioVolumeValues[AudioGroups.SFX]);
             PlayerPrefs.SetFloat(PLAYER_PREFS_MUSIC_VOLUME_VALUE, _groupAudioVolumeValues[AudioGroups.MUSIC]);
             
-            PlayerPrefs.SetInt(PLAYER_PREFS_MASTER_MUTE, _groupAudioMutes[AudioGroups.MASTER] == false ? 0 : 1);
-            PlayerPrefs.SetInt(PLAYER_PREFS_SFX_MUTE, _groupAudioMutes[AudioGroups.SFX] == false ? 0 : 1);
-            PlayerPrefs.SetInt(PLAYER_PREFS_MUSIC_MUTE, _groupAudioMutes[AudioGroups.MUSIC] == false ? 0 : 1);
+            PlayerPrefs.SetInt(PLAYER_PREFS_MASTER_MUTE, _groupAudioMutes[AudioGroups.MASTER] ? 1 : 0);
+            PlayerPrefs.SetInt(PLAYER_PREFS_SFX_MUTE, _groupAudioMutes[AudioGroups.SFX] ? 1 : 0);
+            PlayerPrefs.SetInt(PLAYER_PREFS_MUSIC_MUTE, _groupAudioMutes[AudioGroups.MUSIC] ? 1 : 0);
         }
     }
 }

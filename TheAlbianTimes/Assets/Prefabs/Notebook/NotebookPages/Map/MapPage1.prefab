@@ -862,15 +862,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _backgroundsToFade:
-  - {fileID: 4769875980368915684}
   - {fileID: 5502074747693301932}
   - {fileID: 8990377323986319339}
   - {fileID: 4402459163215085074}
+  - {fileID: 4769875980368915684}
   _buttonsToFade:
-  - {fileID: 6172139953760902433}
   - {fileID: 7316819651363749487}
   - {fileID: 8517112450614594343}
   - {fileID: 515944433788580205}
+  - {fileID: 6172139953760902433}
   _suoka: {fileID: 6821723069005158901}
   _zuania: {fileID: 8504344013596845627}
   _rekka: {fileID: 4121311352120597348}

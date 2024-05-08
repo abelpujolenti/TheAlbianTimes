@@ -21,6 +21,14 @@ namespace Workspace.Editorial
             StartCoroutine(Reveal());
         }
 
+        private IEnumerator Reveal()
+        {
+            yield return new WaitForSeconds(EditorialNewsLoader.loadDelay - 1f);
+            folderImage.enabled = true;
+            CreateMessagePostits();
+            yield return TransformUtility.SetPositionCoroutine(transform, transform.position + new Vector3(0f, -14f, 0f), transform.position, 1f);
+        }
+
         private void CreateMessagePostits()
         {
             string file = FileManager.LoadJsonFile("/Json/MessagePostits/postits.json");
@@ -32,20 +40,12 @@ namespace Workspace.Editorial
             }
         }
 
-        public void SpawnPostit(MessagePostitData data)
+        private void SpawnPostit(MessagePostitData data)
         {
             MessagePostit postit = Instantiate(messagePostitPrefab, transform).GetComponent<MessagePostit>();
             postit.Setup(data);
             ((RectTransform)postit.transform).anchoredPosition = new Vector3(Random.Range(20f, 85f), Random.Range(-5f, -90f), transform.position.z);
             postit.transform.localRotation = Quaternion.Euler(new Vector3(0f, 0f, Random.Range(-5f, 5f)));
-        }
-
-        private IEnumerator Reveal()
-        {
-            yield return new WaitForSeconds(EditorialNewsLoader.loadDelay - 1f);
-            folderImage.enabled = true;
-            CreateMessagePostits();
-            yield return TransformUtility.SetPositionCoroutine(transform, transform.position + new Vector3(0f, -14f, 0f), transform.position, 1f);
         }
     }
 }

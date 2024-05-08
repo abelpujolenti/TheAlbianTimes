@@ -16,9 +16,9 @@ namespace Workspace.Notebook.Pages.Map
         [SerializeField] private Image _mapImage;
         
         private Action _xayaClick;
-        private Action _suokaClick;
         private Action _zuaniaClick;
         private Action _rekkaClick;
+        private Action _suokaClick;
 
         private void Start()
         {
@@ -26,6 +26,7 @@ namespace Workspace.Notebook.Pages.Map
 
             if (round < 3)
             {
+                _countriesToFade = 1;
                 _zuania.SetActive(false);
                 _suoka.SetActive(false);
                 _rekka.SetActive(false);
@@ -35,6 +36,7 @@ namespace Workspace.Notebook.Pages.Map
 
             if (round == 3)
             {
+                _countriesToFade = 2;
                 _suoka.SetActive(false);
                 _rekka.SetActive(false);
                 _mapImage.sprite = Resources.Load<Sprite>(MAP_IMAGES_FOLDER  + "Map1RightSide");
@@ -43,6 +45,7 @@ namespace Workspace.Notebook.Pages.Map
 
             if (round == 4)
             {
+                _countriesToFade = 2;
                 _suoka.SetActive(false);
                 _rekka.SetActive(false);
                 _mapImage.sprite = Resources.Load<Sprite>(MAP_IMAGES_FOLDER  + "Map2RightSide");
@@ -51,10 +54,13 @@ namespace Workspace.Notebook.Pages.Map
 
             if (round != 5)
             {
+                _countriesToFade = 4;
                 _mapImage.sprite = Resources.Load<Sprite>(MAP_IMAGES_FOLDER  + "MapRightSide");
                 return;
             }
 
+            
+            _countriesToFade = 3;
             _suoka.SetActive(false);
             _mapImage.sprite = Resources.Load<Sprite>(MAP_IMAGES_FOLDER  + "Map3RightSide");
         }

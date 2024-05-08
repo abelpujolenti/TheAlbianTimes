@@ -138,7 +138,7 @@ namespace Workspace.Layout
                 time += Time.deltaTime;
                 yield return null;
             }
-            GameManager.Instance.sceneLoader.SetScene("PublishScene");
+            GameManager.Instance.LoadScene(ScenesName.PUBLISH_SCENE);
         }
 
         public void SetIsScrolling(bool isScrolling)

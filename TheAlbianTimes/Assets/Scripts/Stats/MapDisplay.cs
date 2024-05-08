@@ -50,10 +50,9 @@ namespace Stats
         private void SetMapStage()
         {
             int index;
-            switch (GameManager.Instance.GetRound() + 1)
+            switch (GameManager.Instance.GetRound())
             {
                 case 0:
-                case 1:
                     index = 1;
                     statsDisplayObjects[0].SetActive(false);
                     statsDisplayObjects[1].SetActive(false);
@@ -62,9 +61,9 @@ namespace Stats
                     statsDisplayObjects[7].SetActive(false);
                     statsDisplayObjects[8].SetActive(false);
                     break;
+                case 1:
                 case 2:
                 case 3:
-                case 4:
                     index = 2;
                     statsDisplayObjects[0].SetActive(false);
                     statsDisplayObjects[1].SetActive(false);
@@ -72,13 +71,13 @@ namespace Stats
                     statsDisplayObjects[7].SetActive(false);
                     statsDisplayObjects[8].SetActive(false);
                     break;
-                case 5:
+                case 4:
                     index = 3;
                     statsDisplayObjects[4].SetActive(false);
                     statsDisplayObjects[7].SetActive(false);
                     statsDisplayObjects[8].SetActive(false);
                     break;
-                case 6:
+                case 5:
                     index = 4;
                     statsDisplayObjects[4].SetActive(false);
                     break;
@@ -241,7 +240,7 @@ namespace Stats
             }
             fadeImage.color = Color.black;
 
-            GameManager.Instance.sceneLoader.SetScene("DialogueScene");
+            GameManager.Instance.LoadScene(ScenesName.DIALOGUE_SCENE);
         }
     }
 }

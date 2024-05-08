@@ -2,10 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Managers;
-using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
-using UnityEngine.UI;
 using Workspace.Layout.Pieces;
 using Random = UnityEngine.Random;
 
@@ -63,13 +60,6 @@ namespace Workspace.Editorial
         {
             GameObject bias;
 
-            Postit[] previousPostits = new Postit[_postitsPools.Count];
-
-            for (int i = 0; i < _postitsPools.Count; i++)
-            {
-                previousPostits[i] = _postitsPools[i].Dequeue();
-            }
-
             for (int i = 0; i < _bias.Length; i++)
             {
                 bias = _bias[i].gameObject;
@@ -97,7 +87,7 @@ namespace Workspace.Editorial
 
             for (int i = 0; i < _postitsPools.Count; i++)
             {
-                Postit previousPostit = previousPostits[i]; 
+                Postit previousPostit = _postitsPools[i].Dequeue(); 
                 
                 if (i < _biasesDescriptions.Length)
                 {
@@ -131,6 +121,11 @@ namespace Workspace.Editorial
         private IEnumerator SpawnPostitCoroutine(int biasDescriptionIndex, float delay, Postit previousPostit)
         {
             previousPostit.StartThrowAway();
+
+            Postit postit = _postitsPools[biasDescriptionIndex].Dequeue();
+            _postitsPools[biasDescriptionIndex].Enqueue(postit);
+            _postitsPools[biasDescriptionIndex].Enqueue(previousPostit);
+            postit.SetText(_biasesDescriptions[biasDescriptionIndex]);
             
             yield return new WaitForFixedUpdate();
             yield return new WaitUntil(() => !_bias[biasDescriptionIndex].IsMarkAnimationRunning());
@@ -139,32 +134,17 @@ namespace Workspace.Editorial
             Vector3 position = _biasesDescriptionRectTransform[biasDescriptionIndex].position;
             Quaternion rotation = Quaternion.Euler(0f, 0f, (int)(Random.Range(-8f, 8f) / 2f) * 2);
             
-            Postit postit = _postitsPools[biasDescriptionIndex].Dequeue();
-            postit.gameObject.SetActive(true);
-            _postitsPools[biasDescriptionIndex].Enqueue(postit);
-            _postitsPools[biasDescriptionIndex].Enqueue(previousPostit);
+            GameObject postitGameObject = postit.gameObject;
+            
+            postitGameObject.SetActive(true);
 
-            Transform postitTransform = postit.gameObject.transform;
+            Transform postitTransform = postitGameObject.transform;
 
             postitTransform.position = position;
             postitTransform.rotation = rotation;
 
-            ApplyPostitShading(postit.GetImage());
-
-            postit.SetText(_biasesDescriptions[biasDescriptionIndex]);
-
             AudioManager.Instance.Play3DSound(POST_IT_SOUND, 10, 100, transform.position);
             yield return ScaleAnimationCoroutine(postitTransform, postitScaleAnimationTime, postitInitialScale, 1f);
-        }
-
-        private void ApplyPostitShading(Image postitImage)
-        {
-            /*float v;
-            for (int i = _greenBiasDescription.transform.childCount - 2; i >= 0; i--)
-            {
-                v = .2f + (_maxPostits - (_greenBiasDescription.transform.childCount - 2 - i)) * .12f;
-                postitImage.color = ColorUtil.SetBrightness(postitImage.color, v);
-            }*/
         }
 
         private IEnumerator ScaleAnimationCoroutine(Transform transformToChange, float t, float start, float end)

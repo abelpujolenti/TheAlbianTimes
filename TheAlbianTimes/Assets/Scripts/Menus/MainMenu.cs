@@ -77,7 +77,7 @@ namespace Menus
             AnimatorClipInfo[] currentClipInfo = backgroundAnimator.GetCurrentAnimatorClipInfo(0);
             yield return new WaitForSeconds(currentClipInfo[0].clip.length);
             yield return new WaitForSeconds(2.5f);
-            GameManager.Instance.sceneLoader.SetScene("WorkspaceScene");
+            GameManager.Instance.LoadScene(ScenesName.WORKSPACE_SCENE);
         }
     }
 }

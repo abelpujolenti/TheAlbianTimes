@@ -8,11 +8,7 @@ namespace Workspace.Notebook
 {
     public class NotebookBookmark : InteractableRectTransform
     {
-        [SerializeField] private NotebookContentType _notebookContentType;
-        
-        [SerializeField] private Notebook notebook;
-        
-        [SerializeField] private Transform pageMarkerActiveParent;
+        private Transform _pageMarkerActiveParent;
 
         private Coroutine moveUpCoroutine;
         private Coroutine moveDownCoroutine;
@@ -21,9 +17,9 @@ namespace Workspace.Notebook
 
         private int _page;
 
-        private void Start()
+        public void SetPage(int page)
         {
-            _page = NotebookManager.Instance.AssignPageToBookmark(_notebookContentType);
+            _page = page;
         }
 
         protected override void PointerClick(BaseEventData data)
@@ -35,7 +31,7 @@ namespace Workspace.Notebook
         protected override void PointerEnter(BaseEventData data)
         {
             base.PointerEnter(data);
-            if (transform.parent != pageMarkerActiveParent)
+            if (transform.parent != _pageMarkerActiveParent)
             {
                 MoveUp();
             }
@@ -61,7 +57,7 @@ namespace Workspace.Notebook
             moveDownCoroutine = StartCoroutine(MoveCoroutine(0f, 0.2f));
         }
 
-        public IEnumerator MoveCoroutine(float end, float t)
+        private IEnumerator MoveCoroutine(float end, float t)
         {
             float start = transform.localPosition.y;
             float elapsedT = 0f;
@@ -85,6 +81,11 @@ namespace Workspace.Notebook
         public bool IsOnRightSide()
         {
             return _rightSide;
+        }
+
+        public void SetPageMarkerActiveParent(Transform pageMarkerActiveParent)
+        {
+            _pageMarkerActiveParent = pageMarkerActiveParent;
         }
     }
 }

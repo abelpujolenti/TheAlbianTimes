@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Workspace.Editorial;
 
 namespace Managers
@@ -41,6 +40,12 @@ namespace Managers
         public void TurnOffBiasContainer()
         {
             _biasContainerGameObject.SetActive(false);
+            if (EventsManager.OnClickBias == null)
+            {
+                return;
+            }
+
+            EventsManager.OnClickBias();
         }
 
         public void AddLinkId(int linkId)

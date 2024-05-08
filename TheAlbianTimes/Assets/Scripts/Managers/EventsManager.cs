@@ -18,6 +18,8 @@ namespace Managers
         public static Action OnPressPanicButton;
         public static Action OnPressPanicButtonForPieces;
         public static Action <String> OnClickLetter;
+        public static Action OnOpenMapPages;
+        public static Action OnCloseMapPages;
 
         #endregion        
         
@@ -31,10 +33,11 @@ namespace Managers
         #endregion
 
         #region EditorialEvents
-        
+
+        public static Action OnClickBias;
         public static Action OnChangeChosenBias;
-        public static Action <int> OnChangeChosenBiasIndex;
-        public static Action OnChangeNewsHeadlineContent;
+        public static Action OnChangeChosenBiasIndex;
+        public static Action <int> OnChangeNewsHeadlineContent;
         public static Action <GameObject> OnAddNewsHeadlineToFolder;
         public static Action <int> OnChangeFrontNewsHeadline;
         public static Action <String[], String[], int> OnSettingNewBiases;

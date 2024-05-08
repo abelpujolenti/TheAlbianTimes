@@ -182,8 +182,7 @@ namespace Publish
                 currEvent.Run();
                 CountryEventManager.Instance.triggeredEvents.Add(currEvent);
             }
-
-            GameManager.Instance.sceneLoader.SetScene("StatsScene");
+            GameManager.Instance.LoadScene(ScenesName.STATS_SCENE);
         }
     }
 }

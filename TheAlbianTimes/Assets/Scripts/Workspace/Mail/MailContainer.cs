@@ -21,7 +21,8 @@ namespace Workspace.Mail
         [SerializeField] private float openTime = 1f;
         [SerializeField] private float closeTime = .8f;
         private Coroutine _moveContainerCoroutine;
-        
+
+        [SerializeField] private Canvas _mailCanvas;
         [SerializeField] private RectTransform _envelopesContainerRectTransform;
 
         [SerializeField]private List<GameObject> _envelopes;
@@ -54,11 +55,6 @@ namespace Workspace.Mail
             _envelopesContent = new List<GameObject>();
             
             _envelopesContainerRectTransform.GetWorldCorners(_corners);
-
-            for (int i = 0; i < _corners.Length; i++)
-            {
-                Instantiate(new GameObject(), _corners[i], new Quaternion());
-            }
             
             SetContainerLimiters();
 
@@ -89,9 +85,9 @@ namespace Workspace.Mail
         private void SetContainerLimiters()
         {
             _containerMinCoordinates.x = _corners[0].x;
-            _containerMinCoordinates.y = _corners[1].y;
+            _containerMaxCoordinates.y = _corners[1].y;
             _containerMaxCoordinates.x = _corners[2].x;
-            _containerMaxCoordinates.y = _corners[3].y;
+            _containerMinCoordinates.y = _corners[3].y;
         }
 
         protected override void Drag(BaseEventData data)
@@ -165,8 +161,8 @@ namespace Workspace.Mail
         {
             Vector2 position;
             
-            position.x = Random.Range(_containerMinCoordinates.x + size.x, _containerMaxCoordinates.x - size.x);
-            position.y = Random.Range(_containerMinCoordinates.y + size.y, _containerMaxCoordinates.y - size.y);
+            position.x = Random.Range(_containerMinCoordinates.x + size.x / 2, _containerMaxCoordinates.x - size.x / 2);
+            position.y = Random.Range(_containerMinCoordinates.y + size.y / 2, _containerMaxCoordinates.y - size.y / 2);
             
             return position;
         }
@@ -181,11 +177,15 @@ namespace Workspace.Mail
 
             envelopRectTransform.GetWorldCorners(envelopeCorners);
 
-            Vector2 size = new Vector2(Math.Abs(envelopeCorners[0].x - envelopeCorners[2].x), Math.Abs(envelopeCorners[1].y - envelopeCorners[3].y));
+            Vector3 lossyScale = envelopRectTransform.lossyScale;
+
+            Vector3 rectSize = envelopRectTransform.rect.size;
+
+            Vector2 size = new Vector2(lossyScale.x * rectSize.x, lossyScale.y * rectSize.y);
             
             envelope.transform.position = PositionInsideContainer(size);
             
-            envelope.GetComponent<Envelope>().SetCanvas(_envelopesContainerRectTransform.gameObject.GetComponent<Canvas>());
+            envelope.GetComponent<Envelope>().SetCanvas(_mailCanvas);
         }
 
         private void ReceiveEnvelopeContent(GameObject envelopeContent, bool alone)
@@ -216,11 +216,15 @@ namespace Workspace.Mail
 
             envelopeContentRectTransform.GetWorldCorners(envelopeCorners);
 
-            Vector2 size = new Vector2(Math.Abs(envelopeCorners[0].x - envelopeCorners[2].x), Math.Abs(envelopeCorners[1].y - envelopeCorners[3].y));
+            Vector3 lossyScale = envelopeContentRectTransform.lossyScale;
+
+            Vector3 rectSize = envelopeContentRectTransform.rect.size;
+
+            Vector2 size = new Vector2(lossyScale.x * rectSize.x, lossyScale.y * rectSize.y);
             
             envelopeContent.transform.position = PositionInsideContainer(size);
             
-            envelopeContent.GetComponent<EnvelopeContent>().SetCanvas(_envelopesContainerRectTransform.gameObject.GetComponent<Canvas>());
+            envelopeContent.GetComponent<EnvelopeContent>().SetCanvas(_mailCanvas);
         }
 
         private void OpenEnvelope(GameObject envelope, GameObject envelopeContent)

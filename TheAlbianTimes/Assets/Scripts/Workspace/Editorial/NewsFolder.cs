@@ -141,6 +141,8 @@ namespace Workspace.Editorial
             {
                 return;
             }
+
+            _isNewsModifying = true;
             
             ChangeListOrderByGivenIndex(newsHeadlineToSwitchIndex);
             
@@ -148,6 +150,8 @@ namespace Workspace.Editorial
             
             ReindexFolderOrderInsideRange(newsHeadlineToSwitchIndex + 1);
             PositionNewsHeadlinesByGivenIndex(newsHeadlineToSwitchIndex + 1);
+
+            _isNewsModifying = false;
         }
 
         private void ChangeListOrderByGivenIndex(int newsHeadlineToSwitchIndex) 
@@ -216,11 +220,6 @@ namespace Workspace.Editorial
             
             newsHeadline.SetInFront(folderOrderIndex == 0);
 
-            if (_dragging)
-            {
-                return;
-            }
-
             if (folderOrderIndex != 0)
             {
                 return;
@@ -261,16 +260,6 @@ namespace Workspace.Editorial
         public int GetNewsHeadlinesLength()
         {
             return _newsHeadlines.Count;
-        }
-
-        public int GetNewsInLayoutAmount()
-        {
-            return _newsHeadlinesOutOfFolder;
-        }
-
-        public void SetDragging(bool dragging)
-        {
-            _dragging = dragging;
         }
 
         private void SetContainerLimiters()

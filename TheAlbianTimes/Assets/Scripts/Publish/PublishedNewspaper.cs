@@ -39,7 +39,7 @@ namespace Publish
 
         private IEnumerator HintCoroutine()
         {
-            yield return new WaitForSeconds(4f);
+            yield return new WaitForSeconds(2f);
             while (this != null)
             {
                 Vector3 offset = new Vector3(0f, .7f, 1.7f);

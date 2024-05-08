@@ -12,6 +12,7 @@ namespace Managers
         [SerializeField] GameObject statOverlay;
         [SerializeField] GameObject folder;
         [SerializeField] private GameObject _biasContainer;
+        [SerializeField] private NewsFolder newsFolder;
         [SerializeField] private Transform _cameraTransform;
         
         void Start()
@@ -55,10 +56,19 @@ namespace Managers
 
         private void LockBiases()
         {
-            if (GameManager.Instance.GetRound() != 0) return;
-            _biasContainer.SetActive(false);
-            StartCoroutine(CameraNudgeCoroutine(1.3f, 1f, 2f));
             EventsManager.OnChangeChosenBiasIndex -= LockBiases;
+            if (GameManager.Instance.GetRound() != 0) return;
+            StartCoroutine(ArticleNudgeCoroutine(.3f, 1f));
+            StartCoroutine(CameraNudgeCoroutine(1.3f, 1f, 1.5f));
+            _biasContainer.transform.parent.gameObject.SetActive(false);
+        }
+
+
+        private IEnumerator ArticleNudgeCoroutine(float t, float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            Transform article = newsFolder.transform.GetChild(0);
+            yield return TransformUtility.SetPositionCoroutine(article, article.position, article.position + new Vector3(1.3f, -0.1f, 0f), t);
         }
 
         private IEnumerator CameraNudgeCoroutine(float offset, float t, float delay)

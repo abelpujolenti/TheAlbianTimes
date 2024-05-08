@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Dialogue;
 using Managers;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -27,6 +28,9 @@ namespace Menus
         [SerializeField] private float _lowTextDialogueSpeed;
         [SerializeField] private float _mediumTextDialogueSpeed;
         [SerializeField] private float _highTextDialogueSpeed;
+
+        [SerializeField] private Toggle _enableTutorialPromptsToggle;
+        [SerializeField] private TextMeshProUGUI _enableTutorialPromptsToggleText;
         
         private Dictionary<AudioGroups, Toggle> _audioMuteToggles;
         private Dictionary<TextDialoguesSpeed, float> _textDialogueSpeeds;
@@ -131,6 +135,13 @@ namespace Menus
         public void LowDialogueSpeed() => ChangeTextDialogueSpeed(TextDialoguesSpeed.LOW);
         public void MediumDialogueSpeed() => ChangeTextDialogueSpeed(TextDialoguesSpeed.MEDIUM);
         public void HighDialogueSpeed() => ChangeTextDialogueSpeed(TextDialoguesSpeed.HIGH);
+
+        public void ToggleTutorialPrompts(bool enable)
+        {
+            _enableTutorialPromptsToggleText.text = enable ? "ON" : "OFF";
+
+            GameManager.Instance.areTutorialPromptsEnabled = enable;
+        }
 
         public void ResetProgress()
         {

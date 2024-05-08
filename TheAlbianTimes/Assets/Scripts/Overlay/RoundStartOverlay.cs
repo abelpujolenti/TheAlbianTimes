@@ -10,6 +10,8 @@ namespace Overlay
 {
     public class RoundStartOverlay : MonoBehaviour
     {
+        private const string STOP_COFFEE_PARTICLES_EVENT_NAME = "OnStop";
+        private const string PLAY_COFFEE_PARTICLES_EVENT_NAME = "OnPlay";
         private const string ENTER_OFFICE = "Enter Office";
         private const string MUSIC = "Music";
         
@@ -22,7 +24,7 @@ namespace Overlay
         private void Start()
         {
             _coffeeVisualEffect.playRate = 0.2f;
-            _coffeeVisualEffect.SendEvent("OnStop");
+            _coffeeVisualEffect.SendEvent(STOP_COFFEE_PARTICLES_EVENT_NAME);
             AudioManager.Instance.ChangeAudioSnapshot(AudioSnapshots.TRANSITION, 0.5f);
             AudioManager.Instance.Play2DSound(ENTER_OFFICE);
             fadeOverlayAnimator = fadeOverlay.GetComponent<Animator>();
@@ -76,7 +78,7 @@ namespace Overlay
             ct.position = new Vector3(CameraManager.MAX_X_POSITION_CAMERA, ct.position.y, ct.position.z);
             yield return new WaitForSeconds(delay);
             yield return TransformUtility.SetPositionCoroutine(ct, ct.position, new Vector3(CameraManager.MIN_X_POSITION_CAMERA, ct.position.y, ct.position.z), t);
-            _coffeeVisualEffect.SendEvent("OnPlay");
+            _coffeeVisualEffect.SendEvent(PLAY_COFFEE_PARTICLES_EVENT_NAME);
         }
 
         private void UpdateText()

@@ -16,6 +16,7 @@ namespace Managers
         public GameState prevGameState;
         private SaveManager saveManager;
         public SceneLoader sceneLoader = new SceneLoader();
+        public bool areTutorialPromptsEnabled = true;
 
         private StatsDisplay _statsDisplay;
 

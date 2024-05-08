@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Dialogue;
 using Managers;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,15 +21,17 @@ namespace Menus
         [SerializeField] private Slider _musicVolumeSlider;
         //[SerializeField] private Slider _brightnessSlider;
 
-        [SerializeField] private Toggle _masterAudioMuteToggle;
-        [SerializeField] private Toggle _SFXAudioMuteToggle;
-        [SerializeField] private Toggle _musicAudioMuteToggle;
+        [SerializeField] private GameObject _masterAudioMuteToggleCheckMark;
+        [SerializeField] private GameObject _SFXAudioMuteToggleCheckMark;
+        [SerializeField] private GameObject _musicAudioMuteToggleCheckMark;
 
         [SerializeField] private float _lowTextDialogueSpeed;
         [SerializeField] private float _mediumTextDialogueSpeed;
         [SerializeField] private float _highTextDialogueSpeed;
+
+        [SerializeField] private Toggle _enableTutorialPromptsToggle;
+        [SerializeField] private TextMeshProUGUI _enableTutorialPromptsToggleText;
         
-        private Dictionary<AudioGroups, Toggle> _audioMuteToggles;
         private Dictionary<TextDialoguesSpeed, float> _textDialogueSpeeds;
 
         private void Start()
@@ -38,13 +41,6 @@ namespace Menus
 
         private void FillDictionaries()
         {
-            _audioMuteToggles = new Dictionary<AudioGroups, Toggle>
-            {
-                {AudioGroups.MASTER, _masterAudioMuteToggle},  
-                {AudioGroups.SFX, _SFXAudioMuteToggle},  
-                {AudioGroups.MUSIC, _musicAudioMuteToggle}  
-            };
-
             _textDialogueSpeeds = new Dictionary<TextDialoguesSpeed, float>
             {
                 { TextDialoguesSpeed.LOW , _lowTextDialogueSpeed},
@@ -60,10 +56,12 @@ namespace Menus
             _masterVolumeSlider.value = audioManager.GetGroupVolumeValue(AudioGroups.MASTER);
             _SFXVolumeSlider.value = audioManager.GetGroupVolumeValue(AudioGroups.SFX);
             _musicVolumeSlider.value = audioManager.GetGroupVolumeValue(AudioGroups.MUSIC);
-
-            _masterAudioMuteToggle.isOn = audioManager.GetGroupMute(AudioGroups.MASTER);
-            _SFXAudioMuteToggle.isOn = audioManager.GetGroupMute(AudioGroups.SFX);
-            _musicAudioMuteToggle.isOn = audioManager.GetGroupMute(AudioGroups.MUSIC);
+            
+            _masterAudioMuteToggleCheckMark.SetActive(!audioManager.GetGroupMute(AudioGroups.MASTER));
+            
+            _SFXAudioMuteToggleCheckMark.SetActive(!AudioManager.Instance.GetGroupMute(AudioGroups.SFX));
+            
+            _musicAudioMuteToggleCheckMark.SetActive(!AudioManager.Instance.GetGroupMute(AudioGroups.MUSIC));
 
             //_brightnessSlider.value = PlayerPrefs.GetFloat(PLAYER_PREFS_BRIGHTNESS);
         }
@@ -88,34 +86,25 @@ namespace Menus
             AudioManager.Instance.SetVolumeValue(audioGroup, volume);
         }
 
-        private void SetMuteToggle(bool mute, AudioGroups audioGroup)
+        public void MuteMaster()
         {
-            _audioMuteToggles[audioGroup].isOn = mute;
+            bool isMasterMuted = AudioManager.Instance.GetGroupMute(AudioGroups.MASTER);
+            _masterAudioMuteToggleCheckMark.SetActive(isMasterMuted);
+            AudioManager.Instance.SetMasterMute(!isMasterMuted);
         }
 
-        public void MuteMaster(bool mute)
+        public void MuteSFX()
         {
-            AudioManager.Instance.SetMasterMute(mute);
-            _SFXAudioMuteToggle.isOn = mute;
-            _musicAudioMuteToggle.isOn = mute;
+            bool isSfxMuted = AudioManager.Instance.GetGroupMute(AudioGroups.SFX);
+            _SFXAudioMuteToggleCheckMark.SetActive(isSfxMuted);
+            Mute(!isSfxMuted, AudioGroups.SFX);
         }
 
-        public void MuteSFX(bool mute)
+        public void MuteMusic()
         {
-            if (_masterAudioMuteToggle.isOn)
-            {
-                return;
-            }
-            Mute(mute, AudioGroups.SFX);
-        }
-
-        public void MuteMusic(bool mute)
-        {
-            if (_masterAudioMuteToggle.isOn)
-            {
-                return;
-            }
-            Mute(mute, AudioGroups.MUSIC);
+            bool isMusicMuted = AudioManager.Instance.GetGroupMute(AudioGroups.MUSIC);
+            _musicAudioMuteToggleCheckMark.SetActive(isMusicMuted);
+            Mute(!isMusicMuted, AudioGroups.MUSIC);
         }
 
         private void Mute(bool mute, AudioGroups audioGroup)
@@ -131,6 +120,13 @@ namespace Menus
         public void LowDialogueSpeed() => ChangeTextDialogueSpeed(TextDialoguesSpeed.LOW);
         public void MediumDialogueSpeed() => ChangeTextDialogueSpeed(TextDialoguesSpeed.MEDIUM);
         public void HighDialogueSpeed() => ChangeTextDialogueSpeed(TextDialoguesSpeed.HIGH);
+
+        public void ToggleTutorialPrompts(bool enable)
+        {
+            _enableTutorialPromptsToggleText.text = enable ? "ON" : "OFF";
+
+            GameManager.Instance.areTutorialPromptsEnabled = enable;
+        }
 
         public void ResetProgress()
         {

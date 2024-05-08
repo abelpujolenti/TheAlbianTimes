@@ -2,6 +2,7 @@ using System.Collections;
 using Managers;
 using TMPro;
 using UnityEngine;
+using UnityEngine.VFX;
 using Utility;
 using Workspace.Editorial;
 
@@ -9,16 +10,21 @@ namespace Overlay
 {
     public class RoundStartOverlay : MonoBehaviour
     {
+        private const string STOP_COFFEE_PARTICLES_EVENT_NAME = "OnStop";
+        private const string PLAY_COFFEE_PARTICLES_EVENT_NAME = "OnPlay";
         private const string ENTER_OFFICE = "Enter Office";
         private const string MUSIC = "Music";
         
         [SerializeField] private GameObject fadeOverlay;
         [SerializeField] private GameObject fadeOverlayText;
+        [SerializeField] private VisualEffect _coffeeVisualEffect;
         private Animator fadeOverlayAnimator;
         private Animator fadeOverlayTextAnimator;
         private Coroutine roundStartCoroutine;
         private void Start()
         {
+            _coffeeVisualEffect.playRate = 0.1f;
+            _coffeeVisualEffect.SendEvent(STOP_COFFEE_PARTICLES_EVENT_NAME);
             AudioManager.Instance.ChangeAudioSnapshot(AudioSnapshots.TRANSITION, 0.5f);
             AudioManager.Instance.Play2DSound(ENTER_OFFICE);
             fadeOverlayAnimator = fadeOverlay.GetComponent<Animator>();
@@ -72,6 +78,7 @@ namespace Overlay
             ct.position = new Vector3(CameraManager.MAX_X_POSITION_CAMERA, ct.position.y, ct.position.z);
             yield return new WaitForSeconds(delay);
             yield return TransformUtility.SetPositionCoroutine(ct, ct.position, new Vector3(CameraManager.MIN_X_POSITION_CAMERA, ct.position.y, ct.position.z), t);
+            _coffeeVisualEffect.SendEvent(PLAY_COFFEE_PARTICLES_EVENT_NAME);
         }
 
         private void UpdateText()

@@ -36,6 +36,14 @@ namespace Managers
                     StartCoroutine(RaiseNotebook());
                     break;
                 default:
+                    if (!GameManager.Instance.areTutorialPromptsEnabled)
+                    {
+                        break;
+                    }
+                    /*mail.SetActive(false);
+                    StartCoroutine(RevealMail());
+                    notebook.SetActive(false);
+                    StartCoroutine(RaiseNotebook());*/
                     break;
             }
         }

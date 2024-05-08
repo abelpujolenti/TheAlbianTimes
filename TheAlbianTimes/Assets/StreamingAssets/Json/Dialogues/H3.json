@@ -1,0 +1,70 @@
+{
+    "name": "H3",
+    "firstRound":6,
+    "duration":1,
+    "priority":1,
+    "lines": [
+        {
+            "parts": [
+                {
+                    "speaker": "Hazel",
+                    "text": "I am utterly exhausted... Last night was relentless at the hospital. How did things go yesterday with Rudy, darling? I hope it wasn't too much for you to handle¬¬ after your own long day."
+                }
+            ],
+            "options": [
+                {
+                    "id": 0,
+                    "text": "Oh¬¬¬ don't worry, everything went smoothly with Rudy. We had a great time together. How about you? How was your shift?",
+                    "mood": "[Reassuring]",
+                    "followupLines": 1,
+                    "impact": 5
+                },
+                {
+                    "id": 1,
+                    "text": "It was exhausting, to be honest. Rudy was a handful, but we managed. Your shift must have been tough too, huh?",
+                    "mood": "[Tired]",
+                    "followupLines": 1,
+                    "impact": 3
+                }
+            ]
+        },
+        {
+            "parts": [
+                {
+                    "speaker": "Hazel",
+                    "text": "I'm glad to hear that, sweetheart. My shift was exhausting, but knowing you two were okay makes it better."
+                },
+                {
+                    "speaker": "Hazel",
+                    "text": "Yeah, it was tough. I was hoping for a smooth night for you both. Let's hope today's a bit more manageable for us both."
+                }
+            ],
+            "options": [
+            ]
+        },
+        {
+            "parts": [
+                {
+                    "speaker": "Hazel",
+                    "text": "Honey, I've been thinking... I'm getting worried about Rudy. She's been really immersed in political discussions lately, even asking me about my shifts at the hospital, especially after those¬ rebels came last week. Do you think it's just curiosity, or could there be something more going on?"
+                }
+            ],
+            "options": [
+                {
+                    "id": 0,
+                    "text": "I share your concern, Hazel. But I hope it's just curiosity. Given what we deal with in the editorial, I can't shake off the thought of her getting involved in something darker. Last night, she kept bombarding me with questions about Albia and other political conflicts. It's all she seemed to talk about.",
+                    "mood": "[Worried]",
+                    "followupLines": 0,
+                    "impact": 5
+                },
+                {
+                    "id": 1,
+                    "text": "I understand your worry, but she's just a child, Hazel. Perhaps it's nothing more than a keen interest sparked by her studies at university. Last night, she was probably just trying to apply what she's learning.",
+                    "mood": "[Dismissive]",
+                    "followupLines": 0,
+                    "impact": 0
+                }
+            ]
+        }
+    ]
+}

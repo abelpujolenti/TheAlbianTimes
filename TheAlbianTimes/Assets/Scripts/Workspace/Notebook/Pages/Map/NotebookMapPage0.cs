@@ -15,18 +15,19 @@ namespace Workspace.Notebook.Pages.Map
 
         [SerializeField] private Image _mapImage;
         
+        private Action _albiaClick;
+        private Action _madiaClick;
         private Action _hetiaClick;
         private Action _terkanClick;
-        private Action _albiaClick;
         private Action _dalmeClick;
-        private Action _madiaClick;
 
         private void Start()
         {
             int round = GameManager.Instance.GetRound();
 
-            if (round < 3)
+            if (round < 4)
             {
+                _countriesToFade = 2;
                 _hetia.SetActive(false);
                 _terkan.SetActive(false);
                 _dalme.SetActive(false);
@@ -36,11 +37,13 @@ namespace Workspace.Notebook.Pages.Map
 
             if (round == 4)
             {
+                _countriesToFade = 4;
                 _dalme.SetActive(false);
                 _mapImage.sprite = Resources.Load<Sprite>(MAP_IMAGES_FOLDER  + "Map2LeftSide");
                 return;
             }
-            
+
+            _countriesToFade = 5;
             _mapImage.sprite = Resources.Load<Sprite>(MAP_IMAGES_FOLDER  + "MapLeftSide");
         }
 

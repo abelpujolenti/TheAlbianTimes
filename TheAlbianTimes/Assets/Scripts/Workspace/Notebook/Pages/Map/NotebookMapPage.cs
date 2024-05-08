@@ -34,7 +34,7 @@ namespace Workspace.Notebook.Pages.Map
         
         private void StartButtonsFadeIn()
         {
-            _fadeCoroutine = StartCoroutine(ButtonsFade(0, MAX_ALPHA_BACKGROUND, 0, MAX_ALPHA_BUTTON, TIME_TO_FADE_IN));
+            _fadeCoroutine = StartCoroutine(ButtonsFade(true, 0, MAX_ALPHA_BACKGROUND, 0, MAX_ALPHA_BUTTON, TIME_TO_FADE_IN));
         }
 
         private void StartButtonsFadeOut()
@@ -42,16 +42,29 @@ namespace Workspace.Notebook.Pages.Map
             EraseClickers();
             if (_fadeCoroutine == null)
             {
-                StartCoroutine(ButtonsFade(MAX_ALPHA_BACKGROUND, 0, MAX_ALPHA_BUTTON, 0, TIME_TO_FADE_OUT));
+                StartCoroutine(ButtonsFade(false, MAX_ALPHA_BACKGROUND, 0, MAX_ALPHA_BUTTON, 0, TIME_TO_FADE_OUT));
                 return;
             }
             StopCoroutine(_fadeCoroutine);
-            StartCoroutine(ButtonsFade(_currentBackgroundAlpha, 0, _currentButtonAlpha, 0, TIME_TO_FADE_OUT));
+            StartCoroutine(ButtonsFade(false, _currentBackgroundAlpha, 0, _currentButtonAlpha, 0, TIME_TO_FADE_OUT));
         }
 
-        private IEnumerator ButtonsFade(float startAlphaBackground, float endAlphaBackground,
+        private IEnumerator ButtonsFade(bool activate, float startAlphaBackground, float endAlphaBackground,
             float startAlphaButton, float endAlphaButton, float timeToFade)
         {
+            if (activate)
+            {
+                foreach (Image image in _backgroundsToFade)
+                {
+                    image.gameObject.SetActive(true);    
+                }
+
+                foreach (Image image in _buttonsToFade)
+                {
+                    image.gameObject.SetActive(true);
+                }
+            }
+            
             float timer = 0;
 
             Color backgroundColor = Color.white;
@@ -93,6 +106,19 @@ namespace Workspace.Notebook.Pages.Map
             foreach (Image button in _buttonsToFade)
             {
                 button.color = buttonColor;
+            }
+            
+            if (!activate)
+            {
+                foreach (Image image in _backgroundsToFade)
+                {
+                    image.gameObject.SetActive(false);    
+                }
+
+                foreach (Image image in _buttonsToFade)
+                {
+                    image.gameObject.SetActive(false);
+                }
             }
 
             _fadeCoroutine = null;

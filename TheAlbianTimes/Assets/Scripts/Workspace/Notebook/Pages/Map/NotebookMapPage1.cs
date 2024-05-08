@@ -55,7 +55,8 @@ namespace Workspace.Notebook.Pages.Map
                 return;
             }
 
-            _mapImage.sprite = Resources.Load<Sprite>(MAP_IMAGES_FOLDER  + "Map3RightSideV2");
+            _suoka.SetActive(false);
+            _mapImage.sprite = Resources.Load<Sprite>(MAP_IMAGES_FOLDER  + "Map3RightSide");
         }
 
         public override void FillPage(BaseNotebookPage baseNotebookPage)

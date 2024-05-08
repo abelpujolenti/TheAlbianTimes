@@ -79,7 +79,7 @@ namespace Stats
                     break;
                 case 5:
                     index = 4;
-                    statsDisplayObjects[4].SetActive(false);
+                    statsDisplayObjects[7].SetActive(false);
                     break;
                 default:
                     index = 0;

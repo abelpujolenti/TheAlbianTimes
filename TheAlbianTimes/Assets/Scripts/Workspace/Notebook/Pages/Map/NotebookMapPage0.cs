@@ -30,15 +30,6 @@ namespace Workspace.Notebook.Pages.Map
                 _hetia.SetActive(false);
                 _terkan.SetActive(false);
                 _dalme.SetActive(false);
-                _mapImage.sprite = Resources.Load<Sprite>(MAP_IMAGES_FOLDER  + "Map0LeftSide");
-                return;
-            }
-
-            if (round == 3)
-            {
-                _hetia.SetActive(false);
-                _terkan.SetActive(false);
-                _dalme.SetActive(false);
                 _mapImage.sprite = Resources.Load<Sprite>(MAP_IMAGES_FOLDER  + "Map1LeftSide");
                 return;
             }
@@ -49,15 +40,8 @@ namespace Workspace.Notebook.Pages.Map
                 _mapImage.sprite = Resources.Load<Sprite>(MAP_IMAGES_FOLDER  + "Map2LeftSide");
                 return;
             }
-
-            if (round != 5)
-            {
-                _mapImage.sprite = Resources.Load<Sprite>(MAP_IMAGES_FOLDER  + "MapLeftSide");
-                return;
-            }
             
-            _dalme.SetActive(false);
-            _mapImage.sprite = Resources.Load<Sprite>(MAP_IMAGES_FOLDER  + "Map3LeftSideV2");
+            _mapImage.sprite = Resources.Load<Sprite>(MAP_IMAGES_FOLDER  + "MapLeftSide");
         }
 
         public override void FillPage(BaseNotebookPage baseNotebookPage)

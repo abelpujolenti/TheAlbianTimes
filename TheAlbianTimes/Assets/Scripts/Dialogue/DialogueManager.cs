@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -14,16 +13,20 @@ namespace Dialogue
     public class DialogueManager : MonoBehaviour
     {
         private const int TOTAL_KEY_TYPES_AUDIOS = 7;
-        private const String CLICK_BUTTON_SOUND = "Click Button";
+
+        private const float TIME_TO_SHOW_CHARACTER = 3.5f;
+        
+        private const string CHARACTERS_SPRITE_PATH = "Images/Characters/";
+        private const string CLICK_BUTTON_SOUND = "Click Button";
 
         [SerializeField] private GameObject root;
-        [SerializeField] private Image character;
+        [SerializeField] private Image _character;
         [SerializeField] private RawImage background;
         [SerializeField] private TextMeshProUGUI speakerText;
         [SerializeField] private GameObject dialogueOptionButtonsRoot;
         [SerializeField] private GameObject continueText;
 
-        DialogueSystem ds;
+        DialogueSystem _dialogueSystem;
         TextArchitect architect;
         DialogueOptionButton[] dialogueOptionButtons;
 
@@ -40,14 +43,13 @@ namespace Dialogue
 
         void Start()
         {
-            ds = DialogueSystem.instance;
-            architect = new TextArchitect(ds.container.dialogueText, TOTAL_KEY_TYPES_AUDIOS);
+            _dialogueSystem = DialogueSystem.instance;
+            architect = new TextArchitect(_dialogueSystem.container.dialogueText, TOTAL_KEY_TYPES_AUDIOS);
 
             architect.speed = 0.5f;
             dialogueOptionButtons = dialogueOptionButtonsRoot.GetComponentsInChildren<DialogueOptionButton>();
 
-            bool loaded = LoadDialogue();
-            if (!loaded)
+            if (!LoadDialogue())
             {
                 GameManager.Instance.AddToRound();
                 GameManager.Instance.LoadScene(ScenesName.WORKSPACE_SCENE);
@@ -56,8 +58,6 @@ namespace Dialogue
 
             continueText.SetActive(false);
             HideOptions();
-
-            SetSpeakerText(selectedDialogue.lines[0].parts[0].speaker);
 
             StartCoroutine(StartDialogueCoroutine());
         }
@@ -94,7 +94,42 @@ namespace Dialogue
             }
 
             selectedDialogue = dialogue.Last().Value;
+
+            string speakerName = selectedDialogue.lines[0].parts[0].speaker; 
+            
+            SetSpeakerText(speakerName);
+            
+            StartCoroutine(ShowCharacter(TIME_TO_SHOW_CHARACTER, speakerName));
             return true;
+        }
+
+        private IEnumerator ShowCharacter(float timeToShow, string speakerName)
+        {
+            float time = 0;
+
+            _character.sprite = Resources.Load<Sprite>(CHARACTERS_SPRITE_PATH + speakerName);
+
+            if (_character.sprite == null)
+            {
+                yield break;
+            }
+
+            Color color = _character.color;
+
+            while (time < timeToShow)
+            {
+                time += Time.deltaTime;
+
+                color.a = Mathf.Lerp(0, 1, time / timeToShow);
+
+                _character.color = color;
+                
+                yield return null;
+            }
+
+            color.a = 1;
+
+            _character.color = color;
         }
 
         private void LoadDialogueFromFile(string json)
@@ -135,7 +170,7 @@ namespace Dialogue
         private IEnumerator DisplayNextLineCoroutine()
         {
             int currentPartId = chosenOptionLinesRemaining > 0 ? chosenDialogueOptions.Last() : 0;
-            currentPartId = currentPartId >= selectedDialogue.lines[currentLine].parts.Length ? currentPartId = selectedDialogue.lines[currentLine].parts.Length - 1 : currentPartId;
+            currentPartId = currentPartId >= selectedDialogue.lines[currentLine].parts.Length ? selectedDialogue.lines[currentLine].parts.Length - 1 : currentPartId;
             chosenOptionLinesRemaining = Mathf.Max(0, chosenOptionLinesRemaining - 1);
 
             string text = ProcessDialogue(selectedDialogue.lines[currentLine].parts[currentPartId].text);
@@ -149,11 +184,9 @@ namespace Dialogue
             if (selectedDialogue.lines[currentLine].options != null && selectedDialogue.lines[currentLine].options.Length > 0)
             {
                 DisplayOptions();
+                yield break;
             }
-            else
-            {
-                StartCoroutine(ShowContinueTextCoroutine(0.3f));
-            }
+            StartCoroutine(ShowContinueTextCoroutine(0.3f));
         }
 
         private IEnumerator ShowContinueTextCoroutine(float t)

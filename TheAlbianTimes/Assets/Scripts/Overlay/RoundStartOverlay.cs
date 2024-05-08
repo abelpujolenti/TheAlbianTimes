@@ -2,6 +2,7 @@ using System.Collections;
 using Managers;
 using TMPro;
 using UnityEngine;
+using UnityEngine.VFX;
 using Utility;
 using Workspace.Editorial;
 
@@ -14,11 +15,14 @@ namespace Overlay
         
         [SerializeField] private GameObject fadeOverlay;
         [SerializeField] private GameObject fadeOverlayText;
+        [SerializeField] private VisualEffect _coffeeVisualEffect;
         private Animator fadeOverlayAnimator;
         private Animator fadeOverlayTextAnimator;
         private Coroutine roundStartCoroutine;
         private void Start()
         {
+            _coffeeVisualEffect.playRate = 0.2f;
+            _coffeeVisualEffect.SendEvent("OnStop");
             AudioManager.Instance.ChangeAudioSnapshot(AudioSnapshots.TRANSITION, 0.5f);
             AudioManager.Instance.Play2DSound(ENTER_OFFICE);
             fadeOverlayAnimator = fadeOverlay.GetComponent<Animator>();
@@ -72,6 +76,7 @@ namespace Overlay
             ct.position = new Vector3(CameraManager.MAX_X_POSITION_CAMERA, ct.position.y, ct.position.z);
             yield return new WaitForSeconds(delay);
             yield return TransformUtility.SetPositionCoroutine(ct, ct.position, new Vector3(CameraManager.MIN_X_POSITION_CAMERA, ct.position.y, ct.position.z), t);
+            _coffeeVisualEffect.SendEvent("OnPlay");
         }
 
         private void UpdateText()

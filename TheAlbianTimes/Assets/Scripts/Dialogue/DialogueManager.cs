@@ -111,10 +111,10 @@ namespace Dialogue
 
             if (_character.sprite == null)
             {
-                yield break;
+                _character.sprite = Resources.Load<Sprite>(CHARACTERS_SPRITE_PATH + "Unknown");
             }
 
-            Color color = _character.color;
+            Color color = Color.white;
 
             while (time < timeToShow)
             {

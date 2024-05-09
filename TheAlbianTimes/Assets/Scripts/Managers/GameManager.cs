@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Characters;
@@ -11,12 +12,14 @@ namespace Managers
     {
         private static GameManager _instance;
         public static GameManager Instance => _instance;
+
+        private const string PLAYER_PREFS_TUTORIAL_PROMPTS_ENABLE = "Player Prefs Tutorial Prompts Enable";
         
         public GameState gameState;
         public GameState prevGameState;
         private SaveManager saveManager;
         public SceneLoader sceneLoader = new SceneLoader();
-        public bool areTutorialPromptsEnabled = true;
+        public bool areTutorialPromptsEnabled;
 
         private StatsDisplay _statsDisplay;
 
@@ -35,6 +38,7 @@ namespace Managers
             {
                 _instance = this;
                 InitData();
+                areTutorialPromptsEnabled = PlayerPrefs.GetInt(PLAYER_PREFS_TUTORIAL_PROMPTS_ENABLE) == 0;
                 DontDestroyOnLoad(gameObject);
                 return;
             }
@@ -217,6 +221,11 @@ namespace Managers
         public int GetRound()
         {
             return _round;
+        }
+
+        private void OnDestroy()
+        {
+            PlayerPrefs.SetInt(PLAYER_PREFS_TUTORIAL_PROMPTS_ENABLE, areTutorialPromptsEnabled ? 0 : 1);
         }
     }
 }

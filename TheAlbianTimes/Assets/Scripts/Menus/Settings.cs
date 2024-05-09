@@ -24,13 +24,11 @@ namespace Menus
         [SerializeField] private GameObject _masterAudioMuteToggleCheckMark;
         [SerializeField] private GameObject _SFXAudioMuteToggleCheckMark;
         [SerializeField] private GameObject _musicAudioMuteToggleCheckMark;
+        [SerializeField] private GameObject _enableTutorialPromptsToggleCheckMark;
 
         [SerializeField] private float _lowTextDialogueSpeed;
         [SerializeField] private float _mediumTextDialogueSpeed;
         [SerializeField] private float _highTextDialogueSpeed;
-
-        [SerializeField] private Toggle _enableTutorialPromptsToggle;
-        [SerializeField] private TextMeshProUGUI _enableTutorialPromptsToggleText;
         
         private Dictionary<TextDialoguesSpeed, float> _textDialogueSpeeds;
 
@@ -59,9 +57,11 @@ namespace Menus
             
             _masterAudioMuteToggleCheckMark.SetActive(!audioManager.GetGroupMute(AudioGroups.MASTER));
             
-            _SFXAudioMuteToggleCheckMark.SetActive(!AudioManager.Instance.GetGroupMute(AudioGroups.SFX));
+            _SFXAudioMuteToggleCheckMark.SetActive(!audioManager.GetGroupMute(AudioGroups.SFX));
             
-            _musicAudioMuteToggleCheckMark.SetActive(!AudioManager.Instance.GetGroupMute(AudioGroups.MUSIC));
+            _musicAudioMuteToggleCheckMark.SetActive(!audioManager.GetGroupMute(AudioGroups.MUSIC));
+            
+            _enableTutorialPromptsToggleCheckMark.SetActive(GameManager.Instance.areTutorialPromptsEnabled);
 
             //_brightnessSlider.value = PlayerPrefs.GetFloat(PLAYER_PREFS_BRIGHTNESS);
         }
@@ -121,11 +121,11 @@ namespace Menus
         public void MediumDialogueSpeed() => ChangeTextDialogueSpeed(TextDialoguesSpeed.MEDIUM);
         public void HighDialogueSpeed() => ChangeTextDialogueSpeed(TextDialoguesSpeed.HIGH);
 
-        public void ToggleTutorialPrompts(bool enable)
+        public void ToggleTutorialPrompts()
         {
-            _enableTutorialPromptsToggleText.text = enable ? "ON" : "OFF";
-
-            GameManager.Instance.areTutorialPromptsEnabled = enable;
+            bool areEnabled = GameManager.Instance.areTutorialPromptsEnabled;
+            _enableTutorialPromptsToggleCheckMark.SetActive(!areEnabled);
+            GameManager.Instance.areTutorialPromptsEnabled = !areEnabled;
         }
 
         public void ResetProgress()

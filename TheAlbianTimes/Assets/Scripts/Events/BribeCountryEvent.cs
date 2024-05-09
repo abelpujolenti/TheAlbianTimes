@@ -2,22 +2,25 @@ using System.Collections.Generic;
 using Managers;
 using Workspace.Mail.Content;
 
-public class BribeCountryEvent : CountryEvent
+namespace Events
 {
-    public int bribeAmount;
-
-    public override void Run()
+    public class BribeCountryEvent : CountryEvent
     {
-        base.Run();
+        public int bribeAmount;
 
-        Dictionary<EnvelopeContentType, BaseMailContainer> mailToSend = new Dictionary<EnvelopeContentType, BaseMailContainer>();
-        MailContentBribe mailContent = new MailContentBribe();
-        mailContent.totalMoney = bribeAmount;
-        mailContent.country = (int)triggerCountry;
-        BribesMailContainer mailContainer = new BribesMailContainer();
-        mailContainer.SetContent(new MailContentBribe[] { mailContent });
+        public override void Run()
+        {
+            base.Run();
 
-        mailToSend.Add(EnvelopeContentType.BRIBE, mailContainer);
-        MailManager.Instance.SendEnvelopes(mailToSend);
+            Dictionary<EnvelopeContentType, BaseMailContainer> mailToSend = new Dictionary<EnvelopeContentType, BaseMailContainer>();
+            MailContentBribe mailContent = new MailContentBribe();
+            mailContent.totalMoney = bribeAmount;
+            mailContent.country = (int)triggerCountry;
+            BribesMailContainer mailContainer = new BribesMailContainer();
+            mailContainer.SetContent(new MailContentBribe[] { mailContent });
+
+            mailToSend.Add(EnvelopeContentType.BRIBE, mailContainer);
+            MailManager.Instance.SendEnvelopes(mailToSend);
+        }
     }
 }

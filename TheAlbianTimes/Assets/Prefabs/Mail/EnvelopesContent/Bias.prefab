@@ -92,3 +92,4 @@ MonoBehaviour:
   draggable: 1
   hoverable: 0
   clickable: 1
+  _rectTransform: {fileID: 1917683084727984878}

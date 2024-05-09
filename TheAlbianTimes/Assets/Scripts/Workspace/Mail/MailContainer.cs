@@ -27,8 +27,6 @@ namespace Workspace.Mail
 
         [SerializeField]private List<GameObject> _envelopes;
         [SerializeField]private List<GameObject> _envelopesContent;
-
-        private readonly Vector3[] _corners = new Vector3[4];
         
         private Vector2 _containerMinCoordinates;
         private Vector2 _containerMaxCoordinates;
@@ -51,14 +49,16 @@ namespace Workspace.Mail
 
         private void Start()
         {
-            MailManager.Instance.SetEnvelopesContainer(_envelopesContainerRectTransform);
+            MailManager.Instance.SetMailContainer(this);
             
             _envelopes = new List<GameObject>();
             _envelopesContent = new List<GameObject>();
             
-            _envelopesContainerRectTransform.GetWorldCorners(_corners);
+            Vector3[] corners = new Vector3[4];
             
-            SetContainerLimiters();
+            _envelopesContainerRectTransform.GetWorldCorners(corners);
+            
+            SetContainerLimiters(corners);
 
             GameObject[] envelopes = MailManager.Instance.LoadEnvelopesFromJson();
     
@@ -84,12 +84,12 @@ namespace Workspace.Mail
             }
         }
         
-        private void SetContainerLimiters()
+        private void SetContainerLimiters(Vector3[] corners)
         {
-            _containerMinCoordinates.x = _corners[0].x;
-            _containerMaxCoordinates.y = _corners[1].y;
-            _containerMaxCoordinates.x = _corners[2].x;
-            _containerMinCoordinates.y = _corners[3].y;
+            _containerMinCoordinates.x = corners[0].x;
+            _containerMaxCoordinates.y = corners[1].y;
+            _containerMaxCoordinates.x = corners[2].x;
+            _containerMinCoordinates.y = corners[3].y;
         }
 
         protected override void Drag(BaseEventData data)
@@ -241,6 +241,14 @@ namespace Workspace.Mail
         private void UseEnvelopeContent(GameObject envelopeContent)
         {
             _envelopesContent.Remove(envelopeContent);
+        }
+
+        public Vector2[] GetCorners()
+        {
+            Vector3[] corners = new Vector3[4];
+            _envelopesContainerRectTransform.GetWorldCorners(corners);
+            SetContainerLimiters(corners);
+            return new[] { _containerMinCoordinates, _containerMaxCoordinates };
         }
 
         private void OnDestroy()

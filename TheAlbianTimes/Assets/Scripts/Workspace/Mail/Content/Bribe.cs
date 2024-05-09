@@ -1,4 +1,3 @@
-using System;
 using Managers;
 
 namespace Workspace.Mail.Content

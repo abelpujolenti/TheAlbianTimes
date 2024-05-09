@@ -9,6 +9,7 @@ using UnityEngine;
 [Serializable]
 public class SaveFile
 {
+    public int currRound;
     public CountryData[] countryData;
     public CharacterData[] characterData;
     public GameStatePlayerData playerData;
@@ -17,12 +18,14 @@ public class SaveFile
 
     public SaveFile()
     {
+        currRound = 0;
         countryData = new CountryData[0];
         characterData = new CharacterData[0];
         playerData = new GameStatePlayerData();
     }
     public SaveFile(GameState gameState)
     {
+        currRound = gameState.currRound;
         playerData = gameState.playerData;
         countryData = new CountryData[gameState.countries.Length];
         for (int i = 0; i < gameState.countries.Length; i++)

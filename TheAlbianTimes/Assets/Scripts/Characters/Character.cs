@@ -26,10 +26,12 @@ namespace Characters
         #region Names
         public enum Id
         {
-            TEST,
+            HAZEL,
+            RUBY,
+            ADRIAN,
             AMOUNT
         }
-        public static readonly string[] names = { "test" };
+        public static readonly string[] names = { "Hazel", "Ruby", "Adrian" };
         #endregion
 
         #region Stats

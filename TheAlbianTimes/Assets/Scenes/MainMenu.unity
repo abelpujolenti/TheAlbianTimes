@@ -298,7 +298,7 @@ GameObject:
   - component: {fileID: 20420056}
   - component: {fileID: 20420057}
   m_Layer: 0
-  m_Name: Test
+  m_Name: Hazel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3119,6 +3119,52 @@ RectTransform:
   m_AnchoredPosition: {x: -5, y: 0}
   m_SizeDelta: {x: 100, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &637449268
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 637449269}
+  - component: {fileID: 637449270}
+  m_Layer: 0
+  m_Name: Adrian
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &637449269
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 637449268}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 787142048}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &637449270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 637449268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef0c7b552ae14774d9a4ef0a16b4beba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data:
+    characterId: 2
 --- !u!1 &663741450
 GameObject:
   m_ObjectHideFlags: 0
@@ -4058,6 +4104,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 20420056}
+  - {fileID: 1583848122}
+  - {fileID: 637449269}
   m_Father: {fileID: 1002994398}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5024,11 +5072,11 @@ MonoBehaviour:
   _masterAudioMuteToggleCheckMark: {fileID: 1323985446}
   _SFXAudioMuteToggleCheckMark: {fileID: 226519544}
   _musicAudioMuteToggleCheckMark: {fileID: 920679689}
-  _enableTutorialPromptsToggleCheckMark: {fileID: 1621560966}
   _lowTextDialogueSpeed: 0.8
   _mediumTextDialogueSpeed: 1
   _highTextDialogueSpeed: 1.3
-  _isInGame: 0
+  _enableTutorialPromptsToggle: {fileID: 0}
+  _enableTutorialPromptsToggleText: {fileID: 0}
 --- !u!1 &875553705
 GameObject:
   m_ObjectHideFlags: 0
@@ -9109,6 +9157,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1511871536}
   m_CullTransparentMesh: 1
+--- !u!1 &1583848121
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1583848122}
+  - component: {fileID: 1583848123}
+  m_Layer: 0
+  m_Name: Ruby
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1583848122
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1583848121}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 787142048}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1583848123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1583848121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef0c7b552ae14774d9a4ef0a16b4beba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data:
+    characterId: 1
 --- !u!1 &1584214012
 GameObject:
   m_ObjectHideFlags: 0

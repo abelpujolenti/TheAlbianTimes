@@ -12,6 +12,7 @@ public class GameStatePlayerData
 
 public class GameState
 {
+    public int currRound;
     public GameStatePlayerData playerData;
     public Country[] countries;
     public Character[] characters;
@@ -20,6 +21,7 @@ public class GameState
     public GameState Clone()
     {
         GameState ret = new GameState();
+        ret.currRound = currRound;
         ret.playerData = new GameStatePlayerData();
         ret.playerData.money = playerData.money;
         ret.playerData.staff = playerData.staff;

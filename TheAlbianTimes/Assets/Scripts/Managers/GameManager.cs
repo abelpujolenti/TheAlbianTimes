@@ -29,7 +29,6 @@ namespace Managers
         private bool _isAudioSpawnerActive;
 
         public int musicAudioId = -1;
-        private int _round = 0;
 
         private void Awake()
         {
@@ -56,35 +55,35 @@ namespace Managers
 
             if (currentEvent.keyCode == KeyCode.F1)
             {
-                _round = 1;
+                gameState.currRound = 1;
                 LoadScene(ScenesName.WORKSPACE_SCENE);
                 return;
             }
             
             if (currentEvent.keyCode == KeyCode.F2)
             {
-                _round = 2;
+                gameState.currRound = 2;
                 LoadScene(ScenesName.WORKSPACE_SCENE);
                 return;
             }
             
             if (currentEvent.keyCode == KeyCode.F3)
             {
-                _round = 3;
+                gameState.currRound = 3;
                 LoadScene(ScenesName.WORKSPACE_SCENE);
                 return;
             }
             
             if (currentEvent.keyCode == KeyCode.F4)
             {
-                _round = 4;
+                gameState.currRound = 4;
                 LoadScene(ScenesName.WORKSPACE_SCENE);
                 return;
             }
             
             if (currentEvent.keyCode == KeyCode.F5)
             {
-                _round = 5;
+                gameState.currRound = 5;
                 LoadScene(ScenesName.WORKSPACE_SCENE);
                 return;
             }
@@ -94,7 +93,7 @@ namespace Managers
                 return;
             }
 
-            _round = 6;
+            gameState.currRound = 6;
             LoadScene(ScenesName.WORKSPACE_SCENE);
         }
 
@@ -105,6 +104,7 @@ namespace Managers
             if (saveManager.SaveFileExists())
             {
                 saveManager.LoadFromJson();
+                gameState.currRound = saveManager.save.currRound;
             }
             LoadCountries();
             LoadCharacters();
@@ -214,13 +214,18 @@ namespace Managers
 
         public void AddToRound()
         {
+            gameState.currRound++;
             prevGameState = gameState.Clone();
-            _round++;
         }
 
         public int GetRound()
         {
-            return _round;
+            return gameState.currRound;
+        }
+
+        public void SaveGame()
+        {
+            saveManager.SaveToJson(prevGameState);
         }
 
         private void OnDestroy()

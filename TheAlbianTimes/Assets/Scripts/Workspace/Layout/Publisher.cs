@@ -58,6 +58,8 @@ namespace Workspace.Layout
 
         private IEnumerator EndRoundCoroutine(float t)
         {
+            NotebookManager.Instance.HideNotebook();
+            
             AudioManager.Instance.ChangeAudioSnapshot(AudioSnapshots.TRANSITION, t);
 
             StartCoroutine(TransformUtility.SetRotationCoroutine(_newspaperMold.transform, 90f, 0.3f));
@@ -67,9 +69,11 @@ namespace Workspace.Layout
             yield return new WaitForSeconds(.1f);
 
             StartCoroutine(StartPrintSound());
+
+            Transform cameraTransform = Camera.main.transform;
             
             StartCoroutine(TransformUtility.SetPositionCoroutine(_newspaperMold.transform, _newspaperMold.transform.position, transform.position + new Vector3(30f, 0f, 0f), 4f));
-            yield return TransformUtility.SetPositionCoroutine(Camera.main.transform, Camera.main.transform.position, Camera.main.transform.position + new Vector3(40f, 0f, 0f), t);
+            yield return TransformUtility.SetPositionCoroutine(cameraTransform, cameraTransform.position, cameraTransform.position + new Vector3(40f, 0f, 0f), t);
 
             //GameManager.Instance.sceneLoader.SetScene("PublishScene");
         }

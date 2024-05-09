@@ -1566,11 +1566,10 @@ MonoBehaviour:
   _masterAudioMuteToggleCheckMark: {fileID: 573854567}
   _SFXAudioMuteToggleCheckMark: {fileID: 2117222653}
   _musicAudioMuteToggleCheckMark: {fileID: 67406159}
+  _enableTutorialPromptsToggleCheckMark: {fileID: 0}
   _lowTextDialogueSpeed: 0.8
   _mediumTextDialogueSpeed: 1
   _highTextDialogueSpeed: 1.3
-  _enableTutorialPromptsToggle: {fileID: 0}
-  _enableTutorialPromptsToggleText: {fileID: 0}
 --- !u!114 &186640346
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4845,7 +4844,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: -1943055267
-  m_SortingOrder: 3
+  m_SortingOrder: 5
   m_TargetDisplay: 0
 --- !u!224 &701521958
 RectTransform:
@@ -6275,7 +6274,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: -1943055267
-  m_SortingOrder: 1
+  m_SortingOrder: 3
   m_TargetDisplay: 0
 --- !u!1 &1066836421
 GameObject:
@@ -11230,6 +11229,7 @@ GameObject:
   - component: {fileID: 1998229917}
   - component: {fileID: 1998229919}
   - component: {fileID: 1998229918}
+  - component: {fileID: 1998229920}
   m_Layer: 0
   m_Name: CoffeeSmoke
   m_TagString: Untagged
@@ -11333,6 +11333,21 @@ VisualEffect:
       m_Array: []
     m_Bool:
       m_Array: []
+--- !u!114 &1998229920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1998229916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e38dac32731867743ae2bafc05df8ed4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sortingOrder: 2
+  _renderer: {fileID: 1998229918}
+  _layerName: Overlay
 --- !u!1 &2006525764
 GameObject:
   m_ObjectHideFlags: 0

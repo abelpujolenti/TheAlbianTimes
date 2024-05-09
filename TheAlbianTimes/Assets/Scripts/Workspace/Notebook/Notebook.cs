@@ -140,6 +140,29 @@ namespace Workspace.Notebook
             StartCoroutine(CloseCoroutine(close));
         }
 
+        public void Hide(Action close)
+        {
+            if (flipCoroutine != null) StopCoroutine(flipCoroutine);
+            StartCoroutine(HideCoroutine(close));
+        }
+
+        private IEnumerator HideCoroutine(Action close)
+        {
+            draggable = false;
+            clickable = false;
+            if (open)
+            {
+                yield return CloseCoroutine(close);    
+            }
+
+            Transform ownTransform = transform;
+            Vector3 position = ownTransform.position;
+            yield return TransformUtility.SetPositionYCoroutine(ownTransform, position.y, position.y + 1, 0.5f);
+            
+            position = ownTransform.position;
+            yield return TransformUtility.SetPositionYCoroutine(ownTransform, position.y, position.y - 2, 0.5f);
+        }
+
         private IEnumerator CloseCoroutine(Action close)
         {
             float speed = Mathf.Max(0.4f, (Vector2.Distance(transform.position, new Vector2(_camera.transform.position.x, _initialYPosition)) / 8f));
@@ -197,13 +220,11 @@ namespace Workspace.Notebook
             yield return StartCoroutine(RotatePageCoroutine((RectTransform)flipPage.transform, PAGE_FLIP_TIME / 2f, 0f, 90f, 0.5f));
             
             midPointFlip();
-            NotebookManager.Instance.NotifyMidPointFlip();
             
             StartCoroutine(ShadePageCoroutine(_flipPageBackground, PAGE_FLIP_TIME / 2f, 0.3f, _imageBrightness, 2f));
             yield return StartCoroutine(RotatePageCoroutine((RectTransform)flipPage.transform, PAGE_FLIP_TIME / 2f, 90f, 180f, 2f));
             
             endFlip();
-            NotebookManager.Instance.NotifyEndFlip();
             
             flipPage.SetActive(false);
             flipCoroutine = null;
@@ -217,13 +238,11 @@ namespace Workspace.Notebook
             yield return StartCoroutine(RotatePageCoroutine((RectTransform)flipPage.transform, PAGE_FLIP_TIME / 2f, 180f, 90f, 0.5f));
             
             midPointFlip();
-            NotebookManager.Instance.NotifyMidPointFlip();
             
             _flipPageBackground.color = ColorUtil.SetBrightness(_flipPageBackground.color, _imageBrightness);
             yield return StartCoroutine(RotatePageCoroutine((RectTransform)flipPage.transform, PAGE_FLIP_TIME / 2f, 90f, 0f, 2f));
             
             endFlip();
-            NotebookManager.Instance.NotifyEndFlip();
             
             flipPage.SetActive(false);
             flipCoroutine = null;

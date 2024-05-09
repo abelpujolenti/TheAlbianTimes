@@ -91,9 +91,9 @@ namespace Managers
         {
             yield return new WaitForSeconds(EditorialNewsLoader.loadDelay + 1f);
             notebook.SetActive(true);
-            Transform nt = notebook.transform;
-            yield return TransformUtility.SetPositionCoroutine(nt, nt.position + new Vector3(0f, -1f, 0f), nt.position + new Vector3(0f, 1f, 0f), .5f);
-            yield return TransformUtility.SetPositionCoroutine(nt, nt.position, nt.position + new Vector3(0f, -1f, 0f), .6f);
+            Transform notebookTransform = notebook.transform;
+            yield return TransformUtility.SetPositionYCoroutine(notebookTransform, notebookTransform.position.y - 1f, notebookTransform.position.y + 1f, .5f);
+            yield return TransformUtility.SetPositionYCoroutine(notebookTransform, notebookTransform.position.y, notebookTransform.position.y - 1f, .6f);
         }
 
         private IEnumerator LowerStatOverlay()

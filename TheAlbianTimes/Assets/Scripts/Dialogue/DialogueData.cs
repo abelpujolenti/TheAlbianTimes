@@ -16,6 +16,8 @@ namespace Dialogue
 
         public DialogueLine[] lines;
 
+        public string audioName;
+
         public bool ConditionsFulfilled(int round)
         {
             if (GameManager.Instance.gameState.viewedDialogue.Contains(name) || round < firstRound || round >= firstRound + duration) return false;

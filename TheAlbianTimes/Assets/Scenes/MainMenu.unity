@@ -7673,6 +7673,36 @@ MonoBehaviour:
     _name: Office12
     _volume: 1
     _pitch: 1
+  - _audioClip: {fileID: 8300000, guid: ec6d7172cb1b9ac4181b4c152b6780c6, type: 3}
+    audioGroup: 2
+    _name: AdrianControversial
+    _volume: 1
+    _pitch: 1
+  - _audioClip: {fileID: 8300000, guid: 6c7c962cb52896c42a6afcd6f1c506be, type: 3}
+    audioGroup: 2
+    _name: AdrianNormal
+    _volume: 1
+    _pitch: 1
+  - _audioClip: {fileID: 8300000, guid: 75f01e83a4f652942b16dd9c737bfd20, type: 3}
+    audioGroup: 2
+    _name: HazelControversial
+    _volume: 1
+    _pitch: 1
+  - _audioClip: {fileID: 8300000, guid: 6b0ab145ded7807469ba5f3b69a4ac9f, type: 3}
+    audioGroup: 2
+    _name: HazelNormal
+    _volume: 1
+    _pitch: 1
+  - _audioClip: {fileID: 8300000, guid: 6f5a23c6551704346a5c055c8be2d954, type: 3}
+    audioGroup: 2
+    _name: RudyControversial
+    _volume: 1
+    _pitch: 1
+  - _audioClip: {fileID: 8300000, guid: f547580f10de08f40942d8127e6b26a3, type: 3}
+    audioGroup: 2
+    _name: RudyNormal
+    _volume: 1
+    _pitch: 1
 --- !u!4 &1318108280
 Transform:
   m_ObjectHideFlags: 0

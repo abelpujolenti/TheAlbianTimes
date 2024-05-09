@@ -63,7 +63,6 @@ namespace Managers
             _biasContainer.transform.parent.gameObject.SetActive(false);
         }
 
-
         private IEnumerator ArticleNudgeCoroutine(float t, float delay)
         {
             yield return new WaitForSeconds(delay);

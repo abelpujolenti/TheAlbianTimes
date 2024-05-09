@@ -99,7 +99,7 @@ namespace Workspace.Layout
 
         private IEnumerator StartConveyorBelt()
         {
-            _conveyorBeltAudioId = AudioManager.Instance.Play2DLoopSound(CONVEYOR_BELT_SOUND);
+            _conveyorBeltAudioId = AudioManager.Instance.Play3DLoopSound(CONVEYOR_BELT_SOUND, 5, 100, transform.position);
 
             while (_isScrolling)
             {

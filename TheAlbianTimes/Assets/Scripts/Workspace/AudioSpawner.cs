@@ -82,7 +82,7 @@ namespace Workspace
                 }
                 _currentTimers[i] = 0;
                 _spawnTimers[i] = GetNewAudioSpawnTimer();
-                AudioManager.Instance.Play3DRandomSound(_audios, 10, 100, 0.2f, 0.4f, 0.7f, 1f, _audioSpawners[i]);
+                AudioManager.Instance.Play3DRandomSound(_audios, 5, 100, 0.2f, 0.4f, 0.7f, 1f, _audioSpawners[i]);
             }
         }
 

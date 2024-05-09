@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -42,7 +41,7 @@ namespace Dialogue
         private int currentLine = -1;
         private List<int> chosenDialogueOptions = new List<int>();
         private int chosenOptionLinesRemaining = 0;
-        private int _characterAudioId;
+        private int _characterAudioId = -1;
 
         void Start()
         {
@@ -98,7 +97,11 @@ namespace Dialogue
 
             selectedDialogue = dialogue.Last().Value;
 
-            _characterAudioId = AudioManager.Instance.Play2DLoopSound(selectedDialogue.audioName);
+            //ERASE
+            if (selectedDialogue.audioName != null)
+            {
+                _characterAudioId = AudioManager.Instance.Play2DLoopSound(selectedDialogue.audioName);    
+            }
 
             string speakerName = selectedDialogue.lines[0].parts[0].speaker; 
             
@@ -114,6 +117,7 @@ namespace Dialogue
 
             _character.sprite = Resources.Load<Sprite>(CHARACTERS_SPRITE_PATH + speakerName);
 
+            //ERASE
             if (_character.sprite == null)
             {
                 _character.sprite = Resources.Load<Sprite>(CHARACTERS_SPRITE_PATH + "Unknown");
@@ -264,6 +268,10 @@ namespace Dialogue
 
         private void OnDestroy()
         {
+            if (_characterAudioId == -1)
+            {
+                return;
+            }
             AudioManager.Instance.StopLoopingAudio(_characterAudioId);
         }
     }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using Dialogue;
 using Managers;
 using UnityEngine;
@@ -15,6 +16,8 @@ namespace Menus
 
     public class Settings : MonoBehaviour
     {
+        private const string CLICK_BUTTON_SOUND = "Click Button";
+        
         [SerializeField] private Slider _masterVolumeSlider;
         [SerializeField] private Slider _SFXVolumeSlider;
         [SerializeField] private Slider _musicVolumeSlider;
@@ -28,6 +31,8 @@ namespace Menus
         [SerializeField] private float _lowTextDialogueSpeed;
         [SerializeField] private float _mediumTextDialogueSpeed;
         [SerializeField] private float _highTextDialogueSpeed;
+
+        [SerializeField] private bool _isInGame;
         
         private Dictionary<TextDialoguesSpeed, float> _textDialogueSpeeds;
 
@@ -59,6 +64,11 @@ namespace Menus
             _SFXAudioMuteToggleCheckMark.SetActive(!audioManager.GetGroupMute(AudioGroups.SFX));
             
             _musicAudioMuteToggleCheckMark.SetActive(!audioManager.GetGroupMute(AudioGroups.MUSIC));
+
+            if (_isInGame)
+            {
+                return;
+            }
             
             _enableTutorialPromptsToggleCheckMark.SetActive(GameManager.Instance.areTutorialPromptsEnabled);
 
@@ -87,6 +97,7 @@ namespace Menus
 
         public void MuteMaster()
         {
+            PlayClickButtonSound();
             bool isMasterMuted = AudioManager.Instance.GetGroupMute(AudioGroups.MASTER);
             _masterAudioMuteToggleCheckMark.SetActive(isMasterMuted);
             AudioManager.Instance.SetMasterMute(!isMasterMuted);
@@ -94,6 +105,7 @@ namespace Menus
 
         public void MuteSFX()
         {
+            PlayClickButtonSound();
             bool isSfxMuted = AudioManager.Instance.GetGroupMute(AudioGroups.SFX);
             _SFXAudioMuteToggleCheckMark.SetActive(isSfxMuted);
             Mute(!isSfxMuted, AudioGroups.SFX);
@@ -101,6 +113,7 @@ namespace Menus
 
         public void MuteMusic()
         {
+            PlayClickButtonSound();
             bool isMusicMuted = AudioManager.Instance.GetGroupMute(AudioGroups.MUSIC);
             _musicAudioMuteToggleCheckMark.SetActive(isMusicMuted);
             Mute(!isMusicMuted, AudioGroups.MUSIC);
@@ -113,6 +126,7 @@ namespace Menus
 
         private void ChangeTextDialogueSpeed(TextDialoguesSpeed textDialoguesSpeed)
         {
+            PlayClickButtonSound();
             TextArchitect.baseSpeed = _textDialogueSpeeds[textDialoguesSpeed];
         }
 
@@ -122,9 +136,15 @@ namespace Menus
 
         public void ToggleTutorialPrompts()
         {
+            PlayClickButtonSound();
             bool areEnabled = GameManager.Instance.areTutorialPromptsEnabled;
             _enableTutorialPromptsToggleCheckMark.SetActive(!areEnabled);
             GameManager.Instance.areTutorialPromptsEnabled = !areEnabled;
+        }
+
+        public void PlayClickButtonSound()
+        {
+            AudioManager.Instance.Play2DSound(CLICK_BUTTON_SOUND);
         }
 
         public void ResetProgress()

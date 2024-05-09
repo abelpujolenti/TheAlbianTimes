@@ -6,6 +6,8 @@ namespace Menus
 {
     public class InGame : MonoBehaviour
     {
+        private const string CLICK_BUTTON_SOUND = "Click Button";
+        
         [SerializeField] private GameObject _mainMenu;
         [SerializeField] private Button _backButton;
 
@@ -21,6 +23,7 @@ namespace Menus
 
         public void PauseButton()
         {
+            PlayClickButtonSound();
             _paused = true;
             _mainMenu.SetActive(true);
             //Time.timeScale = 0;
@@ -28,6 +31,7 @@ namespace Menus
 
         public void ResumeButton()
         {
+            PlayClickButtonSound();
             _paused = false;
             ChangeCurrentActivePanel(_mainMenu);
             _mainMenu.SetActive(false);
@@ -36,6 +40,7 @@ namespace Menus
 
         public void MainMenuButton()
         {
+            PlayClickButtonSound();
             //Time.timeScale = 1;
             AudioManager.Instance.StopLoopingAudio(GameManager.Instance.musicAudioId);
             GameManager.Instance.musicAudioId = -1;
@@ -53,7 +58,13 @@ namespace Menus
 
         public void GoBack()
         {
+            PlayClickButtonSound();
             ChangeCurrentActivePanel(_mainMenu);
+        }
+
+        public void PlayClickButtonSound()
+        {
+            AudioManager.Instance.Play2DSound(CLICK_BUTTON_SOUND);
         }
 
         public void OnGUI()

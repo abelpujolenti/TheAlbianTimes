@@ -38,6 +38,7 @@ namespace Workspace.Mail
             EventsManager.OnAddEnvelope += ReceiveEnvelope;
             EventsManager.OnAddEnvelopeContentToList += ReceiveEnvelopeContent;
             EventsManager.OnAddEnvelopeContent += OpenEnvelope;
+            EventsManager.OnUseEnvelopeContent += UseEnvelopeContent;
         }
 
         private void OnDisable()
@@ -45,6 +46,7 @@ namespace Workspace.Mail
             EventsManager.OnAddEnvelope -= ReceiveEnvelope;
             EventsManager.OnAddEnvelopeContentToList -= ReceiveEnvelopeContent;
             EventsManager.OnAddEnvelopeContent -= OpenEnvelope;
+            EventsManager.OnUseEnvelopeContent -= UseEnvelopeContent;
         }
 
         private void Start()
@@ -127,13 +129,13 @@ namespace Workspace.Mail
         private void OpenContainer()
         {
             _moveContainerCoroutine = StartCoroutine(MoveContainerEnum(gameObjectToDrag.transform.position.x, maxX, openTime));
-            AudioManager.Instance.Play3DSound(OPEN_DRAWER_SOUND, 10, 100, transform.position);
+            AudioManager.Instance.Play3DSound(OPEN_DRAWER_SOUND, 5, 100, transform.position);
         }
 
         private void CloseContainer()
         {
             _moveContainerCoroutine = StartCoroutine(MoveContainerEnum(gameObjectToDrag.transform.position.x, minX, closeTime));
-            AudioManager.Instance.Play3DSound(CLOSE_DRAWER_SOUND, 10, 100, transform.position);
+            AudioManager.Instance.Play3DSound(CLOSE_DRAWER_SOUND, 5, 100, transform.position);
         }
 
         private IEnumerator MoveContainerEnum(float start, float end, float t)
@@ -234,6 +236,11 @@ namespace Workspace.Mail
             envelopeContent.transform.localScale = new Vector3(1, 1, 1);
 
             _envelopes.Remove(envelope);
+        }
+
+        private void UseEnvelopeContent(GameObject envelopeContent)
+        {
+            _envelopesContent.Remove(envelopeContent);
         }
 
         private void OnDestroy()

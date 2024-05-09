@@ -209,6 +209,7 @@ namespace Managers
         public void UpdateStatsDisplayMoney(float money)
         {
             _statsDisplay.UpdateMoney(gameState.playerData.money += money);
+            _statsDisplay.ReceiveMoney(money);
         }
 
         public void AddToRound()

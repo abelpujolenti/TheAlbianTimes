@@ -57,7 +57,7 @@ namespace Workspace.Layout
         {
             transform.SetAsLastSibling();
 
-            AudioManager.Instance.Play3DSound(GRAB_PIECE_SOUND, 10, 100, transform.position);
+            AudioManager.Instance.Play3DSound(GRAB_PIECE_SOUND, 5, 100, transform.position);
 
             EventsManager.OnCheckDistanceToMouse += DistanceToPosition;
 
@@ -121,7 +121,7 @@ namespace Workspace.Layout
             if (_snappedCells == null)
             {
                 FailSnapOnMold();
-                AudioManager.Instance.Play3DSound(DROP_PIECE_IN_BOX_SOUND, 10, 100, transform.position);
+                AudioManager.Instance.Play3DSound(DROP_PIECE_IN_BOX_SOUND, 5, 100, transform.position);
                 return;
             }
             
@@ -136,7 +136,7 @@ namespace Workspace.Layout
                 subPiece.SetIsSnapped(true);
             }
             
-            AudioManager.Instance.Play3DSound(SNAP_PIECE_SOUND, 10, 100, transform.position);
+            AudioManager.Instance.Play3DSound(SNAP_PIECE_SOUND, 5, 100, transform.position);
         }
 
         private void FailSnapOnMold()

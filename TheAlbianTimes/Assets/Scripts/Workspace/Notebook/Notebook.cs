@@ -11,9 +11,10 @@ namespace Workspace.Notebook
 {
     public class Notebook : InteractableRectTransform
     {
-        private const string OPEN_NOTEBOOK = "Open Notebook";
-        private const string CLOSE_NOTEBOOK = "Close Notebook";
-        private const string GRAB_NOTEBOOK = "Grab Notebook";
+        private const string OPEN_NOTEBOOK_SOUND = "Open Notebook";
+        private const string CLOSE_NOTEBOOK_SOUND = "Close Notebook";
+        private const string GRAB_NOTEBOOK_SOUND = "Grab Notebook";
+        private const string TURN_NOTEBOOK_PAGE_SOUND = "Turn Notebook Page";
         
         [SerializeField] private float PAGE_OPEN_TIME = 0.5f;
         [SerializeField] private float PAGE_CLOSE_TIME = 0.25f;
@@ -119,10 +120,10 @@ namespace Workspace.Notebook
         {
             if (move)
             {
-                AudioManager.Instance.Play2DSound(GRAB_NOTEBOOK);
-                yield return MoveUpCoroutine(PULL_UP_BOOK_TIME);
+                AudioManager.Instance.Play3DSound(GRAB_NOTEBOOK_SOUND, 5, 100, transform.position);
+                yield return MoveUpCoroutine();
             }
-            AudioManager.Instance.Play2DSound(OPEN_NOTEBOOK);
+            AudioManager.Instance.Play3DSound(OPEN_NOTEBOOK_SOUND, 5, 100, transform.position);
             yield return StartCoroutine(RotatePageCoroutine((RectTransform)leftPage.transform, PAGE_OPEN_TIME, 179.9f, 0f, 0.5f, open));
 
             if (EventsManager.OnOpenMapPages != null)
@@ -142,6 +143,10 @@ namespace Workspace.Notebook
 
         public void Hide(Action close)
         {
+            if (!gameObject.activeSelf)
+            {
+                return;
+            }
             if (flipCoroutine != null) StopCoroutine(flipCoroutine);
             StartCoroutine(HideCoroutine(close));
         }
@@ -173,11 +178,11 @@ namespace Workspace.Notebook
             {
                 pageMarkerActiveParent.GetChild(i).SetParent(pageMarkerParent);
             }
-            AudioManager.Instance.Play2DSound(CLOSE_NOTEBOOK);
+            AudioManager.Instance.Play3DSound(CLOSE_NOTEBOOK_SOUND, 5, 100, transform.position);
             open = false;
         }
 
-        private IEnumerator MoveUpCoroutine(float t)
+        private IEnumerator MoveUpCoroutine()
         {
             Transform notebookTransform = transform;
             Vector3 position = notebookTransform.position;
@@ -201,6 +206,7 @@ namespace Workspace.Notebook
             {
                 StopCoroutine(flipCoroutine);
             }
+            AudioManager.Instance.Play3DSound(TURN_NOTEBOOK_PAGE_SOUND, 5, 100, transform.position + new Vector3(-2.5f, 0, 0));
             flipCoroutine = StartCoroutine(FlipPageLeftCoroutine(midPointFlip, endFlip));
         }
 
@@ -210,6 +216,7 @@ namespace Workspace.Notebook
             {
                 StopCoroutine(flipCoroutine);
             }
+            AudioManager.Instance.Play3DSound(TURN_NOTEBOOK_PAGE_SOUND, 5, 100, transform.position + new Vector3(2.5f, 0, 0));
             flipCoroutine = StartCoroutine(FlipPageRightCoroutine(midPointFlip, endFlip));
         }
 

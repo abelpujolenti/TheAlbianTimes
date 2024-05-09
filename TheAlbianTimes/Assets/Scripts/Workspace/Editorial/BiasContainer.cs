@@ -144,7 +144,7 @@ namespace Workspace.Editorial
             postitTransform.position = position;
             postitTransform.rotation = rotation;
 
-            AudioManager.Instance.Play3DSound(POST_IT_SOUND, 10, 100, transform.position);
+            AudioManager.Instance.Play3DSound(POST_IT_SOUND, 5, 100, position);
             yield return ScaleAnimationCoroutine(postitTransform, postitScaleAnimationTime, postitInitialScale, 1f);
         }
 

@@ -632,7 +632,7 @@ namespace Managers
 
         private void OnDestroy()
         {
-            if (_instance == null)
+            if (_instance != this)
             {
                 return;
             }

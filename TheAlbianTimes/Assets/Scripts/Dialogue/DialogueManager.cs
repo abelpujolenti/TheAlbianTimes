@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -41,6 +42,7 @@ namespace Dialogue
         private int currentLine = -1;
         private List<int> chosenDialogueOptions = new List<int>();
         private int chosenOptionLinesRemaining = 0;
+        private int _characterAudioId;
 
         void Start()
         {
@@ -95,6 +97,8 @@ namespace Dialogue
             }
 
             selectedDialogue = dialogue.Last().Value;
+
+            _characterAudioId = AudioManager.Instance.Play2DLoopSound(selectedDialogue.audioName);
 
             string speakerName = selectedDialogue.lines[0].parts[0].speaker; 
             
@@ -256,6 +260,11 @@ namespace Dialogue
             string json = File.ReadAllText(path);
 
             selectedDialogue = JsonUtility.FromJson<DialogueData>(json);
+        }
+
+        private void OnDestroy()
+        {
+            AudioManager.Instance.StopLoopingAudio(_characterAudioId);
         }
     }
 }

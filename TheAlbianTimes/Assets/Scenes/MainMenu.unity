@@ -7492,6 +7492,11 @@ MonoBehaviour:
     _name: Drop Piece In Box
     _volume: 1
     _pitch: 1
+  - _audioClip: {fileID: 8300000, guid: 216a756eac1a81448b152672da5c0712, type: 3}
+    audioGroup: 1
+    _name: Drop Piece Out Box
+    _volume: 1
+    _pitch: 1
   - _audioClip: {fileID: 8300000, guid: 705d926f80e2ac74f89516df89c4ae86, type: 3}
     audioGroup: 1
     _name: Friction
@@ -7535,6 +7540,11 @@ MonoBehaviour:
   - _audioClip: {fileID: 8300000, guid: 20e1450740c7bcf408282c91c1e1fb4f, type: 3}
     audioGroup: 1
     _name: Grab Envelope
+    _volume: 1
+    _pitch: 1
+  - _audioClip: {fileID: 8300000, guid: 04e26d0e6af4ae14fb3560ed2693b955, type: 3}
+    audioGroup: 1
+    _name: Drop Envelope
     _volume: 1
     _pitch: 1
   - _audioClip: {fileID: 8300000, guid: 1086590b959d3f94f83bc0302ea0f098, type: 3}
@@ -7635,6 +7645,21 @@ MonoBehaviour:
   - _audioClip: {fileID: 8300000, guid: f4b909e07b81bfc4987a7463808624d5, type: 3}
     audioGroup: 1
     _name: Drop Mold
+    _volume: 1
+    _pitch: 1
+  - _audioClip: {fileID: 8300000, guid: 77d25e27c36a4c14faf3a164a92efe0d, type: 3}
+    audioGroup: 1
+    _name: Grab Mold
+    _volume: 1
+    _pitch: 1
+  - _audioClip: {fileID: 8300000, guid: 04381e701f66a524699f889048441fde, type: 3}
+    audioGroup: 1
+    _name: LockMoldLocker
+    _volume: 1
+    _pitch: 1
+  - _audioClip: {fileID: 8300000, guid: 54d26f8cfa549234296dce5461dccf40, type: 3}
+    audioGroup: 1
+    _name: UnlockMoldLocker
     _volume: 1
     _pitch: 1
   - _audioClip: {fileID: 8300000, guid: db9378be1ce0e1444b516b5082266c47, type: 3}
@@ -7757,24 +7782,9 @@ MonoBehaviour:
     _name: Turn Notebook Page
     _volume: 1
     _pitch: 1
-  - _audioClip: {fileID: 8300000, guid: 04381e701f66a524699f889048441fde, type: 3}
-    audioGroup: 1
-    _name: LockMoldLocker
-    _volume: 1
-    _pitch: 1
-  - _audioClip: {fileID: 8300000, guid: 54d26f8cfa549234296dce5461dccf40, type: 3}
-    audioGroup: 1
-    _name: UnlockMoldLocker
-    _volume: 1
-    _pitch: 1
   - _audioClip: {fileID: 8300000, guid: eb7cbce27eb98d647bac63b8fe419c9f, type: 3}
     audioGroup: 1
     _name: Grab Coffee
-    _volume: 1
-    _pitch: 1
-  - _audioClip: {fileID: 8300000, guid: 77d25e27c36a4c14faf3a164a92efe0d, type: 3}
-    audioGroup: 1
-    _name: Grab Mold
     _volume: 1
     _pitch: 1
   - _audioClip: {fileID: 8300000, guid: 343c55f364f71dc4b956a1cba5606a9f, type: 3}

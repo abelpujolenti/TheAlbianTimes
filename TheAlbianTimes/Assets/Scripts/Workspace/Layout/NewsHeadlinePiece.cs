@@ -12,6 +12,7 @@ namespace Workspace.Layout
     {
         private const String GRAB_PIECE_SOUND = "Grab Piece";
         private const String DROP_PIECE_IN_BOX_SOUND = "Drop Piece In Box";
+        private const String DROP_PIECE_OUT_BOX_SOUND = "Drop Piece Out Box";
         private const String SNAP_PIECE_SOUND = "Snap Piece";
         
         private const float TRANSPARENCY_VALUE = 0.9f;
@@ -121,7 +122,6 @@ namespace Workspace.Layout
             if (_snappedCells == null)
             {
                 FailSnapOnMold();
-                AudioManager.Instance.Play3DSound(DROP_PIECE_IN_BOX_SOUND, 5, 100, transform.position);
                 return;
             }
             
@@ -151,6 +151,9 @@ namespace Workspace.Layout
                 }
 
                 _subscribed = true;
+                
+                
+                AudioManager.Instance.Play3DSound(DROP_PIECE_OUT_BOX_SOUND, 5, 100, transform.position);
                         
                 EventsManager.OnPressPanicButtonForPieces += GoToContainer;
                 if (EventsManager.OnThowSomething != null)
@@ -170,6 +173,8 @@ namespace Workspace.Layout
             }
 
             _subscribed = false;
+            
+            AudioManager.Instance.Play3DSound(DROP_PIECE_IN_BOX_SOUND, 5, 100, transform.position);
                         
             EventsManager.OnPressPanicButtonForPieces -= GoToContainer;
             if (EventsManager.OnArrangeSomething != null)
@@ -184,6 +189,9 @@ namespace Workspace.Layout
             {
                 return;
             }
+            
+            
+            AudioManager.Instance.Play3DSound(DROP_PIECE_IN_BOX_SOUND, 5, 100, transform.position);
 
             _subscribed = false;
             

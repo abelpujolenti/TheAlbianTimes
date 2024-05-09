@@ -20,7 +20,7 @@ namespace Managers
         private const string PATH_BRIBES_CONTAINER = "/Json/Mail/BribesContainer.json";
         private const string PATH_LETTERS_CONTAINER = "/Json/Mail/LettersContainer.json";
 
-        [SerializeField] private RectTransform _envelopesContainer;
+        private MailContainer _mailContainer;
 
         [SerializeField] private GameObject[] _envelopeContents;
         [SerializeField] private GameObject[] _envelopePrefabs;
@@ -48,6 +48,11 @@ namespace Managers
                 Destroy(gameObject);
             }
             DontDestroyOnLoad(gameObject);
+        }
+
+        public void SetMailContainer(MailContainer mailContainer)
+        {
+            _mailContainer = mailContainer;
         }
 
         private void CheckFiles()
@@ -95,11 +100,6 @@ namespace Managers
                 { EnvelopeContentType.BRIBE , SendBaseContent<BribesMailContainer, MailContentBribe>},
                 { EnvelopeContentType.LETTER , SendBaseContent<LettersMailContainer, MailContentLetter>},
             };
-        }
-
-        public void SetEnvelopesContainer(RectTransform rectTransform)
-        {
-            _envelopesContainer = rectTransform;
         }
 
         #region SaveToJson
@@ -363,13 +363,14 @@ namespace Managers
             {
                 envelopeData = envelopesMailContainer.contentEnvelopes[i];
 
-                GameObject envelopeGameObject = Instantiate(_envelope, _envelopesContainer);
+                GameObject envelopeGameObject = Instantiate(_envelope, _mailContainer.transform);
 
                 envelopeComponent = envelopeGameObject.GetComponent<Envelope>();
 
                 envelopeComponent.SetCountry(envelopeData.country);
                 envelopeComponent.SetJointId(envelopeData.jointId);
                 envelopeComponent.SetEnvelopeContentType(envelopeData.envelopeContentType);
+                envelopeComponent.SetMailContainer(_mailContainer);
                 
                 envelopes[i] = envelopeGameObject;
             }
@@ -443,7 +444,7 @@ namespace Managers
 
                 if (!fromEnvelope)
                 {
-                    envelopeContentGameObject.transform.SetParent(_envelopesContainer.transform);
+                    envelopeContentGameObject.transform.SetParent(_mailContainer.transform);
                     envelopeContentGameObject.transform.localScale = Vector3.one;
                 }
                 
@@ -472,6 +473,7 @@ namespace Managers
             adComponent.SetCountry(mailContentAd.country);
             adComponent.SetJointId(mailContentAd.jointId);
             adComponent.SetEnvelopeContentType(EnvelopeContentType.AD);
+            adComponent.SetMailContainer(_mailContainer);
 
             return adGameObject;
         }
@@ -496,6 +498,7 @@ namespace Managers
             biasComponent.SetJointId(mailContentBias.jointId);
             biasComponent.SetLinkId(mailContentBias.linkId);
             biasComponent.SetEnvelopeContentType(EnvelopeContentType.BIAS);
+            biasComponent.SetMailContainer(_mailContainer);
 
             return biasGameObject;
         }
@@ -520,6 +523,7 @@ namespace Managers
             bribeComponent.SetJointId(mailContentBribe.jointId);
             bribeComponent.SetTotalMoney(mailContentBribe.totalMoney);
             bribeComponent.SetEnvelopeContentType(EnvelopeContentType.BRIBE);
+            bribeComponent.SetMailContainer(_mailContainer);
                 
             return bribeGameObject;
         }
@@ -544,6 +548,7 @@ namespace Managers
             letterComponent.SetJointId(mailContentLetter.jointId);
             letterComponent.SetLetterText(mailContentLetter.letterText);
             letterComponent.SetEnvelopeContentType(EnvelopeContentType.LETTER);
+            letterComponent.SetMailContainer(_mailContainer);
 
             return letterGameObject;
         }
@@ -758,7 +763,7 @@ namespace Managers
 
         #endregion
 
-        public void AddJointId(int jointId)
+        private void AddJointId(int jointId)
         {
             _jointsIds.Add(jointId);
         }
@@ -768,9 +773,16 @@ namespace Managers
             _jointsIds.Remove(jointId);
         }
 
-        public int[] GetJointsIds()
+        private int[] GetJointsIds()
         {
             return _jointsIds.ToArray();
         }
+
+        /*public Vector3 DecideWhereToStay(Vector3 position, Vector3 directionVector, Vector3 size)
+        {
+            Vector2[] corners = _mailContainer.GetCorners();
+            
+            return new Vector3();
+        }*/
     }
 }

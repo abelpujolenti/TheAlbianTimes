@@ -1,4 +1,4 @@
-﻿{"personContent":[
+﻿{"peopleContent":[
     {
         "name": "Hazel",
         "descriptions": [
@@ -8,7 +8,7 @@
         ]   
     },
     {
-        "name": "Rudy",
+        "name": "Ruby",
         "descriptions": [
             "I became a father 21 years ago, time passes by so fast…",
             "She is currently at university"
@@ -19,7 +19,6 @@
         "descriptions": [
             "We met recently at my new position, and he is helping me a lot."
         ]
-
     }
 ]
 }

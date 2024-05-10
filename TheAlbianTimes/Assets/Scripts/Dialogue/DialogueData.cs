@@ -1,4 +1,5 @@
 using System;
+using Characters;
 using Events;
 using Managers;
 
@@ -21,20 +22,25 @@ namespace Dialogue
         public bool ConditionsFulfilled(int round)
         {
             if (GameManager.Instance.gameState.viewedDialogue.Contains(name) || round < firstRound || round >= firstRound + duration) return false;
-            if (countryConditions == null && characterConditions == null) return true;
             bool ret = true;
-            foreach (CountryEventCondition condition in countryConditions)
+            if (countryConditions != null)
             {
-                if (!condition.IsFulfilled())
+                foreach (CountryEventCondition condition in countryConditions)
                 {
-                    ret = false;
+                    if (!condition.IsFulfilled())
+                    {
+                        ret = false;
+                    }
                 }
             }
-            foreach (CharacterEventCondition condition in characterConditions)
+            if (characterConditions != null)
             {
-                if (!condition.IsFulfilled())
+                foreach (CharacterEventCondition condition in characterConditions)
                 {
-                    ret = false;
+                    if (!condition.IsFulfilled())
+                    {
+                        ret = false;
+                    }
                 }
             }
             return ret;
@@ -64,5 +70,14 @@ namespace Dialogue
         public int followupLines;
         public CountryEventCondition[] countryConditions;
         public CharacterEventCondition[] characterConditions;
+        public DialogueConsequence[] consequences;
+    }
+
+    [Serializable]
+    public class DialogueConsequence
+    {
+        public Character.Id entityId;
+        public string key;
+        public float value;
     }
 }

@@ -222,7 +222,12 @@ namespace Dialogue
         public void SelectOption(int optionId, int buttonId)
         {
             chosenDialogueOptions.Add(optionId);
-            chosenOptionLinesRemaining = selectedDialogue.lines[currentLine].options[buttonId].followupLines;
+            var option = selectedDialogue.lines[currentLine].options[buttonId];
+            chosenOptionLinesRemaining = option.followupLines;
+            if (option.consequences != null)
+            {
+                DialogueConsequenceManager.Instance.ApplyDialogueConsequences(option.consequences);
+            }
             DisplayNextLine();
         }
         
@@ -246,7 +251,10 @@ namespace Dialogue
 
         private void OnDestroy()
         {
-            AudioManager.Instance.StopLoopingAudio(_characterAudioId);
+            if (_characterAudioId >= 0)
+            {
+                AudioManager.Instance.StopLoopingAudio(_characterAudioId);
+            }
         }
     }
 }

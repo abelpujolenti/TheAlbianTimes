@@ -5073,9 +5073,9 @@ MonoBehaviour:
   _SFXAudioMuteToggleCheckMark: {fileID: 226519544}
   _musicAudioMuteToggleCheckMark: {fileID: 920679689}
   _enableTutorialPromptsToggleCheckMark: {fileID: 1621560966}
-  _lowTextDialogueSpeed: 0.8
-  _mediumTextDialogueSpeed: 1
-  _highTextDialogueSpeed: 1.3
+  _lowDialogueSpeedButton: {fileID: 1101012190}
+  _mediumDialogueSpeedButton: {fileID: 1370501069}
+  _highDialogueSpeedButton: {fileID: 730182628}
   _isInGame: 0
 --- !u!1 &875553705
 GameObject:
@@ -5765,6 +5765,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae0519f0901454740b783559c262b87e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  textDialogueSpeed: 0
   areTutorialPromptsEnabled: 1
   _audioSpawnerPrefab: {fileID: 7460462998756000948, guid: 0f6ac97d0805ae742a2be65aa6a3dd71, type: 3}
   musicAudioId: -1

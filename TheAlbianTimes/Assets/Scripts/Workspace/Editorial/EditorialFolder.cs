@@ -50,14 +50,16 @@ namespace Workspace.Editorial
         {
             yield return new WaitForSeconds(postitAppearDelay);
             
-            MessagePostit postit = Instantiate(messagePostitPrefab, _diegeticElementsCanvas).GetComponent<MessagePostit>();
-            postit.Setup(data);
+            Postit postit = Instantiate(messagePostitPrefab, _diegeticElementsCanvas).GetComponent<Postit>();
+            postit.SetText(data.text);
             Transform postitTransform = postit.transform;
             RectTransform postitRectTransform = (RectTransform)postitTransform;
             Vector3 sizeDelta = postitRectTransform.sizeDelta;
-            postitRectTransform.anchoredPosition = new Vector3(
-                Random.Range(275f + sizeDelta.x / 2, 430f - sizeDelta.x / 2), 
-                Random.Range(-100 + sizeDelta.y / 2, -145 - sizeDelta.y / 2), 
+            Vector3 lossyScale = postitRectTransform.lossyScale;
+            Vector3 size = new Vector3(sizeDelta.x * lossyScale.x, sizeDelta.y * lossyScale.y, 0);
+            postitTransform.position = new Vector3(
+                Random.Range(-2.86f + size.x / 2, 0.74f - size.x / 2), 
+                Random.Range(2.88f - size.y / 2, -3.99f + size.y / 2), 
                 transform.position.z);
             
             postit.transform.localRotation = Quaternion.Euler(new Vector3(0f, 0f, Random.Range(-5f, 5f)));

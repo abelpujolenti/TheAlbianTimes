@@ -2,6 +2,8 @@ using System.Collections;
 using Countries;
 using Managers;
 using TMPro;
+using Unity.VisualScripting;
+using UnityEditor.UI;
 using UnityEngine;
 using UnityEngine.UI;
 using Utility;
@@ -21,6 +23,8 @@ namespace Stats
         [SerializeField] private GameObject[] statsDisplayObjects;
         [SerializeField] private TextMeshProUGUI[] _reputations;
         [SerializeField] private Image[] _statModificationIcon;
+        [SerializeField] private TextMeshProUGUI loseText;
+        [SerializeField] private Button restartButton;
         const int folds = 4;
 
         [SerializeField] private float unfoldTime = .8f;
@@ -242,7 +246,29 @@ namespace Stats
             
             AudioManager.Instance.StopAllAudios();
             GameManager.Instance.musicAudioId = -1;
-            GameManager.Instance.LoadScene(ScenesName.DIALOGUE_SCENE);
+
+            if (GameManager.Instance.gameState.playerData.money <= 0)
+            {
+                Lose();
+            }
+            else
+            {
+                GameManager.Instance.LoadScene(ScenesName.DIALOGUE_SCENE);
+            }
+        }
+
+        private void Lose()
+        {
+            loseText.gameObject.SetActive(true);
+            loseText.text = "<size=30><b>The Albian Times has run out of funds.</b>\n<size=25>You and your " + GameManager.Instance.gameState.playerData.staff + " staff will need to find new jobs.";
+            restartButton.gameObject.SetActive(true);
+        
+        }
+
+        public void Restart()
+        {
+            GameManager.Instance.GetSaveManager().DeleteSaveFile();
+            GameManager.Instance.sceneLoader.SetScene(ScenesName.MAIN_MENU);
         }
     }
 }

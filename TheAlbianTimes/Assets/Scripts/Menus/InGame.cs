@@ -7,6 +7,8 @@ namespace Menus
     public class InGame : MonoBehaviour
     {
         private static InGame _instance;
+
+        public static InGame Instance => _instance;
         
         private const string CLICK_BUTTON_SOUND = "Click Button";
         
@@ -34,7 +36,6 @@ namespace Menus
             PlayClickButtonSound();
             _paused = true;
             _mainMenu.SetActive(true);
-            //Time.timeScale = 0;
         }
 
         public void ResumeButton()
@@ -43,13 +44,11 @@ namespace Menus
             _paused = false;
             ChangeCurrentActivePanel(_mainMenu);
             _mainMenu.SetActive(false);
-            //Time.timeScale = 1;
         }
 
         public void MainMenuButton()
         {
             PlayClickButtonSound();
-            //Time.timeScale = 1;
             AudioManager.Instance.StopLoopingAudio(GameManager.Instance.musicAudioId);
             GameManager.Instance.musicAudioId = -1;
             Destroy(gameObject);

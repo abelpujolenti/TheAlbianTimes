@@ -12,8 +12,6 @@ namespace Menus
 
         [SerializeField] private RectTransform _rectTransform;
         [SerializeField] private RectTransform _limits;
-        
-        [SerializeField] private InGame _inGameMenu;
 
         private Vector3 _size;
         
@@ -71,7 +69,7 @@ namespace Menus
         {
             if (!_dragged)
             {
-                _inGameMenu.PauseButton();
+                InGame.Instance.PauseButton();
             }
 
             _dragged = false;

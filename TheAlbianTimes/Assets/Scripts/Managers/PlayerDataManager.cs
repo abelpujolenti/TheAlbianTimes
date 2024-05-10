@@ -69,7 +69,7 @@ public class PlayerDataManager : MonoBehaviour
     }
     public float CalculateRevenue()
     {
-        float income = 0;
+        float income = 0.0f;
         foreach(float addIncome in CalculateRevenueComponents())
         {
             income += addIncome;

@@ -52,7 +52,7 @@ namespace Stats
         }
         private void UpdateCost()
         {
-            string text = "<color=red>Cost: " + (staffCost * GameManager.Instance.gameState.playerData.staff + staffChange).ToString("F1") + " / day</color>";
+            string text = "<color=red>Cost: " + (staffCost * GameManager.Instance.gameState.playerData.staff + staffChange).ToString("F2") + " / day</color>";
             cost.text = text;
         }
         public float UpdateStaffCost()

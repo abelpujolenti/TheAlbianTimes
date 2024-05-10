@@ -35,6 +35,7 @@ namespace Menus
         public void Play() 
         {
             if (startGameCoroutine != null) return;
+            GameManager.Instance.InitData();
             AudioManager.Instance.StopLoopingAudio(_menuAudioId);
             AudioManager.Instance.Play2DSound(CLICK_BUTTON_SOUND);
             startGameCoroutine = StartCoroutine(StartGameCoroutine());

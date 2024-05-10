@@ -53,7 +53,6 @@ namespace Menus
             AudioManager.Instance.StopLoopingAudio(GameManager.Instance.musicAudioId);
             GameManager.Instance.musicAudioId = -1;
             Destroy(gameObject);
-            GameManager.Instance.SaveGame();
             GameManager.Instance.LoadScene(ScenesName.MAIN_MENU);
         }
 

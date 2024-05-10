@@ -14,8 +14,6 @@ namespace Dialogue
     public class DialogueManager : MonoBehaviour
     {
         private const int TOTAL_KEY_TYPES_AUDIOS = 7;
-
-        private const float TIME_TO_SHOW_CHARACTER = 3.5f;
         
         private const string CHARACTERS_SPRITE_PATH = "Images/Characters/";
         private const string CLICK_BUTTON_SOUND = "Click Button";
@@ -102,39 +100,23 @@ namespace Dialogue
             string speakerName = selectedDialogue.lines[0].parts[0].speaker; 
             
             SetSpeakerText(speakerName);
-            
-            StartCoroutine(ShowCharacter(TIME_TO_SHOW_CHARACTER, speakerName));
+
+            ShowCharacter(speakerName);
             return true;
         }
 
-        private IEnumerator ShowCharacter(float timeToShow, string speakerName)
+        private void ShowCharacter(string speakerName)
         {
-            float time = 0;
-
-            _character.sprite = Resources.Load<Sprite>(CHARACTERS_SPRITE_PATH + speakerName);
-
+            Sprite characterSprite = Resources.Load<Sprite>(CHARACTERS_SPRITE_PATH + speakerName); 
+            
             //ERASE
-            if (_character.sprite == null)
+            if (_character.sprite != null)
             {
-                _character.sprite = Resources.Load<Sprite>(CHARACTERS_SPRITE_PATH + "Unknown");
+                _character.sprite = characterSprite;
+                return;
             }
-
-            Color color = Color.white;
-
-            while (time < timeToShow)
-            {
-                time += Time.deltaTime;
-
-                color.a = Mathf.Lerp(0, 1, time / timeToShow);
-
-                _character.color = color;
-                
-                yield return null;
-            }
-
-            color.a = 1;
-
-            _character.color = color;
+            _character.sprite = Resources.Load<Sprite>(CHARACTERS_SPRITE_PATH + "Unknown");
+            
         }
 
         private void LoadDialogueFromFile(string json)

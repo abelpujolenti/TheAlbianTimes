@@ -110,6 +110,16 @@ namespace Managers
 
         private void InitializeAudioValues()
         {
+            if (!PlayerPrefs.HasKey(PLAYER_PREFS_MASTER_VOLUME_VALUE))
+            {
+                PlayerPrefs.SetFloat(PLAYER_PREFS_MASTER_VOLUME_VALUE, 1);
+                PlayerPrefs.SetFloat(PLAYER_PREFS_SFX_VOLUME_VALUE, 1);
+                PlayerPrefs.SetFloat(PLAYER_PREFS_MUSIC_VOLUME_VALUE, 1);
+                PlayerPrefs.SetInt(PLAYER_PREFS_MASTER_MUTE, 0);
+                PlayerPrefs.SetInt(PLAYER_PREFS_SFX_MUTE, 0);
+                PlayerPrefs.SetInt(PLAYER_PREFS_MUSIC_MUTE, 0);
+            }
+            
             SetMasterVolumeValue(PlayerPrefs.GetFloat(PLAYER_PREFS_MASTER_VOLUME_VALUE));
             SetMasterMute(PlayerPrefs.GetInt(PLAYER_PREFS_MASTER_MUTE) != 0);
             

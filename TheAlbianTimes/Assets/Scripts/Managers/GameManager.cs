@@ -36,7 +36,7 @@ namespace Managers
             {
                 _instance = this;
                 InitData();
-                areTutorialPromptsEnabled = PlayerPrefs.GetInt(PLAYER_PREFS_TUTORIAL_PROMPTS_ENABLE) == 0;
+                areTutorialPromptsEnabled = PlayerPrefs.GetInt(PLAYER_PREFS_TUTORIAL_PROMPTS_ENABLE) == 1;
                 DontDestroyOnLoad(gameObject);
                 return;
             }
@@ -230,7 +230,7 @@ namespace Managers
 
         private void OnDestroy()
         {
-            PlayerPrefs.SetInt(PLAYER_PREFS_TUTORIAL_PROMPTS_ENABLE, areTutorialPromptsEnabled ? 0 : 1);
+            PlayerPrefs.SetInt(PLAYER_PREFS_TUTORIAL_PROMPTS_ENABLE, areTutorialPromptsEnabled ? 1 : 0);
         }
     }
 }

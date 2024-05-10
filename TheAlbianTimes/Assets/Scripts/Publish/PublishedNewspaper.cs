@@ -23,12 +23,21 @@ namespace Publish
         private float sendThreshold = 1.8f;
         private Coroutine hintCoroutine;
 
+        private bool _isTutorialRound;
+        private bool _areTutorialPromptsEnabled;
+
         private void Start()
         {
             startPosition = transform.position;
             
             GetSortedArticles();
             StartCoroutine(Reveal());
+            _isTutorialRound = GameManager.Instance.GetRound() != 0;
+            _areTutorialPromptsEnabled = GameManager.Instance.areTutorialPromptsEnabled;
+            if (_isTutorialRound && !_areTutorialPromptsEnabled)
+            {
+                return;
+            }
             hintCoroutine = StartCoroutine(HintCoroutine());
         }
 
@@ -43,19 +52,25 @@ namespace Publish
         private IEnumerator HintCoroutine()
         {
             yield return new WaitForSeconds(2f);
-            while (this != null)
+            while (true)
             {
                 Vector3 offset = new Vector3(0f, .7f, 1.7f);
                 StartCoroutine(SetRotationCoroutine(30f, .3f));
                 yield return TransformUtility.SetPositionCoroutine(transform, transform.position, transform.position + offset, .3f);
                 StartCoroutine(SetRotationCoroutine(0f, .18f));
                 yield return TransformUtility.SetPositionCoroutine(transform, transform.position, transform.position - offset, .18f);
-                yield return new WaitForSeconds(7f);
+                yield return new WaitForSeconds(5f);
             }
         }
 
         protected override void BeginDrag(BaseEventData data)
         {
+            if (hintCoroutine != null)
+            {
+                StopCoroutine(hintCoroutine);
+                hintCoroutine = null;
+            }
+
             PointerEventData pointerData = (PointerEventData)data;
 
             AudioManager.Instance.Play3DSound(GRAB_PAPER_SOUND, 5, 100, transform.position);
@@ -69,7 +84,6 @@ namespace Publish
 
         protected override void Drag(BaseEventData data)
         {
-            if (hintCoroutine != null) StopCoroutine(hintCoroutine);
             base.Drag(data);
             float xRotation = Mathf.Min(60f, Mathf.Max(0f, (transform.position.y - leanThreshold) * 20f));
             transform.rotation = Quaternion.Euler(new Vector3(xRotation, transform.rotation.y, transform.rotation.z));
@@ -84,11 +98,16 @@ namespace Publish
             {
                 draggable = false;
                 StartCoroutine(FlyOffCoroutine(3f, .3f));
+                return;
             }
-            else
+            
+            StartCoroutine(SnapCoroutine(.3f));
+                
+            if (_isTutorialRound && !_areTutorialPromptsEnabled)
             {
-                StartCoroutine(SnapCoroutine(.3f));
+                return;
             }
+            StartCoroutine(HintCoroutine());
         }
 
         private IEnumerator SnapCoroutine(float t)

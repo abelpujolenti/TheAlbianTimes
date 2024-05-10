@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Characters;
 using Countries;
+using Dialogue;
 using UnityEngine;
 using Workspace.Editorial;
 
@@ -13,11 +14,13 @@ namespace Managers
         public static GameManager Instance => _instance;
 
         private const string PLAYER_PREFS_TUTORIAL_PROMPTS_ENABLE = "Player Prefs Tutorial Prompts Enable";
+        private const string PLAYER_PREFS_TEXT_DIALOGUE_SPEED = "Player Prefs Text Dialogue Speed";
         
         public GameState gameState;
         public GameState prevGameState;
         private SaveManager saveManager;
         public SceneLoader sceneLoader = new SceneLoader();
+        public TextDialoguesSpeed textDialogueSpeed;
         public bool areTutorialPromptsEnabled;
 
         private StatsDisplay _statsDisplay;
@@ -36,6 +39,12 @@ namespace Managers
             {
                 _instance = this;
                 InitData();
+                if (!PlayerPrefs.HasKey(PLAYER_PREFS_TEXT_DIALOGUE_SPEED))
+                {
+                    PlayerPrefs.SetInt(PLAYER_PREFS_TEXT_DIALOGUE_SPEED, 1);
+                }
+
+                textDialogueSpeed = (TextDialoguesSpeed)PlayerPrefs.GetInt(PLAYER_PREFS_TEXT_DIALOGUE_SPEED);
                 areTutorialPromptsEnabled = PlayerPrefs.GetInt(PLAYER_PREFS_TUTORIAL_PROMPTS_ENABLE) == 1;
                 DontDestroyOnLoad(gameObject);
                 return;
@@ -230,6 +239,7 @@ namespace Managers
 
         private void OnDestroy()
         {
+            PlayerPrefs.SetInt(PLAYER_PREFS_TEXT_DIALOGUE_SPEED, (int)textDialogueSpeed);
             PlayerPrefs.SetInt(PLAYER_PREFS_TUTORIAL_PROMPTS_ENABLE, areTutorialPromptsEnabled ? 1 : 0);
         }
     }

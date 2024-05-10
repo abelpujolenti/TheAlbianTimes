@@ -1,10 +1,18 @@
 using System.Collections;
+using System.Collections.Generic;
 using Managers;
 using TMPro;
 using UnityEngine;
 
 namespace Dialogue
 {
+    public enum TextDialoguesSpeed
+    {
+        LOW,
+        MEDIUM,
+        HIGH
+    }
+
     public class TextArchitect
     {
         #region Stats
@@ -24,7 +32,7 @@ namespace Dialogue
         public Color textColor { get { return tmpro.color; } set { tmpro.color = value; } }
 
         public float speed { get { return baseSpeed * speedMultiplier; } set { speedMultiplier = value; } }
-        public static float baseSpeed = 1f;
+        public float baseSpeed = 1f;
         private float speedMultiplier = 1f;
 
         public int charactersPerCycle { get { return speed <= 2f ? characterMultiplier : speed <= 2.5f ? characterMultiplier * 2 : characterMultiplier * 3; } }
@@ -34,10 +42,16 @@ namespace Dialogue
         #endregion
 
         private const string KEY = "Key Typing ";
+
+        private const float LOW_TEXT_DIALOGUE_SPEED = 0.8f;
+        private const float MEDIUM_TEXT_DIALOGUE_SPEED = 1f;
+        private const float HIGH_TEXT_DIALOGUE_SPEED = 1.3f;
         private const float MIN_VOLUME = 0.8f;
         private const float MAX_VOLUME = 1;
         private const float MIN_PITCH = 0.8f;
         private const float MAX_PITCH = 1.2f;
+
+        public Dictionary<TextDialoguesSpeed, float> _textDialogueSpeeds = new Dictionary<TextDialoguesSpeed, float>();
 
         private string[] _keyTypeSoundStrings;
 
@@ -45,7 +59,19 @@ namespace Dialogue
         {
             tmpro_ui = ui;
             _keyTypeSoundStrings = new string[totalKeyTypeSoundStrings];
+            FillDictionaries();
+            baseSpeed = _textDialogueSpeeds[GameManager.Instance.textDialogueSpeed];
             SetKeyTypingSoundsStrings();
+        }
+
+        private void FillDictionaries()
+        {
+            _textDialogueSpeeds = new Dictionary<TextDialoguesSpeed, float>
+            {
+                { TextDialoguesSpeed.LOW , LOW_TEXT_DIALOGUE_SPEED},
+                { TextDialoguesSpeed.MEDIUM , MEDIUM_TEXT_DIALOGUE_SPEED},
+                { TextDialoguesSpeed.HIGH , HIGH_TEXT_DIALOGUE_SPEED},
+            };
         }
 
         //?????????
@@ -194,6 +220,11 @@ namespace Dialogue
         {
             AudioManager.Instance.Play2DRandomSound(_keyTypeSoundStrings, 
                 MIN_VOLUME, MAX_VOLUME, MIN_PITCH, MAX_PITCH);
+        }
+
+        public float GetTextDialogueSpeed(TextDialoguesSpeed textSpeed)
+        {
+            return _textDialogueSpeeds[textSpeed];
         }
     }
 }

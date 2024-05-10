@@ -151,8 +151,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281341970
-  m_fontColor: {r: 0.0719117, g: 0.09314217, b: 0.18867922, a: 1}
+    rgba: 4279042048
+  m_fontColor: {r: 0, g: 0, b: 0.05, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -222,7 +222,7 @@ GameObject:
   - component: {fileID: 1679675313347019840}
   - component: {fileID: 3184940669268967703}
   - component: {fileID: 4439939235251290035}
-  - component: {fileID: 4964354597874854388}
+  - component: {fileID: 2492030457313397910}
   m_Layer: 5
   m_Name: MessagePostit
   m_TagString: Untagged
@@ -273,7 +273,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9056604, g: 0.9056604, b: 0.9056604, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -290,7 +290,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &4964354597874854388
+--- !u!114 &2492030457313397910
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -299,7 +299,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 9052957092925163286}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 387f5f43c41a41540a0cd59ce265c074, type: 3}
+  m_Script: {fileID: 11500000, guid: d506cd1c7ad16b94893cc6179054d5ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
@@ -310,6 +310,8 @@ MonoBehaviour:
   maxVelocity: 30
   deceleration: -60
   maxAngularUnscaledVelocity: 1.5
-  spinFactor: 30
+  spinFactor: 4
   grabRotationSnapBackTime: 0.2
   _rotate: 1
+  _image: {fileID: 0}
+  _text: {fileID: 6189214978110710888}

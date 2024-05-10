@@ -6,6 +6,8 @@ namespace Menus
 {
     public class InGame : MonoBehaviour
     {
+        private static InGame _instance;
+        
         private const string CLICK_BUTTON_SOUND = "Click Button";
         
         [SerializeField] private GameObject _mainMenu;
@@ -17,8 +19,14 @@ namespace Menus
 
         private void Start()
         {
-            _currentActivePanel = _mainMenu;
-            DontDestroyOnLoad(gameObject);
+            if (_instance == null)
+            {
+                _instance = this;
+                _currentActivePanel = _mainMenu;
+                DontDestroyOnLoad(gameObject);
+                return;
+            }
+            Destroy(gameObject);
         }
 
         public void PauseButton()

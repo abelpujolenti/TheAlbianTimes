@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Dialogue;
 using Managers;
@@ -6,13 +7,6 @@ using UnityEngine.UI;
 
 namespace Menus
 {
-    public enum TextDialoguesSpeed
-    {
-        LOW,
-        MEDIUM,
-        HIGH
-    }
-
     public class Settings : MonoBehaviour
     {
         private const string CLICK_BUTTON_SOUND = "Click Button";
@@ -27,26 +21,31 @@ namespace Menus
         [SerializeField] private GameObject _musicAudioMuteToggleCheckMark;
         [SerializeField] private GameObject _enableTutorialPromptsToggleCheckMark;
 
-        [SerializeField] private float _lowTextDialogueSpeed;
-        [SerializeField] private float _mediumTextDialogueSpeed;
-        [SerializeField] private float _highTextDialogueSpeed;
+        [SerializeField] private Button _lowDialogueSpeedButton;
+        [SerializeField] private Button _mediumDialogueSpeedButton;
+        [SerializeField] private Button _highDialogueSpeedButton;
 
         [SerializeField] private bool _isInGame;
         
-        private Dictionary<TextDialoguesSpeed, float> _textDialogueSpeeds;
+        private Dictionary<TextDialoguesSpeed, Button> _textDialogueSpeedButtons = new Dictionary<TextDialoguesSpeed, Button>();
 
-        private void Start()
+        private Button _selectedButton;
+
+        private Color _selectedColor = new Color(0.4811321f, 0.4811321f, 0.4811321f);
+        private Color _unselectedColor = new Color(0.1137255f, 0.1137255f, 0.1137255f);
+
+        private void Awake()
         {
             FillDictionaries();
         }
 
         private void FillDictionaries()
         {
-            _textDialogueSpeeds = new Dictionary<TextDialoguesSpeed, float>
+            _textDialogueSpeedButtons = new Dictionary<TextDialoguesSpeed, Button>
             {
-                { TextDialoguesSpeed.LOW , _lowTextDialogueSpeed},
-                { TextDialoguesSpeed.MEDIUM , _mediumTextDialogueSpeed},
-                { TextDialoguesSpeed.HIGH , _highTextDialogueSpeed},
+                { TextDialoguesSpeed.LOW , _lowDialogueSpeedButton},
+                { TextDialoguesSpeed.MEDIUM , _mediumDialogueSpeedButton},
+                { TextDialoguesSpeed.HIGH , _highDialogueSpeedButton},
             };
         }
 
@@ -63,6 +62,8 @@ namespace Menus
             _SFXAudioMuteToggleCheckMark.SetActive(!audioManager.GetGroupMute(AudioGroups.SFX));
             
             _musicAudioMuteToggleCheckMark.SetActive(!audioManager.GetGroupMute(AudioGroups.MUSIC));
+            
+            ChangeSelectedButton(GameManager.Instance.textDialogueSpeed);
 
             if (_isInGame)
             {
@@ -126,7 +127,31 @@ namespace Menus
         private void ChangeTextDialogueSpeed(TextDialoguesSpeed textDialoguesSpeed)
         {
             PlayClickButtonSound();
-            TextArchitect.baseSpeed = _textDialogueSpeeds[textDialoguesSpeed];
+            
+            ChangeSelectedButton(textDialoguesSpeed);
+
+            GameManager.Instance.textDialogueSpeed = textDialoguesSpeed;
+        }
+
+        private void ChangeSelectedButton(TextDialoguesSpeed textDialoguesSpeed)
+        {
+            if (_selectedButton != null)
+            {
+                ChangeButtonColor(_selectedButton, _unselectedColor);
+            }
+            
+            _selectedButton = _textDialogueSpeedButtons[textDialoguesSpeed];
+            
+            ChangeButtonColor(_selectedButton, _selectedColor);
+        }
+
+        private void ChangeButtonColor(Button button, Color color)
+        {
+            ColorBlock colorBlock = button.colors;
+
+            colorBlock.normalColor = color;
+
+            _selectedButton.colors = colorBlock;
         }
 
         public void LowDialogueSpeed() => ChangeTextDialogueSpeed(TextDialoguesSpeed.LOW);

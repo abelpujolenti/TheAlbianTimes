@@ -79,11 +79,9 @@ namespace Managers
                 _cover = Instantiate(_coverPrefab);
                 _leftPage.ChangeContent(_cover);
                 _cover.transform.localRotation = new Quaternion(0, 180, 0, 1);
+                return;
             }
-            else
-            {
-                Destroy(gameObject);
-            }
+            Destroy(gameObject);
         }
 
         private void InitializeNotebookContentPages(NotebookContentType notebookContentType, GameObject[] prefabs)
@@ -153,7 +151,7 @@ namespace Managers
             ReservePagesForMap();
             SaveCountriesContentsInDictionary(countriesContent);
             //SaveInternationalsContentsInDictionary(internationalsContent);
-            SavePeopleContentsInDictionary(peopleContent);
+            //SavePeopleContentsInDictionary(peopleContent);
 
             _totalPages = _notebookPages.Count;
         }

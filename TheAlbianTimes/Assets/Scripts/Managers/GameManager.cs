@@ -243,6 +243,11 @@ namespace Managers
             PlayerPrefs.SetInt(PLAYER_PREFS_TEXT_DIALOGUE_SPEED, (int)textDialogueSpeed);
             PlayerPrefs.SetInt(PLAYER_PREFS_TUTORIAL_PROMPTS_ENABLE, areTutorialPromptsEnabled ? 1 : 0);
         }
+
+        public SaveManager GetSaveManager()
+        {
+            return saveManager;
+        }
     }
 }
 

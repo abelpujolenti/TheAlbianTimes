@@ -60,4 +60,9 @@ public class SaveManager
     {
         return File.Exists(path);
     }
+
+    public void DeleteSaveFile()
+    {
+        File.Delete(path);   
+    }
 }

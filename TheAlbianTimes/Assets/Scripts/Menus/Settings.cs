@@ -1,9 +1,9 @@
-using System;
 using System.Collections.Generic;
 using Dialogue;
 using Managers;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Windows;
 
 namespace Menus
 {
@@ -14,7 +14,6 @@ namespace Menus
         [SerializeField] private Slider _masterVolumeSlider;
         [SerializeField] private Slider _SFXVolumeSlider;
         [SerializeField] private Slider _musicVolumeSlider;
-        //[SerializeField] private Slider _brightnessSlider;
 
         [SerializeField] private GameObject _masterAudioMuteToggleCheckMark;
         [SerializeField] private GameObject _SFXAudioMuteToggleCheckMark;
@@ -171,7 +170,7 @@ namespace Menus
 
         public void ResetProgress()
         {
-            Debug.Log("Adri fes-li el aquello a l'arxiu de desat");
+            GameManager.Instance.GetSaveManager().DeleteSaveFile();
         }
     }
 }

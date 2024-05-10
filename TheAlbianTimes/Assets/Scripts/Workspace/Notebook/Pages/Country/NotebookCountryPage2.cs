@@ -31,6 +31,8 @@ namespace Workspace.Notebook.Pages.Country
 
         private void FillImportantPeople(CountryContentPage2 page)
         {
+            _importantPeople.text = "";
+            
             foreach (KeyValuePair<string, List<string>> importantPerson in page.importantPeople)
             {
                 _importantPeople.text += "\u2022 <b>" + importantPerson.Key + "</b> :";

@@ -1,15 +1,52 @@
 using System;
+using Managers;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Workspace.Notebook.Pages.Map
 {
-    public class NotebookMapPage0 : NotebookContentPage
+    public class NotebookMapPage0 : NotebookMapPage
     {
+        private const string MAP_IMAGES_FOLDER = "Images/Map/";
+        
+        [SerializeField] private GameObject _hetia;
+        [SerializeField] private GameObject _terkan;
+        [SerializeField] private GameObject _dalme;
+
+        [SerializeField] private Image _mapImage;
+        
+        private Action _albiaClick;
+        private Action _madiaClick;
         private Action _hetiaClick;
         private Action _terkanClick;
-        private Action _albiaClick;
         private Action _dalmeClick;
-        private Action _madiaClick;
+
+        private void Start()
+        {
+            int round = GameManager.Instance.GetRound();
+
+            if (round < 4)
+            {
+                _countriesToFade = 2;
+                _hetia.SetActive(false);
+                _terkan.SetActive(false);
+                _dalme.SetActive(false);
+                _mapImage.sprite = Resources.Load<Sprite>(MAP_IMAGES_FOLDER  + "Map1LeftSide");
+                return;
+            }
+
+            if (round == 4)
+            {
+                _countriesToFade = 4;
+                _dalme.SetActive(false);
+                _mapImage.sprite = Resources.Load<Sprite>(MAP_IMAGES_FOLDER  + "Map2LeftSide");
+                return;
+            }
+
+            _countriesToFade = 5;
+            _mapImage.sprite = Resources.Load<Sprite>(MAP_IMAGES_FOLDER  + "MapLeftSide");
+        }
+
         public override void FillPage(BaseNotebookPage baseNotebookPage)
         {
             MapPage0 page;
@@ -36,5 +73,13 @@ namespace Workspace.Notebook.Pages.Map
         public void ClickAlbia() => _albiaClick();
         public void ClickDalme() => _dalmeClick();
         public void ClickMadia() => _madiaClick();
+        protected override void EraseClickers()
+        {
+            _hetiaClick = () => { };
+            _terkanClick = () => { };
+            _albiaClick = () => { };
+            _dalmeClick = () => { };
+            _madiaClick = () => { };
+        }
     }
 }

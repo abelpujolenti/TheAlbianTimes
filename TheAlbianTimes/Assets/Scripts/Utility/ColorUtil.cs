@@ -1,49 +1,52 @@
 using UnityEngine;
 
-public class ColorUtil : MonoBehaviour
+namespace Utility
 {
-    public static Color SetSaturation(Color c, float saturation)
+    public class ColorUtil : MonoBehaviour
     {
-        float h, s, v;
-        Color.RGBToHSV(c, out h, out s, out v);
-        s = saturation;
-        return Color.HSVToRGB(h, s, v);
-    }
-    public static Color SetSaturationMultiplicative(Color c, float saturation)
-    {
-        float h, s, v;
-        Color.RGBToHSV(c, out h, out s, out v);
-        s *= saturation;
-        return Color.HSVToRGB(h, s, v);
-    }
-    public static Color SetBrightness(Color c, float brightness)
-    {
-        float h, s, v;
-        Color.RGBToHSV(c, out h, out s, out v);
-        v = brightness;
-        return Color.HSVToRGB(h, s, v);
-    }
-    public static Color SetBrightnessMultiplicative(Color c, float brightness)
-    {
-        float h, s, v;
-        Color.RGBToHSV(c, out h, out s, out v);
-        v *= brightness;
-        return Color.HSVToRGB(h, s, v);
-    }
-    public static float GetBrightness(Color c)
-    {
-        float h, s, v;
-        Color.RGBToHSV(c, out h, out s, out v);
-        return v;
-    }
-    public static float GetSaturation(Color c)
-    {
-        float h, s, v;
-        Color.RGBToHSV(c, out h, out s, out v);
-        return s;
-    }
-    public static Color Alpha(Color c, float a)
-    {
-        return new Color(c.r, c.g, c.b, a);
+        public static Color SetSaturation(Color c, float saturation)
+        {
+            float h, s, v;
+            Color.RGBToHSV(c, out h, out s, out v);
+            s = saturation;
+            return Color.HSVToRGB(h, s, v);
+        }
+        public static Color SetSaturationMultiplicative(Color c, float saturation)
+        {
+            float h, s, v;
+            Color.RGBToHSV(c, out h, out s, out v);
+            s *= saturation;
+            return Color.HSVToRGB(h, s, v);
+        }
+        public static Color SetBrightness(Color c, float brightness)
+        {
+            float h, s, v;
+            Color.RGBToHSV(c, out h, out s, out v);
+            v = brightness;
+            return Color.HSVToRGB(h, s, v);
+        }
+        public static Color SetBrightnessMultiplicative(Color c, float brightness)
+        {
+            float h, s, v;
+            Color.RGBToHSV(c, out h, out s, out v);
+            v *= brightness;
+            return Color.HSVToRGB(h, s, v);
+        }
+        public static float GetBrightness(Color c)
+        {
+            float h, s, v;
+            Color.RGBToHSV(c, out h, out s, out v);
+            return v;
+        }
+        public static float GetSaturation(Color c)
+        {
+            float h, s, v;
+            Color.RGBToHSV(c, out h, out s, out v);
+            return s;
+        }
+        public static Color Alpha(Color c, float a)
+        {
+            return new Color(c.r, c.g, c.b, a);
+        }
     }
 }

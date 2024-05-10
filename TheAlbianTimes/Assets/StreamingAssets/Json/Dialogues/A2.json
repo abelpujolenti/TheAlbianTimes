@@ -1,0 +1,162 @@
+{
+    "name": "A2",
+    "firstRound":4,
+    "duration":1,
+    "priority":1,
+    "audioName":"AdrianNormal",
+    "lines": [
+        {
+            "parts": [
+                {
+                    "speaker": "Adrian",
+                    "text": "Hello boss! How are you doing these days? Feeling a bit stressed,¬¬ maybe? I understand it's quite a lot to handle, but the outcomes are impressive! We're fortunate to have such a dedicated professional leading the editorial team."
+                }
+            ],
+            "options": [
+                {
+                    "id": 0,
+                    "text": "Thanks for checking in. I really appreciate your concern. Your support means a lot.",
+                    "mood": "[Appreciative]",
+                    "followupLines": 1,
+                    "consequences": [
+                        {
+                            "entityId": 2,
+                            "key": "impact",
+                            "value": 5
+                        }
+                    ]
+                },
+                {
+                    "id": 1,
+                    "text": "Adrian, do I look like your diary? I'm fine, don't worry about it.",
+                    "mood": "[Dismissive]",
+                    "followupLines": 1,
+                    "consequences": [
+                        {
+                            "entityId": 2,
+                            "key": "impact",
+                            "value": -5
+                        }
+                    ]
+                }
+                ,
+                {
+                    "id": 2,
+                    "text": "Hey Adrian, thanks for asking. It's been a bit overwhelming, to be honest.",
+                    "mood": "[Struggling]",
+                    "followupLines": 1,
+                    "consequences": [
+                        {
+                            "entityId": 2,
+                            "key": "impact",
+                            "value": 5
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "parts": [
+                {
+                    "speaker": "Adrian",
+                    "text": "I'm glad to hear that. Remember, we're a team. If you ever need anything, I'm here for you."
+                },
+                {
+                    "speaker": "Adrian",
+                    "text": "Sorry if I overstepped. Just wanted to check in. Let me know if there's anything I can do for you."
+                }
+                ,
+                {
+                    "speaker": "Adrian",
+                    "text": "It's understandable. Transition periods are tough. Don't hesitate to reach out if you need assistance."
+                }
+            ],
+            "options": [
+            ]
+        },
+        {
+            "parts": [
+                {
+                    "speaker": "Adrian",
+                    "text": "I know! How about we hang out tonight after work? We can unwind, de-stress, and maybe get to know each other a little¬¬¬ better."
+                }
+            ],
+            "options": [
+                {
+                    "id": 0,
+                    "text": "I'd love to, but I have to head home with my daughter. How about we plan another day for our hangout?",
+                    "mood": "[Kind]",
+                    "followupLines": 1,
+                    "consequences": [
+                        {
+                            "entityId": 2,
+                            "key": "impact",
+                            "value": 5
+                        },
+                        {
+                            "entityId": 0,
+                            "key": "HazelConsequence",
+                            "value": 1
+                        }
+                    ]
+
+                },
+                {
+                    "id": 1,
+                    "text": "Sounds like a plan. Who knows? Maybe we'll discover some interesting things about each other over a drink or two.",
+                    "mood": "[Flirty]",
+                    "followupLines": 1,
+                    "consequences": [
+                        {
+                            "entityId": 2,
+                            "key": "impact",
+                            "value": 60
+                        },
+                        {
+                            "entityId": 0,
+                            "key": "HazelConsequence",
+                            "value": 2
+                        }
+                    ]
+                },
+                {
+                    "id": 2,
+                    "text": "Apologies, Adrian, but I must head home with my daughter. Additionally, I strongly prefer to maintain a strictly professional relationship.",
+                    "mood": "[Assertive]",
+                    "followupLines": 1,
+                    "consequences": [
+                        {
+                            "entityId": 2,
+                            "key": "impact",
+                            "value": -3
+                        },
+                        {
+                            "entityId": 0,
+                            "key": "HazelConsequence",
+                            "value": 1
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "parts": [
+                {
+                    "speaker": "Adrian",
+                    "text": "No worries at all! Family comes first, right? We'll definitely plan something for another day. Looking forward to it!"
+                },
+                {
+                    "speaker": "Adrian",
+                    "text": "I like the sound of that! Looking forward to getting to know each other better."
+                }
+                ,
+                {
+                    "speaker": "Adrian",
+                    "text": "Understood. Family obligations are important. Let's keep it professional then. Feel free to reach out if you need anything work-related."
+                }
+            ],
+            "options": [
+            ]
+        }
+    ]
+}

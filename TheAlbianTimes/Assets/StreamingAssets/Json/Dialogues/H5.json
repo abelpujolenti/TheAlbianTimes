@@ -1,0 +1,84 @@
+{
+    "name": "H5",
+    "firstRound":7,
+    "duration":1,
+    "priority":1,
+    "audioName":"HazelControversial",
+    "characterConditions": [
+        {
+            "entityId": 0,
+            "field": "impact",
+            "value": -60,
+            "predicate": 3
+        }
+    ],
+    "lines": [
+        {
+            "parts": [
+                {
+                    "speaker": "Hazel",
+                    "text": "I've had enough. I'm done with all the excuses and lies. It's time to face reality. I want a divorce."
+                }
+            ],
+            "options": [
+                {
+                    "id": 0,
+                    "text": "Please, let me fix this. I'm willing to work on our relationship and make things right",
+                    "mood": "[Regretful]",
+                    "followupLines": 1,
+                    "consequences": [
+                        {
+                            "entityId": 0,
+                            "key": "impact",
+                            "value": 60
+                        }
+                    ]
+                },
+                {
+                    "id": 1,
+                    "text": "What I don't understand... How did it come to this?",
+                    "mood": "[Shocked]",
+                    "followupLines": 1,
+                    "consequences": [
+                        {
+                            "entityId": 0,
+                            "key": "impact",
+                            "value": 30
+                        }
+                    ]
+                },
+                {
+                    "id": 2,
+                    "text": "Okay.",
+                    "mood": "[Unconcerned]",
+                    "followupLines": 1,
+                    "consequences": [
+                        {
+                            "entityId": 0,
+                            "key": "impact",
+                            "value": -10
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "parts": [
+                {
+                    "speaker": "Hazel",
+                    "text": "If you want to fix this, start taking action. I need to see real effort and change from you. I'm at a point where I can't trust you anymore."
+                },
+                {
+                    "speaker": "Hazel",
+                    "text": "Start thinking. I've reached a point where I don't even care anymore. Your actions have pushed me to this indifference."
+                },
+                {
+                    "speaker": "Hazel",
+                    "text": "Where is my husband? Who are you? I can't recognize you anymore. Your behavior has left me feeling like I'm living with a stranger."
+                }
+            ],
+            "options": [
+            ]
+        }
+    ]
+}

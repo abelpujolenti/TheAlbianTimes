@@ -40,29 +40,63 @@
         "reputationHistory":null
     },
     {
-        "countryName":"Dalme",
+        "countryName":"Madia",
         "flagImagePath":"A",
-        "description":"Population: 4,600,000.\nA liberal democracy with an aggressive capitalist economy, the richest country of the nine. Has a strong social welfare system, but only available to citizens, that is, children of two citizens. Non-citizens do not have the right to vote nor a guaranteed minimum income, and are not exempted from paying taxes.\nRecent population decline, together with a progressive awareness of racism, has led political parties and a portion of the population to push to abolish bloodline requirements for citizenship. Dalme's strict bloodline requirements and obsession with preserving racial purity has led to the emergence of a negative stereotype about inbreeding.\nDalme are the world's military and espionage leaders, so they are the target of conspiracy theories about their domain of the world through their intelligence industry. Both the government and the private sector are trying to improve the country's abysmal image abroad, throught the promotion of tourism and the acquisition of cultural and sports capital.",
-        "history":"Even if archaeological findings in the region have proven habitation and trade spanning over 60,000 years, Dalme was not founded as a state until 120 years ago, following the military coup of general Bisel Markovic.\nBefore the coup, the region was divided in nine city-states which focused mainly on importing and exporting luxurious commodities by sea.",
+        "description":"Population: 50,000,000.\nA socialist welfare state. Capitalism and private property still exist, but within a prosperous, balanced economy in which a high degree of equality has been attained. Even if Madia comprises various regions, they have a centralized government model.\nThey strongly support social justice NGOs, and some of them have their headquarters there. Culturally powerful, influential and beloved. Has a huge media industry that has focused on producing meaningful films and documentaries.\nLamar, their richest and most productive region, wants to leave and join Suoka, which would threaten their entire social welfare system. Despite Madia having a higher quality of life index, a large portion of the population culturally aligns with Suoka and perceives the rest of Madia to be freeloading off of them. While Lamar holds a lot of political government, they do not hold the central government.",
+        "history":"Sibling of Suoka, as they split in half 40 years ago. Before the split, the parent country was leader in technology research. As most tech activity was located in the east (where the telegraph machine was developed), after the split Suoka became instantly identified with technology. While the newly founded Madia chose to focus on arts and humanities and entertainment, the University of Lamar (which is very close to the frontier with Suoka) continued its research on  telegraph machines. Thanks to its proximity to Suoka (that also resulted in a close economic relationship) and to the popularity of telegraphs, Lamar established itself as Madia's richest region.",
         "importantPeople":{
-            "Techomir Janiszewski":["President."],
-            "Lyubka Celko":["Chief Executive of Government Communications."],
-            "Vladimir Reznicek":["Retired businessman and billionaire."],
-            "Marija Reznicek":["Daughter of Vladimir Reznicek and wife of Albia's former prince."],
-            "Zinovak Family":["Influent family of politicians and businessmen."],
-            "Borik Shevchenko":["CEO of Wonder Studios."],
-            "Karda Anseyev":["Actor associated with Wonder Studios. Plays the role of The Nuclear Vulture."],
-            "Dušan Jelinek":["Actor associated with Wonder Studios. Player the role of The Famous Smasher."]
-            },
+            "Claudia binti Naadir":["Minister of Foreign Affairs (USL)."],
+            "Marianne binti Dhareef":["Technical General Secretary of the Minister of Foreign Affairs (USL)."],
+            "Márcio Freitas":["Treasurer of the NGO International Action for Human Rights. Born in Terkan, obtained Madian nationality."]
+        },
         "organizations":{
-            "United for Equality (U4E)":["Center to center-left party.","One of the main (and strongest) oppositors to bloodline requirements."],
-            "Wonder Studios":["Dalme's main entertainment production company.","Focuses on its superhero cinematic universe."],
-            "Alphon":["Company specializing in sports performance analysis."]
-            },
+            "United Solidarity League (USL)":["Moderate left, Madia's ruling party. Historically held majority, but currently it is slowly declining after bad handling of national issues, and also scandals between its members."],
+            "United for Transformation (U4T)":["Left party. Strong anti-annexionist ideology that is bringing new supporters as a reaction to Lamar's growing movement."],
+            "Liberal Renovation League (LRL)":["Initially a more center-aligned party, it has recently been shifting to the right. Historically, its has not had much support, but its advocacy for annexionism has brought new followers, especially from Lamar."],
+            "Social Conservatives (SC)":["Party that combines socialist economic principles with social conservadurism. One of Madia's less supported parties."],
+            "University of Lamar":["Madia's lead university in tech reseach. The telegraph was developed there."]
+        },
         "ongoingConflicts":[
-            "Opposition to bloodline citizenship requirements.",
-            "Attempts to improve the country's abismal image abroad.",
-            "Conflict with Terkan over the Moon."],
+            "Lamar's annexionist movement, together with opposition to the centralist model.",
+            "Reliance on Xaya's products despite political and ideological differences.",
+            "Rivalry with Dalme on entertainment, especially film production and sports."],
+        "reputationHistory":null
+    },
+    {
+        "countryName":"Xaya",
+        "flagImagePath":"A",
+        "description":"Population: 180,000,000.\nAn authoritarian country obsessed with stability and safety. Through harsh repression and mass surveillance, they have achieved the lowest crime rates in the world. Xaya does not have general elections, but state-wide elections are held. Ability to vote is restricted to productive men with no criminal record.\nIts capitalist economy is not particularly prosperous, but the country is doing well and Xaya is the world's biggest producer of medicine and medical equipment. Every other country's healthcare (especially Madia) is entirely reliant on them.\nDespite Zuania being a self-governing country, Xaya is heavily involved in their politics and economy. Instead of conquering them, Xaya preferes to use economy and influence, in order to project the image of being an enlightened and morally upstanding country.\nReligious and ethnic persecution is a constant in Xaya, specially against the Jambuak. The State considers religion and spiritual leaders as alternate authorities that threaten its monopoly of power.",
+        "history":"250 years ago, four Kingdoms were created after centuries of conflicts: Miria, Sungpang, Salabria and Zuania.  While military power was determining, religion was often used to legitimize their soverignty. The Kings' power eventually decreased in favour of generals.\n50 years ago, the kingdoms entered an armed conflict instigated by Sungpang, the most prosperous. Sungpang tried to invade Miria and occupied Zuania, who was far weaker. Miria developed a rhetoric of overthrowing, through unification, the decrepit structure of kingdoms.\nMiria allied with Salabria and managed to overwhelm Sungpang. Miria's army took advantage of the situation and overthrew its King, as well as Salabria's.\nDuring the war an epidemic spread through Salabria, risking Miria's victory. \nThen, Sungpang's lead geneal did a coup and became the ruler. Shortly after, a ceasefire was reached and Xaya was born out of the union of the four kingdoms. Afterwards, they conquered a region of Terkan, supported by the recently created Hetia.\nWhile during the war they did not fully conquer Zuania, Xaya declared Zuania as its territory while promising to fix what was broken during the occupation and heavily invest in the region. The Zuan government accepted, buy shortly after the military did a coup an re-proclaimed independence. Xaya refuses to acknowledge it.",
+        "importantPeople":{
+            "Thomas Burgess":["Prime Minister of Xaya, currently in his third term."],
+            "Benett of Miria":["Grandson of Finley the III, former King of Miria."]
+        },
+        "organizations":{
+            "Health and Population Bureau":["Goverment agency focused on disease prevention, population control and overseeing medical research."],
+            "State Security Bureau":["Government agency focused on civilian intelligence and security."]
+        },
+        "ongoingConflicts":[
+            "Incorporating Zuania.",
+            "Being envious of Madia's international reputation.",
+            "Foreign countries intending to destabilize them.",
+            "Growing authoritarianism.",
+            "Ethnic persecution."],
+        "reputationHistory":null
+    },
+    {
+        "countryName":"Zuania",
+        "flagImagePath":"A",
+        "description":"Population: 17,000,000.\nA heavily militarized kingdom. A military dictatorship during the Xaya Unification war, it transitioned into a very military influenced democracy. As a low development country with an informal economy (mainly fishing and agriculture), they are highly dependant on Xaya.\nTwo distinct political groups exist: pro-Xaya and anti-Xaya. Xaya supporters seek a better life and more economic opportunity, while their detractors, leaded by spiritual leaders which hold a lot of weight in the population, seek to protect their culture and follow whatever their religious leaders say blindly.\nWhile it has an Insbilah religious minority, most of its population follows the Shaabtal (The Way of the Mist). As Zuania has a rich inspiritual tradition, the Shaabtal is well consolidated in Zuan society and politics. Historically, the Shaabtal has been involved in politics, as it was the official faith when Zuania was a Dukedom. The majoritarian ethnic group is the Bakash.",
+        "history":"(Main history can be found in Xaya's page).",
+        "importantPeople":{
+        },
+        "organizations":{
+            "Shaabtal (The Way of the Mist)":["Zuania's main religious organization."]
+        },
+        "ongoingConflicts":[
+            "Xaya claims them as a territory and is exerting economic pressure on them.",
+            "Harsh divide on joining Xaya or not.",
+            "Suoka and Dalme compete to exploit their resources."],
         "reputationHistory":null
     },
     {
@@ -75,36 +109,63 @@
             "Mbuso Linhares":["Recently appointed Head of Homeland Security."],
             "Nomandla Alves":["Government Press Secretary."],
             "Nobuhle Moreira":["Secretary of NGO International Action for Human Rights. The president's sister."]
-            },
+        },
         "organizations":{
             "River Protection Militia":["Paramilitary terrorist organization with a radical nationalist, anti-Terkan ideology."]
-            },
+        },
         "ongoingConflicts":[
             "Migration, especially from Terkan.",
             "Threats from the Riparian Terkan Liberation Front, a Terkani terrorist group seeking revenge for the flood."],
         "reputationHistory":null
     },
     {
-        "countryName":"Madia",
+        "countryName":"Terkan",
         "flagImagePath":"A",
-        "description":"Population: 50,000,000.\nA socialist welfare state. Capitalism and private property still exist, but within a prosperous, balanced economy in which a high degree of equality has been attained. Even if Madia comprises various regions, they have a centralized government model.\nThey strongly support social justice NGOs, and some of them have their headquarters there. Culturally powerful, influential and beloved. Has a huge media industry that has focused on producing meaningful films and documentaries.\nLamar, their richest and most productive region, wants to leave and join Suoka, which would threaten their entire social welfare system. Despite Madia having a higher quality of life index, a large portion of the population culturally aligns with Suoka and perceives the rest of Madia to be freeloading off of them. While Lamar holds a lot of political government, they do not hold the central government.",
-        "history":"Sibling of Suoka, as they split in half 40 years ago. Before the split, the parent country was leader in technology research. As most tech activity was located in the east (where the telegraph machine was developed), after the split Suoka became instantly identified with technology. While the newly founded Madia chose to focus on arts and humanities and entertainment, the University of Lamar (which is very close to the frontier with Suoka) continued its research on  telegraph machines. Thanks to its proximity to Suoka (that also resulted in a close economic relationship) and to the popularity of telegraphs, Lamar established itself as Madia's richest region.",
+        "description":"Population: 120,000,000.\nAn authoritarian state. Even if formal elections have never been held, leaders have been ousted before by military coups, sometimes with religious backing. Historically a very powerful country due to military might and population size, nowadays it suffers from high income inequality, with a majority of the population living in poor rural areas. While Hetia is usually blamed for Terkan's economic downfall, it was mostly caused by the government's mismanagement\nDespite their birth rate being reasonable, they lose population every year due to migration, which on one hand brings money from people sending back money to their families but on the other hand, their educated population gets bought out by other countries.\nTerkan's culture is founded in strength, cleverness and honesty. Women are considered weak and inferior, so they are relegated to caring for the home, the family and children. They cannot access political, military or religious positions.",
+        "history":"Their legendary foundational tale says that they originated from the Terakas island and conquered up to the northernmost point, 800 years ago. Their expansion led them to own an entire vertical section of the world, something they consider a proof of their superior strength.\nThe Hetia dam, which was built 15 years ago, caused their upstream towns to be flooded. Towns were completely destroyed, than 2 million people were displaced. The flood ended with numerous causalities. Thus, the dam is a symbol of Terkan's defeat. After the tragedy, the Riparian Terkan Liberation Front was formed to seek revenge.",
         "importantPeople":{
-            "Claudia binti Naadir":["Minister of Foreign Affairs (USL)."],
-            "Marianne binti Dhareef":["Technical General Secretary of the Minister of Foreign Affairs (USL)."],
-            "Márcio Freitas":["Treasurer of the NGO International Action for Human Rights. Born in Terkan, obtained Madian nationality."]
-            },
+            "Benedito Gomes":["Minister of Economy."],
+            "Saulo Nogueira":["RTLF member."],
+            "Heitor Alvarez":["Secretary of this lustrum's International Religious Encounters."],
+            "Pedri Bautista":["CEO of a sports news center."]
+        },
         "organizations":{
-            "United Solidarity League (USL)":["Moderate left, Madia's ruling party. Historically held majority, but currently it is slowly declining after bad handling of national issues, and also scandals between its members."],
-            "United for Transformation (U4T)":["Left party. Strong anti-annexionist ideology that is bringing new supporters as a reaction to Lamar's growing movement."],
-            "Liberal Renovation League (LRL)":["Initially a more center-aligned party, it has recently been shifting to the right. Historically, its has not had much support, but its advocacy for annexionism has brought new followers, especially from Lamar."],
-            "Social Conservatives (SC)":["Party that combines socialist economic principles with social conservadurism. One of Madia's less supported parties."],
-            "University of Lamar":["Madia's lead university in tech reseach. The telegraph was developed there."]
-            },
+            "Riparian Terkan Liberation Front (RTLF)":["Terrorist group founded 15 years ago, during the aftermath of the Het river's damming. Often, they threaten to blow up the dam."],
+            "Followers of Heratos":["Main religious cult of Terkan, who worship the God of Strength and Might."]
+        },
         "ongoingConflicts":[
-            "Lamar's annexionist movement, together with opposition to the centralist model.",
-            "Reliance on Xaya's products despite political and ideological differences.",
-            "Rivalry with Dalme on entertainment, especially film production and sports."],
+            "Diplomacy and economic relationships with Hetia, made harder by the RTLF's attempts to blow the dam.",
+            "Brain drain to Hetia.",
+            "Resentment towards Hetia, Xaya and Dalme."],
+        "reputationHistory":null
+    },
+    {
+        "countryName":"Suoka",
+        "flagImagePath":"A",
+        "description":"Population: 65,000,000.\nA country with a deeply rooted state capitalism. Its system has made them economically more powerful than Madia, but has also brought considerable economic inequality. There are no public health and education systems, and almost no social benefits. Closely allied with its neighbor Xaya more out of economic interest han out of cultural alignment. Suoka is the only country to have a border with Zuania, apart from Xaya.\nPolitics and economics form an indivisible unit, as all influent politicians are closely related to one or more national companies. Because of this, the Suokan government is usually seen as an instrument of the economic powers who, in the past, have used it in questionable ways to pursue their interests. Nevertheless, Suokan people are widely regarded as kind-hearted and friendly.",
+        "history":"Sibling of Madia, as they split in half 40 years ago. Even if the land was divided evenly, Suokans think that they got the worse deal. The integration of the rich Lamar region into Madia fueled this resentment.\nBefore the split, the parent country was leader in technology research. As most tech activity was located in the east (where the telegraph machine was developed), after the split Suoka became instantly identified with technology and strengthened its economy around it, leading to the development of its state capitalism.\nTo expand its economy, they developed a symbiotic relationship with Xaya in the fields of medicine and technology.",
+        "importantPeople":{
+            "Jenab binti Bakar":["CCP's presidential election candidate. Former CFO of Aeres Care."],
+            "Leman bin Yeop":["CAP's presidential election candidate. Member of New Life Financial Services' Board of Directors."]
+        },
+        "organizations":{
+            "People's Prosperity Coalition (PPC)":["Liberal, conservative party. The ruling party."],
+            "Collective Advancement Party (CAP)":["Liberal, tends more to the center than the PPC. Main opposition."],
+            "Suokan Armed Forces":["Established after the split. As the process was non-violent and Suoka has never taken part in any armed conflict, the army has never gone into battle."],
+            "Happy Sports, LLC":["Sports broadcasting company."],
+            "Otar Security":["Private security company with an international presence."],
+            "Dynamico Partners":["Financial Investment Advisors."],
+            "Aeres Care":["Health insurance company."],
+            "New Life Financial Services":["One of Suoka's most powerful banks."],
+            "WireLive":["The world's lead telegraph company."],
+            "PunchaCode":["Company that has the patents of punched card machines."]
+        },
+        "ongoingConflicts":[
+            "Being regarded as inferior to Madia. Resentment over the split's conditions (especially territorial).",
+            "Lamar's interest in annexing to them.",
+            "Economic relationship with Xaya and the international opinion on it.",
+            "Economic inequality.",
+            "Presidential elections."],
         "reputationHistory":null
     },
     {
@@ -130,91 +191,29 @@
         "reputationHistory":null
     },
     {
-        "countryName":"Suoka",
+        "countryName":"Dalme",
         "flagImagePath":"A",
-        "description":"Population: 65,000,000.\nA country with a deeply rooted state capitalism. Its system has made them economically more powerful than Madia, but has also brought considerable economic inequality. There are no public health and education systems, and almost no social benefits. Closely allied with its neighbor Xaya more out of economic interest han out of cultural alignment. Suoka is the only country to have a border with Zuania, apart from Xaya.\nPolitics and economics form an indivisible unit, as all influent politicians are closely related to one or more national companies. Because of this, the Suokan government is usually seen as an instrument of the economic powers who, in the past, have used it in questionable ways to pursue their interests. Nevertheless, Suokan people are widely regarded as kind-hearted and friendly.",
-        "history":"Sibling of Madia, as they split in half 40 years ago. Even if the land was divided evenly, Suokans think that they got the worse deal. The integration of the rich Lamar region into Madia fueled this resentment.\nBefore the split, the parent country was leader in technology research. As most tech activity was located in the east (where the telegraph machine was developed), after the split Suoka became instantly identified with technology and strengthened its economy around it, leading to the development of its state capitalism.\nTo expand its economy, they developed a symbiotic relationship with Xaya in the fields of medicine and technology.",
+        "description":"Population: 4,600,000.\nA liberal democracy with an aggressive capitalist economy, the richest country of the nine. Has a strong social welfare system, but only available to citizens, that is, children of two citizens. Non-citizens do not have the right to vote nor a guaranteed minimum income, and are not exempted from paying taxes.\nRecent population decline, together with a progressive awareness of racism, has led political parties and a portion of the population to push to abolish bloodline requirements for citizenship. Dalme's strict bloodline requirements and obsession with preserving racial purity has led to the emergence of a negative stereotype about inbreeding.\nDalme are the world's military and espionage leaders, so they are the target of conspiracy theories about their domain of the world through their intelligence industry. Both the government and the private sector are trying to improve the country's abysmal image abroad, throught the promotion of tourism and the acquisition of cultural and sports capital.",
+        "history":"Even if archaeological findings in the region have proven habitation and trade spanning over 60,000 years, Dalme was not founded as a state until 120 years ago, following the military coup of general Bisel Markovic.\nBefore the coup, the region was divided in nine city-states which focused mainly on importing and exporting luxurious commodities by sea.",
         "importantPeople":{
-            "Jenab binti Bakar":["CCP's presidential election candidate. Former CFO of Aeres Care."],
-            "Leman bin Yeop":["CAP's presidential election candidate. Member of New Life Financial Services' Board of Directors."]
-            },
+            "Techomir Janiszewski":["President."],
+            "Lyubka Celko":["Chief Executive of Government Communications."],
+            "Vladimir Reznicek":["Retired businessman and billionaire."],
+            "Marija Reznicek":["Daughter of Vladimir Reznicek and wife of Albia's former prince."],
+            "Zinovak Family":["Influent family of politicians and businessmen."],
+            "Borik Shevchenko":["CEO of Wonder Studios."],
+            "Karda Anseyev":["Actor associated with Wonder Studios. Plays the role of The Nuclear Vulture."],
+            "Dušan Jelinek":["Actor associated with Wonder Studios. Player the role of The Famous Smasher."]
+        },
         "organizations":{
-            "People's Prosperity Coalition (PPC)":["Liberal, conservative party. The ruling party."],
-            "Collective Advancement Party (CAP)":["Liberal, tends more to the center than the PPC. Main opposition."],
-            "Suokan Armed Forces":["Established after the split. As the process was non-violent and Suoka has never taken part in any armed conflict, the army has never gone into battle."],
-            "Happy Sports, LLC":["Sports broadcasting company."],
-            "Otar Security":["Private security company with an international presence."],
-            "Dynamico Partners":["Financial Investment Advisors."],
-            "Aeres Care":["Health insurance company."],
-            "New Life Financial Services":["One of Suoka's most powerful banks."],
-            "WireLive":["The world's lead telegraph company."],
-            "PunchaCode":["Company that has the patents of punched card machines."]
-            },
+            "United for Equality (U4E)":["Center to center-left party.","One of the main (and strongest) oppositors to bloodline requirements."],
+            "Wonder Studios":["Dalme's main entertainment production company.","Focuses on its superhero cinematic universe."],
+            "Alphon":["Company specializing in sports performance analysis."]
+        },
         "ongoingConflicts":[
-            "Being regarded as inferior to Madia. Resentment over the split's conditions (especially territorial).",
-            "Lamar's interest in annexing to them.",
-            "Economic relationship with Xaya and the international opinion on it.",
-            "Economic inequality.",
-            "Presidential elections."],
-        "reputationHistory":null
-    },
-    {
-        "countryName":"Terkan",
-        "flagImagePath":"A",
-        "description":"Population: 120,000,000.\nAn authoritarian state. Even if formal elections have never been held, leaders have been ousted before by military coups, sometimes with religious backing. Historically a very powerful country due to military might and population size, nowadays it suffers from high income inequality, with a majority of the population living in poor rural areas. While Hetia is usually blamed for Terkan's economic downfall, it was mostly caused by the government's mismanagement\nDespite their birth rate being reasonable, they lose population every year due to migration, which on one hand brings money from people sending back money to their families but on the other hand, their educated population gets bought out by other countries.\nTerkan's culture is founded in strength, cleverness and honesty. Women are considered weak and inferior, so they are relegated to caring for the home, the family and children. They cannot access political, military or religious positions.",
-        "history":"Their legendary foundational tale says that they originated from the Terakas island and conquered up to the northernmost point, 800 years ago. Their expansion led them to own an entire vertical section of the world, something they consider a proof of their superior strength.\nThe Hetia dam, which was built 15 years ago, caused their upstream towns to be flooded. Towns were completely destroyed, than 2 million people were displaced. The flood ended with numerous causalities. Thus, the dam is a symbol of Terkan's defeat. After the tragedy, the Riparian Terkan Liberation Front was formed to seek revenge.",
-        "importantPeople":{
-            "Benedito Gomes":["Minister of Economy."],
-            "Saulo Nogueira":["RTLF member."],
-            "Heitor Alvarez":["Secretary of this lustrum's International Religious Encounters."],
-            "Pedri Bautista":["CEO of a sports news center."]
-            },
-        "organizations":{
-            "Riparian Terkan Liberation Front (RTLF)":["Terrorist group founded 15 years ago, during the aftermath of the Het river's damming. Often, they threaten to blow up the dam."],
-            "Followers of Heratos":["Main religious cult of Terkan, who worship the God of Strength and Might."]
-            },
-        "ongoingConflicts":[
-            "Diplomacy and economic relationships with Hetia, made harder by the RTLF's attempts to blow the dam.",
-            "Brain drain to Hetia.",
-            "Resentment towards Hetia, Xaya and Dalme."],
-        "reputationHistory":null
-    },
-    {
-        "countryName":"Xaya",
-        "flagImagePath":"A",
-        "description":"Population: 180,000,000.\nAn authoritarian country obsessed with stability and safety. Through harsh repression and mass surveillance, they have achieved the lowest crime rates in the world. Xaya does not have general elections, but state-wide elections are held. Ability to vote is restricted to productive men with no criminal record.\nIts capitalist economy is not particularly prosperous, but the country is doing well and Xaya is the world's biggest producer of medicine and medical equipment. Every other country's healthcare (especially Madia) is entirely reliant on them.\nDespite Zuania being a self-governing country, Xaya is heavily involved in their politics and economy. Instead of conquering them, Xaya preferes to use economy and influence, in order to project the image of being an enlightened and morally upstanding country.\nReligious and ethnic persecution is a constant in Xaya, specially against the Jambuak. The State considers religion and spiritual leaders as alternate authorities that threaten its monopoly of power.",
-        "history":"250 years ago, four Kingdoms were created after centuries of conflicts: Miria, Sungpang, Salabria and Zuania.  While military power was determining, religion was often used to legitimize their soverignty. The Kings' power eventually decreased in favour of generals.\n50 years ago, the kingdoms entered an armed conflict instigated by Sungpang, the most prosperous. Sungpang tried to invade Miria and occupied Zuania, who was far weaker. Miria developed a rhetoric of overthrowing, through unification, the decrepit structure of kingdoms.\nMiria allied with Salabria and managed to overwhelm Sungpang. Miria's army took advantage of the situation and overthrew its King, as well as Salabria's.\nDuring the war an epidemic spread through Salabria, risking Miria's victory. \nThen, Sungpang's lead geneal did a coup and became the ruler. Shortly after, a ceasefire was reached and Xaya was born out of the union of the four kingdoms. Afterwards, they conquered a region of Terkan, supported by the recently created Hetia.\nWhile during the war they did not fully conquer Zuania, Xaya declared Zuania as its territory while promising to fix what was broken during the occupation and heavily invest in the region. The Zuan government accepted, buy shortly after the military did a coup an re-proclaimed independence. Xaya refuses to acknowledge it.",
-        "importantPeople":{
-            "Thomas Burgess":["Prime Minister of Xaya, currently in his third term."],
-            "Benett of Miria":["Grandson of Finley the III, former King of Miria."]
-            },
-        "organizations":{
-            "Health and Population Bureau":["Goverment agency focused on disease prevention, population control and overseeing medical research."],
-            "State Security Bureau":["Government agency focused on civilian intelligence and security."]
-            },
-        "ongoingConflicts":[
-            "Incorporating Zuania.",
-            "Being envious of Madia's international reputation.",
-            "Foreign countries intending to destabilize them.",
-            "Growing authoritarianism.",
-            "Ethnic persecution."],
-        "reputationHistory":null
-    },
-    {
-        "countryName":"Zuania",
-        "flagImagePath":"A",
-        "description":"Population: 17,000,000.\nA heavily militarized kingdom. A military dictatorship during the Xaya Unification war, it transitioned into a very military influenced democracy. As a low development country with an informal economy (mainly fishing and agriculture), they are highly dependant on Xaya.\nTwo distinct political groups exist: pro-Xaya and anti-Xaya. Xaya supporters seek a better life and more economic opportunity, while their detractors, leaded by spiritual leaders which hold a lot of weight in the population, seek to protect their culture and follow whatever their religious leaders say blindly.\nWhile it has an Insbilah religious minority, most of its population follows the Shaabtal (The Way of the Mist). As Zuania has a rich inspiritual tradition, the Shaabtal is well consolidated in Zuan society and politics. Historically, the Shaabtal has been involved in politics, as it was the official faith when Zuania was a Dukedom. The majoritarian ethnic group is the Bakash.",
-        "history":"(Main history can be found in Xaya's page).",
-        "importantPeople":{
-            },
-        "organizations":{
-            "Shaabtal (The Way of the Mist)":["Zuania's main religious organization."]
-            },
-        "ongoingConflicts":[
-            "Xaya claims them as a territory and is exerting economic pressure on them.",
-            "Harsh divide on joining Xaya or not.",
-            "Suoka and Dalme compete to exploit their resources."],
+            "Opposition to bloodline citizenship requirements.",
+            "Attempts to improve the country's abismal image abroad.",
+            "Conflict with Terkan over the Moon."],
         "reputationHistory":null
     }
-
 ]}

@@ -10,7 +10,8 @@ namespace Workspace.Layout
 {
     public class NewspaperMold : InteractableRectTransform
     {
-        private const string DROP_MOLD = "Drop Mold";
+        private const string DROP_MOLD_SOUND = "Drop Mold";
+        private const string GRAB_MOLD_SOUND = "Grab Mold";
         
         private const float TIME_TO_SLIDE = 2f;
         private const float SPEED_MOVEMENT = 15f;
@@ -124,6 +125,7 @@ namespace Workspace.Layout
             {
                 return;
             }
+            AudioManager.Instance.Play3DSound(GRAB_MOLD_SOUND, 5, 100, transform.position);
             if (_moveCoroutine != null)
             {
                 StopCoroutine(_moveCoroutine);
@@ -168,7 +170,7 @@ namespace Workspace.Layout
                 yield return null;
             }
             
-            AudioManager.Instance.Play3DSound(DROP_MOLD, 10, 100, transform.position);
+            AudioManager.Instance.Play3DSound(DROP_MOLD_SOUND, 5, 100, transform.position);
         }
 
         private float MoveToDestination(Vector2 origin, Vector2 destination, float timer)
@@ -415,10 +417,7 @@ namespace Workspace.Layout
                 cell.SetFree(false);
             }
 
-            if (_newsHeadlines.Count == _newsFolder.GetNewsInLayoutAmount() && _newsFolder.GetNewsHeadlinesLength() == 0)
-            {
-                _moldLocker.blink = true;
-            }
+            _moldLocker.SetBlink(true);
 
             return snappedCells[0].transform.position;
         }
@@ -427,7 +426,12 @@ namespace Workspace.Layout
         {
             _newsHeadlines.Remove(newsHeadline);
 
-            _moldLocker.blink = false;
+            if (_newsHeadlines.Count != 0)
+            {
+                return;
+            }
+            
+            _moldLocker.SetBlink(false);
         }
 
         public NewsHeadline[] GetNewsHeadlines()

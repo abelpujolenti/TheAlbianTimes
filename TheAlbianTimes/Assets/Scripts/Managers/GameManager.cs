@@ -2,8 +2,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Characters;
 using Countries;
+using Dialogue;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using Workspace.Editorial;
 
 namespace Managers
@@ -12,17 +12,26 @@ namespace Managers
     {
         private static GameManager _instance;
         public static GameManager Instance => _instance;
+
+        private const string PLAYER_PREFS_TUTORIAL_PROMPTS_ENABLE = "Player Prefs Tutorial Prompts Enable";
+        private const string PLAYER_PREFS_TEXT_DIALOGUE_SPEED = "Player Prefs Text Dialogue Speed";
         
         public GameState gameState;
         public GameState prevGameState;
         private SaveManager saveManager;
         public SceneLoader sceneLoader = new SceneLoader();
+        public TextDialoguesSpeed textDialogueSpeed;
+        public bool areTutorialPromptsEnabled;
 
         private StatsDisplay _statsDisplay;
 
-        public int musicAudioId = -1;
+        [SerializeField] private GameObject _audioSpawnerPrefab;
 
-        private int _round = 0;
+        private GameObject _audioSpawner;
+
+        private bool _isAudioSpawnerActive;
+
+        public int musicAudioId = -1;
 
         private void Awake()
         {
@@ -30,12 +39,17 @@ namespace Managers
             {
                 _instance = this;
                 InitData();
+                if (!PlayerPrefs.HasKey(PLAYER_PREFS_TEXT_DIALOGUE_SPEED))
+                {
+                    PlayerPrefs.SetInt(PLAYER_PREFS_TEXT_DIALOGUE_SPEED, 1);
+                }
+
+                textDialogueSpeed = (TextDialoguesSpeed)PlayerPrefs.GetInt(PLAYER_PREFS_TEXT_DIALOGUE_SPEED);
+                areTutorialPromptsEnabled = PlayerPrefs.GetInt(PLAYER_PREFS_TUTORIAL_PROMPTS_ENABLE) == 1;
                 DontDestroyOnLoad(gameObject);
+                return;
             }
-            else
-            {
-                Destroy(gameObject);
-            }
+            Destroy(gameObject);
         }
 
         private void Start()
@@ -45,34 +59,61 @@ namespace Managers
 
         private void OnGUI()
         {
-            Event e = Event.current;
-            if (!e.isKey || !(e.type == EventType.KeyDown)) return;
+            Event currentEvent = Event.current;
+            if (!currentEvent.isKey || currentEvent.type != EventType.KeyDown) return;
 
-            if (e.keyCode == KeyCode.F1)
+            if (currentEvent.keyCode == KeyCode.F1)
             {
-                _round = 1;
-                sceneLoader.SetScene("WorkspaceScene");
+                gameState.currRound = 1;
+                LoadScene(ScenesName.WORKSPACE_SCENE);
+                return;
             }
-            else if (e.keyCode == KeyCode.F2)
+            
+            if (currentEvent.keyCode == KeyCode.F2)
             {
-                _round = 2;
-                sceneLoader.SetScene("WorkspaceScene");
+                gameState.currRound = 2;
+                LoadScene(ScenesName.WORKSPACE_SCENE);
+                return;
             }
-            else if (e.keyCode == KeyCode.F3)
+            
+            if (currentEvent.keyCode == KeyCode.F3)
             {
-                _round = 3;
-                sceneLoader.SetScene("WorkspaceScene");
+                gameState.currRound = 3;
+                LoadScene(ScenesName.WORKSPACE_SCENE);
+                return;
             }
+            
+            if (currentEvent.keyCode == KeyCode.F4)
+            {
+                gameState.currRound = 4;
+                LoadScene(ScenesName.WORKSPACE_SCENE);
+                return;
+            }
+            
+            if (currentEvent.keyCode == KeyCode.F5)
+            {
+                gameState.currRound = 5;
+                LoadScene(ScenesName.WORKSPACE_SCENE);
+                return;
+            }
+
+            if (currentEvent.keyCode != KeyCode.F6)
+            {
+                return;
+            }
+
+            gameState.currRound = 6;
+            LoadScene(ScenesName.WORKSPACE_SCENE);
         }
 
-
-        private void InitData()
+        public void InitData()
         {
             gameState = new GameState();
             saveManager = new SaveManager();
             if (saveManager.SaveFileExists())
             {
                 saveManager.LoadFromJson();
+                gameState.currRound = saveManager.save.currRound;
             }
             LoadCountries();
             LoadCharacters();
@@ -83,18 +124,37 @@ namespace Managers
 
         private void InitScenes()
         {
-            if (SceneManager.GetSceneByName("WorkspaceScene").isLoaded)
+            /*if (SceneManager.GetSceneByBuildIndex((int)ScenesName.WORKSPACE_SCENE).isLoaded)
             {
-                sceneLoader.SetScene("WorkspaceScene");
+                LoadScene(ScenesName.WORKSPACE_SCENE);
                 return;
             }
-            if (SceneManager.GetSceneByName("StatsScene").isLoaded)
+            if (SceneManager.GetSceneByBuildIndex((int)ScenesName.STATS_SCENE).isLoaded)
             {
-                sceneLoader.SetScene("StatsScene");
+                LoadScene(ScenesName.STATS_SCENE);
                 return;
             }
-            sceneLoader.SetScene("MainMenu");
+            LoadScene(ScenesName.MAIN_MENU);*/
         }
+
+        public void LoadScene(ScenesName sceneName)
+        {
+            if (sceneName == ScenesName.WORKSPACE_SCENE)
+            {
+                _audioSpawner = Instantiate(_audioSpawnerPrefab);
+                DontDestroyOnLoad(_audioSpawner);
+                _isAudioSpawnerActive = true;
+            }
+
+            if ((sceneName == ScenesName.DIALOGUE_SCENE || sceneName == ScenesName.MAIN_MENU) && _isAudioSpawnerActive)
+            {
+                Destroy(_audioSpawner);
+                _isAudioSpawnerActive = false;
+            }
+            
+            sceneLoader.SetScene(sceneName);
+        }
+
         private void LoadCountries()
         {
             Country[] countryObjects = transform.Find("Countries").GetComponentsInChildren<Country>();
@@ -158,17 +218,35 @@ namespace Managers
         public void UpdateStatsDisplayMoney(float money)
         {
             _statsDisplay.UpdateMoney(gameState.playerData.money += money);
+            _statsDisplay.ReceiveMoney(money);
         }
 
         public void AddToRound()
         {
+            gameState.currRound++;
             prevGameState = gameState.Clone();
-            _round++;
+            SaveGame();
         }
 
         public int GetRound()
         {
-            return _round;
+            return gameState.currRound;
+        }
+
+        public void SaveGame()
+        {
+            saveManager.SaveToJson(prevGameState);
+        }
+
+        private void OnDestroy()
+        {
+            PlayerPrefs.SetInt(PLAYER_PREFS_TEXT_DIALOGUE_SPEED, (int)textDialogueSpeed);
+            PlayerPrefs.SetInt(PLAYER_PREFS_TUTORIAL_PROMPTS_ENABLE, areTutorialPromptsEnabled ? 1 : 0);
+        }
+
+        public SaveManager GetSaveManager()
+        {
+            return saveManager;
         }
     }
 }

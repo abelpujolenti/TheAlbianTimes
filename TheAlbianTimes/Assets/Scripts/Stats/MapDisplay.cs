@@ -21,6 +21,8 @@ namespace Stats
         [SerializeField] private GameObject[] statsDisplayObjects;
         [SerializeField] private TextMeshProUGUI[] _reputations;
         [SerializeField] private Image[] _statModificationIcon;
+        [SerializeField] private TextMeshProUGUI loseText;
+        [SerializeField] private Button restartButton;
         const int folds = 4;
 
         [SerializeField] private float unfoldTime = .8f;
@@ -50,10 +52,9 @@ namespace Stats
         private void SetMapStage()
         {
             int index;
-            switch (GameManager.Instance.GetRound() + 1)
+            switch (GameManager.Instance.GetRound())
             {
                 case 0:
-                case 1:
                     index = 1;
                     statsDisplayObjects[0].SetActive(false);
                     statsDisplayObjects[1].SetActive(false);
@@ -62,9 +63,9 @@ namespace Stats
                     statsDisplayObjects[7].SetActive(false);
                     statsDisplayObjects[8].SetActive(false);
                     break;
+                case 1:
                 case 2:
                 case 3:
-                case 4:
                     index = 2;
                     statsDisplayObjects[0].SetActive(false);
                     statsDisplayObjects[1].SetActive(false);
@@ -72,15 +73,15 @@ namespace Stats
                     statsDisplayObjects[7].SetActive(false);
                     statsDisplayObjects[8].SetActive(false);
                     break;
-                case 5:
+                case 4:
                     index = 3;
                     statsDisplayObjects[4].SetActive(false);
                     statsDisplayObjects[7].SetActive(false);
                     statsDisplayObjects[8].SetActive(false);
                     break;
-                case 6:
+                case 5:
                     index = 4;
-                    statsDisplayObjects[4].SetActive(false);
+                    statsDisplayObjects[7].SetActive(false);
                     break;
                 default:
                     index = 0;
@@ -240,8 +241,32 @@ namespace Stats
                 elapsedT += Time.fixedDeltaTime;
             }
             fadeImage.color = Color.black;
+            
+            AudioManager.Instance.StopAllAudios();
+            GameManager.Instance.musicAudioId = -1;
 
-            GameManager.Instance.sceneLoader.SetScene("DialogueScene");
+            if (GameManager.Instance.gameState.playerData.money <= 0)
+            {
+                Lose();
+            }
+            else
+            {
+                GameManager.Instance.LoadScene(ScenesName.DIALOGUE_SCENE);
+            }
+        }
+
+        private void Lose()
+        {
+            loseText.gameObject.SetActive(true);
+            loseText.text = "<size=30><b>The Albian Times has run out of funds.</b>\n<size=25>You and your " + GameManager.Instance.gameState.playerData.staff + " staff will need to find new jobs.";
+            restartButton.gameObject.SetActive(true);
+        
+        }
+
+        public void Restart()
+        {
+            GameManager.Instance.GetSaveManager().DeleteSaveFile();
+            GameManager.Instance.sceneLoader.SetScene(ScenesName.MAIN_MENU);
         }
     }
 }

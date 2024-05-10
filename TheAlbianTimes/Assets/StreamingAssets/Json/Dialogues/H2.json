@@ -1,0 +1,108 @@
+{
+    "name": "H2",
+    "firstRound":3,
+    "duration":1,
+    "priority":1,
+    "audioName":"HazelNormal",
+    "lines": [
+        {
+            "parts": [
+                {
+                    "speaker": "Hazel",
+                    "text": "Hello my love.¬¬¬ These days we're really busy at the hospital, and¬¬¬ I volunteered to stay late tomorrow.¬¬ Could you stay here with Rudy?"
+                }
+            ],
+            "options": [
+                {
+                    "id": 0,
+                    "text": "Sure, count on me.",
+                    "mood": "[Caring]",
+                    "followupLines": 1,
+                    "consequences": [
+                        {
+                            "entityId": 0,
+                            "key": "impact",
+                            "value": 5
+                        }
+                    ]
+                },
+                {
+                    "id": 1,
+                    "text": "If I have no other choice...",
+                    "mood": "[Reluctantly]",
+                    "followupLines": 1,
+                    "consequences": [
+                        {
+                            "entityId": 0,
+                            "key": "impact",
+                            "value": -5
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "parts": [
+                {
+                    "speaker": "Hazel",
+                    "text": "Thank you...¬¬ I'll leave dinner prepared"
+                },
+                {
+                    "speaker": "Hazel",
+                    "text": "She is your daughter too,¬¬ and your responsability."
+                }
+            ],
+            "options": [
+            ]
+        },
+        {
+            "parts": [
+                {
+                    "speaker": "Hazel",
+                    "text": "Also, remember that Ruby turns 22 next week. We should do something."
+                }
+            ],
+            "options": [
+                {
+                    "id": 0,
+                    "text": "Shit- I mean, you are right. Damn my head is somewhere else this days.",
+                    "mood": "[Surprised]",
+                    "followupLines": 0,
+                    "consequences": [
+                        {
+                            "entityId": 0,
+                            "key": "impact",
+                            "value": 0
+                        }
+                    ]
+                },
+                {
+                    "id": 1,
+                    "text": "Yeah sure.",
+                    "mood": "[Apathetic]",
+                    "followupLines": 0,
+                    "consequences": [
+                        {
+                            "entityId": 0,
+                            "key": "impact",
+                            "value": -5
+                        }
+                    ]
+                },
+                {
+                    "id": 2,
+                    "text": "Of course, I can't wait to celebrate it!",
+                    "mood": "[Excited]",
+                    "followupLines": 0,
+                    "consequences": [
+                        {
+                            "entityId": 0,
+                            "key": "impact",
+                            "value": 5
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

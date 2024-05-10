@@ -1,8 +1,10 @@
 using System.Collections.Generic;
+using Managers;
 using NoMonoBehavior;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Utility;
 
 namespace Workspace.Layout.Pieces
 {
@@ -67,7 +69,15 @@ namespace Workspace.Layout.Pieces
                     GameObject h = FakeInstantiate.Instantiate(subPiece.transform);
                     TextMeshProUGUI headline = h.AddComponent<TextMeshProUGUI>();
 
-                    headline.text = "<font=cour SDF>" + newsData.biases[0].headline;
+                    if (GameManager.Instance.GetRound() == 0)
+                    {
+                        headline.text = "<font=cour SDF>" + "Drag it to mold";
+                    }
+                    else
+                    {
+                        headline.text = "<font=cour SDF>" + newsData.biases[0].headline;    
+                    }
+                    
                     headline.color = new Color(0.8f, .8f, .8f);
                     headline.fontSize = 9.5f;
                     headline.rectTransform.anchorMax = Vector2.one;

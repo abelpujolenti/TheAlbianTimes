@@ -6,8 +6,8 @@ namespace Workspace.Notebook
     public enum NotebookContentType
     {
         MAP,
-        INTERNATIONAL,
-        PERSON
+        PERSON,
+        COUNTRY
     }
 
     public abstract class BaseNotebookContainer
@@ -58,13 +58,11 @@ namespace Workspace.Notebook
     public class CountryContent : BaseNotebookContent
     {
         public string countryName;
-        public string flagImagePath;
         public string description;
         public string history;
         public Dictionary <string, List<string>> importantPeople;
         public Dictionary <string, List<string>> organizations;
         public List<string> ongoingConflicts;
-        public Dictionary <int, int> reputationHistory;
     }
 
     public class MapPage0 : BaseNotebookPage
@@ -87,7 +85,6 @@ namespace Workspace.Notebook
     public class CountryContentPage0 : BaseNotebookPage
     {
         public string countryName;
-        public string flagImagePath;
         public string description;
     }
 
@@ -128,14 +125,12 @@ namespace Workspace.Notebook
     public class PersonContent : BaseNotebookContent
     {
         public string name;
-        public string photoImagePath;
         public List <string> descriptions;
     }
 
     public class PersonContentPage0 : BaseNotebookPage
     {
         public string name;
-        public string photoImagePath;
         public List <string> descriptions;
     }
 }

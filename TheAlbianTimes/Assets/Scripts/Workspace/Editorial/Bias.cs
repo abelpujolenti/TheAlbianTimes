@@ -56,7 +56,7 @@ namespace Workspace.Editorial
 
         private String _text;
         
-        [SerializeField]private bool _selected;
+        private bool _selected;
 
         private int _siblingIndex;
 
@@ -101,18 +101,17 @@ namespace Workspace.Editorial
 
         protected override void PointerClick(BaseEventData data)
         {
-            if (_selected)
+            if (_selected || _markAnimationRunning)
             {
                 return;
             }
 
-            EventsManager.OnChangeChosenBiasIndex(_siblingIndex);
-            EventsManager.OnChangeChosenBias();
-            _selected = true;
-            
-            EventsManager.OnChangeChosenBias += UnselectBias;
+            if (EventsManager.OnClickBias != null)
+            {
+                EventsManager.OnClickBias();    
+            }
 
-            _newsFolder.GetFrontHeadline().ClearBiasMarks();
+            EventsManager.OnClickBias += StopAnimations;
             
             MarkAnimation();
         }
@@ -140,7 +139,7 @@ namespace Workspace.Editorial
             if (_openCapPositionCoroutine != null) StopCoroutine(_openCapPositionCoroutine);
             if (_openCapRotationCoroutine != null) StopCoroutine(_openCapRotationCoroutine);
             _openCapPositionCoroutine = StartCoroutine(TransformUtility.SetPositionCoroutine(_cap.transform, _cap.transform.position, _capStartPosition + openCapOffset, openCapTime));
-            AudioManager.Instance.Play3DSound(OPEN_MARKER_CAP_SOUND, 10, 100, transform.position);
+            AudioManager.Instance.Play3DSound(OPEN_MARKER_CAP_SOUND, 5, 100, transform.position);
         }
 
         private void CloseCap()
@@ -159,7 +158,7 @@ namespace Workspace.Editorial
             if (_openCapRotationCoroutine != null) StopCoroutine(_openCapRotationCoroutine);
             _openCapPositionCoroutine = StartCoroutine(TransformUtility.SetPositionCoroutine(_cap.transform, _cap.transform.position, _capStartPosition + separateCapOffset, closeCapTime));
             _openCapRotationCoroutine = StartCoroutine(TransformUtility.SetRotationCoroutine(_cap.transform, separateCapRotation, separateCapTime));
-            AudioManager.Instance.Play3DSound(OPEN_MARKER_CAP_SOUND, 10, 100, transform.position);
+            AudioManager.Instance.Play3DSound(OPEN_MARKER_CAP_SOUND, 5, 100, transform.position);
         }
 
         public void MarkAnimation()
@@ -168,7 +167,6 @@ namespace Workspace.Editorial
 
             markAnimationHeight = 0.12f * (_newsFolder.GetFrontHeadline().transform.Find("Text").GetComponent<TextMeshProUGUI>().textInfo.lineCount - 1);
 
-            StopMarkAnimation();
             _markAnimationCoroutine = StartCoroutine(MarkAnimationCoroutine());
         }
 
@@ -182,7 +180,7 @@ namespace Workspace.Editorial
         private IEnumerator DelaySoundCoroutine(float t, string audioSourceName)
         {
             yield return new WaitForSeconds(t);
-            AudioManager.Instance.Play3DSound(audioSourceName, 10, 100, transform.position);
+            AudioManager.Instance.Play3DSound(audioSourceName, 5, 100, transform.position);
         }
 
         private IEnumerator MarkAnimationCoroutine()
@@ -203,7 +201,7 @@ namespace Workspace.Editorial
                 Vector3 passMovement = new Vector3(markAnimationWidth, -inc1, 0f);
                 _newsFolder.GetFrontHeadline().SpawnBiasMark(_siblingIndex, _image.transform.position);
 
-                AudioManager.Instance.Play3DSound(MARK_SOUND, 10, 100, transform.position);
+                AudioManager.Instance.Play3DSound(MARK_SOUND, 5, 100, transform.position);
 
                 yield return TransformUtility.SetPositionCoroutine(_image.transform, _image.transform.position, _image.transform.position + passMovement, markAnimationPassTime);
 
@@ -218,7 +216,20 @@ namespace Workspace.Editorial
 
             yield return ReturnMarkerCoroutine();
 
-            EventsManager.OnChangeNewsHeadlineContent();
+            EventsManager.OnClickBias -= StopAnimations;
+
+            if (EventsManager.OnChangeChosenBiasIndex != null)
+            {
+                EventsManager.OnChangeChosenBiasIndex();    
+            }
+            EventsManager.OnChangeNewsHeadlineContent(_siblingIndex);
+            
+            EventsManager.OnChangeChosenBias();
+            
+            _cap.gameObject.SetActive(false);
+            EventsManager.OnChangeChosenBias += UnselectBias;
+            
+            _selected = true;
 
             _markAnimationRunning = false;
         }
@@ -255,15 +266,23 @@ namespace Workspace.Editorial
 
         public void SelectBias()
         {
+            _cap.gameObject.SetActive(false);
             BiasButtonStuff(true);
             //_textMeshPro.fontStyle = FontStyles.Underline;
         }
 
-        private void UnselectBias()
+        private void StopAnimations()
         {
-            BiasButtonStuff(false);
             StopMarkAnimation();
             StartCoroutine(ReturnMarkerCoroutine());
+            _newsFolder.GetFrontHeadline().ClearBiasMarks();
+            EventsManager.OnClickBias -= StopAnimations;
+        }
+
+        private void UnselectBias()
+        {
+            _cap.gameObject.SetActive(true);
+            BiasButtonStuff(false);
         }
 
         public void ResetBiasUnderline()

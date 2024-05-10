@@ -3,7 +3,6 @@ using Dialogue;
 using Managers;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Windows;
 
 namespace Menus
 {

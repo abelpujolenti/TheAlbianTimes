@@ -2,8 +2,6 @@ using System.Collections;
 using Countries;
 using Managers;
 using TMPro;
-using Unity.VisualScripting;
-using UnityEditor.UI;
 using UnityEngine;
 using UnityEngine.UI;
 using Utility;

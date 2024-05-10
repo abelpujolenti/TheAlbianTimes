@@ -514,7 +514,7 @@ namespace Managers
         private (Func<GameObject>, Func<GameObject>) CheckContentToShow()
         {
             int mapIndex = _notebookIndices[NotebookContentType.MAP];
-            int peopleIndex = _notebookIndices[NotebookContentType.PERSON];
+            //int peopleIndex = _notebookIndices[NotebookContentType.PERSON];
 
             Func<GameObject> leftPage;
             Func<GameObject> rightPage;
@@ -526,7 +526,7 @@ namespace Managers
                 return (leftPage, rightPage);
             }
             
-            if (_currentPageNumber < peopleIndex)
+            /*if (_currentPageNumber < peopleIndex)
             {
                 leftPage = PassContentToShow(NotebookContentType.COUNTRY, COUNTRY_RANGE_OF_PAGES, 
                     mapIndex + MAP_RANGE_OF_PAGES, true);
@@ -535,11 +535,16 @@ namespace Managers
                     mapIndex + MAP_RANGE_OF_PAGES, false);
                 
                 return (leftPage, rightPage);
-            }
+            }*/
+            leftPage = PassContentToShow(NotebookContentType.COUNTRY, COUNTRY_RANGE_OF_PAGES, 
+                mapIndex + MAP_RANGE_OF_PAGES, true);
+                
+            rightPage = PassContentToShow(NotebookContentType.COUNTRY, COUNTRY_RANGE_OF_PAGES, 
+                mapIndex + MAP_RANGE_OF_PAGES, false);
             
-            leftPage = PassContentToShow(NotebookContentType.PERSON, PERSON_RANGE_OF_PAGES, peopleIndex, true);
+            /*leftPage = PassContentToShow(NotebookContentType.PERSON, PERSON_RANGE_OF_PAGES, peopleIndex, true);
             
-            rightPage = PassContentToShow(NotebookContentType.PERSON, PERSON_RANGE_OF_PAGES, peopleIndex, false);
+            rightPage = PassContentToShow(NotebookContentType.PERSON, PERSON_RANGE_OF_PAGES, peopleIndex, false);*/
 
             return (leftPage, rightPage);
         }

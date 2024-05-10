@@ -62,17 +62,15 @@ namespace Menus
             _SFXAudioMuteToggleCheckMark.SetActive(!audioManager.GetGroupMute(AudioGroups.SFX));
             
             _musicAudioMuteToggleCheckMark.SetActive(!audioManager.GetGroupMute(AudioGroups.MUSIC));
-            
-            ChangeSelectedButton(GameManager.Instance.textDialogueSpeed);
 
             if (_isInGame)
             {
                 return;
             }
             
+            ChangeSelectedButton(GameManager.Instance.textDialogueSpeed);
+            
             _enableTutorialPromptsToggleCheckMark.SetActive(GameManager.Instance.areTutorialPromptsEnabled);
-
-            //_brightnessSlider.value = PlayerPrefs.GetFloat(PLAYER_PREFS_BRIGHTNESS);
         }
 
         public void SetMasterVolume(float volume)

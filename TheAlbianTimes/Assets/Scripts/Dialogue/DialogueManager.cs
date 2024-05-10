@@ -97,11 +97,7 @@ namespace Dialogue
 
             selectedDialogue = dialogue.Last().Value;
 
-            //ERASE
-            if (selectedDialogue.audioName != null)
-            {
-                _characterAudioId = AudioManager.Instance.Play2DLoopSound(selectedDialogue.audioName);    
-            }
+            _characterAudioId = AudioManager.Instance.Play2DLoopSound(selectedDialogue.audioName);    
 
             string speakerName = selectedDialogue.lines[0].parts[0].speaker; 
             
@@ -268,10 +264,6 @@ namespace Dialogue
 
         private void OnDestroy()
         {
-            if (_characterAudioId == -1)
-            {
-                return;
-            }
             AudioManager.Instance.StopLoopingAudio(_characterAudioId);
         }
     }

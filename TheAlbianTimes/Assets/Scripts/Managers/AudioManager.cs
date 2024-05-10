@@ -404,6 +404,39 @@ namespace Managers
                 minVolume, maxVolume, minPitch, maxPitch, position, lowPassCutoff);
         }
 
+        public void StopAllAudios()
+        {
+            for (AudioGroups i = (AudioGroups)1; i < AudioGroups.SIZE; i++)
+            {
+                StopAudioGroupAudios(i);
+            }
+        }
+
+        public void StopAudioGroupAudios(AudioGroups audioGroup)
+        {
+            AudioSource[] audioSources = _audioSourcesInGroups[audioGroup];
+
+            foreach (AudioSource audioSource in audioSources)
+            {
+                if (audioSource.loop)
+                {
+                    audioSource.loop = false;
+                    foreach (KeyValuePair<int, AudioSource> audioLooping in _audiosLooping)
+                    {
+                        if (audioLooping.Value != audioSource)
+                        {
+                            continue;
+                        }
+
+                        _audiosLooping.Remove(audioLooping.Key);
+                        break;
+                    }
+                }
+                
+                audioSource.Stop();
+            }
+        }
+
         public void StopLoopingAudio(int id)
         {
             AudioSource audioSource = _audiosLooping[id];

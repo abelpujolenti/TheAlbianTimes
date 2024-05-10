@@ -226,6 +226,7 @@ namespace Workspace.Editorial
             
             EventsManager.OnChangeChosenBias();
             
+            _cap.gameObject.SetActive(false);
             EventsManager.OnChangeChosenBias += UnselectBias;
             
             _selected = true;
@@ -265,6 +266,7 @@ namespace Workspace.Editorial
 
         public void SelectBias()
         {
+            _cap.gameObject.SetActive(false);
             BiasButtonStuff(true);
             //_textMeshPro.fontStyle = FontStyles.Underline;
         }
@@ -279,6 +281,7 @@ namespace Workspace.Editorial
 
         private void UnselectBias()
         {
+            _cap.gameObject.SetActive(true);
             BiasButtonStuff(false);
         }
 

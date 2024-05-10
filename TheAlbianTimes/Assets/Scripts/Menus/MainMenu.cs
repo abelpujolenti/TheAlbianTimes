@@ -7,6 +7,7 @@ namespace Menus
 {
     public class MainMenu : MonoBehaviour
     {
+        private const string MENU_AUDIO_SOUND = "MenuAudio";
         private const string INTRO_SOUND = "Intro";
         private const string CLICK_BUTTON_SOUND = "Click Button";
 
@@ -23,14 +24,18 @@ namespace Menus
 
         private Coroutine startGameCoroutine;
 
+        private int _menuAudioId;
+
         private void Start()
         {
+            _menuAudioId = AudioManager.Instance.Play2DLoopSound(MENU_AUDIO_SOUND);
             _currentActivePanel = _buttons;
         }
 
         public void Play() 
         {
             if (startGameCoroutine != null) return;
+            AudioManager.Instance.StopLoopingAudio(_menuAudioId);
             AudioManager.Instance.Play2DSound(CLICK_BUTTON_SOUND);
             startGameCoroutine = StartCoroutine(StartGameCoroutine());
         }

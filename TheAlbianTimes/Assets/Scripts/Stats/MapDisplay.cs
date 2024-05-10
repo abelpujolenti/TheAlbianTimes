@@ -239,7 +239,9 @@ namespace Stats
                 elapsedT += Time.fixedDeltaTime;
             }
             fadeImage.color = Color.black;
-
+            
+            AudioManager.Instance.StopAllAudios();
+            GameManager.Instance.musicAudioId = -1;
             GameManager.Instance.LoadScene(ScenesName.DIALOGUE_SCENE);
         }
     }

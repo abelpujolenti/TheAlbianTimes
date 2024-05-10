@@ -61,7 +61,7 @@ public class BalanceSheet : MonoBehaviour
             AddLine(Country.names[i] + ":", values[i], 16f);
         }
 
-        float cost = PlayerDataManager.Instance.CalculateCosts();
+        float cost = PlayerDataManager.Instance.CalculateCosts(GameManager.Instance.prevGameState);
         AddLine("Costs:", -cost, 19f);
         AddLine("Total:", GameManager.Instance.gameState.playerData.money, 22f);
     }

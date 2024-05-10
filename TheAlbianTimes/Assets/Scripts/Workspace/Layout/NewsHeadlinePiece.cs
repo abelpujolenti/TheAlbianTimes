@@ -145,15 +145,14 @@ namespace Workspace.Layout
 
             if (_rotate)
             {
+                AudioManager.Instance.Play3DSound(DROP_PIECE_OUT_BOX_SOUND, 5, 100, transform.position);
+                
                 if (_subscribed)
                 {
                     return;
                 }
 
                 _subscribed = true;
-                
-                
-                AudioManager.Instance.Play3DSound(DROP_PIECE_OUT_BOX_SOUND, 5, 100, transform.position);
                         
                 EventsManager.OnPressPanicButtonForPieces += GoToContainer;
                 if (EventsManager.OnThowSomething != null)

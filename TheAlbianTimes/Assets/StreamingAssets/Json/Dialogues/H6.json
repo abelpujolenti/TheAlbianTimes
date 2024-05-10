@@ -1,0 +1,76 @@
+{
+    "name": "H6",
+    "firstRound":7,
+    "duration":1,
+    "priority":1,
+    "audioName":"HazelNormal",
+    "lines": [
+        {
+            "parts": [
+                {
+                    "speaker": "Hazel",
+                    "text": "You look... different. Is your work doing you wrong? You know you can leave at any time right? It's not worth the risk..."
+                }
+            ],
+            "options": [
+                {
+                    "id": 0,
+                    "text": "I'm fine, just a bit tired. Too many articles.",
+                    "mood": "[Regretful]",
+                    "followupLines": 1,
+                    "consequences": [
+                        {
+                            "entityId": 0,
+                            "key": "impact",
+                            "value": 5
+                        }
+                    ]
+                },
+                {
+                    "id": 1,
+                    "text": "I should think about that... Thanks babe.",
+                    "mood": "[Shocked]",
+                    "followupLines": 1,
+                    "consequences": [
+                        {
+                            "entityId": 0,
+                            "key": "impact",
+                            "value": 5
+                        }
+                    ]
+                },
+                {
+                    "id": 2,
+                    "text": "I'm good.",
+                    "mood": "[Unconcerned]",
+                    "followupLines": 1,
+                    "consequences": [
+                        {
+                            "entityId": 0,
+                            "key": "impact",
+                            "value": -5
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "parts": [
+                {
+                    "speaker": "Hazel",
+                    "text": "If you say so... The dark circles under your eyes aren't the only thing that worries me."
+                },
+                {
+                    "speaker": "Hazel",
+                    "text": "We have savings and I am currently full-time at the hospital, you can leave and find another job less... risky."
+                },
+                {
+                    "speaker": "Hazel",
+                    "text": "Okay... I'm just worried."
+                }
+            ],
+            "options": [
+            ]
+        }
+    ]
+}

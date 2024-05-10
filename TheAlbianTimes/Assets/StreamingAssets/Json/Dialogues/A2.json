@@ -15,25 +15,43 @@
             "options": [
                 {
                     "id": 0,
-                    "text": "Hey Adrian, thanks for checking in. I really appreciate your concern. I'm feeling a bit¬¬ stressed, but I'll manage. Your support means a lot.",
+                    "text": "Thanks for checking in. I really appreciate your concern. Your support means a lot.",
                     "mood": "[Appreciative]",
                     "followupLines": 1,
-                    "impact": 5
+                    "consequences": [
+                        {
+                            "entityId": 2,
+                            "key": "impact",
+                            "value": 5
+                        }
+                    ]
                 },
                 {
                     "id": 1,
                     "text": "Adrian, do I look like your diary? I'm fine, don't worry about it.",
                     "mood": "[Dismissive]",
                     "followupLines": 1,
-                    "impact": -5
+                    "consequences": [
+                        {
+                            "entityId": 2,
+                            "key": "impact",
+                            "value": -5
+                        }
+                    ]
                 }
                 ,
                 {
-                    "id": 3,
-                    "text": "Hey Adrian, thanks for asking. It's been a bit overwhelming, to be honest. Trying to get used to everything, but it's a¬ challenge.",
+                    "id": 2,
+                    "text": "Hey Adrian, thanks for asking. It's been a bit overwhelming, to be honest.",
                     "mood": "[Struggling]",
                     "followupLines": 1,
-                    "impact": 3
+                    "consequences": [
+                        {
+                            "entityId": 2,
+                            "key": "impact",
+                            "value": 5
+                        }
+                    ]
                 }
             ]
         },
@@ -60,34 +78,64 @@
             "parts": [
                 {
                     "speaker": "Adrian",
-                    "text": "I know! How about we hang out tonight after work? We can unwind, de-stress, and maybe get to know each other a little better."
+                    "text": "I know! How about we hang out tonight after work? We can unwind, de-stress, and maybe get to know each other a little¬¬¬ better."
                 }
             ],
             "options": [
                 {
                     "id": 0,
-                    "text": "I'd love to, but I have to head home with my daughter. How about we plan another day for our hangout? I'm really looking forward to spending some time with you!",
+                    "text": "I'd love to, but I have to head home with my daughter. How about we plan another day for our hangout?",
                     "mood": "[Kind]",
                     "followupLines": 1,
-                    "impact": 5,
-                    "next dialogue": "H3"
+                    "consequences": [
+                        {
+                            "entityId": 2,
+                            "key": "impact",
+                            "value": 5
+                        },
+                        {
+                            "entityId": 0,
+                            "key": "HazelConsequence",
+                            "value": 1
+                        }
+                    ]
 
                 },
                 {
                     "id": 1,
-                    "text": "Sounds like a plan, Adrian. Looking forward to it. Who knows? Maybe we'll discover some interesting things about each other¬¬¬ over a drink or two.",
+                    "text": "Sounds like a plan. Who knows? Maybe we'll discover some interesting things about each other over a drink or two.",
                     "mood": "[Flirty]",
                     "followupLines": 1,
-                    "impact": 10,
-                    "next dialogue": "H4"
+                    "consequences": [
+                        {
+                            "entityId": 2,
+                            "key": "impact",
+                            "value": 60
+                        },
+                        {
+                            "entityId": 0,
+                            "key": "HazelConsequence",
+                            "value": 2
+                        }
+                    ]
                 },
                 {
                     "id": 2,
-                    "text": "Apologies, Adrian, but I must head home with my daughter. Additionally, I strongly prefer to maintain a strictly professional relationship. Perhaps we can arrange to meet during work hours for any discussions.",
+                    "text": "Apologies, Adrian, but I must head home with my daughter. Additionally, I strongly prefer to maintain a strictly professional relationship.",
                     "mood": "[Assertive]",
                     "followupLines": 1,
-                    "impact": -2,
-                    "next dialogue": "H3"
+                    "consequences": [
+                        {
+                            "entityId": 2,
+                            "key": "impact",
+                            "value": -3
+                        },
+                        {
+                            "entityId": 0,
+                            "key": "HazelConsequence",
+                            "value": 1
+                        }
+                    ]
                 }
             ]
         },

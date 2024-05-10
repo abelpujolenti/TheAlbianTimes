@@ -1,0 +1,91 @@
+{
+    "name": "R3",
+    "firstRound":8,
+    "duration":1,
+    "priority":1,
+    "audioName":"RudyNormal",
+    "lines": [
+        {
+            "parts": [
+                {
+                    "speaker": "Ruby",
+                    "text": "Soooo dad... There is a protest in the university and I really want to go... It's no dangerous I promise!!!"
+                }
+            ],
+            "options": [
+                {
+                    "id": 0,
+                    "text": "Listen Ruby, it's not dangerous until it is.",
+                    "mood": "[Worried]",
+                    "followupLines": 1
+                },
+                {
+                    "id": 1,
+                    "text": "So are you actually interested in politics right?",
+                    "mood": "[Curious]",
+                    "followupLines": 1
+                }
+            ]
+        },
+        {
+            "parts": [
+                {
+                    "speaker": "Ruby",
+                    "text": "I promise I will be extremely careful!!! I joined the university council and they really need me..."
+                },
+                {
+                    "speaker": "Ruby",
+                    "text": "I really am... And I want to defend the unfair acts! I joined the university council, and now they need me more than ever."
+                }
+            ],
+            "options": [
+            ]
+        },
+        {
+            "parts": [
+                {
+                    "speaker": "Ruby",
+                    "text": "Aaaaaaaaand? Can I go? Pleaaaaseeeee..."
+                }
+            ],
+            "options": [
+                {
+                    "id": 0,
+                    "text": "Okay. Just promise you will be careful.",
+                    "mood": "[Permisive]",
+                    "followupLines": 1
+                },
+                {
+                    "id": 1, 
+                    "text": "Defenetly not. I need you here, safe.",
+                    "mood": "[Authoritarian]",
+                    "followupLines": 1
+                }
+                ,
+                {
+                    "id": 2, 
+                    "text": "Your choice.",
+                    "mood": "[Indifferent]",
+                    "followupLines": 1
+                }
+            ]
+        },
+        {
+            "parts": [
+                {
+                    "speaker": "Ruby",
+                    "text": "Oh my goooood! Of course! Thanks dad!!!"
+                },
+                {
+                    "speaker": "Ruby",
+                    "text": "But daaaaaaaaaad..."
+                },
+                {
+                    "speaker": "Ruby",
+                    "text": "Uhm... okay then. I'll go."
+                }
+            ],
+            "options": []
+        }
+    ]
+}

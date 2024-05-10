@@ -3,6 +3,7 @@
     "firstRound":1,
     "duration":1,
     "priority":1,
+    "audioName":"HazelNormal",
     "lines": [
         {
             "parts": [

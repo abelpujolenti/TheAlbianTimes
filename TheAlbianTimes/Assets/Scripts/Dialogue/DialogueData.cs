@@ -11,12 +11,11 @@ namespace Dialogue
         public int firstRound;
         public float duration;
         public float priority;
+        public string audioName;
         public CountryEventCondition[] countryConditions;
         public CharacterEventCondition[] characterConditions;
 
         public DialogueLine[] lines;
-
-        public string audioName;
 
         public bool ConditionsFulfilled(int round)
         {

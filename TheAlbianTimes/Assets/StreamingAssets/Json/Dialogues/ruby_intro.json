@@ -17,13 +17,27 @@
                     "id": 0,
                     "text": "Of course! You know I'm proud that you chose to follow in my footsteps as a journalist.",
                     "mood": "[Proud]",
-                    "followupLines": 1
+                    "followupLines": 1,
+                    "consequences": [
+                        {
+                            "entityId": 1,
+                            "key": "impact",
+                            "value": 5
+                        }
+                    ]
                 },
                 {
                     "id": 1,
                     "text": "Part of becoming an accomplished journalist is figuring out how to do things yourself!",
                     "mood": "[Encouraging]",
-                    "followupLines": 1
+                    "followupLines": 1,
+                    "consequences": [
+                        {
+                            "entityId": 1,
+                            "key": "impact",
+                            "value": 5
+                        }
+                    ]
                 }
             ]
         },
@@ -43,13 +57,27 @@
                     "id": 0,
                     "text": "Alright, what do you need?",
                     "mood": "[Helpful]",
-                    "followupLines": 0
+                    "followupLines": 0,
+                    "consequences": [
+                        {
+                            "entityId": 1,
+                            "key": "impact",
+                            "value": 2
+                        }
+                    ]
                 },
                 {
                     "id": 1,
                     "text": "This won't be free, you'll be helping around the house tomorrow.",
                     "mood": "[Acquiescing]",
-                    "followupLines": 0
+                    "followupLines": 0,
+                    "consequences": [
+                        {
+                            "entityId": 1,
+                            "key": "impact",
+                            "value": 1
+                        }
+                    ]
                 }
             ]
         },
@@ -75,19 +103,40 @@
                     "id": 0,
                     "text": "The only thing that matters is how it affects people's everyday lives.",
                     "mood": "[Analytical]",
-                    "followupLines": 0
+                    "followupLines": 0,
+                    "consequences": [
+                        {
+                            "entityId": 1,
+                            "key": "impact",
+                            "value": 2
+                        }
+                    ]
                 },
                 {
                     "id": 1,
                     "text": "Their pride is bruised.",
                     "mood": "[Mysterious]",
-                    "followupLines": 0
+                    "followupLines": 0,
+                    "consequences": [
+                        {
+                            "entityId": 1,
+                            "key": "impact",
+                            "value": 2
+                        }
+                    ]
                 },
                 {
                     "id": 2,
                     "text": "You're starting to sound like your mother.",
                     "mood": "[Joking]",
-                    "followupLines": 0
+                    "followupLines": 0,
+                    "consequences": [
+                        {
+                            "entityId": 1,
+                            "key": "impact",
+                            "value": 2
+                        }
+                    ]
                 }
             ] 
         },

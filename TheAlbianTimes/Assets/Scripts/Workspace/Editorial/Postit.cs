@@ -10,8 +10,7 @@ namespace Workspace.Editorial
 {
     public class Postit : ThrowableInteractableRectTransform
     {
-        private const string GRAB_POST_IT_SOUND = "";
-        private const string DROP_POST_IT_SOUND = "";
+        private const string GRAB_POST_IT_SOUND = "Grab Post it";
         
         [SerializeField] private Image _image;
         [SerializeField] private TextMeshProUGUI _text;
@@ -20,12 +19,6 @@ namespace Workspace.Editorial
         {
             base.BeginDrag(data);
             AudioManager.Instance.Play3DSound(GRAB_POST_IT_SOUND, 5, 100, transform.position);
-        }
-
-        protected override void EndDrag(BaseEventData data)
-        {
-            base.EndDrag(data);
-            AudioManager.Instance.Play3DSound(DROP_POST_IT_SOUND, 5, 100, transform.position);
         }
 
         public Image GetImage()

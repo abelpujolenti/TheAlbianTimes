@@ -3400,7 +3400,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: -295.40002}
+  m_AnchoredPosition: {x: 0, y: -295.40005}
   m_SizeDelta: {x: 1133, y: 50}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &679275925
@@ -5072,11 +5072,11 @@ MonoBehaviour:
   _masterAudioMuteToggleCheckMark: {fileID: 1323985446}
   _SFXAudioMuteToggleCheckMark: {fileID: 226519544}
   _musicAudioMuteToggleCheckMark: {fileID: 920679689}
+  _enableTutorialPromptsToggleCheckMark: {fileID: 0}
   _lowTextDialogueSpeed: 0.8
   _mediumTextDialogueSpeed: 1
   _highTextDialogueSpeed: 1.3
-  _enableTutorialPromptsToggle: {fileID: 0}
-  _enableTutorialPromptsToggleText: {fileID: 0}
+  _isInGame: 0
 --- !u!1 &875553705
 GameObject:
   m_ObjectHideFlags: 0
@@ -5938,7 +5938,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: -295.40002}
+  m_AnchoredPosition: {x: 0, y: -295.40005}
   m_SizeDelta: {x: 1133, y: 50}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1023565040
@@ -7618,6 +7618,11 @@ MonoBehaviour:
   - _audioClip: {fileID: 8300000, guid: b05a2fce8acfbc74d88e107f91bb5472, type: 3}
     audioGroup: 1
     _name: Post it
+    _volume: 1
+    _pitch: 1
+  - _audioClip: {fileID: 8300000, guid: 53d6cfa90d0361842b7e44c8f716156b, type: 3}
+    audioGroup: 1
+    _name: Grab Post it
     _volume: 1
     _pitch: 1
   - _audioClip: {fileID: 8300000, guid: 70be6bd2fb13cd64daaccda730d68bd4, type: 3}

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,8 @@ namespace Publish
 {
     public class PublishedNewspaper : InteractableRectTransform
     {
+        private const String GRAB_PAPER_SOUND = "Grab Paper";
+
         [SerializeField] private Image[] layouts;
         private Dictionary<Vector3, NewsData> sortedArticles;
         private Vector3 startPosition;
@@ -55,6 +58,7 @@ namespace Publish
         {
             PointerEventData pointerData = (PointerEventData)data;
 
+            AudioManager.Instance.Play3DSound(GRAB_PAPER_SOUND, 5, 100, transform.position);
             Vector3 mousePosition;
             RectTransformUtility.ScreenPointToWorldPointInRectangle(canvasRect, pointerData.position, _camera, out mousePosition);
 

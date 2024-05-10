@@ -110,7 +110,7 @@ namespace Dialogue
             Sprite characterSprite = Resources.Load<Sprite>(CHARACTERS_SPRITE_PATH + speakerName); 
             
             //ERASE
-            if (_character.sprite != null)
+            if (characterSprite != null)
             {
                 _character.sprite = characterSprite;
                 return;

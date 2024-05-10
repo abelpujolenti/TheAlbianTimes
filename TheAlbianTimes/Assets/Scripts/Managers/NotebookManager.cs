@@ -541,12 +541,14 @@ namespace Managers
                 
             rightPage = PassContentToShow(NotebookContentType.COUNTRY, COUNTRY_RANGE_OF_PAGES, 
                 mapIndex + MAP_RANGE_OF_PAGES, false);
+                
+            return (leftPage, rightPage);
             
             /*leftPage = PassContentToShow(NotebookContentType.PERSON, PERSON_RANGE_OF_PAGES, peopleIndex, true);
             
-            rightPage = PassContentToShow(NotebookContentType.PERSON, PERSON_RANGE_OF_PAGES, peopleIndex, false);*/
+            rightPage = PassContentToShow(NotebookContentType.PERSON, PERSON_RANGE_OF_PAGES, peopleIndex, false);
 
-            return (leftPage, rightPage);
+            return (leftPage, rightPage);*/
         }
 
         private Func<GameObject> PassContentToShow(NotebookContentType notebookContentType, int rangeOfPages, 

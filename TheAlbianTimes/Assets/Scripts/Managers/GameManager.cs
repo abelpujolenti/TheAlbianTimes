@@ -97,7 +97,7 @@ namespace Managers
             LoadScene(ScenesName.WORKSPACE_SCENE);
         }
 
-        private void InitData()
+        public void InitData()
         {
             gameState = new GameState();
             saveManager = new SaveManager();
@@ -216,6 +216,7 @@ namespace Managers
         {
             gameState.currRound++;
             prevGameState = gameState.Clone();
+            SaveGame();
         }
 
         public int GetRound()

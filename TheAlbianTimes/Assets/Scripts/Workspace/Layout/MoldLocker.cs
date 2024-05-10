@@ -45,7 +45,7 @@ namespace Workspace.Layout
                 rectTransform.sizeDelta = new Vector2(sizeDelta.x, sizeDelta.y / pressedHeightMultiplier);
             }
 
-            if (GameManager.Instance.GetRound() != 0 || _nudged)
+            if (GameManager.Instance.GetRound() != 0 && !GameManager.Instance.areTutorialPromptsEnabled || _nudged)
             {
                 return;
             }

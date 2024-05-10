@@ -167,14 +167,14 @@ namespace Workspace.Layout
 
         private void PlaceOnPermittedPlace()
         {
+            AudioManager.Instance.Play3DSound(DROP_PIECE_IN_BOX_SOUND, 5, 100, transform.position);
+            
             if (!_subscribed)
             {
                 return;
             }
 
             _subscribed = false;
-            
-            AudioManager.Instance.Play3DSound(DROP_PIECE_IN_BOX_SOUND, 5, 100, transform.position);
                         
             EventsManager.OnPressPanicButtonForPieces -= GoToContainer;
             if (EventsManager.OnArrangeSomething != null)
@@ -189,9 +189,6 @@ namespace Workspace.Layout
             {
                 return;
             }
-            
-            
-            AudioManager.Instance.Play3DSound(DROP_PIECE_IN_BOX_SOUND, 5, 100, transform.position);
 
             _subscribed = false;
             
@@ -219,6 +216,8 @@ namespace Workspace.Layout
 
                 yield return null;
             }
+            
+            AudioManager.Instance.Play3DSound(DROP_PIECE_IN_BOX_SOUND, 5, 100, transform.position);
         }
 
         private float MoveToDestination(Vector2 origin, Vector2 destination, float timer)

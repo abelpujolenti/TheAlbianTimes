@@ -18,6 +18,11 @@ namespace Stats
 
         private void Start()
         {
+            if (GameManager.Instance.GetRound() == 0)
+            {
+                gameObject.SetActive(false);
+                return;
+            }
             UpdateStaffCost();
             UpdateText();
         }

@@ -2270,7 +2270,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.17871127, g: 0.18437225, b: 0.18867922, a: 1}
     m_PressedColor: {r: 0.0754717, g: 0.0754717, b: 0.0754717, a: 1}
     m_SelectedColor: {r: 0.07450981, g: 0.07450981, b: 0.07450981, a: 1}
-    m_DisabledColor: {r: 0.509434, g: 0.509434, b: 0.509434, a: 0.5019608}
+    m_DisabledColor: {r: 0.11372549, g: 0.11372549, b: 0.11372549, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -3400,7 +3400,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: -295.40005}
+  m_AnchoredPosition: {x: 0, y: -295.40002}
   m_SizeDelta: {x: 1133, y: 50}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &679275925
@@ -5938,7 +5938,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: -295.40005}
+  m_AnchoredPosition: {x: 0, y: -295.40002}
   m_SizeDelta: {x: 1133, y: 50}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1023565040
@@ -7535,16 +7535,6 @@ MonoBehaviour:
     _name: Submit Paper
     _volume: 1
     _pitch: 1
-  - _audioClip: {fileID: 8300000, guid: 5fc52bdc63cdd50468bd6cc417e9ad50, type: 3}
-    audioGroup: 1
-    _name: Drop Piece In Box
-    _volume: 1
-    _pitch: 1
-  - _audioClip: {fileID: 8300000, guid: 216a756eac1a81448b152672da5c0712, type: 3}
-    audioGroup: 1
-    _name: Drop Piece Out Box
-    _volume: 1
-    _pitch: 1
   - _audioClip: {fileID: 8300000, guid: 705d926f80e2ac74f89516df89c4ae86, type: 3}
     audioGroup: 1
     _name: Friction
@@ -7555,14 +7545,24 @@ MonoBehaviour:
     _name: Thud
     _volume: 1
     _pitch: 1
-  - _audioClip: {fileID: 8300000, guid: 0dd31c72bbdfe6e46b000716b2e63d58, type: 3}
-    audioGroup: 1
-    _name: Snap Piece
-    _volume: 1
-    _pitch: 1
   - _audioClip: {fileID: 8300000, guid: 4763662a333c7cf4fa7551660367dbe5, type: 3}
     audioGroup: 1
     _name: Grab Piece
+    _volume: 1
+    _pitch: 1
+  - _audioClip: {fileID: 8300000, guid: 5fc52bdc63cdd50468bd6cc417e9ad50, type: 3}
+    audioGroup: 1
+    _name: Drop Piece In Box
+    _volume: 1
+    _pitch: 1
+  - _audioClip: {fileID: 8300000, guid: 216a756eac1a81448b152672da5c0712, type: 3}
+    audioGroup: 1
+    _name: Drop Piece Out Box
+    _volume: 1
+    _pitch: 1
+  - _audioClip: {fileID: 8300000, guid: 0dd31c72bbdfe6e46b000716b2e63d58, type: 3}
+    audioGroup: 1
+    _name: Snap Piece
     _volume: 1
     _pitch: 1
   - _audioClip: {fileID: 8300000, guid: 52b8c287a72d741419ae9f4b9233f083, type: 3}
@@ -7613,6 +7613,11 @@ MonoBehaviour:
   - _audioClip: {fileID: 8300000, guid: 9934691c00e94d846814b722e30b9c56, type: 3}
     audioGroup: 1
     _name: Mark With Marker
+    _volume: 1
+    _pitch: 1
+  - _audioClip: {fileID: 8300000, guid: e5aef94272ef89b49a1801c53bb68d86, type: 3}
+    audioGroup: 2
+    _name: Boss Post it
     _volume: 1
     _pitch: 1
   - _audioClip: {fileID: 8300000, guid: b05a2fce8acfbc74d88e107f91bb5472, type: 3}
@@ -8074,7 +8079,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.17871127, g: 0.18437225, b: 0.18867922, a: 1}
     m_PressedColor: {r: 0.0754717, g: 0.0754717, b: 0.0754717, a: 1}
     m_SelectedColor: {r: 0.07450981, g: 0.07450981, b: 0.07450981, a: 1}
-    m_DisabledColor: {r: 0.509434, g: 0.509434, b: 0.509434, a: 0.5019608}
+    m_DisabledColor: {r: 0.11372549, g: 0.11372549, b: 0.11372549, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -8097,6 +8102,78 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: MainMenuCanvas, Assembly-CSharp
         m_MethodName: Play
         m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1368072777}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Selectable, UnityEngine.UI
+        m_MethodName: set_interactable
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2080222105}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Selectable, UnityEngine.UI
+        m_MethodName: set_interactable
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1789882184}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Selectable, UnityEngine.UI
+        m_MethodName: set_interactable
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1789882184}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Selectable, UnityEngine.UI
+        m_MethodName: set_interactable
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 459301683}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Selectable, UnityEngine.UI
+        m_MethodName: set_interactable
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1895909938}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Selectable, UnityEngine.UI
+        m_MethodName: set_interactable
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -9548,6 +9625,7 @@ GameObject:
   - component: {fileID: 1641940640}
   - component: {fileID: 1641940639}
   - component: {fileID: 1641940638}
+  - component: {fileID: 1641940641}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -9629,6 +9707,50 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1641940641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1641940637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_AllowHDROutput: 1
+  m_UseScreenCoordOverride: 0
+  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
+  m_TaaSettings:
+    quality: 3
+    frameInfluence: 0.1
+    jitterScale: 1
+    mipBias: 0
+    varianceClampScale: 0.9
+    contrastAdaptiveSharpening: 0
 --- !u!1 &1662830018
 GameObject:
   m_ObjectHideFlags: 0
@@ -10783,7 +10905,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.17871127, g: 0.18437225, b: 0.18867922, a: 1}
     m_PressedColor: {r: 0.0754717, g: 0.0754717, b: 0.0754717, a: 1}
     m_SelectedColor: {r: 0.07450981, g: 0.07450981, b: 0.07450981, a: 1}
-    m_DisabledColor: {r: 0.509434, g: 0.509434, b: 0.509434, a: 0.5019608}
+    m_DisabledColor: {r: 0.11372549, g: 0.11372549, b: 0.11372549, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -11704,7 +11826,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.17871127, g: 0.18437225, b: 0.18867922, a: 1}
     m_PressedColor: {r: 0.0754717, g: 0.0754717, b: 0.0754717, a: 1}
     m_SelectedColor: {r: 0.07450981, g: 0.07450981, b: 0.07450981, a: 1}
-    m_DisabledColor: {r: 0.509434, g: 0.509434, b: 0.509434, a: 0.5019608}
+    m_DisabledColor: {r: 0.11372549, g: 0.11372549, b: 0.11372549, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -12227,7 +12349,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.17871127, g: 0.18437225, b: 0.18867922, a: 1}
     m_PressedColor: {r: 0.0754717, g: 0.0754717, b: 0.0754717, a: 1}
     m_SelectedColor: {r: 0.07450981, g: 0.07450981, b: 0.07450981, a: 1}
-    m_DisabledColor: {r: 0.509434, g: 0.509434, b: 0.509434, a: 0.5019608}
+    m_DisabledColor: {r: 0.11372549, g: 0.11372549, b: 0.11372549, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:

@@ -41,10 +41,10 @@ namespace Managers
                     {
                         break;
                     }
-                    /*mail.SetActive(false);
+                    mail.SetActive(false);
                     StartCoroutine(RevealMail());
                     notebook.SetActive(false);
-                    StartCoroutine(RaiseNotebook());*/
+                    StartCoroutine(RaiseNotebook());
                     break;
             }
         }

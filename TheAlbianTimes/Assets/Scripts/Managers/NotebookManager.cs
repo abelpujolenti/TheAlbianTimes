@@ -79,11 +79,9 @@ namespace Managers
                 _cover = Instantiate(_coverPrefab);
                 _leftPage.ChangeContent(_cover);
                 _cover.transform.localRotation = new Quaternion(0, 180, 0, 1);
+                return;
             }
-            else
-            {
-                Destroy(gameObject);
-            }
+            Destroy(gameObject);
         }
 
         private void InitializeNotebookContentPages(NotebookContentType notebookContentType, GameObject[] prefabs)
@@ -153,7 +151,7 @@ namespace Managers
             ReservePagesForMap();
             SaveCountriesContentsInDictionary(countriesContent);
             //SaveInternationalsContentsInDictionary(internationalsContent);
-            SavePeopleContentsInDictionary(peopleContent);
+            //SavePeopleContentsInDictionary(peopleContent);
 
             _totalPages = _notebookPages.Count;
         }
@@ -426,6 +424,7 @@ namespace Managers
                     GameObject page = instantiatePages.Item1();
                     _flipPage.ChangeContent(page);
                     page.transform.localRotation = new Quaternion(0, 180, 0, 1);
+                    _midPointFlip = () => { };
                 };
 
                 _endFlip = () =>
@@ -433,6 +432,7 @@ namespace Managers
                     GameObject page = _flipPage.GetCurrentPage();
                     _leftPage.ChangeContent(page);
                     page.transform.localRotation = new Quaternion(0, 0, 0, 1);
+                    _endFlip = () => { };
                 };
 
                 _notebook.FlipPageLeft(_midPointFlip, _endFlip);
@@ -453,12 +453,14 @@ namespace Managers
                 {
                     _flipPage.GetCurrentPage().SetActive(false);
                     _flipPage.UnattachPageContent();
+                    _midPointFlip = () => { };
                     return;
                 }
                 
                 GameObject page = instantiatePages.Item2();
                 _flipPage.ChangeContent(page);
                 page.transform.localRotation = new Quaternion(0, 0, 0, 1);
+                _midPointFlip = () => { };
             };
 
             _endFlip = () =>
@@ -468,28 +470,22 @@ namespace Managers
                 {
                     _rightPage.GetCurrentPage().SetActive(false);
                     _flipPage.transform.parent.localRotation = new Quaternion(0, 180, 0, 1);
+                    _endFlip = () => { };
                     return;
                 }
                 _rightPage.ChangeContent(page);
                 _flipPage.transform.parent.localRotation = new Quaternion(0, 180, 0, 1);
 
-                if (nextPage == 0)
+                if (nextPage != 0)
                 {
-                    EventsManager.OnOpenMapPages();
+                    _endFlip = () => { };
+                    return;
                 }
+                EventsManager.OnOpenMapPages();
+                _endFlip = () => { };
             };
 
             _notebook.FlipPageRight(_midPointFlip, _endFlip);
-        }
-
-        public void NotifyMidPointFlip()
-        {
-            _midPointFlip = () => { };
-        }
-
-        public void NotifyEndFlip()
-        {
-            _endFlip = () => { };
         }
 
         private void MoveBookmarks(Func<int, int, bool> sideChecker, int nextPage)
@@ -518,7 +514,7 @@ namespace Managers
         private (Func<GameObject>, Func<GameObject>) CheckContentToShow()
         {
             int mapIndex = _notebookIndices[NotebookContentType.MAP];
-            int peopleIndex = _notebookIndices[NotebookContentType.PERSON];
+            //int peopleIndex = _notebookIndices[NotebookContentType.PERSON];
 
             Func<GameObject> leftPage;
             Func<GameObject> rightPage;
@@ -530,7 +526,7 @@ namespace Managers
                 return (leftPage, rightPage);
             }
             
-            if (_currentPageNumber < peopleIndex)
+            /*if (_currentPageNumber < peopleIndex)
             {
                 leftPage = PassContentToShow(NotebookContentType.COUNTRY, COUNTRY_RANGE_OF_PAGES, 
                     mapIndex + MAP_RANGE_OF_PAGES, true);
@@ -539,13 +535,20 @@ namespace Managers
                     mapIndex + MAP_RANGE_OF_PAGES, false);
                 
                 return (leftPage, rightPage);
-            }
+            }*/
+            leftPage = PassContentToShow(NotebookContentType.COUNTRY, COUNTRY_RANGE_OF_PAGES, 
+                mapIndex + MAP_RANGE_OF_PAGES, true);
+                
+            rightPage = PassContentToShow(NotebookContentType.COUNTRY, COUNTRY_RANGE_OF_PAGES, 
+                mapIndex + MAP_RANGE_OF_PAGES, false);
+                
+            return (leftPage, rightPage);
             
-            leftPage = PassContentToShow(NotebookContentType.PERSON, PERSON_RANGE_OF_PAGES, peopleIndex, true);
+            /*leftPage = PassContentToShow(NotebookContentType.PERSON, PERSON_RANGE_OF_PAGES, peopleIndex, true);
             
             rightPage = PassContentToShow(NotebookContentType.PERSON, PERSON_RANGE_OF_PAGES, peopleIndex, false);
 
-            return (leftPage, rightPage);
+            return (leftPage, rightPage);*/
         }
 
         private Func<GameObject> PassContentToShow(NotebookContentType notebookContentType, int rangeOfPages, 
@@ -627,9 +630,7 @@ namespace Managers
         {
             SetIsNotebookOpen(true);
             
-            Action open = OpenTransition();
-            
-            _notebook.Open(open, move);
+            _notebook.Open(OpenTransition(), move);
         }
 
         private Action CloseTransition()
@@ -650,10 +651,8 @@ namespace Managers
         private void CloseNotebook()
         {
             SetIsNotebookOpen(false);
-            
-            Action close = CloseTransition();
                 
-            _notebook.Close(close);
+            _notebook.Close(CloseTransition());
         }
 
         public void EndDragNotebook(float positionY, float dragVectorY, float closeThreshold)
@@ -671,6 +670,11 @@ namespace Managers
                 }
                 _notebook.StartMoveDownCoroutine();
             }
+        }
+
+        public void HideNotebook()
+        {
+            _notebook.Hide(CloseTransition());
         }
     }
 }

@@ -4,6 +4,7 @@ using NoMonoBehavior;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Utility;
 
 namespace Workspace.Layout.Pieces
 {
@@ -70,7 +71,7 @@ namespace Workspace.Layout.Pieces
 
                     if (GameManager.Instance.GetRound() == 0)
                     {
-                        headline.text = "<font=cour SDF>" + "Drag it to old";
+                        headline.text = "<font=cour SDF>" + "Drag it to mold";
                     }
                     else
                     {

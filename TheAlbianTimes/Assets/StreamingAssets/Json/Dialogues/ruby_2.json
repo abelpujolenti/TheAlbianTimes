@@ -1,8 +1,9 @@
 {
     "name": "ruby_2",
-    "firstRound":4,
+    "firstRound":6,
     "duration":1,
     "priority":1,
+    "audioName":"RudyNormal",
     "lines": [
         {
             "parts": [

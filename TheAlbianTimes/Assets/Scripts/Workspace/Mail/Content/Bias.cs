@@ -12,6 +12,8 @@ namespace Workspace.Mail.Content
             {
                 return;
             }
+            
+            EventsManager.OnUseEnvelopeContent(gameObject);
             EventsManager.OnLinkFouthBiasWithNewsHeadline(_linkId);
             EditorialManager.Instance.SubtractLinkId(_linkId);
             Destroy(gameObject);

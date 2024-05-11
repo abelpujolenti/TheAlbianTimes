@@ -139,7 +139,7 @@ namespace Workspace.Editorial
             if (_openCapPositionCoroutine != null) StopCoroutine(_openCapPositionCoroutine);
             if (_openCapRotationCoroutine != null) StopCoroutine(_openCapRotationCoroutine);
             _openCapPositionCoroutine = StartCoroutine(TransformUtility.SetPositionCoroutine(_cap.transform, _cap.transform.position, _capStartPosition + openCapOffset, openCapTime));
-            AudioManager.Instance.Play3DSound(OPEN_MARKER_CAP_SOUND, 10, 100, transform.position);
+            AudioManager.Instance.Play3DSound(OPEN_MARKER_CAP_SOUND, 5, 100, transform.position);
         }
 
         private void CloseCap()
@@ -158,7 +158,7 @@ namespace Workspace.Editorial
             if (_openCapRotationCoroutine != null) StopCoroutine(_openCapRotationCoroutine);
             _openCapPositionCoroutine = StartCoroutine(TransformUtility.SetPositionCoroutine(_cap.transform, _cap.transform.position, _capStartPosition + separateCapOffset, closeCapTime));
             _openCapRotationCoroutine = StartCoroutine(TransformUtility.SetRotationCoroutine(_cap.transform, separateCapRotation, separateCapTime));
-            AudioManager.Instance.Play3DSound(OPEN_MARKER_CAP_SOUND, 10, 100, transform.position);
+            AudioManager.Instance.Play3DSound(OPEN_MARKER_CAP_SOUND, 5, 100, transform.position);
         }
 
         public void MarkAnimation()
@@ -180,7 +180,7 @@ namespace Workspace.Editorial
         private IEnumerator DelaySoundCoroutine(float t, string audioSourceName)
         {
             yield return new WaitForSeconds(t);
-            AudioManager.Instance.Play3DSound(audioSourceName, 10, 100, transform.position);
+            AudioManager.Instance.Play3DSound(audioSourceName, 5, 100, transform.position);
         }
 
         private IEnumerator MarkAnimationCoroutine()
@@ -201,7 +201,7 @@ namespace Workspace.Editorial
                 Vector3 passMovement = new Vector3(markAnimationWidth, -inc1, 0f);
                 _newsFolder.GetFrontHeadline().SpawnBiasMark(_siblingIndex, _image.transform.position);
 
-                AudioManager.Instance.Play3DSound(MARK_SOUND, 10, 100, transform.position);
+                AudioManager.Instance.Play3DSound(MARK_SOUND, 5, 100, transform.position);
 
                 yield return TransformUtility.SetPositionCoroutine(_image.transform, _image.transform.position, _image.transform.position + passMovement, markAnimationPassTime);
 
@@ -226,6 +226,7 @@ namespace Workspace.Editorial
             
             EventsManager.OnChangeChosenBias();
             
+            _cap.gameObject.SetActive(false);
             EventsManager.OnChangeChosenBias += UnselectBias;
             
             _selected = true;
@@ -265,6 +266,7 @@ namespace Workspace.Editorial
 
         public void SelectBias()
         {
+            _cap.gameObject.SetActive(false);
             BiasButtonStuff(true);
             //_textMeshPro.fontStyle = FontStyles.Underline;
         }
@@ -279,6 +281,7 @@ namespace Workspace.Editorial
 
         private void UnselectBias()
         {
+            _cap.gameObject.SetActive(true);
             BiasButtonStuff(false);
         }
 

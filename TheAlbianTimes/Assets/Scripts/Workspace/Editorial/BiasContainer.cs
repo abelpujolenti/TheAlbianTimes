@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Managers;
 using UnityEngine;
+using Utility;
 using Workspace.Layout.Pieces;
 using Random = UnityEngine.Random;
 
@@ -91,7 +92,7 @@ namespace Workspace.Editorial
                 
                 if (i < _biasesDescriptions.Length)
                 {
-                    StartCoroutine(SpawnPostitCoroutine(i, postitAppearDelay, previousPostit));
+                    StartCoroutine(SpawnPostitCoroutine(i, previousPostit));
                     continue;
                 }
                 
@@ -118,7 +119,7 @@ namespace Workspace.Editorial
             }
         }
 
-        private IEnumerator SpawnPostitCoroutine(int biasDescriptionIndex, float delay, Postit previousPostit)
+        private IEnumerator SpawnPostitCoroutine(int biasDescriptionIndex, Postit previousPostit)
         {
             previousPostit.StartThrowAway();
 
@@ -129,10 +130,7 @@ namespace Workspace.Editorial
             
             yield return new WaitForFixedUpdate();
             yield return new WaitUntil(() => !_bias[biasDescriptionIndex].IsMarkAnimationRunning());
-            yield return new WaitForSeconds(delay);
-
-            Vector3 position = _biasesDescriptionRectTransform[biasDescriptionIndex].position;
-            Quaternion rotation = Quaternion.Euler(0f, 0f, (int)(Random.Range(-8f, 8f) / 2f) * 2);
+            yield return new WaitForSeconds(postitAppearDelay);
             
             GameObject postitGameObject = postit.gameObject;
             
@@ -140,10 +138,11 @@ namespace Workspace.Editorial
 
             Transform postitTransform = postitGameObject.transform;
 
+            Vector3 position = _biasesDescriptionRectTransform[biasDescriptionIndex].position;
             postitTransform.position = position;
-            postitTransform.rotation = rotation;
+            postitTransform.rotation = Quaternion.Euler(0f, 0f, (int)(Random.Range(-8f, 8f) / 2f) * 2);
 
-            AudioManager.Instance.Play3DSound(POST_IT_SOUND, 10, 100, transform.position);
+            AudioManager.Instance.Play3DSound(POST_IT_SOUND, 5, 100, position);
             yield return ScaleAnimationCoroutine(postitTransform, postitScaleAnimationTime, postitInitialScale, 1f);
         }
 

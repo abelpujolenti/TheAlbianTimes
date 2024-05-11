@@ -27,8 +27,6 @@ namespace Workspace.Mail
 
         [SerializeField]private List<GameObject> _envelopes;
         [SerializeField]private List<GameObject> _envelopesContent;
-
-        private readonly Vector3[] _corners = new Vector3[4];
         
         private Vector2 _containerMinCoordinates;
         private Vector2 _containerMaxCoordinates;
@@ -38,6 +36,7 @@ namespace Workspace.Mail
             EventsManager.OnAddEnvelope += ReceiveEnvelope;
             EventsManager.OnAddEnvelopeContentToList += ReceiveEnvelopeContent;
             EventsManager.OnAddEnvelopeContent += OpenEnvelope;
+            EventsManager.OnUseEnvelopeContent += UseEnvelopeContent;
         }
 
         private void OnDisable()
@@ -45,18 +44,21 @@ namespace Workspace.Mail
             EventsManager.OnAddEnvelope -= ReceiveEnvelope;
             EventsManager.OnAddEnvelopeContentToList -= ReceiveEnvelopeContent;
             EventsManager.OnAddEnvelopeContent -= OpenEnvelope;
+            EventsManager.OnUseEnvelopeContent -= UseEnvelopeContent;
         }
 
         private void Start()
         {
-            MailManager.Instance.SetEnvelopesContainer(_envelopesContainerRectTransform);
+            MailManager.Instance.SetMailContainer(this);
             
             _envelopes = new List<GameObject>();
             _envelopesContent = new List<GameObject>();
             
-            _envelopesContainerRectTransform.GetWorldCorners(_corners);
+            Vector3[] corners = new Vector3[4];
             
-            SetContainerLimiters();
+            _envelopesContainerRectTransform.GetWorldCorners(corners);
+            
+            SetContainerLimiters(corners);
 
             GameObject[] envelopes = MailManager.Instance.LoadEnvelopesFromJson();
     
@@ -82,12 +84,12 @@ namespace Workspace.Mail
             }
         }
         
-        private void SetContainerLimiters()
+        private void SetContainerLimiters(Vector3[] corners)
         {
-            _containerMinCoordinates.x = _corners[0].x;
-            _containerMaxCoordinates.y = _corners[1].y;
-            _containerMaxCoordinates.x = _corners[2].x;
-            _containerMinCoordinates.y = _corners[3].y;
+            _containerMinCoordinates.x = corners[0].x;
+            _containerMaxCoordinates.y = corners[1].y;
+            _containerMaxCoordinates.x = corners[2].x;
+            _containerMinCoordinates.y = corners[3].y;
         }
 
         protected override void Drag(BaseEventData data)
@@ -127,13 +129,13 @@ namespace Workspace.Mail
         private void OpenContainer()
         {
             _moveContainerCoroutine = StartCoroutine(MoveContainerEnum(gameObjectToDrag.transform.position.x, maxX, openTime));
-            AudioManager.Instance.Play3DSound(OPEN_DRAWER_SOUND, 10, 100, transform.position);
+            AudioManager.Instance.Play3DSound(OPEN_DRAWER_SOUND, 5, 100, transform.position);
         }
 
         private void CloseContainer()
         {
             _moveContainerCoroutine = StartCoroutine(MoveContainerEnum(gameObjectToDrag.transform.position.x, minX, closeTime));
-            AudioManager.Instance.Play3DSound(CLOSE_DRAWER_SOUND, 10, 100, transform.position);
+            AudioManager.Instance.Play3DSound(CLOSE_DRAWER_SOUND, 5, 100, transform.position);
         }
 
         private IEnumerator MoveContainerEnum(float start, float end, float t)
@@ -234,6 +236,19 @@ namespace Workspace.Mail
             envelopeContent.transform.localScale = new Vector3(1, 1, 1);
 
             _envelopes.Remove(envelope);
+        }
+
+        private void UseEnvelopeContent(GameObject envelopeContent)
+        {
+            _envelopesContent.Remove(envelopeContent);
+        }
+
+        public Vector2[] GetCorners()
+        {
+            Vector3[] corners = new Vector3[4];
+            _envelopesContainerRectTransform.GetWorldCorners(corners);
+            SetContainerLimiters(corners);
+            return new[] { _containerMinCoordinates, _containerMaxCoordinates };
         }
 
         private void OnDestroy()

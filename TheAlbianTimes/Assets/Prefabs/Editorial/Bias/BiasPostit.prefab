@@ -233,7 +233,7 @@ MonoBehaviour:
   maxVelocity: 30
   deceleration: -50
   maxAngularUnscaledVelocity: 1.5
-  spinFactor: 30
+  spinFactor: 4
   grabRotationSnapBackTime: 0.2
   _rotate: 1
   _image: {fileID: 6631955028846260640}

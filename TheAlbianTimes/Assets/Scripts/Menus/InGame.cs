@@ -6,6 +6,12 @@ namespace Menus
 {
     public class InGame : MonoBehaviour
     {
+        private static InGame _instance;
+
+        public static InGame Instance => _instance;
+        
+        private const string CLICK_BUTTON_SOUND = "Click Button";
+        
         [SerializeField] private GameObject _mainMenu;
         [SerializeField] private Button _backButton;
 
@@ -15,28 +21,34 @@ namespace Menus
 
         private void Start()
         {
-            _currentActivePanel = _mainMenu;
-            DontDestroyOnLoad(gameObject);
+            if (_instance == null)
+            {
+                _instance = this;
+                _currentActivePanel = _mainMenu;
+                DontDestroyOnLoad(gameObject);
+                return;
+            }
+            Destroy(gameObject);
         }
 
         public void PauseButton()
         {
+            PlayClickButtonSound();
             _paused = true;
             _mainMenu.SetActive(true);
-            //Time.timeScale = 0;
         }
 
         public void ResumeButton()
         {
+            PlayClickButtonSound();
             _paused = false;
             ChangeCurrentActivePanel(_mainMenu);
             _mainMenu.SetActive(false);
-            //Time.timeScale = 1;
         }
 
         public void MainMenuButton()
         {
-            //Time.timeScale = 1;
+            PlayClickButtonSound();
             AudioManager.Instance.StopLoopingAudio(GameManager.Instance.musicAudioId);
             GameManager.Instance.musicAudioId = -1;
             Destroy(gameObject);
@@ -53,7 +65,13 @@ namespace Menus
 
         public void GoBack()
         {
+            PlayClickButtonSound();
             ChangeCurrentActivePanel(_mainMenu);
+        }
+
+        public void PlayClickButtonSound()
+        {
+            AudioManager.Instance.Play2DSound(CLICK_BUTTON_SOUND);
         }
 
         public void OnGUI()

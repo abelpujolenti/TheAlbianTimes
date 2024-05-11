@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Characters;
 using Countries;
+using Dialogue;
 using UnityEngine;
 using Workspace.Editorial;
 
@@ -11,12 +12,16 @@ namespace Managers
     {
         private static GameManager _instance;
         public static GameManager Instance => _instance;
+
+        private const string PLAYER_PREFS_TUTORIAL_PROMPTS_ENABLE = "Player Prefs Tutorial Prompts Enable";
+        private const string PLAYER_PREFS_TEXT_DIALOGUE_SPEED = "Player Prefs Text Dialogue Speed";
         
         public GameState gameState;
         public GameState prevGameState;
         private SaveManager saveManager;
         public SceneLoader sceneLoader = new SceneLoader();
-        public bool areTutorialPromptsEnabled = true;
+        public TextDialoguesSpeed textDialogueSpeed;
+        public bool areTutorialPromptsEnabled;
 
         private StatsDisplay _statsDisplay;
 
@@ -27,7 +32,6 @@ namespace Managers
         private bool _isAudioSpawnerActive;
 
         public int musicAudioId = -1;
-        private int _round = 0;
 
         private void Awake()
         {
@@ -35,6 +39,13 @@ namespace Managers
             {
                 _instance = this;
                 InitData();
+                if (!PlayerPrefs.HasKey(PLAYER_PREFS_TEXT_DIALOGUE_SPEED))
+                {
+                    PlayerPrefs.SetInt(PLAYER_PREFS_TEXT_DIALOGUE_SPEED, 1);
+                }
+
+                textDialogueSpeed = (TextDialoguesSpeed)PlayerPrefs.GetInt(PLAYER_PREFS_TEXT_DIALOGUE_SPEED);
+                areTutorialPromptsEnabled = PlayerPrefs.GetInt(PLAYER_PREFS_TUTORIAL_PROMPTS_ENABLE) == 1;
                 DontDestroyOnLoad(gameObject);
                 return;
             }
@@ -53,35 +64,35 @@ namespace Managers
 
             if (currentEvent.keyCode == KeyCode.F1)
             {
-                _round = 1;
+                gameState.currRound = 1;
                 LoadScene(ScenesName.WORKSPACE_SCENE);
                 return;
             }
             
             if (currentEvent.keyCode == KeyCode.F2)
             {
-                _round = 2;
+                gameState.currRound = 2;
                 LoadScene(ScenesName.WORKSPACE_SCENE);
                 return;
             }
             
             if (currentEvent.keyCode == KeyCode.F3)
             {
-                _round = 3;
+                gameState.currRound = 3;
                 LoadScene(ScenesName.WORKSPACE_SCENE);
                 return;
             }
             
             if (currentEvent.keyCode == KeyCode.F4)
             {
-                _round = 4;
+                gameState.currRound = 4;
                 LoadScene(ScenesName.WORKSPACE_SCENE);
                 return;
             }
             
             if (currentEvent.keyCode == KeyCode.F5)
             {
-                _round = 5;
+                gameState.currRound = 5;
                 LoadScene(ScenesName.WORKSPACE_SCENE);
                 return;
             }
@@ -91,17 +102,18 @@ namespace Managers
                 return;
             }
 
-            _round = 6;
+            gameState.currRound = 6;
             LoadScene(ScenesName.WORKSPACE_SCENE);
         }
 
-        private void InitData()
+        public void InitData()
         {
             gameState = new GameState();
             saveManager = new SaveManager();
             if (saveManager.SaveFileExists())
             {
                 saveManager.LoadFromJson();
+                gameState.currRound = saveManager.save.currRound;
             }
             LoadCountries();
             LoadCharacters();
@@ -206,17 +218,35 @@ namespace Managers
         public void UpdateStatsDisplayMoney(float money)
         {
             _statsDisplay.UpdateMoney(gameState.playerData.money += money);
+            _statsDisplay.ReceiveMoney(money);
         }
 
         public void AddToRound()
         {
+            gameState.currRound++;
             prevGameState = gameState.Clone();
-            _round++;
+            SaveGame();
         }
 
         public int GetRound()
         {
-            return _round;
+            return gameState.currRound;
+        }
+
+        public void SaveGame()
+        {
+            saveManager.SaveToJson(prevGameState);
+        }
+
+        private void OnDestroy()
+        {
+            PlayerPrefs.SetInt(PLAYER_PREFS_TEXT_DIALOGUE_SPEED, (int)textDialogueSpeed);
+            PlayerPrefs.SetInt(PLAYER_PREFS_TUTORIAL_PROMPTS_ENABLE, areTutorialPromptsEnabled ? 1 : 0);
+        }
+
+        public SaveManager GetSaveManager()
+        {
+            return saveManager;
         }
     }
 }

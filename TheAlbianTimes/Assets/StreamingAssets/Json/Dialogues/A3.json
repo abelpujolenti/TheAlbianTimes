@@ -1,0 +1,72 @@
+{
+    "name": "A3",
+    "firstRound":6,
+    "duration":1,
+    "priority":1,
+    "audioName":"AdrianNormal",
+    "characterConditions": [
+        {
+            "entityId": 2,
+            "field": "impact",
+            "value": 60,
+            "predicate": 2
+        }
+    ],
+    "lines": [
+        {
+            "parts": [
+                {
+                    "speaker": "Adrian",
+                    "text": "So...¬¬ Our date went really good and...¬¬ I wanted to ask you if do you want to come home with me¬¬¬¬ tonight."
+                }
+            ],
+            "options": [
+                {
+                    "id": 0,
+                    "text": "Yes, of course. I had a great time too.",
+                    "mood": "[Loving]",
+                    "followupLines": 1,
+                    "consequences": [
+                        {
+                            "entityId": 2,
+                            "key": "impact",
+                            "value": 20
+                        },
+                        {
+                            "entityId": 0,
+                            "key": "impact",
+                            "value": -60
+                        }
+                    ]
+                },
+                {
+                    "id": 1,
+                    "text": "We should stop here. I have a wife.",
+                    "mood": "[Regretful]",
+                    "followupLines": 1,
+                    "consequences": [
+                        {
+                            "entityId": 2,
+                            "key": "impact",
+                            "value": -60
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "parts": [
+                {
+                    "speaker": "Adrian",
+                    "text": "That warms my heart to hear. I thoroughly enjoyed our time together; it was truly special."
+                },
+                {
+                    "speaker": "Adrian",
+                    "text": "I completely respect that. Your commitment to your wife is¬¬¬ commendable. Let's cherish the memories we've made last night."
+                }
+            ],
+            "options": [
+            ]
+        }
+    ]
+}

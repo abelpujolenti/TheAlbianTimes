@@ -67,7 +67,7 @@ namespace Workspace.Mail
         {
             Vector3 end = new Vector3(maxX, gameObjectToDrag.transform.position.y, gameObjectToDrag.transform.position.z);
             _moveContainerCoroutine = StartCoroutine(SetPositionCoroutine(gameObjectToDrag.transform.position, end, openTime));
-            AudioManager.Instance.Play3DSound(OPEN_DRAWER_SOUND, 10, 100, transform.position);
+            AudioManager.Instance.Play3DSound(OPEN_DRAWER_SOUND, 5, 100, transform.position);
 
             handleTarget.sizeDelta = new Vector2(rectTransform.sizeDelta.x, handleTarget.sizeDelta.y);
         }
@@ -76,7 +76,7 @@ namespace Workspace.Mail
         {
             Vector3 end = new Vector3(minX, gameObjectToDrag.transform.position.y, gameObjectToDrag.transform.position.z);
             _moveContainerCoroutine = StartCoroutine(SetPositionCoroutine(gameObjectToDrag.transform.position, end, closeTime));
-            AudioManager.Instance.Play3DSound(CLOSE_DRAWER_SOUND, 10, 100, transform.position);
+            AudioManager.Instance.Play3DSound(CLOSE_DRAWER_SOUND, 5, 100, transform.position);
 
             handleTarget.sizeDelta = new Vector2(baseHandleWidth, handleTarget.sizeDelta.y);
         }

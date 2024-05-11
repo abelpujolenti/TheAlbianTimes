@@ -55,13 +55,13 @@ public class BalanceSheet : MonoBehaviour
         float revenue = PlayerDataManager.Instance.CalculateRevenue();
         AddLine("Revenue:", revenue, 19f);
 
-        var values = PlayerDataManager.Instance.CalculateRevenueComponents();
+        float[] values = PlayerDataManager.Instance.CalculateRevenueComponents();
         for (int i = 0; i < values.Length; i++)
         {
             AddLine(Country.names[i] + ":", values[i], 16f);
         }
 
-        float cost = PlayerDataManager.Instance.CalculateCosts();
+        float cost = PlayerDataManager.Instance.CalculateCosts(GameManager.Instance.prevGameState);
         AddLine("Costs:", -cost, 19f);
         AddLine("Total:", GameManager.Instance.gameState.playerData.money, 22f);
     }
@@ -69,7 +69,7 @@ public class BalanceSheet : MonoBehaviour
     void AddLine(string name, float value, float size)
     {
         text.text += "<size=" + size + ">" + GetColor(value) + name + "\n";
-        amounts.text += "<size=" + size + ">" + GetColor(value) + value.ToString("F1") + "$" + "\n";
+        amounts.text += "<size=" + size + ">" + GetColor(value) + value.ToString("F2") + "$" + "\n";
     }
 
     string GetColor(float value)

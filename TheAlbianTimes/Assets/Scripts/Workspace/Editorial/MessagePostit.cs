@@ -1,15 +1,15 @@
 using TMPro;
+using UnityEngine;
 using Utility;
 
 namespace Workspace.Editorial
 {
     public class MessagePostit : ThrowableInteractableRectTransform
     {
+        [SerializeField] private TextMeshProUGUI _text;
         public void Setup(MessagePostitData data)
         {
-            var tmp = GetComponentInChildren<TextMeshProUGUI>();
-            tmp.text = data.text;
-            tmp.color = data.color;
+            _text.text = data.text;
         }
     }
 }

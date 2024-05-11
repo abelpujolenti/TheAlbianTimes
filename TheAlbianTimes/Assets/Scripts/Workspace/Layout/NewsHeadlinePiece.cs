@@ -12,6 +12,7 @@ namespace Workspace.Layout
     {
         private const String GRAB_PIECE_SOUND = "Grab Piece";
         private const String DROP_PIECE_IN_BOX_SOUND = "Drop Piece In Box";
+        private const String DROP_PIECE_OUT_BOX_SOUND = "Drop Piece Out Box";
         private const String SNAP_PIECE_SOUND = "Snap Piece";
         
         private const float TRANSPARENCY_VALUE = 0.9f;
@@ -57,7 +58,7 @@ namespace Workspace.Layout
         {
             transform.SetAsLastSibling();
 
-            AudioManager.Instance.Play3DSound(GRAB_PIECE_SOUND, 10, 100, transform.position);
+            AudioManager.Instance.Play3DSound(GRAB_PIECE_SOUND, 5, 100, transform.position);
 
             EventsManager.OnCheckDistanceToMouse += DistanceToPosition;
 
@@ -121,7 +122,6 @@ namespace Workspace.Layout
             if (_snappedCells == null)
             {
                 FailSnapOnMold();
-                AudioManager.Instance.Play3DSound(DROP_PIECE_IN_BOX_SOUND, 10, 100, transform.position);
                 return;
             }
             
@@ -136,7 +136,7 @@ namespace Workspace.Layout
                 subPiece.SetIsSnapped(true);
             }
             
-            AudioManager.Instance.Play3DSound(SNAP_PIECE_SOUND, 10, 100, transform.position);
+            AudioManager.Instance.Play3DSound(SNAP_PIECE_SOUND, 5, 100, transform.position);
         }
 
         private void FailSnapOnMold()
@@ -145,6 +145,8 @@ namespace Workspace.Layout
 
             if (_rotate)
             {
+                AudioManager.Instance.Play3DSound(DROP_PIECE_OUT_BOX_SOUND, 5, 100, transform.position);
+                
                 if (_subscribed)
                 {
                     return;
@@ -164,6 +166,8 @@ namespace Workspace.Layout
 
         private void PlaceOnPermittedPlace()
         {
+            AudioManager.Instance.Play3DSound(DROP_PIECE_IN_BOX_SOUND, 5, 100, transform.position);
+            
             if (!_subscribed)
             {
                 return;
@@ -211,6 +215,8 @@ namespace Workspace.Layout
 
                 yield return null;
             }
+            
+            AudioManager.Instance.Play3DSound(DROP_PIECE_IN_BOX_SOUND, 5, 100, transform.position);
         }
 
         private float MoveToDestination(Vector2 origin, Vector2 destination, float timer)

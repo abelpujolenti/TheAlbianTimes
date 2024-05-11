@@ -110,6 +110,16 @@ namespace Managers
 
         private void InitializeAudioValues()
         {
+            if (!PlayerPrefs.HasKey(PLAYER_PREFS_MASTER_VOLUME_VALUE))
+            {
+                PlayerPrefs.SetFloat(PLAYER_PREFS_MASTER_VOLUME_VALUE, 1);
+                PlayerPrefs.SetFloat(PLAYER_PREFS_SFX_VOLUME_VALUE, 1);
+                PlayerPrefs.SetFloat(PLAYER_PREFS_MUSIC_VOLUME_VALUE, 1);
+                PlayerPrefs.SetInt(PLAYER_PREFS_MASTER_MUTE, 0);
+                PlayerPrefs.SetInt(PLAYER_PREFS_SFX_MUTE, 0);
+                PlayerPrefs.SetInt(PLAYER_PREFS_MUSIC_MUTE, 0);
+            }
+            
             SetMasterVolumeValue(PlayerPrefs.GetFloat(PLAYER_PREFS_MASTER_VOLUME_VALUE));
             SetMasterMute(PlayerPrefs.GetInt(PLAYER_PREFS_MASTER_MUTE) != 0);
             
@@ -404,6 +414,39 @@ namespace Managers
                 minVolume, maxVolume, minPitch, maxPitch, position, lowPassCutoff);
         }
 
+        public void StopAllAudios()
+        {
+            for (AudioGroups i = (AudioGroups)1; i < AudioGroups.SIZE; i++)
+            {
+                StopAudioGroupAudios(i);
+            }
+        }
+
+        public void StopAudioGroupAudios(AudioGroups audioGroup)
+        {
+            AudioSource[] audioSources = _audioSourcesInGroups[audioGroup];
+
+            foreach (AudioSource audioSource in audioSources)
+            {
+                if (audioSource.loop)
+                {
+                    audioSource.loop = false;
+                    foreach (KeyValuePair<int, AudioSource> audioLooping in _audiosLooping)
+                    {
+                        if (audioLooping.Value != audioSource)
+                        {
+                            continue;
+                        }
+
+                        _audiosLooping.Remove(audioLooping.Key);
+                        break;
+                    }
+                }
+                
+                audioSource.Stop();
+            }
+        }
+
         public void StopLoopingAudio(int id)
         {
             AudioSource audioSource = _audiosLooping[id];
@@ -632,7 +675,7 @@ namespace Managers
 
         private void OnDestroy()
         {
-            if (_instance == null)
+            if (_instance != this)
             {
                 return;
             }

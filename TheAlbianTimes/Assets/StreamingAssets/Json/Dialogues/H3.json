@@ -1,30 +1,51 @@
 {
     "name": "H3",
-    "firstRound":6,
+    "firstRound":5,
     "duration":1,
     "priority":1,
+    "audioName":"HazelNormal",
+    "characterConditions": [
+        {
+            "entityId": 0,
+            "field": "HazelConsequence",
+            "value": 1,
+            "predicate": 0
+        }
+    ],
     "lines": [
         {
             "parts": [
                 {
                     "speaker": "Hazel",
-                    "text": "I am utterly exhausted... Last night was relentless at the hospital. How did things go yesterday with Rudy, darling? I hope it wasn't too much for you to handle¬¬ after your own long day."
+                    "text": "I am utterly exhausted...¬¬ Last night was relentless at the hospital.¬¬ How did things go yesterday with Rudy,¬ darling? I hope it wasn't too much for you to handle¬¬¬¬ after your own long day."
                 }
             ],
             "options": [
                 {
                     "id": 0,
-                    "text": "Oh¬¬¬ don't worry, everything went smoothly with Rudy. We had a great time together. How about you? How was your shift?",
+                    "text": "Oh don't worry, everything went smoothly. We had a great time together. How was your shift?",
                     "mood": "[Reassuring]",
                     "followupLines": 1,
-                    "impact": 5
+                    "consequences": [
+                        {
+                            "entityId": 0,
+                            "key": "impact",
+                            "value": 5
+                        }
+                    ]
                 },
                 {
                     "id": 1,
                     "text": "It was exhausting, to be honest. Rudy was a handful, but we managed. Your shift must have been tough too, huh?",
                     "mood": "[Tired]",
                     "followupLines": 1,
-                    "impact": 3
+                    "consequences": [
+                        {
+                            "entityId": 0,
+                            "key": "impact",
+                            "value": 2
+                        }
+                    ]
                 }
             ]
         },
@@ -46,23 +67,48 @@
             "parts": [
                 {
                     "speaker": "Hazel",
-                    "text": "Honey, I've been thinking... I'm getting worried about Rudy. She's been really immersed in political discussions lately, even asking me about my shifts at the hospital, especially after those¬ rebels came last week. Do you think it's just curiosity, or could there be something more going on?"
+                    "text": "Honey, I've been thinking... What do you think about Rudy's political...¬¬ interest?. She's been really immersed in political discussions lately, even asking me about my shifts at the hospital, especially after those¬ rebels came last week. Do you think it's just curiosity, or could there be something more going on?"
                 }
             ],
             "options": [
                 {
                     "id": 0,
-                    "text": "I share your concern, Hazel. But I hope it's just curiosity. Given what we deal with in the editorial, I can't shake off the thought of her getting involved in something darker. Last night, she kept bombarding me with questions about Albia and other political conflicts. It's all she seemed to talk about.",
+                    "text": "Rudy's sudden interest in politics concerns me. Last night, all she talked about were political conflicts.",
                     "mood": "[Worried]",
                     "followupLines": 0,
-                    "impact": 5
+                    "consequences": [
+                        {
+                            "entityId": 0,
+                            "key": "impact",
+                            "value": 5
+                        }
+                    ]
                 },
                 {
                     "id": 1,
-                    "text": "I understand your worry, but she's just a child, Hazel. Perhaps it's nothing more than a keen interest sparked by her studies at university. Last night, she was probably just trying to apply what she's learning.",
+                    "text": "She's just a child, Hazel. Perhaps it's nothing more than a keen interest sparked by her studies at university.",
                     "mood": "[Dismissive]",
                     "followupLines": 0,
-                    "impact": 0
+                    "consequences": [
+                        {
+                            "entityId": 0,
+                            "key": "impact",
+                            "value": 0
+                        }
+                    ]
+                },
+                {
+                    "id": 2,
+                    "text": "It's actually quite exciting. Rudy's interest in politics shows she's intellectually engaged and aware of the world around her.",
+                    "mood": "[Enthusiastic]",
+                    "followupLines": 0,
+                    "consequences": [
+                        {
+                            "entityId": 0,
+                            "key": "impact",
+                            "value": 5
+                        }
+                    ]
                 }
             ]
         }

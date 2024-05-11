@@ -1,8 +1,9 @@
 {
     "name": "H2",
-    "firstRound":4,
+    "firstRound":3,
     "duration":1,
     "priority":1,
+    "audioName":"HazelNormal",
     "lines": [
         {
             "parts": [
@@ -17,14 +18,26 @@
                     "text": "Sure, count on me.",
                     "mood": "[Caring]",
                     "followupLines": 1,
-                    "impact": 5
+                    "consequences": [
+                        {
+                            "entityId": 0,
+                            "key": "impact",
+                            "value": 5
+                        }
+                    ]
                 },
                 {
                     "id": 1,
                     "text": "If I have no other choice...",
                     "mood": "[Reluctantly]",
                     "followupLines": 1,
-                    "impact": -5
+                    "consequences": [
+                        {
+                            "entityId": 0,
+                            "key": "impact",
+                            "value": -5
+                        }
+                    ]
                 }
             ]
         },
@@ -52,25 +65,42 @@
             "options": [
                 {
                     "id": 0,
-                    "text": "Shit- I mean, you are right. Damn¬¬ my head is somewhere else this days. I'll write it down.",
+                    "text": "Shit- I mean, you are right. Damn my head is somewhere else this days.",
                     "mood": "[Surprised]",
                     "followupLines": 0,
-                    "impact": 0,
-                    "variable add to note": true
+                    "consequences": [
+                        {
+                            "entityId": 0,
+                            "key": "impact",
+                            "value": 0
+                        }
+                    ]
                 },
                 {
                     "id": 1,
-                    "text": "Yeah¬ sure.",
+                    "text": "Yeah sure.",
                     "mood": "[Apathetic]",
                     "followupLines": 0,
-                    "impact": -5
+                    "consequences": [
+                        {
+                            "entityId": 0,
+                            "key": "impact",
+                            "value": -5
+                        }
+                    ]
                 },
                 {
                     "id": 2,
                     "text": "Of course, I can't wait to celebrate it!",
                     "mood": "[Excited]",
                     "followupLines": 0,
-                    "impact": 5
+                    "consequences": [
+                        {
+                            "entityId": 0,
+                            "key": "impact",
+                            "value": 5
+                        }
+                    ]
                 }
             ]
         }

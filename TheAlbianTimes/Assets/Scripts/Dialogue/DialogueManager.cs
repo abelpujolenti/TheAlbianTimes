@@ -7,14 +7,13 @@ using Managers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Utility;
 
 namespace Dialogue
 {
     public class DialogueManager : MonoBehaviour
     {
         private const int TOTAL_KEY_TYPES_AUDIOS = 7;
-
-        private const float TIME_TO_SHOW_CHARACTER = 3.5f;
         
         private const string CHARACTERS_SPRITE_PATH = "Images/Characters/";
         private const string CLICK_BUTTON_SOUND = "Click Button";
@@ -40,6 +39,7 @@ namespace Dialogue
         private int currentLine = -1;
         private List<int> chosenDialogueOptions = new List<int>();
         private int chosenOptionLinesRemaining = 0;
+        private int _characterAudioId = -1;
 
         void Start()
         {
@@ -95,41 +95,28 @@ namespace Dialogue
 
             selectedDialogue = dialogue.Last().Value;
 
+            _characterAudioId = AudioManager.Instance.Play2DLoopSound(selectedDialogue.audioName);    
+
             string speakerName = selectedDialogue.lines[0].parts[0].speaker; 
             
             SetSpeakerText(speakerName);
-            
-            StartCoroutine(ShowCharacter(TIME_TO_SHOW_CHARACTER, speakerName));
+
+            ShowCharacter(speakerName);
             return true;
         }
 
-        private IEnumerator ShowCharacter(float timeToShow, string speakerName)
+        private void ShowCharacter(string speakerName)
         {
-            float time = 0;
-
-            _character.sprite = Resources.Load<Sprite>(CHARACTERS_SPRITE_PATH + speakerName);
-
-            if (_character.sprite == null)
+            Sprite characterSprite = Resources.Load<Sprite>(CHARACTERS_SPRITE_PATH + speakerName); 
+            
+            //ERASE
+            if (characterSprite != null)
             {
-                yield break;
+                _character.sprite = characterSprite;
+                return;
             }
-
-            Color color = _character.color;
-
-            while (time < timeToShow)
-            {
-                time += Time.deltaTime;
-
-                color.a = Mathf.Lerp(0, 1, time / timeToShow);
-
-                _character.color = color;
-                
-                yield return null;
-            }
-
-            color.a = 1;
-
-            _character.color = color;
+            _character.sprite = Resources.Load<Sprite>(CHARACTERS_SPRITE_PATH + "Unknown");
+            
         }
 
         private void LoadDialogueFromFile(string json)
@@ -235,7 +222,12 @@ namespace Dialogue
         public void SelectOption(int optionId, int buttonId)
         {
             chosenDialogueOptions.Add(optionId);
-            chosenOptionLinesRemaining = selectedDialogue.lines[currentLine].options[buttonId].followupLines;
+            var option = selectedDialogue.lines[currentLine].options[buttonId];
+            chosenOptionLinesRemaining = option.followupLines;
+            if (option.consequences != null)
+            {
+                DialogueConsequenceManager.Instance.ApplyDialogueConsequences(option.consequences);
+            }
             DisplayNextLine();
         }
         
@@ -255,6 +247,14 @@ namespace Dialogue
             string json = File.ReadAllText(path);
 
             selectedDialogue = JsonUtility.FromJson<DialogueData>(json);
+        }
+
+        private void OnDestroy()
+        {
+            if (_characterAudioId >= 0)
+            {
+                AudioManager.Instance.StopLoopingAudio(_characterAudioId);
+            }
         }
     }
 }

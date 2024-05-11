@@ -1,0 +1,134 @@
+{
+    "name": "H4",
+    "firstRound":5,
+    "duration":1,
+    "priority":1,
+    "audioName":"HazelControversial",
+    "characterConditions": [
+        {
+            "entityId": 0,
+            "field": "HazelConsequence",
+            "value": 2,
+            "predicate": 0
+        }
+    ],
+    "lines": [
+        {
+            "parts": [
+                {
+                    "speaker": "Hazel",
+                    "text": "I can't believe it. After I¬¬ specifically asked you to stay with Rudy, you didn't even come home with her last night. You left her all alone,¬¬¬ didn't you?"
+                }
+            ],
+            "options": [
+                {
+                    "id": 0,
+                    "text": "I had other plans, Hazel. It was unexpected, and I got caught up in something else.",
+                    "mood": "[Defensive]",
+                    "followupLines": 1,
+                    "consequences": [
+                        {
+                            "entityId": 0,
+                            "key": "impact",
+                            "value": -10
+                        }
+                    ]
+                },
+                {
+                    "id": 1,
+                    "text": "I am deeply sorry, Hazel. I don't know where my head was last night. It was a mistake, and I feel terrible about it.",
+                    "mood": "[Regretful]",
+                    "followupLines": 1,
+                    "consequences": [
+                        {
+                            "entityId": 0,
+                            "key": "impact",
+                            "value": -5
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "parts": [
+                {
+                    "speaker": "Hazel",
+                    "text": "More important than our daughter? What could possibly be more important than her? Than our family?"
+                },
+                {
+                    "speaker": "Hazel",
+                    "text": "I understand that mistakes happen, but Rudy's trust in us is paramount. I need to be able to trust you..."
+                }
+            ],
+            "options": [
+            ]
+        },
+        {
+            "parts": [
+                {
+                    "speaker": "Hazel",
+                    "text": "So,¬¬¬¬ where were you?"
+                }
+            ],
+            "options": [
+                {
+                    "id": 0,
+                    "text": "Something came up at work, Hazel. It was unexpected and I had to stay longer. I'm sorry I didn't communicate it to you earlier.",
+                    "mood": "[Apologetic]",
+                    "followupLines": 1,
+                    "consequences": [
+                        {
+                            "entityId": 0,
+                            "key": "impact",
+                            "value": -10
+                        }
+                    ]
+                },
+                {
+                    "id": 1,
+                    "text": "I ended up hanging out with my secretary. I realize now it wasn't the best decision, especially after promising to spend time with Rudy.",
+                    "mood": "[Remorseful]",
+                    "followupLines": 1,
+                    "consequences": [
+                        {
+                            "entityId": 0,
+                            "key": "impact",
+                            "value": -5
+                        }
+                    ]
+                },
+                {
+                    "id": 2,
+                    "text": "I went out with my secretary. Frankly, it's none of your business.",
+                    "mood": "[Dismissive]",
+                    "followupLines": 1,
+                    "consequences": [
+                        {
+                            "entityId": 0,
+                            "key": "impact",
+                            "value": -60
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "parts": [
+                {
+                    "speaker": "Hazel",
+                    "text": "You shouldn't prioritize work before family."
+                },
+                {
+                    "speaker": "Hazel",
+                    "text": "I don't even want to ask. I hope you learned something."
+                },
+                {
+                    "speaker": "Hazel",
+                    "text": "None¬¬ of¬¬ my¬¬ business?¬¬¬¬ Ok."
+                }
+            ],
+            "options": [
+            ]
+        }
+    ]
+}

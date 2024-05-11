@@ -69,7 +69,7 @@ public class PlayerDataManager : MonoBehaviour
     }
     public float CalculateRevenue()
     {
-        float income = 0;
+        float income = 0.0f;
         foreach(float addIncome in CalculateRevenueComponents())
         {
             income += addIncome;
@@ -87,14 +87,14 @@ public class PlayerDataManager : MonoBehaviour
         }
         return rev;
     }
-    public float CalculateCosts()
+    public float CalculateCosts(GameState gameState)
     {
-        return UpdateStaffCost() * GameManager.Instance.gameState.playerData.staff;
+        return UpdateStaffCost(gameState) * GameManager.Instance.gameState.playerData.staff;
     }
-    public float UpdateStaffCost()
+    public float UpdateStaffCost(GameState gameState)
     {
         float censorshipCost = UpdateAverageCensorship() * censorshipMarkup;
-        float reputationGain = GameManager.Instance.gameState.playerData.reputation * reputationDiscount;
+        float reputationGain = gameState.playerData.reputation * reputationDiscount;
         staffCost = baseStaffCost + censorshipCost - reputationGain;
         return staffCost;
     }

@@ -1,0 +1,82 @@
+{
+    "name":"rekka_deadly_flu_epidemic",
+    "firstRound":9,
+    "duration":3,
+    "priority":0.6,
+    "leniency":5,
+    "type": 0,
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 8,
+            "key": "reputation",
+            "value": -0.05
+        }
+    ],
+    "biases": [
+        {
+            "name": "GUILTY",
+            "description": "Self isolation is responsible for Rekka's low quality healthcare.",
+            "headline": "Rekka's radical ideology, accountable for the loss of more than 3,000 lives.",
+            "text": "   The deadly flu epidemic that has begun to spread through Rekka has already claimed more than 3,000 lives. This is an unprecedented historical event, as no similar episode is known on the island.  Rekka's level of development, much lower than the rest of the continent's countries, has prevented it from assuming the healthcare cost.\n    Responsibility for this national emergency must be attributed to the radical ecologist ideology of Rekka's leaders, which has led to their rejection of all scientific and technological progress. This isolation is systematically perpetrated by a pyramidal religious organization that exercises absolute control over the population by relying on superstition and lack of knowledge.",        
+            "additionalConsequences": [
+                {
+                    "country": 8,
+                    "key": "k_foreigners_against",
+                    "value": 0.1
+                }
+            ]
+        },
+        {
+            "name": "VICTIM",
+            "description": "The lack of support from wealthy countries prevents the situation from improving.",
+            "headline": "Rekka collapsed due to epidemic, overseas countries remain passive.",
+            "text": "   The deadly flu epidemic that has begun to spread through Rekka has already claimed more than 3,000 lives. This is an unprecedented historical event, as no similar episode is known on the island.  Rekka's level of development, much lower than the rest of the continent's countries, has prevented it from assuming the healthcare cost.\n    As the first cases of the disease coincide with the opening of the island to tourism, it can be stated with a high degree of certainty that the flu was transmitted by a foreigner. The lack of solidarity from welfare states like Madia and Hetia, or from countries at the forefront of medicine such as Xaya, can be considered partially responsible for this health emergency.",
+            "additionalConsequences": [
+                {
+                    "country": 8,
+                    "key": "reputation",
+                    "value": 0.15
+                },
+                {
+                    "country": 6,
+                    "key": "reputation",
+                    "value": -0.1
+                },
+                {
+                    "country": 0,
+                    "key": "reputation",
+                    "value": -0.1
+                },
+                {
+                    "xaya": 2,
+                    "key": "reputation",
+                    "value": -0.1
+                }
+            ]
+        },
+        {
+            "name": "MONTAGE",
+            "description": "The health crisis could be used to limit the presence of foreigners.",
+            "headline": "Rekka's authoritarian government behind flu outbreak.",
+            "text": "   The deadly flu epidemic that has begun to spread through Rekka has already claimed more than 3,000 lives. Despite the fact that no similar episode is known overseas, it is not the first time that the Rekkan government, using its absolute power, has used biological tools to eradicate possible threats to its monopoly.\n    The beginning of the epidemic coincides with the opening to tourism, an unprecedented event that was a first step towards the opening of Rekka abroad. Yan Oceanus' regime, fearing that the presence of foreigners could lead to the island's secrets to be revealed, imported the virus probably from Xaya, in order to use the health crisis as an excuse to close borders and prevent the locals from disclosing any secrets.",  
+            "additionalConsequences": [
+                {
+                    "country": 8,
+                    "key": "reputation",
+                    "value": -0.1
+                },
+                {
+                    "country": 2,
+                    "key": "reputation",
+                    "value": -0.1
+                },
+                {
+                    "country": 8,
+                    "key": "k_rekkans_against",
+                    "value": 0.1
+                }
+            ]
+        }
+    ]
+}

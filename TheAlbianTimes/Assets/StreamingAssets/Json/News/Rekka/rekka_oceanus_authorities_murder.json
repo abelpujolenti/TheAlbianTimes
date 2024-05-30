@@ -1,0 +1,57 @@
+{
+    "name":"rekka_oceanus_authorities_murder",
+    "firstRound":18,
+    "duration":1,
+    "priority":1,
+    "leniency":0,
+    "type": 0,
+    "conditions": [
+        {
+            "entityId": 8,
+            "field": "k_rekkans_against",
+            "value": 0.2,
+            "predicate": 1
+        }
+    ],
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 8,
+            "key": "reputation",
+            "value": 0
+        },
+        {
+            "country": 8,
+            "key": "k_rekka_masses_murder",
+            "value": 0.1
+        }
+    ],
+    "biases": [
+        {
+            "name": "ELIMINATION",
+            "description": "International Action for Human Rights has photographic evidence of the murder.",
+            "headline": "Religious authorities eliminate Yan Oceanus after he tried to flee the island.",
+            "text": "   International Action for Human Rights claims to have evidence of the murder of Yan Oceanus by Rekka's temporary authorities. The former leader had unsuccessfully tried to escape from the Sanctuary in which he had been confined, probably in order to avoid a suicide ritual. The NGO, which has been watching the area since the labor camp leaks, has photographic evidence of Yan Oceanus' corpse being dismembered and thrown into the sea.\n    The NGO has also revealed that it has interviewed a former Transcendent Guide who managed to escape to Zuania and live under a false identity. Everything points to confirmation of the forced suicide of the Rekkan leaders at the end of their term, which adds another layer of depth to the island's complex situation.",        
+            "additionalConsequences": [
+                {
+                    "country": 8,
+                    "key": "reputation",
+                    "value": -0.2
+                }
+            ]
+        },
+        {
+            "name": "HEALTH",
+            "description": "The Staghorn Priestess denies the ONGs claims of murder.",
+            "headline": "Rekka asserts that Yan Oceanus is alive.",
+            "text":  "    Rekkan authorities have denied the murder of Yan Oceanus, accusing International Action for Human Rights of making baseless claims. They consider their doubt about the 'community's legitimacy' an 'inadmissible fault', especially given the delicate state of health in which Yan Oceanus is. It is for this reason that a delegation of doctors and priests has traveled exceptionally to the Sanctuary.\n    Despite the illness of the former leader, Chant of the Lagoon, Staghorn Priestess and acting leader, has stated that 'the situation is not alarming' and that Oceanus only needs to 'let the ocean breeze enter his spirit' to recover.",
+            "additionalConsequences": [
+                {
+                    "country": 8,
+                    "key": "reputation",
+                    "value": 0.2
+                }
+            ]
+        }
+    ]
+}

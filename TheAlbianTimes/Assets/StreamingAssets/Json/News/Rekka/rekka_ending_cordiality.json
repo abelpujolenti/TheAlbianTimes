@@ -1,0 +1,52 @@
+{
+    "name":"rekka_ending_cordiality",
+    "firstRound":19,
+    "duration":1,
+    "priority":1,
+    "leniency":0,
+    "type": 1,
+    "conditions": [
+        {
+            "entityId": 8,
+            "field": "k_rekka_authorities_murder",
+            "value": 0.1,
+            "predicate": 0
+        }
+    ],
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 8,
+            "key": "reputation",
+            "value": 0
+        }
+    ],
+    "biases": [
+        {
+            "name": "BETRAYAL",
+            "description": "Chaos takes over Rekka as the population unleashes its wrath.",
+            "headline": "Rekka betrays its founding principles.",
+            "text": "   Be it due to international pressure or due to the birth of a cold and materialistic interest, the temporary government of Rekka has unilaterally decided to renounce its history and tradition and begin a process of constitution as a state, with a view to entering the international economy in a not-too-distant future.\n    This decision is a direct attack to the self-organized roots of the Rekkan project. It seems that the current leaders have forgotten that their community was born as a response to the drifts of states like Dalme and Xaya; drifts into which the new Rekkan state could easily fall.",        
+            "additionalConsequences": [
+                {
+                    "country": 8,
+                    "key": "reputation",
+                    "value": -0.2
+                }
+            ]
+        },
+        {
+            "name": "PROGRESS",
+            "description": "Rekka has decided to constitute itself as a state.",
+            "headline": "Rekka, one step closer to joining the international community.",
+            "text":  "    After decades of isolation, Rekka has abandoned its attempts at autocracy and has made the decision to constitute itself as a state, in order to fully integrate into the international community and, in the future, in global economy.\n    It can be said that the country has reached a stage of maturity by distancing itself from the intentions of its founders, a counter-culture group that was born as a reaction to certain events that took place in Dalme and Xaya. Despite the romanticism of that project, history has shown that it was a utopian ideal that, fortunately, has metamorphosed into rational politics.",
+            "additionalConsequences": [
+                {
+                    "country": 8,
+                    "key": "reputation",
+                    "value": 0.2
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,67 @@
+{
+    "name":"rekka_ready_encounters",
+    "firstRound":13,
+    "duration":2,
+    "priority":0.9,
+    "leniency":2,
+    "type": 1,
+    "conditions": [
+        {
+            "entityId": 8,
+            "field": "reputation",
+            "value": 0.5,
+            "predicate": 4
+        }
+    ],
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 8,
+            "key": "reputation",
+            "value": 0
+        },
+        {
+            "country": 8,
+            "key": "k_rekka_expelled",
+            "value": 0
+        }
+    ],
+    "biases": [
+        {
+            "name": "CONDEMN",
+            "description": "Terkan allies with religious fanatics as its situation worsens.",
+            "headline": "Terkan digs its own grave by keeping Rekka in the Religious Encounters.",
+            "text": "   After the Sumania massacre and the rise of terrorism, Terkan is desperate for allies in its fight against diplomatic humiliation. However, this time Terkan has gone too far by inviting to the International Religious Encounters representatives of a region characterized by the government's opacity. The matter is even more serious after recent investigations into the forced labor camps on which the 'harmonious Rekkan unit' is based have been published.\n    Terkan's government, considered illegitimate by democracies like Hetia and Albia, has sunk even lower by allying itself with religious fanatics. The most significant issue is that the organizers of the Encounters aspire to have respectable beliefs like the Shaabtal or the Terkani faith itself 'dialogue' with repressive cults.",        
+            "additionalConsequences": [
+                {
+                    "country": 8,
+                    "key": "reputation",
+                    "value": -0.15
+                },
+                {
+                    "country": 8,
+                    "key": "k_labor_camps_articles",
+                    "value": 0.1
+                },
+                {
+                    "country": 1,
+                    "key": "reputation",
+                    "value": -0.1
+                }
+            ]
+        },
+        {
+            "name": "PRAISE",
+            "description": "Defend Rekka's values and the Encounters.",
+            "headline": "Rekkan leaders ready to join the International Religious Encounters.",
+            "text":  "Yan Oceanus, together with the three priestesses, has already weighed anchor towards the island of Terakas, where this edition of the International Religious Encounters is being held. For the first time in history, Rekka will disclose his religious positions, ending decades of mystery. The Rekkan authorities have issued an official statement claiming to 'bring a message of peace in tumultuous times'.\n    The Encounters are a unique opportunity to extend the values of solidarity, respect and community on which Rekkan society is founded, in order to bring some stability to a world that has reneged on its spirit: nature.",
+            "additionalConsequences": [
+                {
+                    "country": 8,
+                    "key": "reputation",
+                    "value": 0.2
+                }
+            ]
+        }
+    ]
+}

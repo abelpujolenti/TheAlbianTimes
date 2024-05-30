@@ -1,0 +1,91 @@
+{
+    "name":"rekka_oceanus_speech",
+    "firstRound":16,
+    "duration":1,
+    "priority":1,
+    "leniency":0,
+    "type": 1,
+    "conditions": [
+        {
+            "entityId": 8,
+            "field": "k_rekka_arrival_encounters",
+            "value": 0.1,
+            "predicate": 0
+        },
+        {
+            "entityId": 8,
+            "field": "k_labor_camps_articles",
+            "value": 0.2,
+            "predicate": 1
+        }
+    ],
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 8,
+            "key": "reputation",
+            "value": 0
+        },
+        {
+            "country": 8,
+            "key": "k_priestess_suicide",
+            "value": 0
+        },
+        {
+            "country": 8,
+            "key": "k_foreign_intervention",
+            "value": 0
+        }
+    ],
+    "biases": [
+        {
+            "name": "MOVING",
+            "description": "The leader's message is a ray of hope much needed in current times.",
+            "headline": "Yan Oceanus fascinates worldwide religious leaders with his spectacular speech.",
+            "text": "   Despite being its first year in the International Religious Encounters, Rekka managed to win over the audience with Yan Oceanus' moving speech, a hymn to peace and solidarity that is much needed in current times. The leader traced the history of humanity, plagued by wars but also accompanied by a certain hope that he called 'divine force'.\n    This 'divine force' acts 'like a gravity that pushes us towards the Good', and is the proof of the legitimacy of believing in a spiritual progress in the world that, eventually, will bring mankind to a higher plane, where it will be able to reunite with divinity.",        
+            "additionalConsequences": [
+                {
+                    "country": 8,
+                    "key": "reputation",
+                    "value": 0.15
+                }
+            ]
+        },
+        {
+            "name": "HYPOCRISY",
+            "description": "Protests against Rekka were repressed by Terkani authorities.",
+            "headline": "Yan Oceanus attempts to wash the regime's image with his repulsive speech.",
+            "text":  "It is inadmissible that an event such as the International Religious Encounters, in which the most important spiritual leaders participate, allows Rekka, a country that systematically violates Human Rights, to give speeches like that of Yan Oceanus. The highest leader of the island resorted to high vocabulary some unoriginal ideas to give an enlightened and benevolent image of a cold and oppressive regime.\n    The multiple protests that were organized in front of the Encounters' venue were harshly repressed by the Terkani police force, in order to prevent the state's reputation from falling even further, after the numerous episodes of terrorism that have taken place in the territory.",
+            "additionalConsequences": [
+                {
+                    "country": 8,
+                    "key": "reputation",
+                    "value": -0.15
+                },
+                {
+                    "country": 1,
+                    "key": "reputation",
+                    "value": -0.1
+                }
+            ]
+        },
+        {
+            "name": "GUILT",
+            "description": "The priestess could not choose between her lover and her faith.",
+            "headline": "Rekka's Anemone Priestess, devastated with guilt, commits suicide.",
+            "text":  "Rekka has been shaken by tragedy following the suicide of the island's highest ranking priestess during her speech at the International Religious Encounters. Echo of the Ocean, 36, interrupted her greeting to deliver an alternative speech that, despite attempts by the organization to silence her, managed to get through to the audience.\n    The priestess corroborated the existence of labor camps, as well as an authoritarian theocratic regime that suppresses any attempt to revolt or escape from the island. Thus, it can be affirmed that the cause of her suicide was the 'unbearable burden' that the fact of having been an accomplice of crimes against humanity supposed to her. Whether this will have consequences for the Rekkan political order is yet to be seen.",
+            "additionalConsequences": [
+                {
+                    "country": 8,
+                    "key": "reputation",
+                    "value": -0.1
+                },
+                {
+                    "country": 8,
+                    "key": "k_rekkans_against",
+                    "value": 0.1
+                }
+            ]
+        }
+    ]
+}

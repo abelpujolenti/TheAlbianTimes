@@ -1,0 +1,78 @@
+{
+    "name":"rekka_ending_intervention_a",
+    "firstRound":19,
+    "duration":1,
+    "priority":1,
+    "leniency":0,
+    "type": 1,
+    "conditions": [
+        {
+            "entityId": 8,
+            "field": "k_priestess_suicide",
+            "value": 0.1,
+            "predicate": 0
+        },
+        {
+            "entityId": 8,
+            "field": "k_rekka_masses_murder",
+            "value": 0.1,
+            "predicate": 0
+        }
+    ],
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 8,
+            "key": "reputation",
+            "value": -0.2
+        }
+    ],
+    "biases": [
+        {
+            "name": "LIBERATION",
+            "description": "Dalme, Suoka and Zuania have sent troops to aid the rioting population.",
+            "headline": "Dalme and Suoka join Zuania in liberating Rekka.",
+            "text": "   Following the launch of a Zuan missile towards Rekka's coast, Dalme and Suoka have joined the offensive by sending naval and air troops to the island, with the aim of supporting the Rekkan population in their struggle against the theocratic regime.\n    On the island, the situation is chaotic: riots have started to take place in the labor camps, to which outsiders have spontaneously joined. Some religious buildings and monuments have been burned, and several religious leaders who had entrenched themselves in Sanctuaries have already been captured either by the Rekkans themselves or by foreign troops. It is not yet certain what the post-revolutionary order will be like.",        
+            "additionalConsequences": [
+                {
+                    "country": 3,
+                    "key": "reputation",
+                    "value": 0.1
+                },
+                {
+                    "country": 4,
+                    "key": "reputation",
+                    "value": 0.1
+                },
+                {
+                    "country": 7,
+                    "key": "reputation",
+                    "value": 0.1
+                }
+            ]
+        },
+        {
+            "name": "MADNESS",
+            "description": "The Zuania-Dalme-Suoka allegiance against Rekka could lead to other wars.",
+            "headline": "Foreign intervention in Rekka: the trigger of a global conflict.",
+            "text":  "    Dalme and Suoka's decision to support the Rekkan rebels after a Zuan missile was launched towards the island sets off a conflict in the south that may take on global dimensions. In Rekka, the situation is chaotic: riots in the labor camps, burning of temples, killing of religious leaders...\n    Foreign intervention, far from bringing peace, will lead to a complication of the conflict, as it will become intimately linked to other crises in which the attackers are involved; that is to say, the confrontations between Xaya-Zuania and Madia-Suoka. Rekka could easily become an instrument in a takeover of strategic points that could lead to other wars.",
+            "additionalConsequences": [
+                {
+                    "country": 3,
+                    "key": "reputation",
+                    "value": -0.1
+                },
+                {
+                    "country": 4,
+                    "key": "reputation",
+                    "value": -0.1
+                },
+                {
+                    "country": 7,
+                    "key": "reputation",
+                    "value": -0.1
+                }
+            ]
+        }
+    ]
+}

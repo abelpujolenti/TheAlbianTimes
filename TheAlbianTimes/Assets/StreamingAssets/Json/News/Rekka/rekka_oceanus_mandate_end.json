@@ -1,0 +1,67 @@
+{
+    "name":"rekka_oceanus_mandate_end",
+    "firstRound":17,
+    "duration":1,
+    "priority":1,
+    "leniency":0,
+    "type": 0,
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 8,
+            "key": "reputation",
+            "value": -0.1
+        }
+    ],
+    "biases": [
+        {
+            "name": "ESCAPE",
+            "description": "The former leader tried to flee the island to avoid a suicide ritual.",
+            "headline": "Yan Oceanus, former leader of Rekka, attemps to escape his fate.",
+            "text": "   Everything points to the fact that the until recently the supreme leader has violated Rekkan law by trying to flee the island. The international community may be puzzled by this, given the spectacular retirement ceremony that was organized for Yan Oceanus, in which the entire community showed him its support.\n    However, the reality is very different from the official version spread by the regime. The 'return to the ocean' of the Transcendent Guides upon reaching the age of 40 is not a lifelong spiritual retreat to a monastery in the middle of the sea, but a ritual in which the former leaders are forced to drown themselves. This escape shows the hypocrisy of Yan Oceanus, capable of torturing thousands of Rekkans in labor camps, but not of taking his own life.",        
+            "additionalConsequences": [
+                {
+                    "country": 8,
+                    "key": "reputation",
+                    "value": -0.1
+                },
+                {
+                    "country": 8,
+                    "key": "k_rekkans_against",
+                    "value": 0.1
+                },
+                {
+                    "country": 8,
+                    "key": "k_labor_camps_articles",
+                    "value": 0.1
+                }
+            ]
+        },
+        {
+            "name": "DISAPPEARANCE",
+            "description": "The former leader might have started a new life after a crisis of faith.",
+            "headline": "Yan Oceanus, former leader of Rekka, vanishes after his retirement ceremony.",
+            "text":  "    After a spectacular retirement ceremony, the whereabouts of Yan Oceanus, former Transcendent Guide of the Rekkan Folk, are unknown. The former leader's arrival at the isolated monastery for his lifelong spiritual retreat, which was to be televised, has been canceled due to his sudden disappearance, as he did not board the ship that had to bring him there.\n    Given the opacity of the Rekkan regime, no further details are known. Some voices speculate that he has had a crisis of faith that prevents him from spending the rest of his days in a Sanctuary, while others believe that he has embarked for another country to start his life over with a false identity.",
+            "additionalConsequences": [
+                {
+                    "country": 8,
+                    "key": "k_foreigners_against",
+                    "value": 0.1
+                }
+            ]
+        },
+        {
+            "name": "RETIREMENT",
+            "description": "The arrival at the Sanctuary could not be televised due to interferences.",
+            "headline": "Yan Oceanus returns to the ocean after his retirement.",
+            "text":  "    Although interferences prevented the event from being televised, Yan Oceanus, former Transcendent Guide of the Rekkan Folk, has already 'returned to the ocean' upon arriving at the Sanctuary in which he will retreat for the rest of his life. After bidding farewell to the community in a spectacular ceremony, Yan Oceanus set sail for the small island where, over the past year, a small shrine has been built exclusively for him, just as it was done for his predecessors.\n    Once the 11 days established by tradition have passed, Rekka's new leader will be chosen by the Council of the Coast, according to the will of the people. Since Yan Oceanus is a man, any 35-year-old Rekkan woman could be the next spiritual guide of the island.",
+            "additionalConsequences": [
+                {
+                    "country": 8,
+                    "key": "reputation",
+                    "value": 0.2
+                }
+            ]
+        }
+    ]
+}

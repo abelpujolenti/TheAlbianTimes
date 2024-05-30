@@ -1,0 +1,72 @@
+{
+    "name":"rekka_expelled_encounters",
+    "firstRound":13,
+    "duration":2,
+    "priority":0.9,
+    "leniency":2,
+    "type": 1,
+    "conditions": [
+        {
+            "entityId": 8,
+            "field": "reputation",
+            "value": 0.5,
+            "predicate": 1
+        }
+    ],
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 8,
+            "key": "reputation",
+            "value": 0
+        },
+        {
+            "country": 8,
+            "key": "k_rekka_expelled",
+            "value": 0.1
+        }
+    ],
+    "biases": [
+        {
+            "name": "FAIR",
+            "description": "The Followers of Heratos condemn Rekka's violation of human rights.",
+            "headline": "Terkani spiritual authorities expel Rekka from the IRE.",
+            "text": "   Following the publication of the report that corroborates that Rekka's socio-economic system of is upheld by forced labor camps, the highest representatives of the Followers of Heratos, the organizers of the current edition of the International Religious Encounters, have decided to expel Rekka from the event.\n    In statements to Terkani media, Iago Paz de Castro, highest priest of the cult, has affirmed that they cannot 'remain passive in the face of a systematic annihilation of human lives' and that 'what drives Rekkan society is not faith, but fear of a cold and implacable government'.",        
+            "additionalConsequences": [
+                {
+                    "country": 8,
+                    "key": "reputation",
+                    "value": -0.15
+                },
+                {
+                    "country": 8,
+                    "key": "k_labor_camps_articles",
+                    "value": 0.1
+                },
+                {
+                    "country": 1,
+                    "key": "reputation",
+                    "value": 0.1
+                }
+            ]
+        },
+        {
+            "name": "INJUSTICE",
+            "description": "Foreign countries are unable to understand Rekka's system.",
+            "headline": "Rekka unjustifiably expelled from the IRE.",
+            "text":  "    The 'good will' of foreign countries has betrayed itself as mere performativity after Terkan, in alliance with the rest of the continent, has decided not to allow Rekka to participate in the International Religious Encounters.\n    The verdict is based on a report published by an organization without any legitimacy, which claims that there are several 'labor camps' on the island to which the Rekkans are sent against their will. This conclusion is the product of a mercantilist logic, which is unable to grasp a society where its members collaborate with the community out of true conviction and solidarity, instead of doing it for economic survival.",
+            "additionalConsequences": [
+                {
+                    "country": 8,
+                    "key": "reputation",
+                    "value": 0.1
+                },
+                {
+                    "country": 1,
+                    "key": "reputation",
+                    "value": -0.1
+                }
+            ]
+        }
+    ]
+}

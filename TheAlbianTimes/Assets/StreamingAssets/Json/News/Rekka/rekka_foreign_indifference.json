@@ -1,0 +1,93 @@
+{
+    "name":"rekka_foreign_indifference",
+    "firstRound":16,
+    "duration":1,
+    "priority":1,
+    "leniency":0,
+    "type": 1,
+    "conditions": [
+        {
+            "entityId": 8,
+            "field": "k_rekka_community_care",
+            "value": 0.1,
+            "predicate": 0
+        },
+        {
+            "entityId": 8,
+            "field": "k_labor_camps_articles",
+            "value": 0.2,
+            "predicate": 1
+        }
+    ],
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 8,
+            "key": "reputation",
+            "value": 0
+        },
+        {
+            "country": 8,
+            "key": "k_priestess_suicide",
+            "value": 0
+        },
+        {
+            "country": 8,
+            "key": "k_foreign_intervention",
+            "value": 0
+        }
+    ],
+    "biases": [
+        {
+            "name": "EGOIST",
+            "description": "Madia and Albia turn their backs on the Rekkan people.",
+            "headline": "'Progressive' states evidence their egoism.",
+            "text": "   In the last press conference of the Forum of Progressive States, representatives of the governments of Madia and Albia have expressed their decision not to intervene in Rekka's politics. Claiming 'prevention' and 'defense of peace in turbulent times', two key countries in the defense of human rights have turned their backs on the Rekkan people, who have suffered decades of oppression by an illegitimate regime.\n    The condition of isolation - both political and geographical - that traverses the island can only be overcome through solidarity between peoples, materialized in an armed intervention that will bring the revolution to Rekka.",        
+            "additionalConsequences": [
+                {
+                    "country": 8,
+                    "key": "reputation",
+                    "value": -0.1
+                },
+                {
+                    "country": 6,
+                    "key": "reputation",
+                    "value": -0.1
+                },
+                {
+                    "country": 5,
+                    "key": "reputation",
+                    "value": -0.1
+                }
+            ]
+        },
+        {
+            "name": "CAUTIOUS",
+            "description": "Madia and Albia step aside as labor camps allegations cannot be proven.",
+            "headline": "Madia and Albia choose peace over unproved accusations.",
+            "text":  "In the last press conference of the Forum of Progressive States, representatives of the governments of Madia and Albia have expressed their decision not to intervene in Rekka's politics. Both states have stressed both the absence of definitive proof of the existence of labor camps and the island's willingness to establish diplomatic relations with overseas countries for the first time.\n    Juan Mantilla, Albia's Minister of Foreign Affairs, has emphasized the importance of 'prevention' and the 'defense of peace in turbulent terms', referring to the recent escalation of violence in the Xaya-Zuania and Terkan-Hetia conflicts. The decision to stand aside must be seen as a victory for the continent's stability and for the predominance of deliberation over aggression.",
+            "additionalConsequences": [
+                {
+                    "country": 8,
+                    "key": "reputation",
+                    "value": 0.1
+                },
+                {
+                    "country": 6,
+                    "key": "reputation",
+                    "value": 0.1
+                },
+                {
+                    "country": 5,
+                    "key": "reputation",
+                    "value": 0.1
+                },
+                {
+                    "country": 8,
+                    "key": "k_labor_camps_articles",
+                    "value": 0.1
+                }
+            ]
+        }
+    ]
+}

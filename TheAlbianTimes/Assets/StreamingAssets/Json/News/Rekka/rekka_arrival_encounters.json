@@ -1,0 +1,90 @@
+{
+    "name":"rekka_arrival_encounters",
+    "firstRound":15,
+    "duration":1,
+    "priority":1,
+    "leniency":0,
+    "type": 0,
+    "conditions": [
+        {
+            "entityId": 8,
+            "field": "k_rekka_expelled",
+            "value": 0,
+            "predicate": 0
+        }
+    ],
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 8,
+            "key": "reputation",
+            "value": 0.1
+        },
+        {
+            "country": 8,
+            "key": "k_rekka_arrival_encounters",
+            "value": 0.1
+        },
+        {
+            "country": 8,
+            "key": "k_rekka_community_care",
+            "value": 0
+        }
+    ],
+    "biases": [
+        {
+            "name": "CELEBRATE",
+            "description": "Rekka's spiritual leaders have been received by Terkani priests.",
+            "headline": "Rekka's Yan Oceanus and high Priestessess reach Terkani soil.",
+            "text": "   The ship on which Rekka's top political and religious leaders were traveling has now arrived in Terkan. After being welcomed by Iago Paz de Castro and a delegation of priests from the Followers of Heratos, Yan Oceanus and the three Priestesses have been accompanied to the island of Terakas, where they have participated in a rite of cordiality.\n    In the coming days, religious representatives from all over the continent will dialogue on the question of peace, in order to establish and strengthen links that can contribute to the social, economic and spiritual well-being of the 'worldwide community', as it has been emphasized in the inaugural conference of the International Religious Encounters.",        
+            "additionalConsequences": [
+                {
+                    "country": 1,
+                    "key": "reputation",
+                    "value": 0.1
+                }
+            ]
+        },
+        {
+            "name": "WORRY",
+            "description": "The RTLF is planning an action that could affect the IRE.",
+            "headline": "Rekkan religious leaders threatened by the RTLF.",
+            "text":  "    Rekka's top political and religious leaders have arrived in Terkan, despite the state of alarm in the region following terrorist attacks by the Riparian Terkan Liberation Front. The host state of the International Religious Encounters refused both to transfer the organization of the event to another country and to increase security for the event.\n    Although the plans of the RTLF are unknown, Hetian intelligence says that there are indications that an action will occur in the coming days, which could endanger the integrity of the participants. If so, it would be a serious blow to diplomacy with Rekka, which has only just opened up to foreign countries.",
+            "additionalConsequences": [
+                {
+                    "country": 1,
+                    "key": "reputation",
+                    "value": -0.1
+                },
+                {
+                    "country": 0,
+                    "key": "reputation",
+                    "value": 0.1
+                }
+            ]
+        },
+        {
+            "name": "CONDEMN",
+            "description": "NGO criticizes Terkan for not expelling Rekka.",
+            "headline": "Rekkan leaders land in Terkan despite crimes against humanity.",
+            "text":  "    The NGO International Action for Human Rights has condemned the arrival of the Rekkan leaders in Terkan on the occasion of the International Religious Encounters. Marcel Vergara, president of the entity, recalled the report published on the labor camps, which shows that they are an essential element of the island's socioeconomic model.\n    Márcio Freitas, another of the NGO's key figures, has declared that it is 'inadmissible' that Terkani society 'remains passive in the face of the oppression of the Rekkan population', taking into account 'the domination to which they have been subjected by Hetia and the dictatorial state of Terkan itself'. Freitas has received harsh criticism from the Terkani authorities, given his Madian nationality and his lack of contact with the reality of the country.",
+            "additionalConsequences": [
+                {
+                    "country": 8,
+                    "key": "reputation",
+                    "value": -0.2
+                },
+                {
+                    "country": 1,
+                    "key": "reputation",
+                    "value": -0.1
+                },
+                {
+                    "country": 8,
+                    "key": "k_labor_camps_articles",
+                    "value": 0.1
+                }
+            ]
+        }
+    ]
+}

@@ -1,6 +1,6 @@
 {
     "name":"rekka_labor_camps_truth",
-    "firstRound":15,
+    "firstRound":12,
     "duration":1,
     "priority":1,
     "leniency":0,
@@ -11,11 +11,6 @@
             "country": 8,
             "key": "reputation",
             "value": -0.1
-        },
-        {
-            "country": 8,
-            "key": "isolation_ending",
-            "value": 0.2
         }
     ],
     "biases": [
@@ -24,7 +19,13 @@
             "description": "Give detailed information on labor camps and condemn Rekka.",
             "headline": "Labor camps: the truth about Rekka's economy.",
             "text": "   An investigation by International Action for Human Rights has proved that labor camps are well-established in Rekka, and the basis for its economy.\n   Following a 'giving youth to the community' mindset, all Rekkans are sent to a labor camp. Hoewever, they can postpone the service by having children, up to 5 times. A year after the child's birth, both parents are sent to the labor camp and the child is placed in 'community care', thus ensuring that they assimilate the dogma.\n   After spending the stipulated time in the labor camp (which ranges 5-10 years), Rekkan residents are sent to sanctuaries as a reward.",        
-            "additionalConsequences": []
+            "additionalConsequences": [
+                {
+                    "country": 8,
+                    "key": "k_labor_camps_articles",
+                    "value": 0.1
+                }
+            ]
         },
         {
             "name": "DOUBT",
@@ -36,21 +37,11 @@
                     "country": 8,
                     "key": "reputation",
                     "value": 0.4
-                },
-                {
-                    "country": 8,
-                    "key": "isolation_ending",
-                    "value": -0.4
-                },
-                {
-                    "country": 8,
-                    "key": "cordiality_ending",
-                    "value": 0.2
                 }
             ]
         },
         {
-            "name": "CALL FOR ACTION",
+            "name": "INTERVENE",
             "description": "Give detailed information on labor camps as a violation of human rights.",
             "headline": "Rekkan residents forced into labor camps: international action is imperative.",
             "text": "   An investigation by International Action for Human Rights has proved that labor camps are well-established in Rekka, and the basis for its economy.\n    Following a 'giving youth to the community' mindset, all Rekkans are sent to a labor camp. Hoewever, they can postpone the service by having children, up to 5 times. A year after the child's birth, both parents are sent to the labor camp and the child is placed in 'community care'.\n    The severity of the situation calls for immediate international action in the form of a joint military operation. Rekka must not be allowed continue engaging in such human rights violations.",  
@@ -58,12 +49,12 @@
                 {
                     "country": 8,
                     "key": "reputation",
-                    "value": -0.2
+                    "value": -0.05
                 },
                 {
                     "country": 8,
-                    "key": "isolation_ending",
-                    "value": 0.4
+                    "key": "k_labor_camps_articles",
+                    "value": 0.1
                 }
             ]
         }

@@ -1,0 +1,63 @@
+{
+    "name":"rekka_ending_riots_b",
+    "firstRound":19,
+    "duration":1,
+    "priority":1,
+    "leniency":0,
+    "type": 1,
+    "conditions": [
+        {
+            "entityId": 8,
+            "field": "k_foreign_intervention",
+            "value": 0.1,
+            "predicate": 0
+        },
+        {
+            "entityId": 8,
+            "field": "k_priestess_suicide",
+            "value": 0,
+            "predicate": 0
+        }
+    ],
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 8,
+            "key": "reputation",
+            "value": -0.2
+        }
+    ],
+    "biases": [
+        {
+            "name": "DESTRUCTION",
+            "description": "Chaos takes over Rekka as the population unleashes its wrath.",
+            "headline": "Complete self-annihilation: Rekka's inexorable fate.",
+            "text": "   Following the brutal execution of Yan Oceanus, the Rekkan masses have unleashed their anger by destroying temples and murdering religious leaders. Chaos has taken over the island, which has been subjected to a pitched battle where the original distinction between allies and enemies seems to have been lost. The spark of revolution has quickly become an annihilating flame that burns everything in its path.\n    The decision of the rest of the states not to intervene further intensifies the situation, since there is no external force that can balance the conflict. The Rekkan people, repressed for decades, have become driven by the most violent impulses that will inevitably culminate in death.",        
+            "additionalConsequences": [
+            ]
+        },
+        {
+            "name": "MADNESS",
+            "description": "The Rekkan revolution will bring yet another authoritarian regime.",
+            "headline": "Rekka: the circle of oppression.",
+            "text":  "    After the brutal execution of Yan Oceanus, the Rekkan masses have continued to destroy temples and assassinate religious leaders in the name of freedom and the construction of a new order where equality and justice reign. A utopian and naïve belief, which shows that they are not aware of the true meaning of the word 'revolution': an instance of revolving; that is, 'moving in a circle on a central axis'.\n    The romantically -called 'struggle' will lead to nothing but the establishment of an order,  even if no longer theocratic, will surely be authoritarian. And the lack of intervention from the other states will only ratify this 'new' regime.",
+            "additionalConsequences": [
+                {
+                    "country": 3,
+                    "key": "reputation",
+                    "value": -0.1
+                },
+                {
+                    "country": 4,
+                    "key": "reputation",
+                    "value": -0.1
+                },
+                {
+                    "country": 7,
+                    "key": "reputation",
+                    "value": -0.1
+                }
+            ]
+        }
+    ]
+}

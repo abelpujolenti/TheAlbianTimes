@@ -11,6 +11,61 @@
             "country": 8,
             "key": "reputation",
             "value": 0.05
+        },
+        {
+            "country": 8,
+            "key": "k_foreigners_against",
+            "value": 0
+        },
+        {
+            "country": 8,
+            "key": "k_rekkans_against",
+            "value": 0
+        },
+        {
+            "country": 8,
+            "key": "k_labor_camps_articles",
+            "value": 0
+        },
+        {
+            "country": 8,
+            "key": "k_labor_camps_leak_fake",
+            "value": 0
+        },
+        {
+            "country": 8,
+            "key": "k_priestess_suicide",
+            "value": 0
+        },
+        {
+            "country": 8,
+            "key": "k_foreign_intervention",
+            "value": 0
+        },
+        {
+            "country": 8,
+            "key": "k_rekka_expelled",
+            "value": 0
+        },
+        {
+            "country": 8,
+            "key": "k_rekka_arrival_encounters",
+            "value": 0
+        },
+        {
+            "country": 8,
+            "key": "k_rekka_community_care",
+            "value": 0
+        },
+        {
+            "country": 8,
+            "key": "k_rekka_masses_murder",
+            "value": 0
+        },
+        {
+            "country": 8,
+            "key": "k_rekka_authorities_murder",
+            "value": 0
         }
     ],
     "biases": [
@@ -21,9 +76,6 @@
             "text": "   For the first time since its establishment, Rekka has approved the entry of foreigners. The community has been completely isolated, as there are no known departures from the island as well.\n    Rekka has remained a unique phenomenon, for the counterculture movement that led to its genesis did not continue overseas once its followers settled in the island. It seems that Rekka is willing to establish foreign relationships, and facilitating the understandment of its inhabitants' beliefs and unconventional way of life is the first step.\n    To avoid intrusive visits, tourists will only be able to stay in Rekka for up to 23 days, and will be required to stay at 'visitor lodges' where they will live together with natives.",        
             "additionalConsequences": [
                 {
-                    "country": 8,
-                    "key": "cordiality_ending",
-                    "value": 0.1
                 }
             ]
         },
@@ -50,11 +102,6 @@
                     "country": 8,
                     "key": "reputation",
                     "value": 0.05
-                },
-                {
-                    "country": 8,
-                    "key": "cordiality_ending",
-                    "value": 0.15
                 }
             ]
         }

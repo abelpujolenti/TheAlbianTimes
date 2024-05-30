@@ -1,0 +1,85 @@
+{
+    "name":"rekka_community_care_leaks",
+    "firstRound":15,
+    "duration":1,
+    "priority":1,
+    "leniency":0,
+    "type": 1,
+    "conditions": [
+        {
+            "entityId": 8,
+            "field": "k_rekka_expelled",
+            "value": 0.1,
+            "predicate": 0
+        }
+    ],
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 8,
+            "key": "reputation",
+            "value": -0.2
+        },
+        {
+            "country": 8,
+            "key": "k_rekka_arrival_encounters",
+            "value": 0
+        },
+        {
+            "country": 8,
+            "key": "k_rekka_community_care",
+            "value": 0.1
+        }
+    ],
+    "biases": [
+        {
+            "name": "WELFARE",
+            "description": "The program supports and educates children.",
+            "headline": "A quick look into Rekka's community care program.",
+            "text": "   Rekka has given The Albian Times an exlusive report on its foster care program for the children of those who have chosen to serve the Rekkan community. The workers of the educational centers who have been interviewed have emphasized the focus on making 'children feel supported' through activities that 'bring them closer to their peers' such as singing songs, going out to natural environments or playing sports of equipment.\n    Another of the program's objectives is to transmit the values of the community to the new generations: solidarity, cooperation, respect for nature, empathy...\n    At the moment, a Madian foundation has already expressed its interest in the program, in view of a possible implementation in its country.",        
+            "additionalConsequences": [
+                {
+                    "country": 1,
+                    "key": "reputation",
+                    "value": 0.3
+                }
+            ]
+        },
+        {
+            "name": "CONTROL",
+            "description": "Children whose parents are sent to labor camps are indoctrinaded in foster homes.",
+            "headline": "Rekka's sophisticated indoctrination techiques, uncovered.",
+            "text":  "    International Action for Human Rights has published a new report detailing the indoctrination methods used in foster homes for children whose parents have been sent to labor camps.\n    These disciplinary institutions are fully integrated into the island's education system, as all children, at one time or another, are destined to them. They are separated from their siblings and placed in communal dormitories according to age. During the day, they carry out various activities aimed at strengthening the religious feeling and veneration of the leaders, such as singing songs and studying the official historical account, always under a regime of constant surveillance.",
+            "additionalConsequences": [
+                {
+                    "country": 8,
+                    "key": "k_labor_camps_articles",
+                    "value": 0.1
+                },
+                {
+                    "country": 8,
+                    "key": "k_foreigners_against",
+                    "value": 0.1
+                }
+            ]
+        },
+        {
+            "name": "WITNESS",
+            "description": "Publish a first-hand testimony.",
+            "headline": "My experience in Rekka's community care program.",
+            "text":  "    I was 5 when my parents were sent to a labor camp. My sister had just been born: our parents could no longer postpone 'community service'. So they came to get us and placed in to one of the island's 'children's homes'.\n    Each of us was assigned to a caretaker. They separated us. I didn't see any of my siblings until 15 years later. Until what was left of our parents returned from the Sanctuary. Those were horrible years. We were forced to sing songs praising the Transcendent Guide. Everything was made so that, when we grew up, we would like to go to the camp. Either a revolt or foreign intervention is necessary. But this has to be stopped.",
+            "additionalConsequences": [
+                {
+                    "country": 8,
+                    "key": "k_labor_camps_articles",
+                    "value": 0.1
+                },
+                {
+                    "country": 8,
+                    "key": "k_rekkans_against",
+                    "value": 0.1
+                }
+            ]
+        }
+    ]
+}

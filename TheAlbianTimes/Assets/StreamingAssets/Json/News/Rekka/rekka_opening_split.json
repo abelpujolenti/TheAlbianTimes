@@ -1,0 +1,32 @@
+{
+    "name":"rekka_opening_split",
+    "firstRound":11,
+    "duration":3,
+    "priority":0.8,
+    "leniency":5,
+    "type": 0,
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 8,
+            "key": "reputation",
+            "value": -0.05
+        }
+    ],
+    "biases": [
+        {
+            "name": "PRO-OPENING",
+            "description": "Rekka must integrate into worldwide economy to survive.",
+            "headline": "Constant dialogue with overseas countries is essential for Rekka.",
+            "text": "   The flu epidemic has shown that Rekka is not able to survive without the help of the international community. Its low level of development, product of a utopian vision that has been overcome and contradicted by history, accentuates this need even more, since Rekkan economy, and even more in its current state, is incapable of functioning as an autocracy.\n    Only by participating in the international economy, through trade with world powers such as Xaya, will Rekka be able to leave behind its inferiority and ensure the true well-being of its citizens, something that naturist rituals have failed to achieve.",        
+            "additionalConsequences": []
+        },
+        {
+            "name": "ANTI-OPENING",
+            "description": "Rekka must respect tradition and avoid transitioning into an aggressive economy.",
+            "headline": "Opening to overseas: aggressive tourism and loss of Rekkan identity.",
+            "text": "   We have recently witnessed a blatant attack to Rekkan identity by the religious authorities themselves. It is inadmissible that Yan Oceanus has not only not opposed the disintegration of community values, but explicitly promoted it. Respect for tradition is one Rekka's pillar, indispensable for the achievement of harmony with nature and inner peace, which make Rekkan society a 'whole' instead of a cluster of atomized individuals.\n    The shameless openness to a foreign economy based on aggression, materialized in the establishment of a tourism model that treats nature as a simple resource to be exploited, threatens to destroy the oasis for which the first settlers worked so hard.",
+            "additionalConsequences": []
+        }
+    ]
+}

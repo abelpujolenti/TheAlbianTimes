@@ -1,0 +1,121 @@
+{
+    "name":"rekka_foreign_surveillance",
+    "firstRound":16,
+    "duration":1,
+    "priority":1,
+    "leniency":0,
+    "type": 5,
+    "conditions": [
+        {
+            "entityId": 8,
+            "field": "k_rekka_community_care",
+            "value": 0.1,
+            "predicate": 0
+        },
+        {
+            "entityId": 8,
+            "field": "k_labor_camps_articles",
+            "value": 0.2,
+            "predicate": 4
+        }
+    ],
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 8,
+            "key": "reputation",
+            "value": 0
+        },
+        {
+            "country": 8,
+            "key": "k_priestess_suicide",
+            "value": 0
+        },
+        {
+            "country": 8,
+            "key": "k_foreign_intervention",
+            "value": 0.1
+        }
+    ],
+    "biases": [
+        {
+            "name": "DEFENSE",
+            "description": "Zuania is afraid of Xaya taking advantage of Rekka's strategic position.",
+            "headline": "Zuan ships surround Rekka as Xaya-Zuania tension rises.",
+            "text": "   After the Xaya-Zuania conflict escalation, in which Xaya deployed military troops to the border, Zuania fears that Rekka may be used as a strategic point in an imminent armed conflict. The island, after being expelled from the International Religious Encounters, has just entered in diplomatic conflict with the entire continent except Xaya. In this moment of isolation, Xaya could take the opportunity to strengthen its relationship with Rekka and send troops to its maritime space, which also includes Zuania.\n    In order to avoid this disadvantageous situation, Zuania has sent five ships to the area. According to the authorities, they have orders to act only if Xaya commits aggression.",        
+            "additionalConsequences": [
+                {
+                    "country": 8,
+                    "key": "reputation",
+                    "value": -0.1
+                },
+                {
+                    "country": 3,
+                    "key": "reputation",
+                    "value": 0.05
+                },
+                {
+                    "country": 2,
+                    "key": "reputation",
+                    "value": -0.05
+                }
+            ]
+        },
+        {
+            "name": "MANEUVER",
+            "description": "Zuania intends to Xaya-Rekka comparison for obtaining allies.",
+            "headline": "Zuania pressures Rekka by surrounding the island with naval ships.",
+            "text":  "    Following recent reports of crimes against humanity committed by the Rekkan government, Zuania has sent five ships into its maritime space in order to pressure the island to acknowledge its guilt and immediately close all forced labor camps.\n    However, the action seems a political maneuver by Zuania rather than an attempt to influence Rekka's situation. Given the allegations of labor camps in both Xaya and Rekka, the Zuan government has made an explicit comparison between the two countries, hoping that the international community, which has already taken positioned itself against Rekka, will do the same with Xaya. Inciting other states to participate in the intimidation of Rekka could serve as a pretext to push them into future actions against Xaya.",
+            "additionalConsequences": [
+                {
+                    "country": 8,
+                    "key": "reputation",
+                    "value": -0.15
+                },
+                {
+                    "country": 3,
+                    "key": "reputation",
+                    "value": -0.1
+                },
+                {
+                    "country": 2,
+                    "key": "reputation",
+                    "value": 0.1
+                },
+                {
+                    "country": 8,
+                    "key": "k_labor_camps_articles",
+                    "value": 0.1
+                }
+            ]
+        },
+        {
+            "name": "WARFARE",
+            "description": "Only Zuania has taken a step towards intervention.",
+            "headline": "The south is on the brink of war as Zuania deploys naval ships around Rekka.",
+            "text":  "    Despite the critical situation Rekka finds itself in, Zuania has been the only country that has taken a step forward towards foreign intervention in the conflict. States such as Madia, Albia and Hetia, which pride themselves on their democratic principles, deliberately ignore the situation, given that they had taken Rekka as a utopia of progessist 'values'.\n    According to data from the Observatory of Maritime Politics, two of the ships have deployed their missile carriers, while the rest have gradually approached the coast. Everything seems to point to imminent military action, which would mean a declaration of war from Zuania on Rekka. What Rekka's defensive response would be remains unknown.",
+            "additionalConsequences": [
+                {
+                    "country": 8,
+                    "key": "reputation",
+                    "value": -0.1
+                },
+                {
+                    "country": 3,
+                    "key": "reputation",
+                    "value": 0.1
+                },
+                {
+                    "country": 6,
+                    "key": "reputation",
+                    "value": -0.1
+                },
+                {
+                    "country": 5,
+                    "key": "reputation",
+                    "value": -0.1
+                }
+            ]
+        }
+    ]
+}

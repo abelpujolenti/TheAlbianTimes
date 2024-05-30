@@ -1,0 +1,57 @@
+{
+    "name":"rekka_oceanus_masses_murder",
+    "firstRound":18,
+    "duration":1,
+    "priority":1,
+    "leniency":0,
+    "type": 0,
+    "conditions": [
+        {
+            "entityId": 8,
+            "field": "k_rekkans_against",
+            "value": 0.2,
+            "predicate": 4
+        }
+    ],
+    "imagePath": null,
+    "consequences": [
+        {
+            "country": 8,
+            "key": "reputation",
+            "value": 0
+        },
+        {
+            "country": 8,
+            "key": "k_rekka_masses_murder",
+            "value": 0.1
+        }
+    ],
+    "biases": [
+        {
+            "name": "REVOLUTION",
+            "description": "Rekkans have overthrown the theocratic regime.",
+            "headline": "Revolution starts in Rekka as the people execute Yan Oceanus.",
+            "text": "   The Rekkan people, after decades of oppression by an implacable government, have stood up and resorted to the only possible way: revolution. Unable to escape the horrors of the island or to organize themselves from exile, the Rekkan masses have channeled their suffering into a spontaneous revolt, culminating in the capture and execution of the former supreme leader who, in a gesture of unacceptable hypocrisy, was trying to flee the island.\n    Rekka is still shocked by the events, so no new political order has been decreed yet. However, it is clear that the new Rekkan society will be born from freedom, justice and equality.",        
+            "additionalConsequences": [
+                {
+                    "country": 8,
+                    "key": "reputation",
+                    "value": -0.2
+                }
+            ]
+        },
+        {
+            "name": "MADNESS",
+            "description": "An evil force has led Rekkans to brutally murder their leader.",
+            "headline": "Sudden mayhem in Rekka leads to the murder of Yan Oceanus.",
+            "text":  "    A diabolical madness has taken hold of the Rekkan masses. After Yan Oceanus' retirement ceremony, where the community seemed more united than ever with its spiritual leaders, a large group of people stole a ship, with which they managed to reach the Sanctuary where the former leader was. Without any reluctance, they brutally murdered him and then brought the body to the main island to display it.\n    The only possible explanation belongs to the order of the supernatural: an evil force has possessed the peaceful Rekkan population. Only exorcism can save Rekka from the most horrible of fates.",
+            "additionalConsequences": [
+                {
+                    "country": 8,
+                    "key": "reputation",
+                    "value": 0.2
+                }
+            ]
+        }
+    ]
+}

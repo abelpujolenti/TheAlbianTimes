@@ -12,7 +12,6 @@ namespace Menus
         private const string CLICK_BUTTON_SOUND = "Click Button";
 
         [SerializeField] private GameObject _buttons;
-        [SerializeField] private GameObject _chapters;
         [SerializeField] private GameObject _settings;
         [SerializeField] private GameObject _credits;
         [SerializeField] private Button _backButton;
@@ -39,12 +38,6 @@ namespace Menus
             AudioManager.Instance.StopLoopingAudio(_menuAudioId);
             AudioManager.Instance.Play2DSound(CLICK_BUTTON_SOUND);
             startGameCoroutine = StartCoroutine(StartGameCoroutine());
-        }
-
-        public void Chapters() 
-        {
-            PlayClickButtonSound();
-            ChangeCurrentActivePanel(_chapters);
         }
 
         public void Settings()
